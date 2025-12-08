@@ -1514,9 +1514,9 @@
                     <p><strong></strong> </p>
                     <p><strong></strong> </p>
                     <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #ccc;">
-                        <h4> </h4>
-                        <p><strong></strong> </p>
-                        <p><strong></strong> </p>
+                        <h4>Demo Employee Credentials:</h4>
+                        <p><strong>User ID:</strong> PRD001</p>
+                        <p><strong>Password:</strong> PRD001</p>
                     </div>
                 </div>
             </form>
@@ -3483,48 +3483,70 @@
             },
             
             initializeDemoData() {
-                // Initialize employees
+                // Initialize employees with all 61 employees from the provided list
                 if (this.employees.length === 0) {
                     this.employees = [
-                        { 
-                            id: 1, 
-                            name: 'AMRENDRA KUMAR', 
-                            department: 'पंचायती राज विभाग', 
-                            office: 'शेखपुरा पंचायत कार्यालय',
-                            designation: 'DATA ENTRY OPERATOR', 
-                            contact: '1234567890',
-                            email: 'amrendra@example.com',
-                            loginId: 'E001',
-                            password: 'E001',
-                            status: 'active',
-                            joiningDate: '2023-01-15'
-                        },
-                        { 
-                            id: 2, 
-                            name: 'SULOK KUMAR', 
-                            department: 'पंचायती राज विभाग', 
-                            office: 'शेखपुरा पंचायत कार्यालय',
-                            designation: 'DATA ENTRY OPERATOR', 
-                            contact: '9876543210',
-                            email: 'sulok@example.com',
-                            loginId: 'E002',
-                            password: 'E002',
-                            status: 'active',
-                            joiningDate: '2023-02-20'
-                        },
-                        { 
-                            id: 3, 
-                            name: 'DHIRAJ KUMAR', 
-                            department: 'पंचायती राज विभाग', 
-                            office: 'मुख्यालय पंचायत कार्यालय',
-                            designation: 'EXECUTIVE ASSISTANT', 
-                            contact: '8765432109',
-                            email: 'dhiraj@example.com',
-                            loginId: 'E003',
-                            password: 'E003',
-                            status: 'active',
-                            joiningDate: '2023-03-10'
-                        }
+                        { id: 1, name: 'TREVENI NATH SAHU', department: 'पंचायती राज विभाग', office: 'BLOCK OFFICE ARIARI', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD005', password: 'PRD005', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 2, name: 'MURARI KUMAR', department: 'पंचायती राज विभाग', office: 'BLOCK OFFICE ARIARI', designation: 'ACCOUNTANT-CUM-IT ASSISTANT', contact: '', email: '', loginId: 'PRD010', password: 'PRD010', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 3, name: 'MAMTA KUMARI', department: 'पंचायती राज विभाग', office: 'BLOCK OFFICE ARIARI', designation: 'ACCOUNTANT-CUM-IT ASSISTANT', contact: '', email: '', loginId: 'PRD011', password: 'PRD011', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 4, name: 'AVINASH KUMAR', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT HAZRATPUR MANDRO', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD016', password: 'PRD016', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 5, name: 'KAJAL KUMARI', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, KASAR', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD017', password: 'PRD017', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 6, name: 'RAHUL KUMAR', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, SANAIYA', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD043', password: 'PRD043', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 7, name: 'RAJU KUMAR', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, DIHA', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD044', password: 'PRD044', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 8, name: 'KUMAR ANAND VISHKARMA', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, CHOR DARGAH', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD049', password: 'PRD049', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 9, name: 'GAURAV BIHARI', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, CHORWAR', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD052', password: 'PRD052', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 10, name: 'MANISH KUMAR', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, BIMAN', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD060', password: 'PRD060', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 11, name: 'AMAN KUMAR', department: 'पंचायती राज विभाग', office: 'BLOCK OFFICE, BARBIGHA', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD001', password: 'PRD001', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 12, name: 'EKTA SINGH', department: 'पंचायती राज विभाग', office: 'BLOCK OFFICE, BARBIGHA', designation: 'ACCOUNTANT-CUM-IT ASSISTANT', contact: '', email: '', loginId: 'PRD008', password: 'PRD008', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 13, name: 'RITA KUMARI RAM', department: 'पंचायती राज विभाग', office: 'BLOCK OFFICE, BARBIGHA', designation: 'ACCOUNTANT-CUM-IT ASSISTANT', contact: '', email: '', loginId: 'PRD009', password: 'PRD009', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 14, name: 'JULI KUMARI', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, TEUSH', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD020', password: 'PRD020', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 15, name: 'SHIREEN TARRNUM', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, SARWA', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD021', password: 'PRD021', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 16, name: 'AMRENDRA KUMAR', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, KEWTI', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD023', password: 'PRD023', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 17, name: 'DHIRAJ KUMAR', department: 'पंचायती राज विभाग', office: 'GRAM PANCHCYAT, SAMAS BUZURG', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD024', password: 'PRD024', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 18, name: 'SULOK KUMAR SINHA', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, KUTAUT', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD050', password: 'PRD050', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 19, name: 'PRATIMA KUMARI', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, JAGDISHPUR', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD051', password: 'PRD051', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 20, name: 'DEEPAK KUMAR SINGH', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, PINJARI', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD058', password: 'PRD058', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 21, name: 'ANUSHA KUMARI', department: 'पंचायती राज विभाग', office: 'BLOCK OFFICE CHEWARA', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD006', password: 'PRD006', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 22, name: 'CHANDAN KUMAR PASWAN', department: 'पंचायती राज विभाग', office: 'BLOCK OFFICE CHEWARA', designation: 'ACCOUNTANT-CUM-IT ASSISTANT', contact: '', email: '', loginId: 'PRD012', password: 'PRD012', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 23, name: 'BITTU KUMAR SINHA', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, CHHATHIYARA', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD018', password: 'PRD018', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 24, name: 'RAJVARDHAN SHARMA', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, LOHAN', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD019', password: 'PRD019', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 25, name: 'DEEPAK KUMAR', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, EKRAMA', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD027', password: 'PRD027', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 26, name: 'AMRITA KIRAN', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, CHAKANDRA', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD028', password: 'PRD028', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 27, name: 'SACHIN KUMAR', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, LAHNA', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD035', password: 'PRD035', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 28, name: 'RAJENDRA YADAV', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, SIYANI', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD037', password: 'PRD037', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 29, name: 'NITU KUMARI', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, KUSUMBHA', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD038', password: 'PRD038', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 30, name: 'JACKY KUMAR', department: 'पंचायती राज विभाग', office: 'BLOCK OFFICE, GHAT KUSUMBHA', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD003', password: 'PRD003', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 31, name: 'AMARJEET KUMAR', department: 'पंचायती राज विभाग', office: 'BLOCK OFFICE, GHAT KUSUMBHA', designation: 'ACCOUNTANT-CUM-IT ASSISTANT', contact: '', email: '', loginId: 'PRD015', password: 'PRD015', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 32, name: 'SURAJ KUMAR', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, DIH KUSUMBHA', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD022', password: 'PRD022', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 33, name: 'CHANDAN KUMAR', department: 'पंचायती राज विभाग', office: 'GRAM PANCHCYAT, BHADAUSHI', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD026', password: 'PRD026', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 34, name: 'PINTU KUMAR', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, PANAPUR', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD031', password: 'PRD031', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 35, name: 'PUNAM KUMARI', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, GAGAUR', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD032', password: 'PRD032', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 36, name: 'SHRISHTY KUMARI', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, MAPHO', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD057', password: 'PRD057', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 37, name: 'VIKASH KUMAR', department: 'पंचायती राज विभाग', office: 'BLOCK OFFICE SHEIKHOPUR SARAI', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD004', password: 'PRD004', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 38, name: 'NIRANJAN KUMAR DAS', department: 'पंचायती राज विभाग', office: 'BLOCK OFFICE SHEIKHOPUR SARAI', designation: 'ACCOUNTANT-CUM-IT ASSISTANT', contact: '', email: '', loginId: 'PRD007', password: 'PRD007', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 39, name: 'RANJEET KUMAR', department: 'पंचायती राज विभाग', office: 'GRAM PANCHCYAT, BELAW', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD025', password: 'PRD025', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 40, name: 'PAMMI KUMARI', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT MOHABBATPUR', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD030', password: 'PRD030', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 41, name: 'PABHAT KUMAR', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, ONAMA', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD047', password: 'PRD047', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 42, name: 'PINTU KUMAR CHAUDHARY', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, AMBARI', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD048', password: 'PRD048', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 43, name: 'SANDHYA KUMARI', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, PANCHI', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD059', password: 'PRD059', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 44, name: 'ANUPAMA SWATANTRA', department: 'पंचायती राज विभाग', office: 'BLOCK OFFICE, SHEIKHPURA SADAR', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD002', password: 'PRD002', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 45, name: 'HARISHANKAR KUMAR', department: 'पंचायती राज विभाग', office: 'BLOCK OFFICE, SHEIKHPURA SADAR', designation: 'ACCOUNTANT-CUM-IT ASSISTANT', contact: '', email: '', loginId: 'PRD013', password: 'PRD013', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 46, name: 'GHANSHYAM KUMAR', department: 'पंचायती राज विभाग', office: 'BLOCK OFFICE, SHEIKHPURA SADAR', designation: 'ACCOUNTANT-CUM-IT ASSISTANT', contact: '', email: '', loginId: 'PRD014', password: 'PRD014', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 47, name: 'MD SHAMSHAD', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, KARE', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD029', password: 'PRD029', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 48, name: 'PRITY KUMARI', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, GAGRI', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD033', password: 'PRD033', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 49, name: 'DHANBEER KUMAR', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, KAITHWAN', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD034', password: 'PRD034', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 50, name: 'MANTU THAKUR', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, LODIPUR', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD036', password: 'PRD036', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 51, name: 'RANJAN KUMAR PANDIT', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, VARUNA', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD039', password: 'PRD039', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 52, name: 'SADDAM HUSSAIN', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, KOSRA', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD040', password: 'PRD040', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 53, name: 'APARNA KUMARI', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, PAIN', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD041', password: 'PRD041', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 54, name: 'SANGITA KUMARI', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, PANK', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD042', password: 'PRD042', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 55, name: 'BEAUTY KUMARI', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, PURAINA', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD045', password: 'PRD045', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 56, name: 'VIRENDRA CHAUDHARY', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, AUDHE', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD046', password: 'PRD046', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 57, name: 'SHAILENDRA KUMAR', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, KATARI', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD053', password: 'PRD053', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 58, name: 'RANJEET KUMAR RAJAK', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, MAHSAR', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD054', password: 'PRD054', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 59, name: 'DILIP KUMAR SINGH', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, GAWAY', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD055', password: 'PRD055', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 60, name: 'MAMTA KUMARI', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, HATHIYAWAN', designation: 'EXECUTIVE ASSISTANT', contact: '', email: '', loginId: 'PRD056', password: 'PRD056', status: 'active', joiningDate: '2023-01-01' },
+                        { id: 61, name: 'MAMTA KUMARI', department: 'पंचायती राज विभाग', office: 'GRAM PANCHAYAT, MEHUSH', designation: 'DATA ENTRY OPERATOR', contact: '', email: '', loginId: 'PRD061', password: 'PRD061', status: 'active', joiningDate: '2023-01-01' }
                     ];
                 }
                 
@@ -3534,10 +3556,10 @@
                     this.attendanceRecords = [
                         {
                             id: 1,
-                            employeeId: 1,
-                            name: 'AMRENDRA KUMAR',
+                            employeeId: 11,
+                            name: 'AMAN KUMAR',
                             department: 'पंचायती राज विभाग',
-                            office: 'शेखपुरा पंचायत कार्यालय',
+                            office: 'BLOCK OFFICE, BARBIGHA',
                             designation: 'DATA ENTRY OPERATOR',
                             time: '09:15 AM',
                             date: today,
@@ -3560,8 +3582,8 @@
                     this.leaveApplications = [
                         {
                             id: 1,
-                            employeeId: 1,
-                            employeeName: 'AMRENDRA KUMAR',
+                            employeeId: 11,
+                            employeeName: 'AMAN KUMAR',
                             leaveType: 'casual',
                             fromDate: fromDate.toISOString().split('T')[0],
                             toDate: toDate.toISOString().split('T')[0],
@@ -4250,7 +4272,7 @@
                     // Attendance select
                     const option = document.createElement('option');
                     option.value = employee.id;
-                    option.textContent = employee.name;
+                    option.textContent = `${employee.name} (${employee.loginId})`;
                     select.appendChild(option);
                     
                     // Filter select
@@ -4726,7 +4748,7 @@
                 this.employees.forEach(employee => {
                     html += `
                         <tr>
-                            <td>${employee.id}</td>
+                            <td>${employee.loginId}</td>
                             <td>${employee.name}</td>
                             <td>${employee.department}</td>
                             <td>${employee.office}</td>
@@ -4788,7 +4810,7 @@
                     document.getElementById('employeeId').value = '';
                     
                     const nextId = this.employees.length > 0 ? Math.max(...this.employees.map(e => e.id)) + 1 : 1;
-                    const loginId = 'E' + nextId.toString().padStart(3, '0');
+                    const loginId = 'PRD' + nextId.toString().padStart(3, '0');
                     document.getElementById('empLoginId').value = loginId;
                     
                     // Set default joining date to today
@@ -4888,7 +4910,7 @@
             resetEmployeePassword(id) {
                 const employee = this.employees.find(emp => emp.id == id);
                 if (employee) {
-                    const newPassword = Math.random().toString(36).slice(-8);
+                    const newPassword = employee.loginId; // Reset to employee ID as password
                     employee.password = newPassword;
                     this.saveData();
                     
@@ -5969,8 +5991,8 @@
                                         designation: values[3] || 'DATA ENTRY OPERATOR',
                                         contact: values[4] || '',
                                         email: values[5] || '',
-                                        loginId: `E${(this.employees.length + 1).toString().padStart(3, '0')}`,
-                                        password: 'password123',
+                                        loginId: `PRD${(this.employees.length + 1).toString().padStart(3, '0')}`,
+                                        password: `PRD${(this.employees.length + 1).toString().padStart(3, '0')}`,
                                         status: 'active',
                                         joiningDate: new Date().toISOString().split('T')[0]
                                     };
