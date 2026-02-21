@@ -1,320 +1,100 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>पंचायत कर्मी सूची • डिजिटल रूप</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: linear-gradient(145deg, #eef2f7 0%, #d9e0eb 100%);
-      font-family: 'Segoe UI', 'Nirmala UI', 'Noto Sans Devanagari', 'Hind', 'Mangal', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 1.5rem;
-      margin: 0;
-    }
-
-    .card {
-      max-width: 1300px;
-      width: 100%;
-      background-color: #ffffff;
-      border-radius: 32px;
-      box-shadow: 0 25px 50px -12px rgba(0, 35, 70, 0.35);
-      overflow: hidden;
-      backdrop-filter: blur(2px);
-      transition: all 0.2s ease;
-    }
-
-    .card-header {
-      background: #0b2b4f;
-      background: linear-gradient(135deg, #0b2b4f 0%, #1a4b77 100%);
-      color: white;
-      padding: 2rem 2rem 1.5rem 2rem;
-      text-align: center;
-      border-bottom: 6px solid #ffb347;
-    }
-
-    .card-header h1 {
-      font-size: 2.2rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      line-height: 1.4;
-      text-shadow: 2px 2px 3px rgba(0,0,0,0.25);
-      margin-bottom: 0.5rem;
-    }
-
-    .card-header h2 {
-      font-size: 1.4rem;
-      font-weight: 400;
-      color: #ffe5c4;
-      line-height: 1.6;
-      max-width: 900px;
-      margin: 0 auto;
-      border-top: 1px dashed #ffb347;
-      padding-top: 1rem;
-    }
-
-    .table-responsive {
-      overflow-x: auto;
-      margin: 1.8rem 1.8rem 1rem 1.8rem;
-      border-radius: 20px;
-      border: 1px solid #e9edf4;
-      background: #ffffff;
-      box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 1.1rem;
-      min-width: 750px;
-      white-space: nowrap;
-    }
-
-    th {
-      background-color: #1e3b5c;
-      color: white;
-      font-weight: 600;
-      padding: 1rem 1.2rem;
-      font-size: 1.2rem;
-      text-align: left;
-      border-right: 1px solid #3a5b7c;
-    }
-    th:last-child {
-      border-right: none;
-    }
-
-    td {
-      padding: 1rem 1.2rem;
-      border-bottom: 1px solid #dde3ec;
-      color: #1f2a3f;
-      vertical-align: middle;
-    }
-
-    tbody tr {
-      transition: background 0.15s;
-    }
-
-    tbody tr:nth-child(even) {
-      background-color: #f8faff;
-    }
-
-    tbody tr:hover {
-      background-color: #e6f0ff;
-      box-shadow: 0 2px 8px rgba(0, 85, 150, 0.1);
-    }
-
-    /* विशेष स्तंभ शैलियाँ */
-    td:nth-child(4) /* mobile */ {
-      font-family: 'Courier New', monospace;
-      font-weight: 600;
-      color: #0b3b5a;
-      letter-spacing: 0.5px;
-    }
-
-    td:nth-child(5) /* कायदिवस */ {
-      font-weight: 500;
-      color: #1e4a6b;
-    }
-
-    .footer-note {
-      padding: 1.2rem 2rem 2rem 2rem;
-      font-size: 1rem;
-      color: #3e5569;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      background: #f0f5fb;
-      border-top: 1px solid #cfddee;
-    }
-
-    .badge {
-      background: #ffb347;
-      color: #0b2b4f;
-      font-weight: 700;
-      padding: 0.4rem 1.2rem;
-      border-radius: 40px;
-      font-size: 0.9rem;
-      letter-spacing: 0.3px;
-    }
-
-    .footer-note i {
-      font-style: normal;
-      opacity: 0.8;
-    }
-
-    /* मोबाइल के लिए कार्ड लेआउट (छोटी स्क्रीन) */
-    @media screen and (max-width: 680px) {
-      body { padding: 0.8rem; }
-      .card-header h1 { font-size: 1.8rem; }
-      .card-header h2 { font-size: 1.1rem; }
-
-      .table-responsive {
-        margin: 1rem 0.8rem;
-        border: none;
-        background: transparent;
-        box-shadow: none;
-      }
-
-      table, thead, tbody, th, td, tr {
-        display: block;
-      }
-
-      thead {
-        display: none; /* हेडर छुपाएँ, डेटा-लेबल से काम चलेगा */
-      }
-
-      tr {
-        background: white;
-        border-radius: 24px;
-        margin-bottom: 1.5rem;
-        padding: 0.5rem 0;
-        box-shadow: 0 6px 14px rgba(0, 30, 60, 0.12);
-        border: 1px solid #dbe1ec;
-      }
-
-      td {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.9rem 1.2rem;
-        border: none;
-        border-bottom: 1px dashed #cbd5e1;
-        white-space: normal;
-        word-break: break-word;
-      }
-      td:last-child {
-        border-bottom: none;
-      }
-
-      td::before {
-        content: attr(data-label);
-        font-weight: 700;
-        color: #1e3b5c;
-        width: 45%;
-        font-size: 1rem;
-        background: #eef3f9;
-        padding: 0.3rem 0.8rem;
-        border-radius: 30px;
-        margin-right: 1rem;
-        text-align: center;
-        flex-shrink: 0;
-      }
-
-      td:nth-child(4)::before { background: #e3eaf3; } 
-      td:nth-child(5)::before { background: #ffe6c9; }
-
-      /* मोबाइल नंबर और दिन वाला हिस्सा दाईं ओर */
-      td > * { text-align: right; width: 55%; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>पंचायत कर्मी सूची - तालिका</title>
+    <style>
+        body {
+            background: #f4f7fb;
+            font-family: 'Segoe UI', 'Nirmala UI', 'Mangal', sans-serif;
+            display: flex;
+            justify-content: center;
+            padding: 30px 15px;
+            margin: 0;
+        }
+        .table-wrapper {
+            max-width: 1200px;
+            width: 100%;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #1d3b5c;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 500;
+            border-bottom: 2px solid #ffb347;
+            padding-bottom: 12px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+            border: 1px solid #b0c4de;
+        }
+        th {
+            background-color: #1e3b5c;
+            color: white;
+            padding: 12px 10px;
+            font-weight: 600;
+            text-align: left;
+            border: 1px solid #2d4e72;
+        }
+        td {
+            padding: 10px 12px;
+            border: 1px solid #b0c4de;
+            vertical-align: top;
+        }
+        tr:nth-child(even) {
+            background-color: #f0f6ff;
+        }
+        tr:hover {
+            background-color: #e1ecfe;
+        }
+        /* mobile number styling */
+        td:nth-child(4) {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: #0a3147;
+        }
+        .footer {
+            text-align: right;
+            font-size: 0.9rem;
+            color: #4a6b8a;
+            margin-top: 15px;
+        }
+    </style>
 </head>
 <body>
-<div class="card">
-  <div class="card-header">
-    <h1>बिहार सहकार पंचायत राज विभाग</h1>
-    <h2>ग्राम पंचायत राज (सवा पंचायत कार्यालय) में पंचायत स्तरीय विभिन्न विभागों के कर्मियों की सूची एवं कायदिवस</h2>
-  </div>
-
-  <div class="table-responsive">
+<div class="table-wrapper">
+    <h2>बिहार सरकार पंचायत राज विभाग<br>ग्राम पंचायत कार्यालय – कर्मी सूची एवं कायदिवस</h2>
     <table>
-      <thead>
-        <tr>
-          <th>क्र० स०</th>
-          <th>नाम</th>
-          <th>पदनाम</th>
-          <th>मोबाईल न०</th>
-          <th>कायदिवस</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td data-label="क्र० स०">1</td>
-          <td data-label="नाम">श्री केदार प्रसाद</td>
-          <td data-label="पदनाम">पंचायत सचिव</td>
-          <td data-label="मोबाईल न०">7488482095</td>
-          <td data-label="कायदिवस">सोम/बुध/शुक्र</td>
-        </tr>
-        <tr>
-          <td data-label="क्र० स०">2</td>
-          <td data-label="नाम">श्री चन्दन कुमार</td>
-          <td data-label="पदनाम">तकनीकी सहायक</td>
-          <td data-label="मोबाईल न०">9113423537</td>
-          <td data-label="कायदिवस">काया के अनुरूप</td>
-        </tr>
-        <tr>
-          <td data-label="क्र० स०">3</td>
-          <td data-label="नाम">श्री हरिशकर प्रसाद</td>
-          <td data-label="पदनाम">लेखापाल-सह-आईटी0 सहायक</td>
-          <td data-label="मोबाईल न०">8294106690</td>
-          <td data-label="कायदिवस"></td>
-        </tr>
-        <tr>
-          <td data-label="क्र० स०">4</td>
-          <td data-label="नाम">शिरिन तरन्मु</td>
-          <td data-label="पदनाम">कायापालक सहायक</td>
-          <td data-label="मोबाईल न०">7061204566</td>
-          <td data-label="कायदिवस">प्रतिदिन</td>
-        </tr>
-        <tr>
-          <td data-label="क्र० स०">5</td>
-          <td data-label="नाम">श्री जीत् कुमार</td>
-          <td data-label="पदनाम">राजस्व कर्मचारी</td>
-          <td data-label="मोबाईल न०">9572047790</td>
-          <td data-label="कायदिवस">प्रतिदिन</td>
-        </tr>
-        <tr>
-          <td data-label="क्र० स०">6</td>
-          <td data-label="नाम">अक्षय नीवि</td>
-          <td data-label="पदनाम">आवास सहायक</td>
-          <td data-label="मोबाईल न०">8521052259</td>
-          <td data-label="कायदिवस">प्रतिदिन</td>
-        </tr>
-        <tr>
-          <td data-label="क्र० स०">7</td>
-          <td data-label="नाम">शिवकुमार पासवान</td>
-          <td data-label="पदनाम">पंचायत रोजगार सेवक</td>
-          <td data-label="मोबाईल न०">7870615155</td>
-          <td data-label="कायदिवस">प्रतिदिन</td>
-        </tr>
-        <tr>
-          <td data-label="क्र० स०">8</td>
-          <td data-label="नाम">श्री प्रदीप मॉझी</td>
-          <td data-label="पदनाम">विकास मित्र</td>
-          <td data-label="मोबाईल न०">8789066819</td>
-          <td data-label="कायदिवस">प्रतिदिन</td>
-        </tr>
-        <tr>
-          <td data-label="क्र० स०">9</td>
-          <td data-label="नाम">श्रीमति सरिता कुमारी</td>
-          <td data-label="पदनाम">ग्राम कचहरी सचिव</td>
-          <td data-label="मोबाईल न०">8873321123</td>
-          <td data-label="कायदिवस">प्रतिदिन</td>
-        </tr>
-        <tr>
-          <td data-label="क्र० स०">10</td>
-          <td data-label="नाम">श्री सुनिल कुमार</td>
-          <td data-label="पदनाम">किसान सलाहकार</td>
-          <td data-label="मोबाईल न०">6206523196</td>
-          <td data-label="कायदिवस">प्रतिदिन</td>
-        </tr>
-      </tbody>
+        <thead>
+            <tr>
+                <th>क्र० स०</th>
+                <th>नाम</th>
+                <th>पदनाम</th>
+                <th>मोबाईल न०</th>
+                <th>कायदिवस</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>1</td><td>श्री केदार प्रसाद</td><td>पंचायत सचिव</td><td>7488482095</td><td>सोम/बुध/शुक्र</td></tr>
+            <tr><td>2</td><td>श्री चन्दन कुमार</td><td>तकनीकी सहायक</td><td>9113423537</td><td>काया के अनुरूप</td></tr>
+            <tr><td>3</td><td>श्री हरिशकर प्रसाद</td><td>लेखापाल-सह-आईटी0 सहायक</td><td>8294106690</td><td></td></tr>
+            <tr><td>4</td><td>शिरिन तरन्मु</td><td>कायापालक सहायक</td><td>7061204566</td><td>प्रतिदिन</td></tr>
+            <tr><td>5</td><td>श्री जीत् कुमार</td><td>राजस्व कर्मचारी</td><td>9572047790</td><td>प्रतिदिन</td></tr>
+            <tr><td>6</td><td>अक्षय नीवि</td><td>आवास सहायक</td><td>8521052259</td><td>प्रतिदिन</td></tr>
+            <tr><td>7</td><td>शिवकुमार पासवान</td><td>पंचायत रोजगार सेवक</td><td>7870615155</td><td>प्रतिदिन</td></tr>
+            <tr><td>8</td><td>श्री प्रदीप मॉझी</td><td>विकास मित्र</td><td>8789066819</td><td>प्रतिदिन</td></tr>
+            <tr><td>9</td><td>श्रीमति सरिता कुमारी</td><td>ग्राम कचहरी सचिव</td><td>8873321123</td><td>प्रतिदिन</td></tr>
+            <tr><td>10</td><td>श्री सुनिल कुमार</td><td>किसान सलाहकार</td><td>6206523196</td><td>प्रतिदिन</td></tr>
+        </tbody>
     </table>
-  </div>
-
-  <div class="footer-note">
-    <span class="badge">📋 डिजिटल प्रति • आधिकारिक सूची</span>
-    <span><i> PRD Sheikhpura </i></span>
-  </div>
+    <div class="footer">© Created By Aman Kumar</div>
 </div>
 </body>
 </html>
