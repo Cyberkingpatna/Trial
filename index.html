@@ -210,7 +210,7 @@
             border-radius: 60px;
             font-weight: 600;
             font-size: 0.95rem;
-            cursor: default;
+            cursor: pointer;  /* FIXED: Cursor pointer for better UX */
             border: 1px solid #ff9933;
             transition: 0.1s ease;
             display: flex;
@@ -218,10 +218,11 @@
             gap: 8px;
         }
 
-        /* टेबल एरिया */
+        /* टेबल एरिया - हॉरिजॉन्टल स्क्रॉल फिक्स */
         .table-container {
             padding: 2rem 3rem 2.5rem 3rem;
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch; /* Smooth scroll on mobile */
         }
 
         .govt-table {
@@ -229,6 +230,7 @@
             border-collapse: separate;
             border-spacing: 0 10px;
             font-size: 1.05rem;
+            min-width: 800px; /* Ensures table doesn't break on mobile */
         }
 
         .govt-table thead tr {
@@ -244,6 +246,8 @@
             text-align: left;
             white-space: nowrap;
             border-right: 1px solid #2a5a8c;
+            cursor: pointer; /* Indicates sortable */
+            user-select: none;
         }
         .govt-table th:first-child {
             border-radius: 20px 0 0 20px;
@@ -348,6 +352,21 @@
             box-shadow: 0 4px 12px rgba(255,180,70,0.4);
         }
 
+        /* PRINT STYLES - नया फीचर */
+        @media print {
+            .action-bar, .header-badge, .search-box, .footer-right {
+                display: none;
+            }
+            .govt-card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            body {
+                background: white;
+                padding: 0.5in;
+            }
+        }
+
         /* रिस्पॉन्सिव */
         @media (max-width: 900px) {
             .official-header, .action-bar, .table-container, .official-footer {
@@ -364,7 +383,19 @@
         }
         @media (max-width: 480px) {
             .search-box { flex-wrap: wrap; background: none; padding: 0; border: none; }
-            .search-box input { background: white; border-radius: 60px; margin-bottom: 8px; }
+            .search-box input { background: white; border-radius: 60px; margin-bottom: 8px; width: 100%; }
+        }
+
+        /* Sorting Icons (optional visual) */
+        .sort-asc::after {
+            content: " ▲";
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        .sort-desc::after {
+            content: " ▼";
+            font-size: 0.8rem;
+            opacity: 0.8;
         }
     </style>
 </head>
@@ -400,30 +431,31 @@
             </div>
             <div class="search-box">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="कर्मी का नाम, पद, मोबाइल..." value="">
-                <button><i class="fas fa-sliders-h"></i> फ़िल्टर</button>
+                <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="कर्मी का नाम, पद, मोबाइल..." value="">
+                <button onclick="document.getElementById('searchInput').value=''; searchTable();"><i class="fas fa-sliders-h"></i> रीसेट</button>
             </div>
         </div>
 
-        <!-- टेबल (डेटा वही, अब और प्रोफेशनल) -->
+        <!-- टेबल एरिया (डेटा बिल्कुल वैसा ही, सिर्फ पंक्ति 6 का "श्रीमति" हटाकर "श्री" किया गया है जैसा आपने कहा था) -->
         <div class="table-container">
-            <table class="govt-table">
+            <table class="govt-table" id="employeeTable">
                 <thead>
                     <tr>
-                        <th>क्र.</th>
-                        <th>नाम</th>
-                        <th>पदनाम</th>
-                        <th>मोबाईल नंबर</th>
-                        <th>कार्यदिवस</th>
+                        <th onclick="sortTable(0)">क्र. <span id="sortIcon0"></span></th>
+                        <th onclick="sortTable(1)">नाम <span id="sortIcon1"></span></th>
+                        <th onclick="sortTable(2)">पदनाम <span id="sortIcon2"></span></th>
+                        <th onclick="sortTable(3)">मोबाईल नंबर <span id="sortIcon3"></span></th>
+                        <th>कार्यदिवस</th> <!-- Not sortable (kept as is) -->
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tableBody">
+                    <!-- Data exactly as original, with typo fix: row 6 "श्रीमति" -> "श्री" and footer typo fixed -->
                     <tr><td>1</td><td>श्री केदार प्रसाद</td><td>पंचायत सचिव</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>7488482095</span></td><td><span class="day-badge special">सोम/बुध/शुक्र</span></td></tr>
                     <tr><td>2</td><td>श्री चन्दन कुमार</td><td>तकनीकी सहायक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>9113423537</span></td><td><span class="day-badge">सोमवार</span></td></tr>
                     <tr><td>3</td><td>श्री हरिशंकर प्रसाद</td><td>लेखापाल-सह-आई०टी० सहायक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>8294106690</span></td><td><span class="day-badge">सोमवार</span></td></tr>
                     <tr><td>4</td><td>शिरिन तरनूम</td><td>कार्यपालक सहायक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>7061204566</span></td><td><span class="day-badge">प्रतिदिन</span></td></tr>
                     <tr><td>5</td><td>आलोक कुमार</td><td>राजस्व कर्मचारी</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>7903351748</span></td><td><span class="day-badge special">सोम/बुध/शुक्र</span></td></tr>
-                    <tr><td>6</td><td>श्रीमति अक्षय नीवि</td><td>आवास सहायक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>8521052259</span></td><td><span class="day-badge">प्रतिदिन</span></td></tr>
+                    <tr><td>6</td><td>श्री अक्षय नीवि</td><td>आवास सहायक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>8521052259</span></td><td><span class="day-badge">प्रतिदिन</span></td></tr>
                     <tr><td>7</td><td>शिवकुमार पासवान</td><td>पंचायत रोजगार सेवक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>7870615155</span></td><td><span class="day-badge">मंगल/गुरू/शनि</span></td></tr>
                     <tr><td>8</td><td>श्री कुंदन माँझी</td><td>विकास मित्र</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>8789066819</span></td><td><span class="day-badge">शनिवार</span></td></tr>
                     <tr><td>9</td><td>श्रीमति सरिता कुमारी</td><td>ग्राम कचहरी सचिव</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>8873321123</span></td><td><span class="day-badge">प्रतिदिन</span></td></tr>
@@ -433,7 +465,7 @@
             </table>
         </div>
 
-        <!-- फुटर (प्रोफेशनल) -->
+        <!-- फुटर (टाइपो फिक्स: सर्वाां -> सरवां) -->
         <div class="official-footer">
             <div class="footer-left">
                 <span><i class="fas fa-map-pin"></i> बिहार · पंचायती राज विभाग · शेखपुरा</span>
@@ -441,9 +473,77 @@
                 <span><i class="fas fa-shield-alt"></i> जिला पंचायत राज कार्यालय, शेखपुरा। </span>
             </div>
             <div class="footer-right">
-                <i class="fas fa-copyright"></i> ग्राम पंचायत सर्वाां
+                <i class="fas fa-copyright"></i> ग्राम पंचायत सरवां   <!-- Fixed typo -->
             </div>
         </div>
     </div>
+
+    <!-- JavaScript for Search and Sort -->
+    <script>
+        // Live Search Function
+        function searchTable() {
+            let input = document.getElementById('searchInput');
+            let filter = input.value.toLowerCase();
+            let rows = document.querySelectorAll('#tableBody tr');
+            
+            rows.forEach(row => {
+                let text = row.textContent.toLowerCase();
+                row.style.display = text.includes(filter) ? '' : 'none';
+            });
+        }
+
+        // Sorting Function
+        let sortDirection = [true, true, true, true]; // true = asc, false = desc for each column (0,1,2,3)
+        
+        function sortTable(colIndex) {
+            if (colIndex === 4) return; // Do not sort "कार्यदिवस" column
+            
+            let table = document.getElementById("employeeTable");
+            let tbody = document.getElementById("tableBody");
+            let rows = Array.from(tbody.rows);
+            
+            // Toggle direction
+            sortDirection[colIndex] = !sortDirection[colIndex];
+            let isAsc = sortDirection[colIndex];
+            
+            // Remove icons from all headers
+            for (let i = 0; i <= 3; i++) {
+                let iconSpan = document.getElementById('sortIcon' + i);
+                if (iconSpan) iconSpan.innerHTML = '';
+            }
+            
+            // Set icon on current column
+            let currentIcon = document.getElementById('sortIcon' + colIndex);
+            if (currentIcon) {
+                currentIcon.innerHTML = isAsc ? ' ▲' : ' ▼';
+            }
+            
+            // Sort rows
+            rows.sort((a, b) => {
+                let cellA = a.cells[colIndex].textContent.trim();
+                let cellB = b.cells[colIndex].textContent.trim();
+                
+                // For numeric column (क्र.)
+                if (colIndex === 0) {
+                    let numA = parseInt(cellA);
+                    let numB = parseInt(cellB);
+                    return isAsc ? numA - numB : numB - numA;
+                }
+                
+                // String comparison for other columns
+                return isAsc ? cellA.localeCompare(cellB, 'hi') : cellB.localeCompare(cellA, 'hi');
+            });
+            
+            // Reorder tbody
+            tbody.innerHTML = '';
+            rows.forEach(row => tbody.appendChild(row));
+        }
+
+        // Reset search when clicking reset button
+        document.querySelector('.search-box button').addEventListener('click', function() {
+            document.getElementById('searchInput').value = '';
+            searchTable();
+        });
+    </script>
 </body>
 </html>
