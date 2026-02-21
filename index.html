@@ -2,99 +2,432 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <title>पंचायत कर्मी सूची - तालिका</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>बिहार पंचायत राज विभाग · आधिकारिक कर्मी सूची</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background: #f4f7fb;
-            font-family: 'Segoe UI', 'Nirmala UI', 'Mangal', sans-serif;
+            background: #f0f5fa;
+            font-family: 'Mukta', 'Segoe UI', 'Nirmala UI', 'Mangal', sans-serif;
             display: flex;
             justify-content: center;
-            padding: 30px 15px;
-            margin: 0;
+            padding: 2rem 1rem;
         }
-        .table-wrapper {
-            max-width: 1200px;
+
+        .govt-wrapper {
+            max-width: 1300px;
             width: 100%;
             background: white;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            padding: 20px;
+            box-shadow: 0 20px 40px -10px rgba(0, 35, 70, 0.25);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid #cfd9e6;
         }
-        h2 {
-            text-align: center;
-            color: #1d3b5c;
-            margin-top: 0;
-            margin-bottom: 20px;
+
+        /* तिरंगा पट्टी (सरकारी अंदाज) */
+        .tricolor-strip {
+            height: 6px;
+            width: 100%;
+            background: linear-gradient(to right, #ff8c42 0%, #ff8c42 33.33%, white 33.33%, white 66.66%, #138808 66.66%, #138808 100%);
+        }
+
+        /* हेडर - आधिकारिक लोगो एवं शीर्षक */
+        .official-header {
+            background: #ffffff;
+            padding: 1.8rem 2.5rem 1.2rem 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #ff9933;
+        }
+
+        .govt-logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .ashok-stambh {
+            background: #003366;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.8rem;
+            line-height: 1.2;
+            box-shadow: 0 4px 10px rgba(0,52,102,0.3);
+            border: 2px solid #ffb347;
+        }
+        .ashok-stambh span {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-top: -5px;
+        }
+
+        .govt-titles {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .govt-titles .line1 {
+            font-size: 1.3rem;
             font-weight: 500;
-            border-bottom: 2px solid #ffb347;
-            padding-bottom: 12px;
+            color: #1e3a5f;
         }
-        table {
+        .govt-titles .line2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #003366;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+        .govt-titles .line3 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #c96c00;
+            border-left: 4px solid #138808;
+            padding-left: 12px;
+            margin-top: 5px;
+        }
+
+        .dept-stamp {
+            margin-left: auto;
+            background: #fff1dd;
+            padding: 0.5rem 1.8rem;
+            border-radius: 40px;
+            color: #a45100;
+            font-weight: 600;
+            border: 2px dashed #ff9933;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dept-stamp:before {
+            content: "⭕";
+            font-size: 1.3rem;
+            color: #138808;
+        }
+
+        /* उपशीर्षक पट्टी */
+        .sub-header {
+            background: #eef5fc;
+            padding: 0.8rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #bdd3e8;
+            font-size: 1.1rem;
+        }
+
+        .sub-header span:first-child {
+            font-weight: 600;
+            color: #003f6f;
+        }
+
+        .sub-header span:last-child {
+            background: #1e3a5f;
+            color: white;
+            padding: 0.2rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.95rem;
+        }
+
+        /* तालिका क्षेत्र */
+        .table-area {
+            padding: 1.8rem 2.2rem 2rem 2.2rem;
+            overflow-x: auto;
+        }
+
+        .govt-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 1rem;
-            border: 1px solid #b0c4de;
+            font-size: 1.05rem;
+            border: 1px solid #b0c9e0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 12px rgba(0,40,70,0.08);
         }
-        th {
-            background-color: #1e3b5c;
+
+        .govt-table th {
+            background: #003366;
             color: white;
-            padding: 12px 10px;
             font-weight: 600;
+            padding: 14px 12px;
+            font-size: 1.1rem;
             text-align: left;
-            border: 1px solid #2d4e72;
+            border-right: 1px solid #2a5a8c;
+            white-space: nowrap;
         }
-        td {
-            padding: 10px 12px;
-            border: 1px solid #b0c4de;
-            vertical-align: top;
+        .govt-table th:last-child {
+            border-right: none;
         }
-        tr:nth-child(even) {
-            background-color: #f0f6ff;
+
+        .govt-table td {
+            background: white;
+            padding: 12px 12px;
+            border-bottom: 1px solid #d4e0ec;
+            color: #1f2f42;
         }
-        tr:hover {
-            background-color: #e1ecfe;
+
+        .govt-table tbody tr:nth-child(even) td {
+            background-color: #f9fcff;
         }
-        /* mobile number styling */
-        td:nth-child(4) {
+
+        .govt-table tbody tr:hover td {
+            background-color: #fffbeb;
+            transition: 0.1s;
+        }
+
+        /* विशेष कक्ष */
+        .mobile-badge {
             font-family: 'Courier New', monospace;
-            font-weight: 600;
-            color: #0a3147;
+            font-weight: 700;
+            background: #e9f0f9;
+            padding: 5px 12px;
+            border-radius: 40px;
+            display: inline-block;
+            color: #003d66;
         }
-        .footer {
-            text-align: right;
-            font-size: 0.9rem;
-            color: #4a6b8a;
-            margin-top: 15px;
+
+        .day-badge {
+            background: #dff0d8;
+            color: #1f6d1f;
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .day-badge.special {
+            background: #fff3d5;
+            color: #a65300;
+        }
+
+        /* फुटर */
+        .official-footer {
+            background: #003366;
+            color: white;
+            padding: 1.2rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            border-top: 4px solid #ff9933;
+            font-size: 0.95rem;
+        }
+
+        .footer-left {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .footer-left span {
+            border-right: 1px solid #ffb347;
+            padding-right: 20px;
+        }
+
+        .footer-right {
+            background: #ffb347;
+            color: #003366;
+            padding: 0.4rem 2rem;
+            border-radius: 30px;
+            font-weight: 700;
+        }
+
+        /* मोबाइल के लिए */
+        @media (max-width: 700px) {
+            .official-header {
+                padding: 1.5rem 1.2rem;
+                gap: 1rem;
+            }
+            .govt-titles .line2 { font-size: 1.5rem; }
+            .govt-titles .line3 { font-size: 1rem; }
+            .dept-stamp { margin-left: 0; }
+
+            .table-area {
+                padding: 1rem 0.8rem;
+            }
+            .govt-table th {
+                font-size: 1rem;
+                padding: 10px 6px;
+            }
+            .govt-table td {
+                padding: 10px 6px;
+            }
+            .mobile-badge, .day-badge {
+                padding: 4px 8px;
+                font-size: 0.9rem;
+            }
+            .sub-header {
+                padding: 0.8rem 1.2rem;
+            }
+            .official-footer {
+                padding: 1rem 1.2rem;
+                gap: 1rem;
+                justify-content: center;
+                text-align: center;
+            }
+            .footer-left {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            .footer-left span {
+                border-right: none;
+                padding-right: 0;
+            }
+        }
+
+        /* बहुत छोटी स्क्रीन पर भी ठीक */
+        @media (max-width: 450px) {
+            .govt-table {
+                font-size: 0.95rem;
+            }
+            .govt-table th, .govt-table td {
+                padding: 8px 4px;
+            }
         }
     </style>
 </head>
 <body>
-<div class="table-wrapper">
-    <h2>बिहार सरकार पंचायत राज विभाग<br>ग्राम पंचायत कार्यालय – कर्मी सूची एवं कायदिवस</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>क्र० स०</th>
-                <th>नाम</th>
-                <th>पदनाम</th>
-                <th>मोबाईल न०</th>
-                <th>कायदिवस</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr><td>1</td><td>श्री केदार प्रसाद</td><td>पंचायत सचिव</td><td>7488482095</td><td>सोम/बुध/शुक्र</td></tr>
-            <tr><td>2</td><td>श्री चन्दन कुमार</td><td>तकनीकी सहायक</td><td>9113423537</td><td>काया के अनुरूप</td></tr>
-            <tr><td>3</td><td>श्री हरिशकर प्रसाद</td><td>लेखापाल-सह-आईटी0 सहायक</td><td>8294106690</td><td></td></tr>
-            <tr><td>4</td><td>शिरिन तरन्मु</td><td>कायापालक सहायक</td><td>7061204566</td><td>प्रतिदिन</td></tr>
-            <tr><td>5</td><td>श्री जीत् कुमार</td><td>राजस्व कर्मचारी</td><td>9572047790</td><td>प्रतिदिन</td></tr>
-            <tr><td>6</td><td>अक्षय नीवि</td><td>आवास सहायक</td><td>8521052259</td><td>प्रतिदिन</td></tr>
-            <tr><td>7</td><td>शिवकुमार पासवान</td><td>पंचायत रोजगार सेवक</td><td>7870615155</td><td>प्रतिदिन</td></tr>
-            <tr><td>8</td><td>श्री प्रदीप मॉझी</td><td>विकास मित्र</td><td>8789066819</td><td>प्रतिदिन</td></tr>
-            <tr><td>9</td><td>श्रीमति सरिता कुमारी</td><td>ग्राम कचहरी सचिव</td><td>8873321123</td><td>प्रतिदिन</td></tr>
-            <tr><td>10</td><td>श्री सुनिल कुमार</td><td>किसान सलाहकार</td><td>6206523196</td><td>प्रतिदिन</td></tr>
-        </tbody>
-    </table>
-    <div class="footer">© Created By Aman Kumar</div>
-</div>
+    <div class="govt-wrapper">
+        <div class="tricolor-strip"></div>
+
+        <!-- मुख्य हेडर (बिहार सरकार लोगो) -->
+        <div class="official-header">
+            <div class="govt-logo-section">
+                <div class="ashok-stambh">
+                    🛡️
+                    <span>भारत</span>
+                </div>
+                <div class="govt-titles">
+                    <div class="line1">बिहार सरकार</div>
+                    <div class="line2">पंचायत राज विभाग</div>
+                    <div class="line3">ग्राम पंचायत कार्यालय · कर्मी सूची</div>
+                </div>
+            </div>
+            <div class="dept-stamp">
+                आधिकारिक
+            </div>
+        </div>
+
+        <!-- सूचना पट्टी -->
+        <div class="sub-header">
+            <span>📌 पंचायत स्तरीय विभिन्न विभागों के कर्मियों की सूची एवं कार्यदिवस</span>
+            <span>📅 10 कर्मी · अद्यतन: मार्च 2026</span>
+        </div>
+
+        <!-- तालिका भाग -->
+        <div class="table-area">
+            <table class="govt-table">
+                <thead>
+                    <tr>
+                        <th>क्र.स.</th>
+                        <th>नाम</th>
+                        <th>पदनाम</th>
+                        <th>मोबाईल नंबर</th>
+                        <th>कार्यदिवस</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>श्री केदार प्रसाद</td>
+                        <td>पंचायत सचिव</td>
+                        <td><span class="mobile-badge">7488482095</span></td>
+                        <td><span class="day-badge special">सोम/बुध/शुक्र</span></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>श्री चन्दन कुमार</td>
+                        <td>तकनीकी सहायक</td>
+                        <td><span class="mobile-badge">9113423537</span></td>
+                        <td><span class="day-badge special">काया के अनुरूप</span></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>श्री हरिशकर प्रसाद</td>
+                        <td>लेखापाल-सह-आईटी सहायक</td>
+                        <td><span class="mobile-badge">8294106690</span></td>
+                        <td><span class="day-badge">—</span></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>शिरिन तरन्मु</td>
+                        <td>कायापालक सहायक</td>
+                        <td><span class="mobile-badge">7061204566</span></td>
+                        <td><span class="day-badge">प्रतिदिन</span></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>श्री जीत् कुमार</td>
+                        <td>राजस्व कर्मचारी</td>
+                        <td><span class="mobile-badge">9572047790</span></td>
+                        <td><span class="day-badge">प्रतिदिन</span></td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>अक्षय नीवि</td>
+                        <td>आवास सहायक</td>
+                        <td><span class="mobile-badge">8521052259</span></td>
+                        <td><span class="day-badge">प्रतिदिन</span></td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>शिवकुमार पासवान</td>
+                        <td>पंचायत रोजगार सेवक</td>
+                        <td><span class="mobile-badge">7870615155</span></td>
+                        <td><span class="day-badge">प्रतिदिन</span></td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>श्री प्रदीप मॉझी</td>
+                        <td>विकास मित्र</td>
+                        <td><span class="mobile-badge">8789066819</span></td>
+                        <td><span class="day-badge">प्रतिदिन</span></td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>श्रीमति सरिता कुमारी</td>
+                        <td>ग्राम कचहरी सचिव</td>
+                        <td><span class="mobile-badge">8873321123</span></td>
+                        <td><span class="day-badge">प्रतिदिन</span></td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>श्री सुनिल कुमार</td>
+                        <td>किसान सलाहकार</td>
+                        <td><span class="mobile-badge">6206523196</span></td>
+                        <td><span class="day-badge">प्रतिदिन</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- फुटर (बिहार सरकार) -->
+        <div class="official-footer">
+            <div class="footer-left">
+                <span>बिहार सरकार · पंचायत राज विभाग</span>
+                <span>⏲️ कार्य दिवस सूची यथावत</span>
+            </div>
+            <div class="footer-right">
+                🔰 जिला पंचायत राज कार्यालय
+            </div>
+        </div>
+    </div>
 </body>
 </html>
