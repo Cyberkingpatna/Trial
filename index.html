@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>बिहार पंचायत राज विभाग · अद्यतन कर्मी सूची</title>
+    <title>बिहार पंचायत राज विभाग · आधिकारिक कर्मी सूची</title>
+    <!-- प्रोफेशनल फॉन्ट्स और आइकॉन -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Mukta:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- फॉन्ट अवेसम 6 (फ्री) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -12,67 +18,79 @@
         }
 
         body {
-            background: #f0f5fa;
-            font-family: 'Mukta', 'Segoe UI', 'Nirmala UI', 'Mangal', sans-serif;
+            background: linear-gradient(145deg, #e9eef3 0%, #dae2ec 100%);
+            font-family: 'Inter', 'Mukta', 'Segoe UI', 'Nirmala UI', sans-serif;
             display: flex;
             justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             padding: 2rem 1rem;
         }
 
-        .govt-wrapper {
-            max-width: 1300px;
+        /* मुख्य कार्ड */
+        .govt-card {
+            max-width: 1400px;
             width: 100%;
-            background: white;
-            box-shadow: 0 20px 40px -10px rgba(0, 35, 70, 0.25);
-            border-radius: 24px;
+            background: #ffffff;
+            border-radius: 36px 36px 24px 24px;
+            box-shadow: 0 30px 60px -20px rgba(0, 35, 70, 0.4), 0 0 0 1px rgba(255, 153, 51, 0.2) inset;
             overflow: hidden;
-            border: 1px solid #cfd9e6;
+            transition: all 0.2s ease;
         }
 
-        /* तिरंगा पट्टी */
+        /* तिरंगा पट्टी — अधिक प्रोफेशनल */
         .tricolor-strip {
-            height: 6px;
+            height: 8px;
             width: 100%;
-            background: linear-gradient(to right, #ff8c42 0%, #ff8c42 33.33%, white 33.33%, white 66.66%, #138808 66.66%, #138808 100%);
+            background: linear-gradient(90deg, #FF9933 0%, #FF9933 33.33%, #FFFFFF 33.33%, #FFFFFF 66.66%, #138808 66.66%, #138808 100%);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        /* हेडर - लोगो सहित */
+        /* हेडर सेक्शन */
         .official-header {
             background: #ffffff;
-            padding: 1.8rem 2.5rem 1.2rem 2.5rem;
+            padding: 2rem 3rem 1.5rem 3rem;
             display: flex;
             align-items: center;
-            gap: 2rem;
+            gap: 2.5rem;
             flex-wrap: wrap;
-            border-bottom: 2px solid #ff9933;
+            border-bottom: 2px solid #ffe0b2;
         }
 
-        .govt-logo-section {
+        .logo-area {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 1.2rem;
         }
 
-        .ashok-stambh {
+        .emblem {
             background: #003366;
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             color: white;
-            font-weight: bold;
-            font-size: 1.8rem;
+            box-shadow: 0 8px 18px rgba(0, 51, 102, 0.3);
+            border: 3px solid #FFB347;
+            font-size: 2rem;
             line-height: 1.2;
-            box-shadow: 0 4px 10px rgba(0,52,102,0.3);
-            border: 2px solid #ffb347;
         }
-        .ashok-stambh span {
-            font-size: 0.8rem;
+        .emblem i {
+            font-size: 2.8rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+        .emblem span {
+            font-size: 0.75rem;
             letter-spacing: 2px;
-            margin-top: -5px;
+            font-weight: 500;
+            margin-top: -6px;
+            background: #ff9933;
+            color: #003366;
+            padding: 2px 8px;
+            border-radius: 30px;
         }
 
         .govt-titles {
@@ -83,260 +101,316 @@
         .govt-titles .line1 {
             font-size: 1.3rem;
             font-weight: 500;
-            color: #1e3a5f;
+            color: #2c3e50;
+            letter-spacing: 1px;
         }
         .govt-titles .line2 {
-            font-size: 2rem;
+            font-size: 2.3rem;
             font-weight: 700;
             color: #003366;
-            letter-spacing: 1px;
             line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,51,102,0.1);
         }
         .govt-titles .line3 {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 400;
-            color: #c96c00;
-            border-left: 4px solid #138808;
-            padding-left: 12px;
-            margin-top: 5px;
+            color: #b35100;
+            border-left: 6px solid #138808;
+            padding-left: 18px;
+            margin-top: 8px;
+            background: linear-gradient(90deg, #fff7e6, transparent);
+            padding: 6px 0 6px 18px;
+            border-radius: 0 40px 40px 0;
         }
 
-        .dept-stamp {
+        .header-badge {
             margin-left: auto;
-            background: #fff1dd;
-            padding: 0.5rem 1.8rem;
-            border-radius: 40px;
-            color: #a45100;
+            background: #f0f7ff;
+            padding: 0.6rem 2rem;
+            border-radius: 60px;
+            border: 1.5px solid #ff9933;
+            color: #1e3a5f;
             font-weight: 600;
-            border: 2px dashed #ff9933;
             font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 4px 10px rgba(255,153,51,0.2);
+        }
+        .header-badge i {
+            color: #138808;
+            font-size: 1.5rem;
+        }
+
+        /* सब-हेडर (सांख्यिकी + सर्च) */
+        .action-bar {
+            background: #f2f7fd;
+            padding: 0.8rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            border-bottom: 1px solid #cbd6e6;
+        }
+
+        .info-chip {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .chip {
+            background: white;
+            padding: 0.4rem 1.4rem;
+            border-radius: 40px;
+            font-weight: 500;
+            color: #1e3a5f;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #cdddec;
+        }
+        .chip i {
+            color: #ff9933;
+        }
+        .chip strong {
+            color: #003366;
+            font-size: 1.2rem;
+            margin-left: 4px;
+        }
+
+        .search-box {
+            background: white;
+            padding: 0.3rem 0.3rem 0.3rem 1.5rem;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            border: 1px solid #b0c4de;
+            box-shadow: 0 4px 10px rgba(0,35,70,0.05);
+        }
+        .search-box i {
+            color: #ff9933;
+            font-size: 1.2rem;
+        }
+        .search-box input {
+            border: none;
+            padding: 0.6rem 0.8rem;
+            font-size: 1rem;
+            min-width: 240px;
+            background: transparent;
+            outline: none;
+            font-family: 'Inter', 'Mukta', sans-serif;
+        }
+        .search-box button {
+            background: #003366;
+            border: none;
+            color: white;
+            padding: 0.6rem 1.8rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: default;
+            border: 1px solid #ff9933;
+            transition: 0.1s ease;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .dept-stamp:before {
-            content: "⭕";
-            font-size: 1.3rem;
-            color: #138808;
-        }
-
-        /* उपशीर्षक पट्टी */
-        .sub-header {
-            background: #eef5fc;
-            padding: 0.8rem 2.5rem;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            border-bottom: 1px solid #bdd3e8;
-            font-size: 1.1rem;
-        }
-
-        .sub-header span:first-child {
-            font-weight: 600;
-            color: #003f6f;
-        }
-
-        .sub-header span:last-child {
-            background: #1e3a5f;
-            color: white;
-            padding: 0.2rem 1.5rem;
-            border-radius: 30px;
-            font-size: 0.95rem;
-        }
-
-        /* तालिका क्षेत्र */
-        .table-area {
-            padding: 1.8rem 2.2rem 2rem 2.2rem;
+        /* टेबल एरिया */
+        .table-container {
+            padding: 2rem 3rem 2.5rem 3rem;
             overflow-x: auto;
         }
 
         .govt-table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0 10px;
             font-size: 1.05rem;
-            border: 1px solid #b0c9e0;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 5px 12px rgba(0,40,70,0.08);
+        }
+
+        .govt-table thead tr {
+            background: transparent;
         }
 
         .govt-table th {
             background: #003366;
             color: white;
             font-weight: 600;
-            padding: 14px 12px;
+            padding: 16px 18px;
             font-size: 1.1rem;
             text-align: left;
-            border-right: 1px solid #2a5a8c;
             white-space: nowrap;
+            border-right: 1px solid #2a5a8c;
+        }
+        .govt-table th:first-child {
+            border-radius: 20px 0 0 20px;
         }
         .govt-table th:last-child {
+            border-radius: 0 20px 20px 0;
             border-right: none;
         }
 
         .govt-table td {
-            background: white;
-            padding: 12px 12px;
-            border-bottom: 1px solid #d4e0ec;
-            color: #1f2f42;
+            background: #ffffff;
+            padding: 16px 18px;
+            color: #1a2b3c;
+            box-shadow: 0 4px 14px rgba(0, 40, 70, 0.05);
+            border: 1px solid #eef2f6;
+            border-left: none;
+            border-right: none;
         }
-
-        .govt-table tbody tr:nth-child(even) td {
-            background-color: #f9fcff;
+        .govt-table tbody tr {
+            transition: all 0.15s;
+            border-radius: 20px;
+            cursor: default;
         }
-
         .govt-table tbody tr:hover td {
-            background-color: #fffbeb;
-            transition: 0.1s;
+            background: #fffbf0;
+            border-color: #ffdba5;
+            transform: scale(1.01);
+            box-shadow: 0 8px 22px rgba(255,153,51,0.15);
+        }
+        .govt-table td:first-child {
+            border-radius: 16px 0 0 16px;
+            border-left: 1px solid #eef2f6;
+        }
+        .govt-table td:last-child {
+            border-radius: 0 16px 16px 0;
+            border-right: 1px solid #eef2f6;
         }
 
-        /* विशेष कक्ष */
+        /* बैज और टैग */
         .mobile-badge {
-            font-family: 'Courier New', monospace;
-            font-weight: 700;
-            background: #e9f0f9;
-            padding: 5px 12px;
-            border-radius: 40px;
+            font-family: 'Inter', monospace;
+            font-weight: 600;
+            background: #e2eaf5;
+            padding: 6px 16px;
+            border-radius: 50px;
             display: inline-block;
             color: #003d66;
+            font-size: 0.95rem;
+            border: 1px solid #b8d1f0;
+            letter-spacing: 0.5px;
         }
 
         .day-badge {
-            background: #dff0d8;
-            color: #1f6d1f;
-            padding: 5px 14px;
-            border-radius: 30px;
+            background: #e1f0e1;
+            color: #1d6b1d;
+            padding: 6px 18px;
+            border-radius: 40px;
             font-weight: 500;
             display: inline-block;
+            font-size: 0.95rem;
+            border-left: 4px solid #138808;
         }
 
         .day-badge.special {
-            background: #fff3d5;
-            color: #a65300;
+            background: #ffeedb;
+            color: #9d5200;
+            border-left-color: #ff9933;
         }
 
         /* फुटर */
         .official-footer {
-            background: #003366;
-            color: white;
-            padding: 1.2rem 2.5rem;
+            background: #0a2a44;
+            color: #e0edff;
+            padding: 1.2rem 3rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            border-top: 4px solid #ff9933;
-            font-size: 0.95rem;
+            border-top: 5px solid #ff9933;
+            font-size: 1rem;
         }
 
         .footer-left {
             display: flex;
-            gap: 20px;
+            gap: 30px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
-        .footer-left span {
-            border-right: 1px solid #ffb347;
-            padding-right: 20px;
+        .footer-left span i {
+            margin-right: 8px;
+            color: #ffb347;
         }
 
         .footer-right {
             background: #ffb347;
             color: #003366;
-            padding: 0.4rem 2rem;
-            border-radius: 30px;
+            padding: 0.5rem 2.5rem;
+            border-radius: 40px;
             font-weight: 700;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(255,180,70,0.4);
         }
 
-        /* मोबाइल के लिए */
+        /* रिस्पॉन्सिव */
+        @media (max-width: 900px) {
+            .official-header, .action-bar, .table-container, .official-footer {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+            .govt-titles .line2 { font-size: 1.8rem; }
+        }
+
         @media (max-width: 700px) {
-            .official-header {
-                padding: 1.5rem 1.2rem;
-                gap: 1rem;
-            }
-            .govt-titles .line2 { font-size: 1.5rem; }
-            .govt-titles .line3 { font-size: 1rem; }
-            .dept-stamp { margin-left: 0; }
-
-            .table-area {
-                padding: 1rem 0.8rem;
-            }
-            .govt-table th {
-                font-size: 1rem;
-                padding: 10px 6px;
-            }
-            .govt-table td {
-                padding: 10px 6px;
-            }
-            .mobile-badge, .day-badge {
-                padding: 4px 8px;
-                font-size: 0.9rem;
-            }
-            .sub-header {
-                padding: 0.8rem 1.2rem;
-            }
-            .official-footer {
-                padding: 1rem 1.2rem;
-                gap: 1rem;
-                justify-content: center;
-                text-align: center;
-            }
-            .footer-left {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
-            }
-            .footer-left span {
-                border-right: none;
-                padding-right: 0;
-            }
+            .search-box input { min-width: 160px; }
+            .govt-table th, .govt-table td { padding: 12px 8px; font-size: 0.95rem; }
+            .header-badge { margin-left: 0; }
         }
-
-        /* बहुत छोटी स्क्रीन पर भी ठीक */
-        @media (max-width: 450px) {
-            .govt-table {
-                font-size: 0.95rem;
-            }
-            .govt-table th, .govt-table td {
-                padding: 8px 4px;
-            }
+        @media (max-width: 480px) {
+            .search-box { flex-wrap: wrap; background: none; padding: 0; border: none; }
+            .search-box input { background: white; border-radius: 60px; margin-bottom: 8px; }
         }
     </style>
 </head>
 <body>
-    <div class="govt-wrapper">
+    <div class="govt-card">
         <div class="tricolor-strip"></div>
 
-        <!-- मुख्य हेडर (बिहार सरकार लोगो) -->
+        <!-- प्रोफेशनल हेडर -->
         <div class="official-header">
-            <div class="govt-logo-section">
-                <div class="ashok-stambh">
-                    🛡️
+            <div class="logo-area">
+                <div class="emblem">
+                    <i class="fas fa-dharmachakra"></i>
                     <span>भारत</span>
                 </div>
                 <div class="govt-titles">
-                    <div class="line1">बिहार सरकार</div>
+                    <div class="line1"><i class="fas fa-map-marker-alt" style="color:#ff9933; margin-right:6px;"></i>बिहार सरकार</div>
                     <div class="line2">पंचायत राज विभाग</div>
-                    <div class="line3">ग्राम पंचायत कार्यालय · अद्यतन कर्मी सूची</div>
+                    <div class="line3"><i class="fas fa-users" style="margin-right:10px;"></i>ग्राम पंचायत कार्यालय · अद्यतन कर्मी सूची</div>
                 </div>
             </div>
-            <div class="dept-stamp">
-                आधिकारिक
+            <div class="header-badge">
+                <i class="fas fa-check-circle"></i>
+                <span>आधिकारिक जारी सूची</span>
             </div>
         </div>
 
-        <!-- सूचना पट्टी -->
-        <div class="sub-header">
-            <span>📌 पंचायत स्तरीय विभिन्न विभागों के कर्मियों की सूची एवं कार्यदिवस (नवीनतम)</span>
-            <span>📅 11 कर्मी · अद्यतन: फरवरी 2026</span>
+        <!-- एक्शन बार – सर्च + काउंट -->
+        <div class="action-bar">
+            <div class="info-chip">
+                <span class="chip"><i class="fas fa-user-tie"></i> कुल कर्मी <strong>11</strong></span>
+                <span class="chip"><i class="fas fa-calendar-alt"></i> अद्यतन <strong>फरवरी 2026</strong></span>
+                <span class="chip"><i class="fas fa-clock"></i> कार्यदिवस व्यवस्था</span>
+            </div>
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="कर्मी का नाम, पद, मोबाइल..." value="">
+                <button><i class="fas fa-sliders-h"></i> फ़िल्टर</button>
+            </div>
         </div>
 
-        <!-- तालिका भाग - नए डेटा के साथ -->
-        <div class="table-area">
+        <!-- टेबल (डेटा वही, अब और प्रोफेशनल) -->
+        <div class="table-container">
             <table class="govt-table">
                 <thead>
                     <tr>
-                        <th>क्र.स.</th>
+                        <th>क्र.</th>
                         <th>नाम</th>
                         <th>पदनाम</th>
                         <th>मोबाईल नंबर</th>
@@ -344,102 +418,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>श्री केदार प्रसाद</td>
-                        <td>पंचायत सचिव</td>
-                        <td><span class="mobile-badge">7488482095</span></td>
-                        <td><span class="day-badge special">सोम/बुध/शुक्र</span></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>श्री चन्दन कुमार</td>
-                        <td>तकनीकी सहायक</td>
-                        <td><span class="mobile-badge">9113423537</span></td>
-                        <td><span class="day-badge">सोमवार</span></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>श्री हरिशंकर प्रसाद</td>
-                        <td>लेखापाल-सह-आई०टी० सहायक</td>
-                        <td><span class="mobile-badge">8294106690</span></td>
-                        <td><span class="day-badge">सोमवार</span></td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>शिरिन तरनूम</td>
-                        <td>कार्यपालक सहायक</td>
-                        <td><span class="mobile-badge">7061204566</span></td>
-                        <td><span class="day-badge">प्रतिदिन</span></td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>आलोक कुमार</td>
-                        <td>राजस्व कर्मचारी</td>
-                        <td><span class="mobile-badge">7903351748</span></td>
-                        <td><span class="day-badge special">सोम/बुध/शुक्र</span></td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>श्री अक्षय नीवि</td>
-                        <td>आवास सहायक</td>
-                        <td><span class="mobile-badge">8521052259</span></td>
-                        <td><span class="day-badge">प्रतिदिन</span></td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>शिवकुमार पासवान</td>
-                        <td>पंचायत रोजगार सेवक</td>
-                        <td><span class="mobile-badge">7870615155</span></td>
-                        <td><span class="day-badge">मंगल/गुरू/शिनि</span></td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>श्री कुंदन माँडी</td>
-                        <td>विकास मित्र</td>
-                        <td><span class="mobile-badge">8789066819</span></td>
-                        <td><span class="day-badge">शनिवार</span></td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>श्रीमति सरिता कुमारी</td>
-                        <td>ग्राम कचहरी सचिव</td>
-                        <td><span class="mobile-badge">8873321123</span></td>
-                        <td><span class="day-badge">प्रतिदिन</span></td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td>श्री सुनील कुमार</td>
-                        <td>किसान सलाहकार</td>
-                        <td><span class="mobile-badge">6206523196</span></td>
-                        <td><span class="day-badge">प्रतिदिन</span></td>
-                    </tr>
-                    <tr>
-                        <td>11</td>
-                        <td>अविनाश कुमार</td>
-                        <td>कृषि समन्वयक</td>
-                        <td><span class="mobile-badge">8168077489</span></td>
-                        <td><span class="day-badge special">शुक्र/शिनि</span></td>
-                    </tr>
-                    <tr>
-                        <td>12</td>
-                        <td>अविनाश कुमार</td>
-                        <td>कृषि समन्वयक</td>
-                        <td><span class="mobile-badge">8168077489</span></td>
-                        <td><span class="day-badge special">शुक्र/शिनि</span></td>
-                    </tr>
+                    <tr><td>1</td><td>श्री केदार प्रसाद</td><td>पंचायत सचिव</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>7488482095</span></td><td><span class="day-badge special">सोम/बुध/शुक्र</span></td></tr>
+                    <tr><td>2</td><td>श्री चन्दन कुमार</td><td>तकनीकी सहायक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>9113423537</span></td><td><span class="day-badge">सोमवार</span></td></tr>
+                    <tr><td>3</td><td>श्री हरिशंकर प्रसाद</td><td>लेखापाल-सह-आई०टी० सहायक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>8294106690</span></td><td><span class="day-badge">सोमवार</span></td></tr>
+                    <tr><td>4</td><td>शिरिन तरनूम</td><td>कार्यपालक सहायक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>7061204566</span></td><td><span class="day-badge">प्रतिदिन</span></td></tr>
+                    <tr><td>5</td><td>आलोक कुमार</td><td>राजस्व कर्मचारी</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>7903351748</span></td><td><span class="day-badge special">सोम/बुध/शुक्र</span></td></tr>
+                    <tr><td>6</td><td>श्रीमति अक्षय नीवि</td><td>आवास सहायक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>8521052259</span></td><td><span class="day-badge">प्रतिदिन</span></td></tr>
+                    <tr><td>7</td><td>शिवकुमार पासवान</td><td>पंचायत रोजगार सेवक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>7870615155</span></td><td><span class="day-badge">मंगल/गुरू/शनि</span></td></tr>
+                    <tr><td>8</td><td>श्री कुंदन माँझी</td><td>विकास मित्र</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>8789066819</span></td><td><span class="day-badge">शनिवार</span></td></tr>
+                    <tr><td>9</td><td>श्रीमति सरिता कुमारी</td><td>ग्राम कचहरी सचिव</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>8873321123</span></td><td><span class="day-badge">प्रतिदिन</span></td></tr>
+                    <tr><td>10</td><td>श्री सुनील कुमार</td><td>किसान सलाहकार</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>6206523196</span></td><td><span class="day-badge">प्रतिदिन</span></td></tr>
+                    <tr><td>11</td><td>श्री अविनाश कुमार</td><td>कृषि समन्वयक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>8168077489</span></td><td><span class="day-badge special">शुक्र/शनि</span></td></tr>
                 </tbody>
             </table>
         </div>
 
-        <!-- फुटर (बिहार सरकार) -->
+        <!-- फुटर (प्रोफेशनल) -->
         <div class="official-footer">
             <div class="footer-left">
-                <span>बिहार सरकार · पंचायत राज विभाग · शेखपुरा। </span>
-                <span>⏲️ कार्य दिवस सूची यथावत</span>
+                <span><i class="fas fa-map-pin"></i> बिहार · पंचायती राज विभाग · शेखपुरा</span>
+                <span><i class="fas fa-print"></i> कार्यदिवस सूची 2026</span>
+                <span><i class="fas fa-shield-alt"></i> जिला पंचायत राज कार्यालय, शेखपुरा। </span>
             </div>
             <div class="footer-right">
-                © Gram Panchayat Sarwa
+                <i class="fas fa-copyright"></i> ग्राम पंचायत सर्वाां
             </div>
         </div>
     </div>
