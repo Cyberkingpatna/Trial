@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>बिहार पंचायत राज विभाग · आधिकारिक कर्मी सूची</title>
+    <title>बिहार पंचायत राज विभाग · अल्टीमेट प्रोफेशनल सूची</title>
     <!-- प्रोफेशनल फॉन्ट्स और आइकॉन -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,9 +25,10 @@
             align-items: center;
             min-height: 100vh;
             padding: 2rem 1rem;
+            transition: background 0.3s, color 0.3s;
         }
 
-        /* मुख्य कार्ड - प्रोफेशनल एनिमेशन */
+        /* मुख्य कार्ड */
         .govt-card {
             max-width: 1400px;
             width: 100%;
@@ -35,12 +36,7 @@
             border-radius: 36px 36px 24px 24px;
             box-shadow: 0 30px 60px -20px rgba(0, 35, 70, 0.4), 0 0 0 1px rgba(255, 153, 51, 0.2) inset;
             overflow: hidden;
-            animation: cardFadeIn 0.5s ease;
-        }
-
-        @keyframes cardFadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            transition: all 0.3s ease;
         }
 
         /* तिरंगा पट्टी */
@@ -147,7 +143,7 @@
             font-size: 1.5rem;
         }
 
-        /* सब-हेडर (सांख्यिकी + सर्च + प्रिंट) */
+        /* एक्शन बार */
         .action-bar {
             background: #f2f7fd;
             padding: 0.8rem 3rem;
@@ -208,10 +204,18 @@
             border: none;
             padding: 0.6rem 0.8rem;
             font-size: 1rem;
-            min-width: 240px;
+            min-width: 200px;
             background: transparent;
             outline: none;
             font-family: 'Inter', 'Mukta', sans-serif;
+        }
+        .mic-btn {
+            background: transparent;
+            border: none;
+            color: #ff9933;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0 8px;
         }
         .search-box button {
             background: #003366;
@@ -233,7 +237,7 @@
             transform: scale(1.02);
         }
 
-        .print-btn {
+        .print-btn, .export-btn {
             background: white;
             border: 1.5px solid #003366;
             color: #003366;
@@ -246,20 +250,55 @@
             gap: 8px;
             transition: 0.2s ease;
         }
-        .print-btn:hover {
+        .print-btn:hover, .export-btn:hover {
             background: #003366;
             color: white;
         }
-        .print-btn:hover i {
-            color: white;
+        .export-btn.excel:hover { background: #138808; border-color: #138808; }
+        .export-btn.pdf:hover { background: #ff4d4d; border-color: #ff4d4d; }
+
+        /* फिल्टर पैनल */
+        .filter-panel {
+            background: #f8faff;
+            padding: 1rem 3rem;
+            border-bottom: 1px solid #d0e0f0;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
         }
-        .print-btn i {
-            color: #003366;
+        .filter-panel select, .filter-panel button {
+            padding: 8px 20px;
+            border-radius: 40px;
+            border: 1px solid #b0c4de;
+            font-family: 'Inter', 'Mukta', sans-serif;
+            font-size: 0.95rem;
+            background: white;
+            cursor: pointer;
+        }
+        .filter-panel button {
+            background: #ff9933;
+            color: white;
+            border: none;
+            font-weight: 600;
+        }
+        .filter-panel button.clear {
+            background: white;
+            color: #ff9933;
+            border: 1px solid #ff9933;
+        }
+
+        /* स्टिकी नोट */
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: white;
         }
 
         /* टेबल एरिया */
         .table-container {
-            padding: 2rem 3rem 2.5rem 3rem;
+            padding: 2rem 3rem 1rem 3rem;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
@@ -292,27 +331,6 @@
         }
         .govt-table th:hover {
             background: #1e4a7a;
-        }
-        /* टूलटिप - प्रोफेशनल टच */
-        .govt-table th::after {
-            content: "🔽 क्लिक करें छाँटने के लिए";
-            position: absolute;
-            bottom: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #333;
-            color: white;
-            font-size: 0.75rem;
-            padding: 4px 8px;
-            border-radius: 20px;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s;
-            z-index: 10;
-        }
-        .govt-table th:hover::after {
-            opacity: 0.9;
         }
         .govt-table th:first-child {
             border-radius: 20px 0 0 20px;
@@ -351,7 +369,13 @@
             border-right: 1px solid #eef2f6;
         }
 
-        /* बैज और टैग */
+        /* टुडे हाइलाइट */
+        .today-row td {
+            background: #fff3cd !important;
+            border-color: #ffc107 !important;
+        }
+
+        /* बैज */
         .mobile-badge {
             font-family: 'Inter', monospace;
             font-weight: 600;
@@ -382,7 +406,7 @@
             border-left-color: #ff9933;
         }
 
-        /* नो रिजल्ट मैसेज */
+        /* नो रिजल्ट */
         .no-result {
             text-align: center;
             padding: 40px;
@@ -392,10 +416,122 @@
             border-radius: 60px;
             margin: 20px 0;
         }
-        .no-result i {
-            font-size: 3rem;
+
+        /* पेजिनेशन */
+        .pagination {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 20px;
+            padding: 1rem 3rem 2rem 3rem;
+            flex-wrap: wrap;
+        }
+        .pagination select {
+            padding: 8px 15px;
+            border-radius: 40px;
+            border: 1px solid #b0c4de;
+            background: white;
+        }
+        .pagination button {
+            padding: 8px 20px;
+            border-radius: 40px;
+            border: 1px solid #003366;
+            background: white;
+            color: #003366;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* डैशबोर्ड कार्ड */
+        .dashboard-summary {
+            display: flex;
+            gap: 20px;
+            padding: 1rem 3rem;
+            background: #f0f7fd;
+            border-bottom: 1px solid #d0e0f0;
+            flex-wrap: wrap;
+        }
+        .stat-card {
+            background: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid #cdddec;
+        }
+        .stat-card i {
+            font-size: 1.5rem;
             color: #ff9933;
-            margin-bottom: 15px;
+        }
+
+        /* टोस्ट */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #003366;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 9999;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* डार्क मोड टॉगल */
+        #darkModeToggle {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: #333;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 999;
+            font-size: 1.2rem;
+            transition: 0.2s;
+        }
+
+        /* डार्क मोड स्टाइल */
+        body.dark-mode {
+            background: #1a2634;
+            color: #e0e0e0;
+        }
+        body.dark-mode .govt-card {
+            background: #2c3e50;
+            box-shadow: 0 30px 60px -20px rgba(0,0,0,0.8);
+        }
+        body.dark-mode .official-header,
+        body.dark-mode .action-bar,
+        body.dark-mode .filter-panel,
+        body.dark-mode .dashboard-summary {
+            background: #2c3e50;
+            color: #ecf0f1;
+        }
+        body.dark-mode td {
+            background: #34495e !important;
+            color: #ecf0f1 !important;
+            border-color: #4a6782 !important;
+        }
+        body.dark-mode .chip,
+        body.dark-mode .search-box,
+        body.dark-mode select,
+        body.dark-mode .stat-card {
+            background: #3a4a5a;
+            color: white;
+            border-color: #5a7a9a;
         }
 
         /* फुटर */
@@ -410,98 +546,54 @@
             border-top: 5px solid #ff9933;
             font-size: 1rem;
         }
-
         .footer-left {
             display: flex;
             gap: 30px;
             align-items: center;
             flex-wrap: wrap;
         }
-
         .footer-left span i {
             margin-right: 8px;
             color: #ffb347;
         }
-
         .footer-right {
             display: flex;
             align-items: center;
             gap: 20px;
         }
-
         .qr-code {
             background: white;
             padding: 5px 10px;
             border-radius: 30px;
             color: #003366;
             font-weight: 600;
-            font-size: 0.9rem;
             display: flex;
             align-items: center;
             gap: 8px;
         }
-        .qr-code i {
-            font-size: 1.5rem;
-            color: #003366;
-        }
-
         .copyright {
             background: #ffb347;
             color: #003366;
             padding: 0.5rem 2.5rem;
             border-radius: 40px;
             font-weight: 700;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 12px rgba(255,180,70,0.4);
         }
 
-        /* PRINT STYLES */
+        /* प्रिंट स्टाइल */
         @media print {
-            .action-bar, .header-badge, .print-btn, .qr-code, .govt-table th::after {
+            .action-bar, .filter-panel, .dashboard-summary, .pagination, #darkModeToggle, .print-btn, .qr-code, .header-badge {
                 display: none;
             }
-            .govt-card {
-                box-shadow: none;
-                border: 1px solid #ccc;
-            }
-            body {
-                background: white;
-                padding: 0.5in;
-            }
+            body { background: white; }
         }
 
         /* रिस्पॉन्सिव */
         @media (max-width: 900px) {
-            .official-header, .action-bar, .table-container, .official-footer {
+            .official-header, .action-bar, .filter-panel, .dashboard-summary, .table-container, .pagination, .official-footer {
                 padding-left: 1.5rem;
                 padding-right: 1.5rem;
             }
             .govt-titles .line2 { font-size: 1.8rem; }
-        }
-
-        @media (max-width: 700px) {
-            .search-box input { min-width: 160px; }
-            .govt-table th, .govt-table td { padding: 12px 8px; font-size: 0.95rem; }
-            .header-badge { margin-left: 0; }
-            .govt-table th::after { content: ""; display: none; }
-        }
-        @media (max-width: 480px) {
-            .search-box { flex-wrap: wrap; background: none; padding: 0; border: none; width: 100%; }
-            .search-box input { background: white; border-radius: 60px; margin-bottom: 8px; width: 100%; }
-            .action-buttons { width: 100%; }
-            .print-btn { width: 100%; justify-content: center; }
-        }
-
-        /* Sorting Icons */
-        .sort-asc::after {
-            content: " ▲";
-            font-size: 0.8rem;
-            opacity: 0.8;
-        }
-        .sort-desc::after {
-            content: " ▼";
-            font-size: 0.8rem;
-            opacity: 0.8;
         }
     </style>
 </head>
@@ -512,75 +604,127 @@
         <!-- हेडर -->
         <div class="official-header">
             <div class="logo-area">
-                <div class="emblem" role="img" aria-label="भारत का राजकीय प्रतीक">
+                <div class="emblem">
                     <i class="fas fa-dharmachakra"></i>
                     <span>भारत</span>
                 </div>
                 <div class="govt-titles">
-                    <div class="line1"><i class="fas fa-map-marker-alt" style="color:#ff9933; margin-right:6px;"></i>बिहार सरकार</div>
+                    <div class="line1"><i class="fas fa-map-marker-alt" style="color:#ff9933;"></i> बिहार सरकार</div>
                     <div class="line2">पंचायत राज विभाग</div>
-                    <div class="line3"><i class="fas fa-users" style="margin-right:10px;"></i>ग्राम पंचायत कार्यालय · अद्यतन कर्मी सूची</div>
+                    <div class="line3"><i class="fas fa-users"></i> ग्राम पंचायत कार्यालय · अद्यतन कर्मी सूची</div>
                 </div>
             </div>
             <div class="header-badge">
-                <i class="fas fa-check-circle"></i>
-                <span>आधिकारिक जारी सूची</span>
+                <i class="fas fa-check-circle"></i> आधिकारिक जारी सूची
             </div>
         </div>
 
-        <!-- एक्शन बार -->
+        <!-- एक्शन बार (सर्च, प्रिंट, एक्सपोर्ट) -->
         <div class="action-bar">
             <div class="info-chip">
                 <span class="chip" id="totalChip"><i class="fas fa-user-tie"></i> कुल कर्मी <strong>11</strong></span>
                 <span class="chip"><i class="fas fa-calendar-alt"></i> अद्यतन <strong><span id="liveTimestamp"></span></strong></span>
-                <span class="chip"><i class="fas fa-clock"></i> कार्यदिवस व्यवस्था</span>
             </div>
             <div class="action-buttons">
                 <div class="search-box">
-                    <i class="fas fa-search" aria-hidden="true"></i>
-                    <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="कर्मी का नाम, पद, मोबाइल..." aria-label="कर्मी खोजें">
-                    <button onclick="resetSearch()" aria-label="सर्च रीसेट करें"><i class="fas fa-sliders-h"></i> रीसेट</button>
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="नाम, पद, मोबाइल...">
+                    <button class="mic-btn" onclick="voiceSearch()" title="वॉयस सर्च"><i class="fas fa-microphone"></i></button>
+                    <button onclick="resetSearch()"><i class="fas fa-sliders-h"></i> रीसेट</button>
                 </div>
-                <button class="print-btn" onclick="window.print()" aria-label="प्रिंट करें">
-                    <i class="fas fa-print"></i> प्रिंट
-                </button>
+                <button class="print-btn" onclick="window.print()"><i class="fas fa-print"></i> प्रिंट</button>
+                <button class="export-btn excel" onclick="exportToExcel()"><i class="fas fa-file-excel"></i> एक्सेल</button>
+                <button class="export-btn pdf" onclick="exportToPDF()"><i class="fas fa-file-pdf"></i> पीडीएफ</button>
             </div>
         </div>
 
-        <!-- टेबल एरिया -->
+        <!-- फिल्टर पैनल -->
+        <div class="filter-panel">
+            <select id="postFilter" onchange="filterByPost()">
+                <option value="">सभी पद</option>
+                <option value="पंचायत सचिव">पंचायत सचिव</option>
+                <option value="तकनीकी सहायक">तकनीकी सहायक</option>
+                <option value="लेखापाल">लेखापाल-सह-आईटी सहायक</option>
+                <option value="कार्यपालक सहायक">कार्यपालक सहायक</option>
+                <option value="राजस्व कर्मचारी">राजस्व कर्मचारी</option>
+                <option value="आवास सहायक">आवास सहायक</option>
+                <option value="पंचायत रोजगार सेवक">पंचायत रोजगार सेवक</option>
+                <option value="विकास मित्र">विकास मित्र</option>
+                <option value="ग्राम कचहरी सचिव">ग्राम कचहरी सचिव</option>
+                <option value="किसान सलाहकार">किसान सलाहकार</option>
+                <option value="कृषि समन्वयक">कृषि समन्वयक</option>
+            </select>
+            <select id="dayFilter" onchange="filterByDay()">
+                <option value="">सभी कार्यदिवस</option>
+                <option value="प्रतिदिन">प्रतिदिन</option>
+                <option value="सोमवार">सोमवार</option>
+                <option value="मंगल">मंगल/गुरू/शनि</option>
+                <option value="बुध">बुध</option>
+                <option value="शुक्र">शुक्र</option>
+                <option value="शनि">शनिवार</option>
+            </select>
+            <button onclick="highlightToday()"><i class="fas fa-sun"></i> आज का कार्यदिवस</button>
+            <button class="clear" onclick="clearFilters()"><i class="fas fa-times"></i> साफ करें</button>
+        </div>
+
+        <!-- डैशबोर्ड सारांश -->
+        <div class="dashboard-summary">
+            <div class="stat-card"><i class="fas fa-user-tie"></i> <span id="totalCount">11 कर्मी</span></div>
+            <div class="stat-card"><i class="fas fa-calendar-check"></i> <span id="todayCount">आज 0 कर्मी</span></div>
+            <div class="stat-card"><i class="fas fa-filter"></i> <span id="filterCount">सभी दिख रहे</span></div>
+        </div>
+
+        <!-- टेबल -->
         <div class="table-container">
             <table class="govt-table" id="employeeTable">
                 <thead>
                     <tr>
-                        <th onclick="sortTable(0)" aria-label="क्रमांक के अनुसार छाँटें">क्र. <span id="sortIcon0"></span></th>
-                        <th onclick="sortTable(1)" aria-label="नाम के अनुसार छाँटें">नाम <span id="sortIcon1"></span></th>
-                        <th onclick="sortTable(2)" aria-label="पद के अनुसार छाँटें">पदनाम <span id="sortIcon2"></span></th>
-                        <th onclick="sortTable(3)" aria-label="मोबाइल के अनुसार छाँटें">मोबाईल नंबर <span id="sortIcon3"></span></th>
+                        <th onclick="sortTable(0)">क्र. <span id="sortIcon0"></span></th>
+                        <th onclick="sortTable(1)">नाम <span id="sortIcon1"></span></th>
+                        <th onclick="sortTable(2)">पदनाम <span id="sortIcon2"></span></th>
+                        <th onclick="sortTable(3)">मोबाईल नंबर <span id="sortIcon3"></span></th>
                         <th>कार्यदिवस</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                    <!-- Data exactly as original, with typo fixed -->
-                    <tr><td>1</td><td>श्री केदार प्रसाद</td><td>पंचायत सचिव</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>7488482095</span></td><td><span class="day-badge special">सोम/बुध/शुक्र</span></td></tr>
-                    <tr><td>2</td><td>श्री चन्दन कुमार</td><td>तकनीकी सहायक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>9113423537</span></td><td><span class="day-badge">सोमवार</span></td></tr>
-                    <tr><td>3</td><td>श्री हरिशंकर प्रसाद</td><td>लेखापाल-सह-आई०टी० सहायक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>8294106690</span></td><td><span class="day-badge">सोमवार</span></td></tr>
-                    <tr><td>4</td><td>शिरिन तरनूम</td><td>कार्यपालक सहायक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>7061204566</span></td><td><span class="day-badge">प्रतिदिन</span></td></tr>
-                    <tr><td>5</td><td>आलोक कुमार</td><td>राजस्व कर्मचारी</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>7903351748</span></td><td><span class="day-badge special">सोम/बुध/शुक्र</span></td></tr>
-                    <tr><td>6</td><td>श्री अक्षय नीवि</td><td>आवास सहायक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>8521052259</span></td><td><span class="day-badge">प्रतिदिन</span></td></tr>
-                    <tr><td>7</td><td>शिवकुमार पासवान</td><td>पंचायत रोजगार सेवक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>7870615155</span></td><td><span class="day-badge">मंगल/गुरू/शनि</span></td></tr>
-                    <tr><td>8</td><td>श्री कुंदन माँझी</td><td>विकास मित्र</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>8789066819</span></td><td><span class="day-badge">शनिवार</span></td></tr>
-                    <tr><td>9</td><td>श्रीमति सरिता कुमारी</td><td>ग्राम कचहरी सचिव</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>8873321123</span></td><td><span class="day-badge">प्रतिदिन</span></td></tr>
-                    <tr><td>10</td><td>श्री सुनील कुमार</td><td>किसान सलाहकार</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>6206523196</span></td><td><span class="day-badge">प्रतिदिन</span></td></tr>
-                    <tr><td>11</td><td>श्री अविनाश कुमार</td><td>कृषि समन्वयक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>8168077489</span></td><td><span class="day-badge special">शुक्र/शनि</span></td></tr>
+                    <!-- डेटा (वही) -->
+                    <tr><td>1</td><td>श्री केदार प्रसाद</td><td>पंचायत सचिव</td><td><span class="mobile-badge"><i class="fas fa-phone-alt"></i> 7488482095</span></td><td><span class="day-badge special">सोम/बुध/शुक्र</span></td></tr>
+                    <tr><td>2</td><td>श्री चन्दन कुमार</td><td>तकनीकी सहायक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt"></i> 9113423537</span></td><td><span class="day-badge">सोमवार</span></td></tr>
+                    <tr><td>3</td><td>श्री हरिशंकर प्रसाद</td><td>लेखापाल-सह-आई०टी० सहायक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt"></i> 8294106690</span></td><td><span class="day-badge">सोमवार</span></td></tr>
+                    <tr><td>4</td><td>शिरिन तरनूम</td><td>कार्यपालक सहायक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt"></i> 7061204566</span></td><td><span class="day-badge">प्रतिदिन</span></td></tr>
+                    <tr><td>5</td><td>आलोक कुमार</td><td>राजस्व कर्मचारी</td><td><span class="mobile-badge"><i class="fas fa-phone-alt"></i> 7903351748</span></td><td><span class="day-badge special">सोम/बुध/शुक्र</span></td></tr>
+                    <tr><td>6</td><td>श्री अक्षय नीवि</td><td>आवास सहायक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt"></i> 8521052259</span></td><td><span class="day-badge">प्रतिदिन</span></td></tr>
+                    <tr><td>7</td><td>शिवकुमार पासवान</td><td>पंचायत रोजगार सेवक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt"></i> 7870615155</span></td><td><span class="day-badge">मंगल/गुरू/शनि</span></td></tr>
+                    <tr><td>8</td><td>श्री कुंदन माँझी</td><td>विकास मित्र</td><td><span class="mobile-badge"><i class="fas fa-phone-alt"></i> 8789066819</span></td><td><span class="day-badge">शनिवार</span></td></tr>
+                    <tr><td>9</td><td>श्रीमति सरिता कुमारी</td><td>ग्राम कचहरी सचिव</td><td><span class="mobile-badge"><i class="fas fa-phone-alt"></i> 8873321123</span></td><td><span class="day-badge">प्रतिदिन</span></td></tr>
+                    <tr><td>10</td><td>श्री सुनील कुमार</td><td>किसान सलाहकार</td><td><span class="mobile-badge"><i class="fas fa-phone-alt"></i> 6206523196</span></td><td><span class="day-badge">प्रतिदिन</span></td></tr>
+                    <tr><td>11</td><td>श्री अविनाश कुमार</td><td>कृषि समन्वयक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt"></i> 8168077489</span></td><td><span class="day-badge special">शुक्र/शनि</span></td></tr>
                 </tbody>
             </table>
             <div id="noResultMsg" class="no-result" style="display: none;">
-                <i class="fas fa-search"></i><br>
-                कोई कर्मी नहीं मिला
+                <i class="fas fa-search"></i><br>कोई कर्मी नहीं मिला
             </div>
         </div>
 
-        <!-- फुटर (प्रोफेशनल) -->
+        <!-- पेजिनेशन -->
+        <div class="pagination">
+            <div>
+                <label>दिखाएं: </label>
+                <select id="pageSize" onchange="changePageSize()">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+            <div>
+                <button id="prevPage" onclick="prevPage()" disabled><i class="fas fa-chevron-left"></i> पिछला</button>
+                <span id="pageInfo">पेज 1 of 2</span>
+                <button id="nextPage" onclick="nextPage()">अगला <i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <!-- फुटर -->
         <div class="official-footer">
             <div class="footer-left">
                 <span><i class="fas fa-map-pin"></i> बिहार · पंचायती राज विभाग · शेखपुरा</span>
@@ -589,8 +733,7 @@
             </div>
             <div class="footer-right">
                 <div class="qr-code" title="स्कैन करें प्रमाणित करने के लिए">
-                    <i class="fas fa-qrcode"></i>
-                    <span>प्रमाणित</span>
+                    <i class="fas fa-qrcode"></i> प्रमाणित
                 </div>
                 <div class="copyright">
                     <i class="fas fa-copyright"></i> ग्राम पंचायत सरवां
@@ -599,16 +742,45 @@
         </div>
     </div>
 
+    <!-- टोस्ट नोटिफिकेशन -->
+    <div id="toast">
+        <i class="fas fa-check-circle" style="color: #ff9933;"></i>
+        <span id="toastMessage">डेटा एक्सपोर्ट हुआ</span>
+    </div>
+
+    <!-- डार्क मोड टॉगल -->
+    <button id="darkModeToggle" onclick="toggleDarkMode()"><i class="fas fa-moon"></i></button>
+
     <script>
-        // लाइव टाइमस्टैम्प
+        // ---------- ग्लोबल वेरिएबल्स ----------
+        let currentPage = 1;
+        let pageSize = 10;
+        let sortDirection = [true, true, true, true];
+        let originalData = []; // store all rows data for pagination
+
+        // ---------- ऑनलोड फंक्शन ----------
+        window.onload = function() {
+            updateTimestamp();
+            storeOriginalData();
+            applyPagination();
+            updateDashboard();
+            setupKeyboardShortcuts();
+        };
+
+        // ---------- टाइमस्टैम्प ----------
         function updateTimestamp() {
             const now = new Date();
             const day = now.toLocaleDateString('hi-IN', { year: 'numeric', month: 'long', day: 'numeric' });
             document.getElementById('liveTimestamp').innerText = day;
         }
-        updateTimestamp();
 
-        // सर्च फंक्शन
+        // ---------- डेटा स्टोर (पेजिनेशन के लिए) ----------
+        function storeOriginalData() {
+            let rows = document.querySelectorAll('#tableBody tr');
+            originalData = Array.from(rows).map(row => row.cloneNode(true));
+        }
+
+        // ---------- सर्च फंक्शन ----------
         function searchTable() {
             let input = document.getElementById('searchInput');
             let filter = input.value.toLowerCase();
@@ -625,30 +797,79 @@
                 }
             });
             
-            // नो रिजल्ट मैसेज
-            let noMsg = document.getElementById('noResultMsg');
-            if (visibleCount === 0) {
-                noMsg.style.display = 'block';
-            } else {
-                noMsg.style.display = 'none';
-            }
-            
-            // कुल कर्मी अपडेट
-            let totalChip = document.getElementById('totalChip');
-            totalChip.innerHTML = `<i class="fas fa-user-tie"></i> दिख रहे <strong>${visibleCount}</strong> / कुल <strong>11</strong>`;
+            document.getElementById('noResultMsg').style.display = visibleCount === 0 ? 'block' : 'none';
+            document.getElementById('totalChip').innerHTML = `<i class="fas fa-user-tie"></i> दिख रहे <strong>${visibleCount}</strong> / कुल <strong>11</strong>`;
+            updateDashboard();
         }
 
-        // रीसेट सर्च
         function resetSearch() {
             document.getElementById('searchInput').value = '';
             searchTable();
-            // कुल कर्मी रीसेट
             document.getElementById('totalChip').innerHTML = `<i class="fas fa-user-tie"></i> कुल कर्मी <strong>11</strong>`;
         }
 
-        // सॉर्टिंग
-        let sortDirection = [true, true, true, true];
-        
+        // ---------- वॉयस सर्च (डेमो) ----------
+        function voiceSearch() {
+            showToast('वॉयस सर्च शुरू... (डेमो)');
+            // 실제 구현은 브라우저 Web Speech API 사용 가능
+        }
+
+        // ---------- फिल्टर फंक्शन ----------
+        function filterByPost() {
+            let post = document.getElementById('postFilter').value;
+            let rows = document.querySelectorAll('#tableBody tr');
+            rows.forEach(row => {
+                let postCell = row.cells[2].innerText;
+                if (post === '' || postCell.includes(post)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            searchTable(); // re-run search to update counts
+        }
+
+        function filterByDay() {
+            let day = document.getElementById('dayFilter').value;
+            let rows = document.querySelectorAll('#tableBody tr');
+            rows.forEach(row => {
+                let dayCell = row.cells[4].innerText;
+                if (day === '' || dayCell.includes(day) || (day === 'प्रतिदिन' && dayCell === 'प्रतिदिन')) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            searchTable();
+        }
+
+        function clearFilters() {
+            document.getElementById('postFilter').value = '';
+            document.getElementById('dayFilter').value = '';
+            let rows = document.querySelectorAll('#tableBody tr');
+            rows.forEach(row => row.style.display = '');
+            resetSearch();
+        }
+
+        // ---------- आज का कार्यदिवस हाइलाइट ----------
+        function highlightToday() {
+            let today = new Date().getDay(); // 0=रवि,1=सोम,2=मंगल,3=बुध,4=गुरु,5=शुक्र,6=शनि
+            let dayNames = ['रवि', 'सोम', 'मंगल', 'बुध', 'गुरु', 'शुक्र', 'शनि'];
+            let todayStr = dayNames[today];
+            let rows = document.querySelectorAll('#tableBody tr');
+            rows.forEach(row => {
+                let dayCell = row.cells[4].innerText;
+                if (dayCell.includes(todayStr) || dayCell === 'प्रतिदिन') {
+                    row.classList.add('today-row');
+                } else {
+                    row.classList.remove('today-row');
+                }
+            });
+            updateDashboard();
+            showToast('आज के कार्यरत कर्मी हाइलाइट किए गए');
+        }
+
+        // ---------- सॉर्टिंग ----------
         function sortTable(colIndex) {
             if (colIndex === 4) return;
             
@@ -659,14 +880,10 @@
             let isAsc = sortDirection[colIndex];
             
             for (let i = 0; i <= 3; i++) {
-                let iconSpan = document.getElementById('sortIcon' + i);
-                if (iconSpan) iconSpan.innerHTML = '';
+                let icon = document.getElementById('sortIcon' + i);
+                if (icon) icon.innerHTML = '';
             }
-            
-            let currentIcon = document.getElementById('sortIcon' + colIndex);
-            if (currentIcon) {
-                currentIcon.innerHTML = isAsc ? ' ▲' : ' ▼';
-            }
+            document.getElementById('sortIcon' + colIndex).innerHTML = isAsc ? ' ▲' : ' ▼';
             
             rows.sort((a, b) => {
                 let cellA = a.cells[colIndex].textContent.trim();
@@ -680,6 +897,124 @@
             
             tbody.innerHTML = '';
             rows.forEach(row => tbody.appendChild(row));
+            storeOriginalData(); // update stored data after sort
+        }
+
+        // ---------- पेजिनेशन ----------
+        function changePageSize() {
+            pageSize = parseInt(document.getElementById('pageSize').value);
+            currentPage = 1;
+            applyPagination();
+        }
+
+        function applyPagination() {
+            let rows = originalData.map(clone => clone.cloneNode(true)); // get fresh clones
+            let totalRows = rows.length;
+            let start = (currentPage - 1) * pageSize;
+            let end = start + pageSize;
+            let pageRows = rows.slice(start, end);
+            
+            let tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            pageRows.forEach(row => tbody.appendChild(row));
+            
+            let totalPages = Math.ceil(totalRows / pageSize);
+            document.getElementById('pageInfo').innerText = `पेज ${currentPage} of ${totalPages}`;
+            document.getElementById('prevPage').disabled = currentPage === 1;
+            document.getElementById('nextPage').disabled = currentPage === totalPages;
+            
+            searchTable(); // re-run search to reflect pagination
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                applyPagination();
+            }
+        }
+
+        function nextPage() {
+            let totalPages = Math.ceil(originalData.length / pageSize);
+            if (currentPage < totalPages) {
+                currentPage++;
+                applyPagination();
+            }
+        }
+
+        // ---------- एक्सपोर्ट (डेमो) ----------
+        function exportToExcel() {
+            showToast('एक्सेल डाउनलोड शुरू (डेमो)');
+        }
+        function exportToPDF() {
+            showToast('पीडीएफ डाउनलोड शुरू (डेमो)');
+        }
+
+        // ---------- डैशबोर्ड अपडेट ----------
+        function updateDashboard() {
+            let rows = document.querySelectorAll('#tableBody tr');
+            let visible = Array.from(rows).filter(r => r.style.display !== 'none').length;
+            document.getElementById('totalCount').innerText = visible + ' कर्मी';
+            
+            let today = new Date().getDay();
+            let dayNames = ['रवि', 'सोम', 'मंगल', 'बुध', 'गुरु', 'शुक्र', 'शनि'];
+            let todayStr = dayNames[today];
+            let todayWorking = 0;
+            rows.forEach(r => {
+                if (r.style.display !== 'none') {
+                    let dayCell = r.cells[4].innerText;
+                    if (dayCell.includes(todayStr) || dayCell === 'प्रतिदिन') todayWorking++;
+                }
+            });
+            document.getElementById('todayCount').innerText = 'आज ' + todayWorking + ' कर्मी';
+            
+            let postFilter = document.getElementById('postFilter').value;
+            let dayFilter = document.getElementById('dayFilter').value;
+            if (postFilter || dayFilter) {
+                document.getElementById('filterCount').innerText = 'फिल्टर सक्रिय';
+            } else {
+                document.getElementById('filterCount').innerText = 'सभी दिख रहे';
+            }
+        }
+
+        // ---------- टोस्ट ----------
+        function showToast(msg) {
+            let toast = document.getElementById('toast');
+            document.getElementById('toastMessage').innerText = msg;
+            toast.style.display = 'flex';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 2000);
+        }
+
+        // ---------- डार्क मोड ----------
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            let icon = document.querySelector('#darkModeToggle i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+            showToast('थीम बदल दी गई');
+        }
+
+        // ---------- कीबोर्ड शॉर्टकट ----------
+        function setupKeyboardShortcuts() {
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey && e.key === 'f') {
+                    e.preventDefault();
+                    document.getElementById('searchInput').focus();
+                    showToast('सर्च बॉक्स एक्टिवेट हुआ');
+                }
+                if (e.ctrlKey && e.key === 'p') {
+                    e.preventDefault();
+                    window.print();
+                }
+                if (e.key === 'Escape') {
+                    resetSearch();
+                    showToast('सर्च रीसेट हुआ');
+                }
+            });
         }
     </script>
 </body>
