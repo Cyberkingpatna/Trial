@@ -27,7 +27,7 @@
             padding: 2rem 1rem;
         }
 
-        /* मुख्य कार्ड */
+        /* मुख्य कार्ड - प्रोफेशनल एनिमेशन */
         .govt-card {
             max-width: 1400px;
             width: 100%;
@@ -35,10 +35,15 @@
             border-radius: 36px 36px 24px 24px;
             box-shadow: 0 30px 60px -20px rgba(0, 35, 70, 0.4), 0 0 0 1px rgba(255, 153, 51, 0.2) inset;
             overflow: hidden;
-            transition: all 0.2s ease;
+            animation: cardFadeIn 0.5s ease;
         }
 
-        /* तिरंगा पट्टी — अधिक प्रोफेशनल */
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* तिरंगा पट्टी */
         .tricolor-strip {
             height: 8px;
             width: 100%;
@@ -142,7 +147,7 @@
             font-size: 1.5rem;
         }
 
-        /* सब-हेडर (सांख्यिकी + सर्च) */
+        /* सब-हेडर (सांख्यिकी + सर्च + प्रिंट) */
         .action-bar {
             background: #f2f7fd;
             padding: 0.8rem 3rem;
@@ -180,6 +185,12 @@
             margin-left: 4px;
         }
 
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
         .search-box {
             background: white;
             padding: 0.3rem 0.3rem 0.3rem 1.5rem;
@@ -210,19 +221,47 @@
             border-radius: 60px;
             font-weight: 600;
             font-size: 0.95rem;
-            cursor: pointer;  /* FIXED: Cursor pointer for better UX */
+            cursor: pointer;
             border: 1px solid #ff9933;
-            transition: 0.1s ease;
+            transition: 0.2s ease;
             display: flex;
             align-items: center;
             gap: 8px;
         }
+        .search-box button:hover {
+            background: #1e4a7a;
+            transform: scale(1.02);
+        }
 
-        /* टेबल एरिया - हॉरिजॉन्टल स्क्रॉल फिक्स */
+        .print-btn {
+            background: white;
+            border: 1.5px solid #003366;
+            color: #003366;
+            padding: 0.6rem 1.5rem;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s ease;
+        }
+        .print-btn:hover {
+            background: #003366;
+            color: white;
+        }
+        .print-btn:hover i {
+            color: white;
+        }
+        .print-btn i {
+            color: #003366;
+        }
+
+        /* टेबल एरिया */
         .table-container {
             padding: 2rem 3rem 2.5rem 3rem;
             overflow-x: auto;
-            -webkit-overflow-scrolling: touch; /* Smooth scroll on mobile */
+            -webkit-overflow-scrolling: touch;
         }
 
         .govt-table {
@@ -230,7 +269,7 @@
             border-collapse: separate;
             border-spacing: 0 10px;
             font-size: 1.05rem;
-            min-width: 800px; /* Ensures table doesn't break on mobile */
+            min-width: 800px;
         }
 
         .govt-table thead tr {
@@ -246,8 +285,34 @@
             text-align: left;
             white-space: nowrap;
             border-right: 1px solid #2a5a8c;
-            cursor: pointer; /* Indicates sortable */
+            cursor: pointer;
             user-select: none;
+            transition: background 0.2s;
+            position: relative;
+        }
+        .govt-table th:hover {
+            background: #1e4a7a;
+        }
+        /* टूलटिप - प्रोफेशनल टच */
+        .govt-table th::after {
+            content: "🔽 क्लिक करें छाँटने के लिए";
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 20px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            z-index: 10;
+        }
+        .govt-table th:hover::after {
+            opacity: 0.9;
         }
         .govt-table th:first-child {
             border-radius: 20px 0 0 20px;
@@ -267,7 +332,7 @@
             border-right: none;
         }
         .govt-table tbody tr {
-            transition: all 0.15s;
+            transition: all 0.2s;
             border-radius: 20px;
             cursor: default;
         }
@@ -317,6 +382,22 @@
             border-left-color: #ff9933;
         }
 
+        /* नो रिजल्ट मैसेज */
+        .no-result {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2rem;
+            color: #666;
+            background: #f9f9f9;
+            border-radius: 60px;
+            margin: 20px 0;
+        }
+        .no-result i {
+            font-size: 3rem;
+            color: #ff9933;
+            margin-bottom: 15px;
+        }
+
         /* फुटर */
         .official-footer {
             background: #0a2a44;
@@ -343,6 +424,28 @@
         }
 
         .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .qr-code {
+            background: white;
+            padding: 5px 10px;
+            border-radius: 30px;
+            color: #003366;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .qr-code i {
+            font-size: 1.5rem;
+            color: #003366;
+        }
+
+        .copyright {
             background: #ffb347;
             color: #003366;
             padding: 0.5rem 2.5rem;
@@ -352,9 +455,9 @@
             box-shadow: 0 4px 12px rgba(255,180,70,0.4);
         }
 
-        /* PRINT STYLES - नया फीचर */
+        /* PRINT STYLES */
         @media print {
-            .action-bar, .header-badge, .search-box, .footer-right {
+            .action-bar, .header-badge, .print-btn, .qr-code, .govt-table th::after {
                 display: none;
             }
             .govt-card {
@@ -380,13 +483,16 @@
             .search-box input { min-width: 160px; }
             .govt-table th, .govt-table td { padding: 12px 8px; font-size: 0.95rem; }
             .header-badge { margin-left: 0; }
+            .govt-table th::after { content: ""; display: none; }
         }
         @media (max-width: 480px) {
-            .search-box { flex-wrap: wrap; background: none; padding: 0; border: none; }
+            .search-box { flex-wrap: wrap; background: none; padding: 0; border: none; width: 100%; }
             .search-box input { background: white; border-radius: 60px; margin-bottom: 8px; width: 100%; }
+            .action-buttons { width: 100%; }
+            .print-btn { width: 100%; justify-content: center; }
         }
 
-        /* Sorting Icons (optional visual) */
+        /* Sorting Icons */
         .sort-asc::after {
             content: " ▲";
             font-size: 0.8rem;
@@ -403,10 +509,10 @@
     <div class="govt-card">
         <div class="tricolor-strip"></div>
 
-        <!-- प्रोफेशनल हेडर -->
+        <!-- हेडर -->
         <div class="official-header">
             <div class="logo-area">
-                <div class="emblem">
+                <div class="emblem" role="img" aria-label="भारत का राजकीय प्रतीक">
                     <i class="fas fa-dharmachakra"></i>
                     <span>भारत</span>
                 </div>
@@ -422,34 +528,39 @@
             </div>
         </div>
 
-        <!-- एक्शन बार – सर्च + काउंट -->
+        <!-- एक्शन बार -->
         <div class="action-bar">
             <div class="info-chip">
-                <span class="chip"><i class="fas fa-user-tie"></i> कुल कर्मी <strong>11</strong></span>
-                <span class="chip"><i class="fas fa-calendar-alt"></i> अद्यतन <strong>फरवरी 2026</strong></span>
+                <span class="chip" id="totalChip"><i class="fas fa-user-tie"></i> कुल कर्मी <strong>11</strong></span>
+                <span class="chip"><i class="fas fa-calendar-alt"></i> अद्यतन <strong><span id="liveTimestamp"></span></strong></span>
                 <span class="chip"><i class="fas fa-clock"></i> कार्यदिवस व्यवस्था</span>
             </div>
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="कर्मी का नाम, पद, मोबाइल..." value="">
-                <button onclick="document.getElementById('searchInput').value=''; searchTable();"><i class="fas fa-sliders-h"></i> रीसेट</button>
+            <div class="action-buttons">
+                <div class="search-box">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                    <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="कर्मी का नाम, पद, मोबाइल..." aria-label="कर्मी खोजें">
+                    <button onclick="resetSearch()" aria-label="सर्च रीसेट करें"><i class="fas fa-sliders-h"></i> रीसेट</button>
+                </div>
+                <button class="print-btn" onclick="window.print()" aria-label="प्रिंट करें">
+                    <i class="fas fa-print"></i> प्रिंट
+                </button>
             </div>
         </div>
 
-        <!-- टेबल एरिया (डेटा बिल्कुल वैसा ही, सिर्फ पंक्ति 6 का "श्रीमति" हटाकर "श्री" किया गया है जैसा आपने कहा था) -->
+        <!-- टेबल एरिया -->
         <div class="table-container">
             <table class="govt-table" id="employeeTable">
                 <thead>
                     <tr>
-                        <th onclick="sortTable(0)">क्र. <span id="sortIcon0"></span></th>
-                        <th onclick="sortTable(1)">नाम <span id="sortIcon1"></span></th>
-                        <th onclick="sortTable(2)">पदनाम <span id="sortIcon2"></span></th>
-                        <th onclick="sortTable(3)">मोबाईल नंबर <span id="sortIcon3"></span></th>
-                        <th>कार्यदिवस</th> <!-- Not sortable (kept as is) -->
+                        <th onclick="sortTable(0)" aria-label="क्रमांक के अनुसार छाँटें">क्र. <span id="sortIcon0"></span></th>
+                        <th onclick="sortTable(1)" aria-label="नाम के अनुसार छाँटें">नाम <span id="sortIcon1"></span></th>
+                        <th onclick="sortTable(2)" aria-label="पद के अनुसार छाँटें">पदनाम <span id="sortIcon2"></span></th>
+                        <th onclick="sortTable(3)" aria-label="मोबाइल के अनुसार छाँटें">मोबाईल नंबर <span id="sortIcon3"></span></th>
+                        <th>कार्यदिवस</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                    <!-- Data exactly as original, with typo fix: row 6 "श्रीमति" -> "श्री" and footer typo fixed -->
+                    <!-- Data exactly as original, with typo fixed -->
                     <tr><td>1</td><td>श्री केदार प्रसाद</td><td>पंचायत सचिव</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>7488482095</span></td><td><span class="day-badge special">सोम/बुध/शुक्र</span></td></tr>
                     <tr><td>2</td><td>श्री चन्दन कुमार</td><td>तकनीकी सहायक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>9113423537</span></td><td><span class="day-badge">सोमवार</span></td></tr>
                     <tr><td>3</td><td>श्री हरिशंकर प्रसाद</td><td>लेखापाल-सह-आई०टी० सहायक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>8294106690</span></td><td><span class="day-badge">सोमवार</span></td></tr>
@@ -463,87 +574,113 @@
                     <tr><td>11</td><td>श्री अविनाश कुमार</td><td>कृषि समन्वयक</td><td><span class="mobile-badge"><i class="fas fa-phone-alt" style="margin-right:6px; color:#1e6b5e;"></i>8168077489</span></td><td><span class="day-badge special">शुक्र/शनि</span></td></tr>
                 </tbody>
             </table>
+            <div id="noResultMsg" class="no-result" style="display: none;">
+                <i class="fas fa-search"></i><br>
+                कोई कर्मी नहीं मिला
+            </div>
         </div>
 
-        <!-- फुटर (टाइपो फिक्स: सर्वाां -> सरवां) -->
+        <!-- फुटर (प्रोफेशनल) -->
         <div class="official-footer">
             <div class="footer-left">
                 <span><i class="fas fa-map-pin"></i> बिहार · पंचायती राज विभाग · शेखपुरा</span>
                 <span><i class="fas fa-print"></i> कार्यदिवस सूची 2026</span>
-                <span><i class="fas fa-shield-alt"></i> जिला पंचायत राज कार्यालय, शेखपुरा। </span>
+                <span><i class="fas fa-shield-alt"></i> जिला पंचायत राज कार्यालय, शेखपुरा</span>
             </div>
             <div class="footer-right">
-                <i class="fas fa-copyright"></i> ग्राम पंचायत सरवां   <!-- Fixed typo -->
+                <div class="qr-code" title="स्कैन करें प्रमाणित करने के लिए">
+                    <i class="fas fa-qrcode"></i>
+                    <span>प्रमाणित</span>
+                </div>
+                <div class="copyright">
+                    <i class="fas fa-copyright"></i> ग्राम पंचायत सरवां
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- JavaScript for Search and Sort -->
     <script>
-        // Live Search Function
+        // लाइव टाइमस्टैम्प
+        function updateTimestamp() {
+            const now = new Date();
+            const day = now.toLocaleDateString('hi-IN', { year: 'numeric', month: 'long', day: 'numeric' });
+            document.getElementById('liveTimestamp').innerText = day;
+        }
+        updateTimestamp();
+
+        // सर्च फंक्शन
         function searchTable() {
             let input = document.getElementById('searchInput');
             let filter = input.value.toLowerCase();
             let rows = document.querySelectorAll('#tableBody tr');
+            let visibleCount = 0;
             
             rows.forEach(row => {
                 let text = row.textContent.toLowerCase();
-                row.style.display = text.includes(filter) ? '' : 'none';
+                if (text.includes(filter)) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
             });
+            
+            // नो रिजल्ट मैसेज
+            let noMsg = document.getElementById('noResultMsg');
+            if (visibleCount === 0) {
+                noMsg.style.display = 'block';
+            } else {
+                noMsg.style.display = 'none';
+            }
+            
+            // कुल कर्मी अपडेट
+            let totalChip = document.getElementById('totalChip');
+            totalChip.innerHTML = `<i class="fas fa-user-tie"></i> दिख रहे <strong>${visibleCount}</strong> / कुल <strong>11</strong>`;
         }
 
-        // Sorting Function
-        let sortDirection = [true, true, true, true]; // true = asc, false = desc for each column (0,1,2,3)
+        // रीसेट सर्च
+        function resetSearch() {
+            document.getElementById('searchInput').value = '';
+            searchTable();
+            // कुल कर्मी रीसेट
+            document.getElementById('totalChip').innerHTML = `<i class="fas fa-user-tie"></i> कुल कर्मी <strong>11</strong>`;
+        }
+
+        // सॉर्टिंग
+        let sortDirection = [true, true, true, true];
         
         function sortTable(colIndex) {
-            if (colIndex === 4) return; // Do not sort "कार्यदिवस" column
+            if (colIndex === 4) return;
             
-            let table = document.getElementById("employeeTable");
             let tbody = document.getElementById("tableBody");
             let rows = Array.from(tbody.rows);
             
-            // Toggle direction
             sortDirection[colIndex] = !sortDirection[colIndex];
             let isAsc = sortDirection[colIndex];
             
-            // Remove icons from all headers
             for (let i = 0; i <= 3; i++) {
                 let iconSpan = document.getElementById('sortIcon' + i);
                 if (iconSpan) iconSpan.innerHTML = '';
             }
             
-            // Set icon on current column
             let currentIcon = document.getElementById('sortIcon' + colIndex);
             if (currentIcon) {
                 currentIcon.innerHTML = isAsc ? ' ▲' : ' ▼';
             }
             
-            // Sort rows
             rows.sort((a, b) => {
                 let cellA = a.cells[colIndex].textContent.trim();
                 let cellB = b.cells[colIndex].textContent.trim();
                 
-                // For numeric column (क्र.)
                 if (colIndex === 0) {
-                    let numA = parseInt(cellA);
-                    let numB = parseInt(cellB);
-                    return isAsc ? numA - numB : numB - numA;
+                    return isAsc ? parseInt(cellA) - parseInt(cellB) : parseInt(cellB) - parseInt(cellA);
                 }
-                
-                // String comparison for other columns
                 return isAsc ? cellA.localeCompare(cellB, 'hi') : cellB.localeCompare(cellA, 'hi');
             });
             
-            // Reorder tbody
             tbody.innerHTML = '';
             rows.forEach(row => tbody.appendChild(row));
         }
-
-        // Reset search when clicking reset button
-        document.querySelector('.search-box button').addEventListener('click', function() {
-            document.getElementById('searchInput').value = '';
-            searchTable();
-        });
     </script>
 </body>
 </html>
