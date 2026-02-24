@@ -598,9 +598,14 @@
     }
 
     /* चार्ट */
-    #yearChart, #pieChart {
+    #yearChart {
       max-height: 180px !important;
       width: 100% !important;
+    }
+    #pieChart {
+      max-height: 150px !important;
+      width: 100% !important;
+      margin-top: 15px;
     }
 
     /* टेबल सेक्शन */
@@ -861,7 +866,7 @@
     </div>
   </div>
 
-  <!-- नए फीचर कार्ड (गेज, टॉप प्रोजेक्ट्स, रिपोर्ट कार्ड) + पाई चार्ट कार्ड -->
+  <!-- नए फीचर कार्ड (गेज, टॉप प्रोजेक्ट्स, रिपोर्ट कार्ड) + अब पाई चार्ट पहले कार्ड में ही -->
   <div class="feature-grid">
     <div class="feature-card">
       <div class="feature-title"><i class="fas fa-chart-line"></i> <span class="budgetTitle">बजट उपयोग</span></div>
@@ -869,6 +874,11 @@
       <div style="display: flex; justify-content: space-between;">
         <span class="usedLabel">उपयोग: <span id="budgetUsed">₹0</span></span>
         <span class="totalLabel">कुल: <span id="budgetTotal">₹0</span></span>
+      </div>
+      <!-- पाई चार्ट (फंड वार वितरण) यहाँ जोड़ा गया -->
+      <div style="margin-top: 20px;">
+        <div class="feature-title" style="margin-bottom: 5px;"><i class="fas fa-chart-pie"></i> <span id="pieTitle">फंड वार वितरण</span></div>
+        <canvas id="pieChart"></canvas>
       </div>
     </div>
     <div class="feature-card">
@@ -879,12 +889,6 @@
       <div class="feature-title"><i class="fas fa-calendar-check"></i> <span class="yearlySuccessTitle">वर्षवार सफलता</span></div>
       <div id="yearlyReport"></div>
     </div>
-  </div>
-
-  <!-- दूसरी पंक्ति: पाई चार्ट कार्ड (नया) -->
-  <div class="chart-card" style="grid-column: 1 / -1;">
-    <div class="summary-header"><h3><i class="fas fa-chart-pie"></i> <span id="pieTitle">फंड वार वितरण</span></h3></div>
-    <canvas id="pieChart" style="max-height:200px;"></canvas>
   </div>
 
   <!-- कंट्रोल रिबन (अतिरिक्त टूल्स के साथ) -->
@@ -1010,9 +1014,12 @@
     </div>
   </div>
 
-  <!-- फुटर -->
+  <!-- फुटर (Created By Aman Kumar जोड़ा गया) -->
   <div class="excellence-footer">
-    <div><i class="fas fa-check-double"></i> पंचायत सर्वा · <span id="lastUpdated"></span></div>
+    <div>
+      <i class="fas fa-check-double"></i> पंचायत सर्वा · <span id="lastUpdated"></span><br>
+      Created By Aman Kumar
+    </div>
     <div class="footer-actions">
       <button class="btn-icon" onclick="exportCSV()"><i class="fas fa-file-csv"></i> CSV</button>
       <button class="btn-icon" onclick="exportExcel()"><i class="fas fa-file-excel"></i> Excel</button>
