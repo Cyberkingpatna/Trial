@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-  <title>ग्राम पंचायत सर्वा · उन्नत डैशबोर्ड</title>
+  <title>ग्राम पंचायत सर्वा · प्रीमियम डैशबोर्ड</title>
   <!-- फॉन्ट और आइकन -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <!-- चार्ट.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -23,34 +23,47 @@
     }
 
     body {
-      font-family: 'Outfit', sans-serif;
-      background: #f8fafc;  /* हल्का बैकग्राउंड */
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e9ecf2 100%);
       padding: 24px 20px;
-      color: #0b2d45;
+      color: #1e293b;
       line-height: 1.5;
       transition: background-color 0.3s, color 0.3s;
     }
 
+    /* === स्केलेटन लोडिंग === */
+    .skeleton {
+      background: linear-gradient(90deg, #e2e8f0 25%, #cbd5e1 50%, #e2e8f0 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+      border-radius: 12px;
+    }
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
     /* डार्क मोड */
     body.dark-mode {
-      background: #0f172a;
-      color: #e2e8f0;
+      background: #0f1825;
+      color: #e9edf2;
     }
     body.dark-mode .masthead {
-      background: #1e293b;
-      border-bottom: 3px solid #f97316;
+      background: #1f2b3a;
+      border-bottom: 3px solid #fbbf24;
     }
     body.dark-mode .control-ribbon,
     body.dark-mode .finance-summary,
     body.dark-mode .chart-card,
     body.dark-mode .table-section,
-    body.dark-mode .excellence-footer {
-      background: #1e293b;
+    body.dark-mode .excellence-footer,
+    body.dark-mode .feature-card {
+      background: #1f2b3a;
       border-color: #334155;
     }
     body.dark-mode .search-module {
-      background: #0f172a;
-      border-color: #f97316;
+      background: #0f1825;
+      border-color: #fbbf24;
     }
     body.dark-mode .search-module input {
       color: #f8fafc;
@@ -60,35 +73,36 @@
       color: #e2e8f0;
     }
     body.dark-mode .pill.active {
-      background: #f97316;
-      color: #0f172a;
+      background: #fbbf24;
+      color: #0f1825;
     }
     body.dark-mode .legend-item,
-    body.dark-mode .quick-stats {
-      background: #0f172a;
+    body.dark-mode .quick-stats,
+    body.dark-mode .feature-card {
+      background: #0f1825;
     }
     body.dark-mode th {
-      background: #f97316;
-      color: #0f172a;
+      background: #fbbf24;
+      color: #0f1825;
     }
     body.dark-mode td {
       border-bottom-color: #334155;
     }
     body.dark-mode .badge {
-      background: #f97316;
-      color: #0f172a;
+      background: #fbbf24;
+      color: #0f1825;
     }
     body.dark-mode .donut {
-      border-color: #f97316;
-      border-top-color: #facc15;
+      border-color: #fbbf24;
+      border-top-color: #f97316;
     }
     body.dark-mode .toast-notification {
       background: #334155;
       color: #f8fafc;
     }
     body.dark-mode .logo-circle {
-      background: #f97316;
-      color: #0f172a;
+      background: #fbbf24;
+      color: #0f1825;
     }
 
     .flagship-dashboard {
@@ -104,7 +118,7 @@
       position: fixed;
       bottom: 30px;
       right: 30px;
-      background: #1e3a8a;
+      background: #0f2a44;
       color: white;
       padding: 12px 24px;
       border-radius: 50px;
@@ -121,14 +135,15 @@
       transform: translateY(0);
     }
 
-    /* === हेडर === */
+    /* === हेडर - नया ग्लासमॉर्फिक डिज़ाइन === */
     .masthead {
-      background: linear-gradient(135deg, #ff8c42 0%, #ff5722 100%);
-      border-radius: 32px 32px 32px 32px;
+      background: rgba(15, 42, 68, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 40px;
       padding: 32px 28px;
       color: white;
-      box-shadow: 0 20px 30px -15px #ff8c4260;
-      border-bottom: 5px solid #1e3a8a;
+      box-shadow: 0 25px 40px -18px #0f2a44;
+      border: 1px solid rgba(251, 191, 36, 0.3);
       transition: background 0.3s;
     }
     .brand-row {
@@ -150,7 +165,7 @@
       gap: 10px;
     }
     .gov-icon {
-      background: white;
+      background: linear-gradient(145deg, #ffffff, #f0f4fa);
       width: 70px;
       height: 70px;
       border-radius: 50%;
@@ -158,11 +173,11 @@
       align-items: center;
       justify-content: center;
       font-size: 2.8rem;
-      color: #1e3a8a;
+      color: #0f2a44;
       box-shadow: 0 6px 12px #00000030;
     }
     .logo-circle {
-      background: white;
+      background: #fbbf24;
       width: 60px;
       height: 60px;
       border-radius: 50%;
@@ -171,18 +186,18 @@
       justify-content: center;
       font-size: 1.4rem;
       font-weight: 700;
-      color: #1e3a8a;
+      color: #0f2a44;
       box-shadow: 0 4px 8px #00000030;
       text-transform: uppercase;
-      line-height: 1.2;
-      text-align: center;
-      padding: 0 4px;
     }
     .gov-title h1 {
       font-weight: 800;
       font-size: 2rem;
       letter-spacing: -0.02em;
-      text-shadow: 2px 2px 0 #00000030;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      background: linear-gradient(135deg, #ffffff, #fef9c3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     .gov-title .sub {
       display: flex;
@@ -193,7 +208,8 @@
       opacity: 0.95;
     }
     .commission-tag {
-      background: #1e3a8a;
+      background: #fbbf24;
+      color: #0f2a44;
       border-radius: 40px;
       padding: 12px 28px;
       font-weight: 600;
@@ -203,19 +219,20 @@
       transition: 0.2s;
     }
     .commission-tag:hover {
-      background: #facc15;
-      color: #1e3a8a;
+      background: #f59e0b;
+      transform: translateY(-2px);
     }
     /* लाइव घड़ी */
     .live-clock {
       font-size: 1.2rem;
-      background: #ffffff20;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(5px);
       border-radius: 40px;
       padding: 8px 20px;
       font-weight: 500;
     }
 
-    /* स्टैट्स कार्ड */
+    /* स्टैट्स कार्ड - ग्लासमॉर्फिक */
     .gold-stats {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -223,25 +240,26 @@
       margin-top: 32px;
     }
     .metric-gold {
-      background: rgba(255,255,255,0.2);
-      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px);
       border-radius: 28px;
       padding: 22px 16px;
       display: flex;
       align-items: center;
       gap: 16px;
-      border: 1px solid rgba(255,255,255,0.6);
+      border: 1px solid rgba(255,255,255,0.25);
       transition: 0.2s;
     }
     .metric-gold:hover {
-      background: rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.25);
       transform: translateY(-5px);
+      border-color: #fbbf24;
     }
     .metric-icon {
       font-size: 2.4rem;
       width: 60px;
       height: 60px;
-      background: #ffffff40;
+      background: rgba(255,255,255,0.2);
       border-radius: 30px;
       display: flex;
       align-items: center;
@@ -258,9 +276,53 @@
       letter-spacing: 1px;
     }
 
+    /* === नई फीचर कार्ड === */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+    }
+    .feature-card {
+      background: white;
+      border-radius: 28px;
+      padding: 20px;
+      border: 1px solid #fbbf24;
+      box-shadow: 0 10px 18px -8px rgba(251, 191, 36, 0.3);
+    }
+    .feature-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #0f2a44;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .budget-gauge {
+      width: 100%;
+      height: 20px;
+      background: #e2e8f0;
+      border-radius: 30px;
+      overflow: hidden;
+      margin: 8px 0;
+    }
+    .gauge-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #fbbf24, #f97316);
+      border-radius: 30px;
+      transition: width 0.4s;
+    }
+    .top-project-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px dashed #fbbf24;
+    }
+
     /* कंट्रोल रिबन */
     .control-ribbon {
-      background: white;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(10px);
       border-radius: 50px;
       padding: 14px 24px;
       display: flex;
@@ -268,18 +330,18 @@
       align-items: center;
       justify-content: space-between;
       gap: 20px;
-      border: 2px solid #f97316;
-      box-shadow: 0 6px 14px #f9731640;
+      border: 2px solid #fbbf24;
+      box-shadow: 0 6px 14px #fbbf2440;
     }
     .search-module {
       display: flex;
       align-items: center;
-      background: #fef9f4;
+      background: #ffffff;
       border-radius: 40px;
       padding: 10px 22px;
       min-width: 260px;
       flex: 1 1 260px;
-      border: 1px solid #ffb085;
+      border: 1px solid #fbbf24;
     }
     .search-module i {
       color: #f97316;
@@ -299,7 +361,7 @@
       align-items: center;
     }
     .pill {
-      background: #ffedd5;
+      background: #fff7e0;
       border: none;
       padding: 10px 24px;
       border-radius: 40px;
@@ -313,11 +375,11 @@
       gap: 8px;
     }
     .pill.active {
-      background: #f97316;
-      color: white;
+      background: #fbbf24;
+      color: #0f2a44;
     }
-    #yearFilter {
-      background: #ffedd5;
+    #yearFilter, #rowsPerPage {
+      background: #fff7e0;
       border: none;
       padding: 10px 28px 10px 20px;
       border-radius: 40px;
@@ -333,7 +395,7 @@
       gap: 8px;
     }
     .extra-btn {
-      background: #ffedd5;
+      background: #fff7e0;
       border: none;
       width: 44px;
       height: 44px;
@@ -347,8 +409,9 @@
       transition: 0.2s;
     }
     .extra-btn:hover {
-      background: #f97316;
-      color: white;
+      background: #fbbf24;
+      color: #0f2a44;
+      transform: scale(1.05);
     }
 
     /* कॉलम टॉगल ड्रॉपडाउन */
@@ -361,7 +424,7 @@
       position: absolute;
       right: 0;
       background: white;
-      border: 1px solid #f97316;
+      border: 1px solid #fbbf24;
       border-radius: 20px;
       padding: 12px;
       z-index: 100;
@@ -387,15 +450,15 @@
       background: white;
       border-radius: 32px;
       padding: 20px;
-      border: 1px solid #ffb085;
-      box-shadow: 0 10px 18px -10px #f9731680;
+      border: 1px solid #fbbf24;
+      box-shadow: 0 10px 18px -10px #fbbf2480;
     }
     .finance-summary {
       background: white;
       border-radius: 32px;
       padding: 24px;
-      border: 1px solid #ffb085;
-      box-shadow: 0 10px 18px -10px #f9731680;
+      border: 1px solid #fbbf24;
+      box-shadow: 0 10px 18px -10px #fbbf2480;
     }
     .summary-header {
       display: flex;
@@ -403,7 +466,7 @@
       margin-bottom: 12px;
       font-weight: 600;
       font-size: 1.1rem;
-      color: #1e3a8a;
+      color: #0f2a44;
     }
     .donut-progress {
       display: flex;
@@ -420,9 +483,9 @@
       justify-content: center;
       font-weight: 800;
       font-size: 2rem;
-      color: #1e3a8a;
+      color: #0f2a44;
       border: 8px solid #fed7aa;
-      border-top-color: #f97316;
+      border-top-color: #fbbf24;
       margin: 0 auto 10px;
     }
     .legend-grid {
@@ -435,7 +498,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      background: #fef9f4;
+      background: #fff9f0;
       padding: 10px 12px;
       border-radius: 24px;
       font-size: 0.9rem;
@@ -446,7 +509,7 @@
       border-radius: 20px;
     }
     .quick-stats {
-      background: #fef9f4;
+      background: #fff9f0;
       border-radius: 24px;
       padding: 14px;
       margin: 14px 0;
@@ -455,7 +518,7 @@
     .stat-row {
       display: flex;
       justify-content: space-between;
-      border-bottom: 1px dashed #ffb085;
+      border-bottom: 1px dashed #fbbf24;
       padding: 8px 0;
     }
     .progress-micro-bar {
@@ -472,7 +535,7 @@
       transition: width 0.4s;
     }
 
-    /* चार्ट को मध्यम आकार */
+    /* चार्ट */
     #yearChart {
       max-height: 180px !important;
       width: 100% !important;
@@ -483,8 +546,8 @@
       background: white;
       border-radius: 32px;
       padding: 6px;
-      border: 1px solid #ffb085;
-      box-shadow: 0 10px 18px -10px #f9731680;
+      border: 1px solid #fbbf24;
+      box-shadow: 0 10px 18px -10px #fbbf2480;
     }
     .table-header {
       display: flex;
@@ -497,11 +560,11 @@
     .table-header h2 {
       font-weight: 700;
       font-size: 1.7rem;
-      color: #1e3a8a;
+      color: #0f2a44;
     }
     .badge {
-      background: #f97316;
-      color: white;
+      background: #fbbf24;
+      color: #0f2a44;
       padding: 8px 24px;
       border-radius: 40px;
       font-weight: 700;
@@ -517,8 +580,8 @@
       min-width: 1300px;
     }
     th {
-      background: #f97316;
-      color: white;
+      background: #fbbf24;
+      color: #0f2a44;
       padding: 16px 12px;
       font-weight: 600;
       cursor: pointer;
@@ -530,8 +593,11 @@
       padding: 14px 12px;
       border-bottom: 1px solid #fed7aa;
     }
+    tbody tr:nth-child(even) {
+      background: #fffdf7;
+    }
     tbody tr:hover td {
-      background: #fff4e6;
+      background: #fffbeb;
     }
     .status-super {
       display: inline-flex;
@@ -564,15 +630,34 @@
       text-align: right;
       font-weight: 600;
     }
-    /* पेजिनेशन */
+    /* पेजिनेशन और रो प्रति पेज */
+    .pagination-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .rows-selector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .rows-selector select {
+      background: #fff7e0;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-weight: 600;
+      color: #7b2c0d;
+    }
     .pagination {
       display: flex;
-      justify-content: flex-end;
       gap: 8px;
-      padding: 16px 24px;
     }
     .page-btn {
-      background: #ffedd5;
+      background: #fff7e0;
       border: none;
       padding: 8px 16px;
       border-radius: 30px;
@@ -582,8 +667,8 @@
       transition: 0.2s;
     }
     .page-btn.active {
-      background: #f97316;
-      color: white;
+      background: #fbbf24;
+      color: #0f2a44;
     }
     .page-btn:disabled {
       opacity: 0.5;
@@ -598,7 +683,7 @@
       background: white;
       border-radius: 50px;
       padding: 20px 28px;
-      border: 2px solid #f97316;
+      border: 2px solid #fbbf24;
       flex-wrap: wrap;
       gap: 18px;
     }
@@ -607,7 +692,7 @@
       gap: 12px;
     }
     .btn-icon {
-      background: #1e3a8a;
+      background: #0f2a44;
       color: white;
       border: none;
       padding: 12px 28px;
@@ -620,12 +705,13 @@
       transition: 0.2s;
     }
     .btn-icon:hover {
-      background: #f97316;
-      color: #1e3a8a;
+      background: #fbbf24;
+      color: #0f2a44;
+      transform: translateY(-2px);
     }
 
     @media (max-width: 1000px) {
-      .insight-panel { grid-template-columns: 1fr; }
+      .insight-panel, .feature-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 700px) {
       .gold-stats { grid-template-columns: 1fr 1fr; }
@@ -638,13 +724,11 @@
 <body>
 <div class="flagship-dashboard" id="app">
 
-  <!-- हेडर -->
+  <!-- हेडर (नए लोगो के साथ) -->
   <div class="masthead">
     <div class="brand-row">
       <div class="insignia">
-        <!-- राष्ट्रीय प्रतीक (केंद्र सरकार) -->
         <div class="gov-icon"><i class="fas fa-university"></i></div>
-        <!-- बिहार सरकार और पंचायती राज विभाग के लोगो -->
         <div class="logo-group">
           <div class="logo-circle">GoB</div>
           <div class="logo-circle">PRD</div>
@@ -659,13 +743,13 @@
       </div>
       <div style="display: flex; align-items: center; gap: 16px;">
         <span class="live-clock" id="liveClock"></span>
-        <div class="commission-tag" onclick="toggleDarkMode()">
+        <div class="commission-tag" onclick="toggleDarkMode()" tabindex="0" role="button">
           <i class="fas fa-moon"></i> डार्क मोड
         </div>
       </div>
     </div>
 
-    <!-- स्टैट्स -->
+    <!-- स्टैट्स कार्ड -->
     <div class="gold-stats" id="metricCards">
       <div class="metric-gold"><span class="metric-icon"><i class="fas fa-tasks"></i></span><div class="metric-content"><h2 id="totalSchemes">0</h2><p>कुल योजनाएँ</p></div></div>
       <div class="metric-gold"><span class="metric-icon"><i class="fas fa-check-circle"></i></span><div class="metric-content"><h2 id="completedSchemes">0</h2><p>पूर्ण कार्य</p></div></div>
@@ -674,7 +758,27 @@
     </div>
   </div>
 
-  <!-- कंट्रोल रिबन (extra tools के साथ) -->
+  <!-- नए फीचर कार्ड (गेज, टॉप प्रोजेक्ट्स, रिपोर्ट कार्ड) -->
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-title"><i class="fas fa-chart-line"></i> बजट उपयोग</div>
+      <div class="budget-gauge"><div class="gauge-fill" id="budgetGaugeFill" style="width:0%"></div></div>
+      <div style="display: flex; justify-content: space-between;">
+        <span>उपयोग: <span id="budgetUsed">₹0</span></span>
+        <span>कुल: <span id="budgetTotal">₹0</span></span>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-title"><i class="fas fa-crown"></i> टॉप 3 योजनाएँ</div>
+      <div id="topProjects"></div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-title"><i class="fas fa-calendar-check"></i> वर्षवार सफलता</div>
+      <div id="yearlyReport"></div>
+    </div>
+  </div>
+
+  <!-- कंट्रोल रिबन (अतिरिक्त टूल्स के साथ) -->
   <div class="control-ribbon">
     <div class="search-module">
       <i class="fas fa-search"></i>
@@ -684,7 +788,7 @@
       <button class="pill active" data-filter="all"><i class="fas fa-layer-group"></i> सभी</button>
       <button class="pill" data-filter="complete"><i class="fas fa-check"></i> पूर्ण</button>
       <button class="pill" data-filter="progress"><i class="fas fa-clock"></i> प्रगति पर</button>
-      <select id="yearFilter" class="pill" style="background:#ffedd5;">
+      <select id="yearFilter">
         <option value="all">सभी वर्ष</option>
         <option value="2021–22">2021–22</option>
         <option value="2022–23">2022–23</option>
@@ -693,9 +797,9 @@
         <option value="2024–2025">2024–2025</option>
         <option value="2025–26">2025–26</option>
       </select>
+      <button class="pill" onclick="resetFilters()"><i class="fas fa-undo-alt"></i> रीसेट</button>
     </div>
     <div class="extra-tools">
-      <!-- फुल स्क्रीन बटन -->
       <button class="extra-btn" onclick="toggleFullScreen()" title="फुल स्क्रीन"><i class="fas fa-expand"></i></button>
       <!-- कॉलम टॉगल (15वीं) -->
       <div class="col-toggle" id="colToggle15">
@@ -758,7 +862,17 @@
         <tfoot><tr><td colspan="5" class="grand-total-label">कुल</td><td class="rupee-cell grand-total-amt" id="footer15Total">₹0</td></tr></tfoot>
       </table>
     </div>
-    <div class="pagination" id="pagination15"></div>
+    <div class="pagination-wrapper" id="paginationWrapper15">
+      <div class="rows-selector">
+        <span>पंक्तियाँ:</span>
+        <select id="rowsPerPage15" onchange="changeRowsPerPage('15')">
+          <option value="5">5</option>
+          <option value="10" selected>10</option>
+          <option value="20">20</option>
+        </select>
+      </div>
+      <div class="pagination" id="pagination15"></div>
+    </div>
   </div>
 
   <!-- षष्टम राज्य वित्त टेबल (पेजिनेशन के साथ) -->
@@ -774,10 +888,20 @@
         <tfoot><tr><td colspan="5" class="grand-total-label">कुल</td><td class="rupee-cell grand-total-amt" id="footerStateTotal">₹0</td></tr></tfoot>
       </table>
     </div>
-    <div class="pagination" id="paginationState"></div>
+    <div class="pagination-wrapper" id="paginationWrapperState">
+      <div class="rows-selector">
+        <span>पंक्तियाँ:</span>
+        <select id="rowsPerPageState" onchange="changeRowsPerPage('state')">
+          <option value="5">5</option>
+          <option value="10" selected>10</option>
+          <option value="20">20</option>
+        </select>
+      </div>
+      <div class="pagination" id="paginationState"></div>
+    </div>
   </div>
 
-  <!-- फुटर (एक्सेल एक्सपोर्ट बटन जोड़ा) -->
+  <!-- फुटर -->
   <div class="excellence-footer">
     <div><i class="fas fa-check-double"></i> पंचायत सर्वा · 24 फरवरी 2026</div>
     <div class="footer-actions">
@@ -851,7 +975,8 @@
   // पेजिनेशन के लिए
   let currentPage15 = 1;
   let currentPageState = 1;
-  const rowsPerPage = 10;
+  let rowsPerPage15 = 10;
+  let rowsPerPageState = 10;
 
   // टोस्ट फंक्शन
   function showToast(message, duration = 3000) {
@@ -889,17 +1014,17 @@
     checkboxes.forEach((cb, index) => {
       const colIndex = parseInt(cb.dataset.col);
       const visible = cb.checked;
-      // हर रो में इस कॉलम को छुपाएं/दिखाएं
       table.querySelectorAll(`tr`).forEach(row => {
         if (row.cells[colIndex]) {
           row.cells[colIndex].style.display = visible ? '' : 'none';
         }
       });
-      // हेडर भी
       if (headers[colIndex]) {
         headers[colIndex].style.display = visible ? '' : 'none';
       }
     });
+    // सेटिंग सेव करें
+    saveSettings();
   }
 
   // कॉलम चेकबॉक्स पर इवेंट
@@ -929,7 +1054,7 @@
   }
 
   // टेबल रेंडर (पेजिनेशन के साथ)
-  function renderTable(tbodyId, data, page = 1, tableType) {
+  function renderTable(tbodyId, data, page, tableType, rowsPerPage) {
     const tbody = document.getElementById(tbodyId);
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
@@ -940,15 +1065,13 @@
       let ico = s.status === 'पूर्ण' ? 'fa-check' : 'fa-clock';
       tbody.innerHTML += `<tr><td>${start + i + 1}</td><td>${s.fund}</td><td>${s.year}</td><td>${s.desc}</td><td class="rupee-cell">${formatMoney(s.amount)}</td><td><span class="status-super ${cls}"><i class="fas ${ico}"></i> ${s.status}</span></td></tr>`;
     });
-    // पेजिनेशन बटन अपडेट
-    renderPagination(data.length, page, tableType);
-    // कॉलम विजिबिलिटी फिर से लागू करें (यूजर की सेटिंग बनी रहे)
+    renderPagination(data.length, page, tableType, rowsPerPage);
     setTimeout(() => {
       updateColumnVisibility(tableType === '15' ? '15' : 'state');
     }, 50);
   }
 
-  function renderPagination(totalRows, currentPage, tableType) {
+  function renderPagination(totalRows, currentPage, tableType, rowsPerPage) {
     const totalPages = Math.ceil(totalRows / rowsPerPage);
     const paginationDiv = document.getElementById(tableType === '15' ? 'pagination15' : 'paginationState');
     if (totalPages <= 1) {
@@ -956,7 +1079,6 @@
       return;
     }
     let html = '';
-    // प्रीव बटन
     html += `<button class="page-btn" onclick="changePage('${tableType}', ${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}><i class="fas fa-chevron-left"></i></button>`;
     for (let i = 1; i <= totalPages; i++) {
       if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
@@ -972,14 +1094,25 @@
   function changePage(tableType, newPage) {
     if (tableType === '15') {
       currentPage15 = newPage;
-      filterData(); // फिल्टर के बाद रेंडर होगा
     } else {
       currentPageState = newPage;
-      filterData();
     }
+    filterData();
   }
 
-  // मेट्रिक्स अपडेट (पहले जैसा)
+  function changeRowsPerPage(tableType) {
+    if (tableType === '15') {
+      rowsPerPage15 = parseInt(document.getElementById('rowsPerPage15').value);
+      currentPage15 = 1;
+    } else {
+      rowsPerPageState = parseInt(document.getElementById('rowsPerPageState').value);
+      currentPageState = 1;
+    }
+    filterData();
+    saveSettings();
+  }
+
+  // मेट्रिक्स अपडेट
   function updateMetrics() {
     const total = schemes.length;
     const completed = schemes.filter(s => s.status === 'पूर्ण').length;
@@ -1007,6 +1140,30 @@
       <div class="stat-row"><span>न्यूनतम</span> <strong>${formatMoney(minS.amount)}</strong></div>
       <div class="stat-row"><span>कुल पूर्ण</span> <strong>${formatMoney(completedAmt)}</strong></div>
     `;
+
+    // बजट गेज
+    document.getElementById('budgetTotal').innerText = formatMoney(totalAmt);
+    document.getElementById('budgetUsed').innerText = formatMoney(completedAmt);
+    document.getElementById('budgetGaugeFill').style.width = (completedAmt/totalAmt*100)+'%';
+
+    // टॉप 3 प्रोजेक्ट्स
+    const top3 = [...schemes].sort((a,b)=>b.amount-a.amount).slice(0,3);
+    let topHtml = '';
+    top3.forEach(s => {
+      topHtml += `<div class="top-project-item"><span>${s.desc.substring(0,25)}...</span> <strong>${formatMoney(s.amount)}</strong></div>`;
+    });
+    document.getElementById('topProjects').innerHTML = topHtml;
+
+    // वर्षवार सफलता
+    const years = [...new Set(schemes.map(s=>s.year))].sort();
+    let reportHtml = '';
+    years.forEach(y => {
+      const totalYear = schemes.filter(s=>s.year===y).length;
+      const completedYear = schemes.filter(s=>s.year===y && s.status==='पूर्ण').length;
+      const rate = totalYear ? ((completedYear/totalYear)*100).toFixed(0) : 0;
+      reportHtml += `<div class="stat-row"><span>${y}</span> <strong>${rate}%</strong></div>`;
+    });
+    document.getElementById('yearlyReport').innerHTML = reportHtml;
   }
 
   // चार्ट
@@ -1022,7 +1179,7 @@
         datasets: [{
           label: 'कार्यों की संख्या',
           data: counts,
-          backgroundColor: '#f97316',
+          backgroundColor: '#fbbf24',
           borderRadius: 8
         }]
       },
@@ -1035,7 +1192,7 @@
     });
   }
 
-  // फिल्टर फंक्शन (अब पेजिनेशन रीसेट करता है)
+  // फिल्टर फंक्शन
   function filterData() {
     const search = document.getElementById('searchInput').value.toLowerCase();
     const statusFilter = document.querySelector('.pill.active')?.getAttribute('data-filter') || 'all';
@@ -1049,12 +1206,11 @@
     const f15 = filtered.filter(s => s.fund === '15वीं वित्त आयोग');
     const fState = filtered.filter(s => s.fund === 'षष्टम राज्य वित्त आयोग');
 
-    // पेजिनेशन को पहले पेज पर रीसेट करें (यदि फिल्टर बदला है)
-    if (currentPage15 > Math.ceil(f15.length / rowsPerPage)) currentPage15 = 1;
-    if (currentPageState > Math.ceil(fState.length / rowsPerPage)) currentPageState = 1;
+    if (currentPage15 > Math.ceil(f15.length / rowsPerPage15)) currentPage15 = 1;
+    if (currentPageState > Math.ceil(fState.length / rowsPerPageState)) currentPageState = 1;
 
-    renderTable('table15Body', f15, currentPage15, '15');
-    renderTable('tableStateBody', fState, currentPageState, 'state');
+    renderTable('table15Body', f15, currentPage15, '15', rowsPerPage15);
+    renderTable('tableStateBody', fState, currentPageState, 'state', rowsPerPageState);
     document.getElementById('footer15Total').innerText = formatMoney(f15.reduce((a,s)=>a+s.amount,0));
     document.getElementById('footerStateTotal').innerText = formatMoney(fState.reduce((a,s)=>a+s.amount,0));
     document.getElementById('badge15').innerText = f15.length + ' कार्य';
@@ -1063,10 +1219,21 @@
     showToast('फ़िल्टर लागू किया गया');
   }
 
-  // सॉर्ट (पेजिनेशन रीसेट नहीं करता, लेकिन सॉर्टेड डेटा के पहले पेज पर ले जाएगा)
+  // रीसेट फिल्टर
+  function resetFilters() {
+    document.getElementById('searchInput').value = '';
+    document.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
+    document.querySelector('[data-filter="all"]').classList.add('active');
+    document.getElementById('yearFilter').value = 'all';
+    currentPage15 = 1;
+    currentPageState = 1;
+    filterData();
+    showToast('सभी फ़िल्टर हटा दिए गए');
+  }
+
+  // सॉर्ट
   function sortTable(col, tableId) {
     const tbodyId = tableId === '15' ? 'table15Body' : 'tableStateBody';
-    // हमें सभी फिल्टर्ड डेटा चाहिए (वर्तमान फिल्टर के अनुसार)
     const search = document.getElementById('searchInput').value.toLowerCase();
     const statusFilter = document.querySelector('.pill.active')?.getAttribute('data-filter') || 'all';
     const yearFilter = document.getElementById('yearFilter').value;
@@ -1082,9 +1249,8 @@
     currentSort = { table: tableId, col, asc };
     data.sort((a,b) => {
       let aVal, bVal;
-      if (col === 0) { // क्र. के हिसाब से सॉर्ट नहीं करेंगे, क्योंकि वह इंडेक्स है
-        return 0;
-      } else if (col === 1) { aVal = a.fund; bVal = b.fund; }
+      if (col === 0) return 0;
+      else if (col === 1) { aVal = a.fund; bVal = b.fund; }
       else if (col === 2) { aVal = a.year; bVal = b.year; }
       else if (col === 3) { aVal = a.desc; bVal = b.desc; }
       else if (col === 4) { aVal = a.amount; bVal = b.amount; }
@@ -1093,15 +1259,55 @@
       else return aVal < bVal ? 1 : -1;
     });
 
-    // पेज 1 पर जाएं
     if (tableId === '15') currentPage15 = 1;
     else currentPageState = 1;
 
-    renderTable(tbodyId, data, 1, tableId);
+    const rowsPerPage = tableId === '15' ? rowsPerPage15 : rowsPerPageState;
+    renderTable(tbodyId, data, 1, tableId, rowsPerPage);
     showToast('डेटा सॉर्ट किया गया');
   }
 
-  // एक्सपोर्ट CSV (पहले जैसा)
+  // सेटिंग्स सेव और लोड
+  function saveSettings() {
+    const settings = {
+      rowsPerPage15,
+      rowsPerPageState,
+      col15: {},
+      colState: {}
+    };
+    document.querySelectorAll('#colDropdown15 input').forEach(cb => {
+      settings.col15[cb.dataset.col] = cb.checked;
+    });
+    document.querySelectorAll('#colDropdownState input').forEach(cb => {
+      settings.colState[cb.dataset.col] = cb.checked;
+    });
+    localStorage.setItem('dashboardSettings', JSON.stringify(settings));
+  }
+
+  function loadSettings() {
+    const saved = localStorage.getItem('dashboardSettings');
+    if (saved) {
+      const settings = JSON.parse(saved);
+      rowsPerPage15 = settings.rowsPerPage15 || 10;
+      rowsPerPageState = settings.rowsPerPageState || 10;
+      document.getElementById('rowsPerPage15').value = rowsPerPage15;
+      document.getElementById('rowsPerPageState').value = rowsPerPageState;
+      if (settings.col15) {
+        Object.keys(settings.col15).forEach(col => {
+          const cb = document.querySelector(`#colDropdown15 input[data-col="${col}"]`);
+          if (cb) cb.checked = settings.col15[col];
+        });
+      }
+      if (settings.colState) {
+        Object.keys(settings.colState).forEach(col => {
+          const cb = document.querySelector(`#colDropdownState input[data-col="${col}"]`);
+          if (cb) cb.checked = settings.colState[col];
+        });
+      }
+    }
+  }
+
+  // एक्सपोर्ट CSV
   function exportCSV() {
     let csv = "क्र.,मद,वित्त वर्ष,योजना का नाम,राशि,स्थिति\n";
     schemes.forEach((s,i) => {
@@ -1129,7 +1335,7 @@
     showToast('Excel डाउनलोड हुआ');
   }
 
-  // एक्सपोर्ट PDF (पहले जैसा)
+  // एक्सपोर्ट PDF
   function exportPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
@@ -1167,7 +1373,8 @@
     filterData();
   });
   document.querySelectorAll('.pill').forEach(p => {
-    p.addEventListener('click', function() {
+    p.addEventListener('click', function(e) {
+      if (e.target.tagName !== 'BUTTON') return;
       document.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
       this.classList.add('active');
       currentPage15 = 1;
@@ -1176,7 +1383,6 @@
     });
   });
 
-  // बाहर क्लिक करने पर कॉलम ड्रॉपडाउन बंद करें
   window.addEventListener('click', function(e) {
     if (!e.target.closest('.col-toggle')) {
       document.querySelectorAll('.col-toggle-content').forEach(d => d.classList.remove('show'));
@@ -1184,11 +1390,17 @@
   });
 
   // इनिशियलाइज़
+  loadSettings();
   updateMetrics();
   renderChart();
-  filterData(); // पेजिनेशन के साथ टेबल लोड करेगा
+  filterData();
   updateClock();
+  setTimeout(() => {
+    updateColumnVisibility('15');
+    updateColumnVisibility('state');
+  }, 100);
 
+  // ग्लोबल फंक्शन्स
   window.sortTable = sortTable;
   window.exportCSV = exportCSV;
   window.exportExcel = exportExcel;
@@ -1197,6 +1409,8 @@
   window.toggleFullScreen = toggleFullScreen;
   window.toggleColDropdown = toggleColDropdown;
   window.changePage = changePage;
+  window.changeRowsPerPage = changeRowsPerPage;
+  window.resetFilters = resetFilters;
 </script>
 </body>
 </html>
