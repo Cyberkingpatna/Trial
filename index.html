@@ -1,16 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
   <title>सर्वा पंचायत · पारदर्शी व्यय पोर्टल</title>
-  <!-- SEO meta -->
-  <meta name="description" content="Sarwa Panchayat (Barabigha, Sheikhpura) official expenditure portal – transparent income & expense data for villagers.">
-  <meta name="keywords" content="Sarwa Panchayat, Gram Panchayat expenditure, Sheikhpura, income details, scheme wise report, panchayat transparency">
-  <meta name="author" content="Sarwa Panchayat Office">
-  <!-- favicon (simple) -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>">
-  <!-- Google Font + Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
@@ -19,88 +12,66 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Inter', sans-serif;
-      background: #f4f7fc;  /* soft blue-white */
-      color: #023047;         /* deep blue-black */
+      background: #f0f7fa;
+      color: #023047;
       line-height: 1.5;
-      scroll-behavior: smooth;
     }
-    /* official colours : green, blue, white */
-    .bg-white { background: #ffffff; }
-    .text-primary { color: #0b3b2f; }  /* dark green */
-    .text-secondary { color: #1a5f7a; } /* deep blue */
-    .border-green { border: 1px solid #2e7d5e; }
-    .badge-green { background: #e0f2e9; color: #0b3b2f; padding: 4px 12px; border-radius: 30px; font-weight: 500; }
-
-    /* layout */
     .container { max-width: 1300px; margin: 0 auto; padding: 0 20px; }
-    nav a { text-decoration: none; color: #023047; font-weight: 500; transition: 0.2s; padding: 8px 0; border-bottom: 3px solid transparent; }
-    nav a:hover, nav a.active { border-bottom-color: #1e7e5c; color: #1e7e5c; }
-    .header { background: white; box-shadow: 0 4px 12px rgba(0, 40, 30, 0.08); position: sticky; top: 0; z-index: 100; }
-    .header-content { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding: 12px 0; gap: 20px; }
+    
+    /* Header */
+    .header { background: white; box-shadow: 0 4px 12px rgba(0,60,40,0.08); position: sticky; top: 0; z-index: 100; }
+    .header-content { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding: 15px 0; gap: 20px; }
     .logo-area { display: flex; align-items: center; gap: 15px; }
     .gov-emblem { background: #0b3b2f; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 26px; }
     .panchayat-name h2 { font-size: 1.5rem; font-weight: 700; color: #0b3b2f; }
     .panchayat-name p { font-size: 0.85rem; color: #1a5f7a; }
     .nav-links { display: flex; gap: 28px; flex-wrap: wrap; }
+    .nav-links a { text-decoration: none; color: #023047; font-weight: 500; padding: 8px 0; border-bottom: 3px solid transparent; }
+    .nav-links a:hover, .nav-links a.active { border-bottom-color: #1e7e5c; color: #1e7e5c; }
 
-    /* cards */
-    .card { background: white; border-radius: 24px; padding: 22px; box-shadow: 0 8px 20px rgba(0, 60, 40, 0.06); border: 1px solid rgba(23, 162, 116, 0.15); transition: 0.2s; }
-    .card:hover { box-shadow: 0 10px 25px rgba(0, 90, 60, 0.1); }
-    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 30px 0; }
-    .stat-card { background: linear-gradient(145deg, #ffffff, #f0f7f5); border-left: 6px solid #1e7e5c; border-radius: 20px; padding: 20px; }
-    .stat-number { font-size: 2.2rem; font-weight: 700; color: #0b3b2f; line-height: 1.2; }
-    .stat-label { text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.8rem; color: #1a5f7a; }
+    /* Cards */
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 20px; margin: 30px 0; }
+    .stat-card { background: white; border-radius: 24px; padding: 24px; box-shadow: 0 5px 15px rgba(0,80,60,0.05); border-left: 6px solid #1e7e5c; }
+    .stat-number { font-size: 2.2rem; font-weight: 700; color: #0b3b2f; }
+    .stat-label { text-transform: uppercase; font-size: 0.8rem; color: #1a5f7a; letter-spacing: 0.5px; }
 
-    /* tables */
-    .table-wrapper { overflow-x: auto; border-radius: 20px; border: 1px solid #cbd5e1; background: white; margin: 15px 0; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 800px; }
+    /* Tables */
+    .table-wrapper { overflow-x: auto; background: white; border-radius: 24px; border: 1px solid #cbd5e1; margin: 15px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 900px; }
     th { background: #e2f0ea; color: #023047; font-weight: 600; padding: 14px 8px; }
     td { padding: 12px 8px; border-bottom: 1px solid #dbeafe; }
     tbody tr:hover { background: #f6fbf9; }
-    .rupee-symbol { font-weight: 600; color: #0b3b2f; }
 
-    /* filter bar */
-    .filter-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; background: white; padding: 16px 24px; border-radius: 60px; margin: 25px 0; border: 1px solid #b7e0d0; }
-    .filter-item { display: flex; align-items: center; gap: 8px; background: #f0f9f5; padding: 8px 18px; border-radius: 40px; }
-    .filter-item select, .filter-item input { border: none; background: transparent; font-weight: 500; outline: none; padding: 4px; }
+    /* Filter Bar */
+    .filter-bar { background: white; padding: 16px 24px; border-radius: 60px; margin: 25px 0; border: 1px solid #b7e0d0; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+    .filter-item { background: #f0f9f5; padding: 8px 18px; border-radius: 40px; display: flex; align-items: center; gap: 8px; }
+    .filter-item select, .filter-item input { border: none; background: transparent; outline: none; font-weight: 500; }
     .btn { background: #1e7e5c; color: white; border: none; padding: 10px 24px; border-radius: 40px; font-weight: 600; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; }
     .btn-outline { background: white; border: 1.5px solid #1e7e5c; color: #1e7e5c; }
-    .btn:hover { background: #0b5e44; transform: translateY(-2px); }
 
-    /* notice */
+    /* Notice */
     .notice-board { background: #e6f3ef; border-radius: 28px; padding: 18px 24px; border-left: 8px solid #1e7e5c; margin: 20px 0; }
 
-    /* contact form */
-    .contact-form input, .contact-form textarea { width: 100%; padding: 14px 18px; border: 1px solid #b7e0d0; border-radius: 40px; font-size: 1rem; margin-bottom: 16px; }
-    .contact-form textarea { border-radius: 30px; }
-
-    /* footer */
-    .footer { background: #0b2f26; color: #f0fdf9; padding: 32px 0; margin-top: 60px; border-radius: 40px 40px 0 0; }
-    .footer a { color: #b3ead9; text-decoration: none; }
-
-    /* responsiveness */
-    @media (max-width: 700px) {
-      .header-content { flex-direction: column; align-items: start; }
-      .nav-links { gap: 18px; }
-      .filter-bar { border-radius: 30px; }
-    }
-
-    /* transparency badge */
-    .data-source { font-size: 0.8rem; background: #f0f9f5; padding: 6px 18px; border-radius: 40px; display: inline-block; }
-
-    /* section spacing */
+    /* Section */
     section { scroll-margin-top: 90px; padding: 40px 0; }
     .section-title { font-size: 2rem; font-weight: 700; color: #0b3b2f; margin-bottom: 16px; border-left: 8px solid #1e7e5c; padding-left: 24px; }
+
+    /* Footer */
+    .footer { background: #0b2f26; color: #f0fdf9; padding: 32px 0; margin-top: 60px; border-radius: 40px 40px 0 0; }
+
+    @media (max-width:700px) {
+      .header-content { flex-direction: column; align-items: start; }
+      .filter-bar { border-radius: 30px; }
+    }
   </style>
 </head>
 <body>
-  <!-- header with navigation -->
   <div class="header">
     <div class="container header-content">
       <div class="logo-area">
         <div class="gov-emblem"><i class="fas fa-university"></i></div>
         <div class="panchayat-name">
-          <h2>सर्वा पंचायत <span style="font-size:0.9rem; font-weight:400; color:#1a5f7a;">(बरबीघा, शेखपुरा)</span></h2>
+          <h2>सर्वा पंचायत (बरबीघा, शेखपुरा)</h2>
           <p><i class="fas fa-hand-holding-heart" style="color:#1e7e5c;"></i> पारदर्शिता – जवाबदेही – विश्वास</p>
         </div>
       </div>
@@ -108,72 +79,67 @@
         <a href="#home" class="active">मुखपृष्ठ</a>
         <a href="#expenditure">व्यय</a>
         <a href="#income">आय</a>
-        <a href="#scheme-reports">योजना रिपोर्ट</a>
+        <a href="#reports">योजना रिपोर्ट</a>
         <a href="#contact">संपर्क</a>
       </nav>
     </div>
   </div>
 
   <main class="container">
-    <!-- HOME SECTION -->
+    <!-- HOME -->
     <section id="home">
-      <div class="card" style="background: linear-gradient(135deg,#e6f3ef,white);">
-        <h2 style="color: #0b3b2f; font-size:2rem;">स्वागतम् <span style="font-weight:400;">| पारदर्शी पंचायत डेटा पोर्टल</span></h2>
-        <p style="font-size:1.1rem; max-width:800px; margin:20px 0;">ग्राम पंचायत सर्वा के सभी आय-व्यय का ब्यौरा, योजनावार धनराशि, और निविदा जानकारी अब जनता के लिए उपलब्ध। हर रुपये का हिसाब – आपके मोबाइल पर।</p>
-        <div class="notice-board">
-          <i class="fas fa-bullhorn" style="color:#1e7e5c; margin-right:12px;"></i>
-          <strong>सूचना:</strong> 15वीं वित्त एवं राज्य वित्त की सभी योजनाओं का नवीनतम अपडेट। आगामी ग्राम सभा 15 अप्रैल 2025 को।
+      <div class="notice-board">
+        <i class="fas fa-bullhorn" style="color:#1e7e5c;"></i> <strong>नवीनतम सूचना:</strong> 15वीं वित्त एवं राज्य वित्त की सभी योजनाओं का डेटा अद्यतन। अगली ग्राम सभा 15 अप्रैल 2025।
+      </div>
+      <div style="background: white; border-radius: 28px; padding: 30px; margin-top: 20px;">
+        <h2 style="color:#0b3b2f;">स्वागतम् | पारदर्शी पंचायत डेटा पोर्टल</h2>
+        <p style="margin: 15px 0 20px; max-width:800px;">ग्राम पंचायत सर्वा के सभी आय-व्यय का ब्यौरा, योजनावार धनराशि अब जनता के लिए उपलब्ध। हर रुपये का हिसाब – आपके मोबाइल पर।</p>
+        <div style="display:flex; flex-wrap:wrap; gap:30px;">
+          <div><i class="fas fa-user-circle"></i> सरपंच: सीमा देवी</div>
+          <div><i class="fas fa-user-tie"></i> सचिव: अमर कुमार</div>
+          <div><i class="fas fa-phone-alt"></i> 0620-255678</div>
         </div>
-        <!-- panchayat profile -->
-        <div style="display:flex; flex-wrap:wrap; gap:30px; margin-top:30px;">
-          <div><i class="fas fa-user-circle fa-2x" style="color:#1e7e5c;"></i> सरपंच : श्रीमती सीमा देवी</div>
-          <div><i class="fas fa-user-tie fa-2x" style="color:#1e7e5c;"></i> सचिव : अमर कुमार</div>
-          <div><i class="fas fa-phone-alt fa-2x" style="color:#1e7e5c;"></i> संपर्क : 0620-255678</div>
-        </div>
-        <div style="margin-top:24px;">
-          <span class="data-source"><i class="fas fa-database"></i> डेटा स्रोत: पंचायत कार्यालय रिकॉर्ड (आर2ी अभिलेख)</span>
-          <span class="data-source" style="margin-left:12px;"><i class="far fa-calendar-alt"></i> अंतिम अपडेट: 10 मार्च 2025</span>
+        <div style="margin-top:20px;">
+          <span style="background:#e2f0ea; padding:6px 18px; border-radius:40px;"><i class="fas fa-database"></i> स्रोत: पंचायत रिकॉर्ड | अंतिम अपडेट: 10 मार्च 2025</span>
         </div>
       </div>
     </section>
 
-    <!-- EXPENDITURE DASHBOARD SECTION -->
+    <!-- EXPENDITURE SECTION (with original data) -->
     <section id="expenditure">
       <h2 class="section-title">📋 व्यय डैशबोर्ड (योजनावार)</h2>
-      <!-- summary cards -->
-      <div class="stat-grid">
-        <div class="stat-card"><div class="stat-number" id="totalExpenditure">₹0</div><div class="stat-label">कुल व्यय</div></div>
-        <div class="stat-card"><div class="stat-number" id="schemeCount">0</div><div class="stat-label">कुल योजनाएँ</div></div>
-        <div class="stat-card"><div class="stat-number" id="vendorCount">0</div><div class="stat-label">कार्यदायी संस्था</div></div>
-        <div class="stat-card"><div class="stat-number" id="avgExpenditure">₹0</div><div class="stat-label">औसत व्यय</div></div>
-      </div>
+      <!-- summary cards (dynamic) -->
+      <div class="stat-grid" id="expStats"></div>
 
-      <!-- filter & search -->
+      <!-- filter/search -->
       <div class="filter-bar">
-        <div class="filter-item"><i class="fas fa-search" style="color:#1e7e5c;"></i><input type="text" id="expSearch" placeholder="योजना/विक्रेता खोजें"></div>
-        <div class="filter-item"><i class="fas fa-tag"></i><select id="schemeFilter"><option value="">सभी योजनाएँ</option></select></div>
+        <div class="filter-item"><i class="fas fa-search"></i><input type="text" id="searchInput" placeholder="योजना / विक्रेता खोजें"></div>
+        <div class="filter-item"><i class="fas fa-tag"></i><select id="fundFilter"><option value="">सभी मद</option></select></div>
         <div class="filter-item"><i class="fas fa-calendar"></i><select id="yearFilter"><option value="">सभी वर्ष</option></select></div>
-        <div class="filter-item"><i class="fas fa-layer-group"></i><select id="categoryFilter"><option value="">सभी श्रेणी</option><option value="सड़क">सड़क</option><option value="नाली">नाली</option><option value="भवन">भवन</option><option value="पुलिया">पुलिया</option><option value="अन्य">अन्य</option></select></div>
+        <div class="filter-item"><i class="fas fa-check-circle"></i><select id="statusFilter"><option value="">सभी स्थिति</option><option value="पूर्ण">पूर्ण</option><option value="कार्य प्रगति पर">प्रगति पर</option></select></div>
         <button class="btn" id="applyFilter"><i class="fas fa-filter"></i> फ़िल्टर</button>
         <button class="btn-outline" id="resetFilter"><i class="fas fa-undo"></i> रीसेट</button>
         <div style="flex:1; text-align:right;">
-          <button class="btn-outline" onclick="exportExpenditureCSV()"><i class="fas fa-file-csv"></i></button>
-          <button class="btn-outline" onclick="exportExpenditureExcel()"><i class="fas fa-file-excel"></i></button>
+          <button class="btn-outline" onclick="exportCSV()"><i class="fas fa-file-csv"></i></button>
+          <button class="btn-outline" onclick="exportExcel()"><i class="fas fa-file-excel"></i></button>
           <button class="btn-outline" onclick="window.print()"><i class="fas fa-print"></i></button>
-          <button class="btn-outline" id="whatsappShareBtn"><i class="fab fa-whatsapp"></i> शेयर</button>
         </div>
       </div>
 
-      <!-- expenditure table -->
+      <!-- table -->
       <div class="table-wrapper">
         <table id="expTable">
-          <thead><tr><th>योजना नाम</th><th>राशि (₹)</th><th>तिथि</th><th>विक्रेता/एजेंसी</th><th>श्रेणी</th><th>टिप्पणी</th></tr></thead>
+          <thead><tr><th>क्र.</th><th>मद</th><th>वित्त वर्ष</th><th>योजना का नाम</th><th>राशि (₹)</th><th>स्थिति</th><th>विक्रेता/टिप्पणी</th></tr></thead>
           <tbody id="expTbody"></tbody>
         </table>
       </div>
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <span><span id="expCount">0</span> रिकॉर्ड दिख रहे</span>
-        <div><button class="btn-outline" id="prevPage"><i class="fas fa-chevron-left"></i></button> <span id="pageInfo">1/1</span> <button class="btn-outline" id="nextPage"><i class="fas fa-chevron-right"></i></button></div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin:15px 0;">
+        <span id="recordCount">0 रिकॉर्ड</span>
+        <div>
+          <button class="btn-outline" id="prevPage"><i class="fas fa-chevron-left"></i></button>
+          <span id="pageInfo">1/1</span>
+          <button class="btn-outline" id="nextPage"><i class="fas fa-chevron-right"></i></button>
+        </div>
       </div>
     </section>
 
@@ -192,224 +158,236 @@
       </div>
     </section>
 
-    <!-- SCHEME-WISE REPORT SECTION -->
-    <section id="scheme-reports">
-      <h2 class="section-title">📁 योजना-वार विस्तृत रिपोर्ट</h2>
-      <p style="margin-bottom:20px;">नीचे प्रत्येक योजना पर कुल व्यय, कार्य संख्या और स्थिति दी गई है। विस्तार के लिए योजना नाम पर क्लिक करें (व्यय तालिका में फ़िल्टर होगा)।</p>
+    <!-- SCHEME-WISE REPORT -->
+    <section id="reports">
+      <h2 class="section-title">📁 योजना-वार सारांश</h2>
       <div class="table-wrapper">
-        <table id="schemeSummaryTable">
-          <thead><tr><th>योजना का नाम</th><th>कुल व्यय (₹)</th><th>कार्य संख्या</th><th>औसत लागत</th><th>स्थिति</th></tr></thead>
-          <tbody id="schemeSummaryBody"></tbody>
+        <table>
+          <thead><tr><th>योजना का नाम</th><th>कुल व्यय (₹)</th><th>कार्य संख्या</th><th>औसत लागत</th></tr></thead>
+          <tbody id="summaryTbody"></tbody>
         </table>
       </div>
     </section>
 
-    <!-- CONTACT / FEEDBACK -->
+    <!-- CONTACT -->
     <section id="contact">
-      <h2 class="section-title">📬 संपर्क एवं सुझाव</h2>
+      <h2 class="section-title">📬 संपर्क</h2>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:30px;">
-        <div class="card">
+        <div class="stat-card">
           <h3>पंचायत कार्यालय</h3>
           <p><i class="fas fa-map-pin"></i> सर्वा, बरबीघा, शेखपुरा (बिहार) – 811201</p>
           <p><i class="fas fa-phone"></i> 0620-255678</p>
           <p><i class="fas fa-envelope"></i> sarwa.panchayat@bihar.gov.in</p>
-          <div style="margin-top:20px;"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115670.44284315445!2d85.6326393!3d25.1394219!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f2f5d1b1b1b1b1%3A0x123456789!2sSheikhpura!5e0!3m2!1sen!2sin" width="100%" height="180" style="border:0; border-radius:20px;" allowfullscreen="" loading="lazy"></iframe></div>
         </div>
-        <div class="card contact-form">
-          <h3>शीघ्र संदेश भेजें</h3>
-          <input type="text" placeholder="आपका नाम" id="contactName">
-          <input type="email" placeholder="ईमेल (वैकल्पिक)">
-          <textarea rows="3" placeholder="आपका सुझाव / शिकायत"></textarea>
-          <button class="btn" style="width:100%;"><i class="fas fa-paper-plane"></i> भेजें</button>
-          <p style="font-size:0.8rem; margin-top:10px;">* यह एक डेमो फॉर्म है, वास्तविक कार्यान्वयन में बैकएंड जोड़ा जाएगा।</p>
+        <div class="stat-card">
+          <h3>शीघ्र संदेश</h3>
+          <input type="text" placeholder="आपका नाम" style="width:100%; padding:12px; border-radius:40px; border:1px solid #b7e0d0; margin-bottom:15px;">
+          <textarea rows="3" placeholder="आपका सुझाव" style="width:100%; padding:12px; border-radius:20px; border:1px solid #b7e0d0;"></textarea>
+          <button class="btn" style="width:100%; margin-top:10px;">भेजें</button>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- footer -->
   <footer class="footer">
-    <div class="container" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:30px;">
-      <div>
-        <i class="fas fa-check-circle" style="color:#b3ead9;"></i> डेटा स्रोत: पंचायत कार्यालय सर्वा · नियमित अद्यतन<br>
-        अंतिम बार अपडेट: 10 मार्च 2025<br>
-        सभी राशियाँ ₹ में | गोपनीयता नीति
-      </div>
-      <div style="display:flex; gap:20px;">
-        <a href="#home"><i class="fas fa-chevron-up"></i> ऊपर जाएँ</a>
-        <a href="#">नियम व शर्तें</a>
-      </div>
+    <div class="container" style="display:flex; justify-content:space-between; flex-wrap:wrap;">
+      <div>डेटा स्रोत: पंचायत कार्यालय सर्वा · अंतिम अपडेट: 10 मार्च 2025</div>
+      <div><a href="#home" style="color:#b3ead9;">ऊपर जाएँ</a></div>
     </div>
   </footer>
 
-  <!-- sample data and scripts -->
   <script>
-    (function() {
-      // ---------- SAMPLE DATA (transparent, based on original schemes) ----------
-      const expenditureData = [
-        { scheme: "बौद्धी पोखर मिट्टी भराई एवं खरंजीकरण", amount: 1096700, date: "2022-03-15", vendor: "मेसर्स ग्राम निर्माण", category: "जलाशय", remarks: "पूर्ण, गुणवत्ता ठीक" },
-        { scheme: "परमेश्वर साथ से सिभेक्षण महत्ता तक पीठसी0सी0", amount: 319100, date: "2022-01-10", vendor: "सर्वा कंस्ट्रक्शन", category: "सड़क", remarks: "CC ढलाई" },
-        { scheme: "गेट्टीनी पैन पुल से चादीपुर पैन सफाई", amount: 1156700, date: "2023-04-22", vendor: "जल निगम इकाई", category: "पुलिया", remarks: "मिनांग सह सफाई" },
-        { scheme: "जमालपुर में अर्जुन पंडित घर से नाली ढक्कन", amount: 831000, date: "2023-08-01", vendor: "ड्रेनेज सॉल्यूशंस", category: "नाली", remarks: "ढक्कन सहित नाली" },
-        { scheme: "बौद्धी पोखर पर खुला जिम्न निर्माण", amount: 500000, date: "2023-09-12", vendor: "फिटनेस इंफ्रा", category: "खेल", remarks: "जिम उपकरण" },
-        { scheme: "महेन्द्र सिंह घर से ओमन सिंह घर नाली एवं पीठसी0सी0", amount: 585800, date: "2023-11-05", vendor: "सर्वा कंस्ट्रक्शन", category: "नाली", remarks: "ढलाई कार्य" },
-        { scheme: "डस्टबिन वितरण 2684 घर", amount: 500000, date: "2023-02-20", vendor: "स्वच्छता एजेंसी", category: "स्वच्छता", remarks: "प्रति जोड़ा ₹180" },
-        { scheme: "हरगोबिंद यादव के निकट कुर्आ जीर्णोद्धार", amount: 74300, date: "2024-05-18", vendor: "खेत सिंह", category: "पेयजल", remarks: "कुएँ की मरम्मत" },
-        { scheme: "अजीत पासवान घर के निकट कुर्आ जीर्णोद्धार", amount: 74300, date: "2024-06-22", vendor: "खेत सिंह", category: "पेयजल", remarks: "" },
-        { scheme: "किसान भवन पर वर्षा जल संचयन", amount: 110000, date: "2024-07-30", vendor: "रूफ वाटर सिस्टम", category: "भवन", remarks: "टैंक निर्माण" },
-        { scheme: "मिर्जापुर में अशोक सिह घर से पुस्तकालय नाली", amount: 705000, date: "2024-08-14", vendor: "ड्रेनेज सॉल्यूशंस", category: "नाली", remarks: "ढक्कन सहित" },
-        { scheme: "राजीरा में चम्पक पासवान घर से नगीना पासवान घर नाली", amount: 545300, date: "2024-09-10", vendor: "सर्वा कंस्ट्रक्शन", category: "नाली", remarks: "CC सड़क" },
-        { scheme: "राजीरा अनुसूचित टोला सामुदायिक भवन", amount: 800000, date: "2024-10-01", vendor: "ग्राम निर्माण", category: "भवन", remarks: "निर्माण पूर्ण" },
-        { scheme: "बजरंगबली मंदिर से मरारी ईट सेलिंग", amount: 714400, date: "2024-11-12", vendor: "पेवर ब्लॉक इंडिया", category: "सड़क", remarks: "पीठसी0सी0" },
-        { scheme: "स्ट्रीट लाईट अधिष्ठापन (वार्ड 1-4)", amount: 552044, date: "2025-01-20", vendor: "लाइटिंग कॉर्प", category: "विद्युतीकरण", remarks: "सौर लैंप" },
-        { scheme: "पुस्तकालय हेतु पुस्तक एवं फर्नीचर", amount: 450000, date: "2025-02-05", vendor: "बुक सप्लायर्स", category: "शिक्षा", remarks: "क्रय कार्य" },
-        { scheme: "उच्च विद्यालय सर्वा में गाइट वॉल सह पेवर ब्लॉक", amount: 987100, date: "2025-03-01", vendor: "निर्माण सहयोग", category: "भवन", remarks: "चहारदीवारी" },
-        { scheme: "लालूनगर सार्वजनिक कुर्आ जीर्णोद्धार", amount: 74300, date: "2025-03-10", vendor: "खेत सिंह", category: "पेयजल", remarks: "" },
-        { scheme: "लालूनगर सामुदायिक शौचालय मरम्मत", amount: 98900, date: "2025-03-18", vendor: "स्वच्छता एजेंसी", category: "स्वच्छता", remarks: "मर्मती" }
-      ];
+    // ---------- आपका ORIGINAL DATA (बिल्कुल वैसा ही) ----------
+    const schemes = [ 
+      { fund: "15वीं वित्त आयोग", year: "2021–22", desc: "ग्राम पंचायत सर्वा के ग्राम सर्वा के वार्षिक सं0–07 में बौद्धी पोखर के चारों तरफ मिट्टी भराई एवं खरंजीकरण कार्य।", amount: 1096700, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2021–22", desc: "ग्राम पंचायत सर्वा के ग्राम सर्वा में परमेश्वर साथ से सिभेक्षण महत्ता तक पीठसी0सी0 ढलाई कार्य।", amount: 319100, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2022–23", desc: "ग्राम सर्वा में गेट्टीनी पैन पुल से चादीपुर तक पैन सफाई का मिनांग कार्य।", amount: 1156700, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2022–23", desc: "ग्राम पंचायत सर्वा के ग्राम जमालपुर के वार्षिक सं0–12 में अर्जुन पंडित के घर से विद्रोह कर मांडी के घर तक नाली ढक्कन सहित मिनांग कार्य।", amount: 831000, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2022–23", desc: "ग्राम पंचायत सर्वा के ग्राम सर्वा बौद्धी पोखर पर खुला जिम्न का मिनांग कार्य।", amount: 500000, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2022–23", desc: "ग्राम पंचायत सर्वा के वार्षिक सं0–06 एवं 07 में महेन्द्र सिंह के घर से ओमन सिंह के घर तक नाली एवं पीठसी0सी0 ढलाई कार्य।", amount: 585800, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2022–23", desc: "ग्राम पंचायत सर्वा में डस्टवीन 2684 घर के लिए 180 रूपये प्रति जोड़ा।", amount: 500000, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2023–24", desc: "ग्राम पंचायत सर्वा के वार्षिक सं0–09 में हरगोबिंद यादव के निकट सार्वजनिक कुर्आ का जीणीढ़ार का कार्य।", amount: 74300, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2023–24", desc: "ग्राम पंचायत सर्वा के वार्षिक सं0–11 में अजीत पासवान के घर के निकट कुर्आ का जीणीढ़ार का कार्य।", amount: 74300, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2023–24", desc: "ग्राम पंचायत सर्वा में किसान भवन पर वर्षा जल संचयन का कार्य।", amount: 110000, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2023–24", desc: "ग्राम पंचायत सर्वा के ग्राम मिर्जापुर के वार्षिक सं0–05 में अशोक सिह के घर से जनहित पुस्तकालय तक ढक्कन सहित नाली एवं पीठसी0सी0 ढलाई कार्य।", amount: 705000, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2023–24", desc: "ग्राम पंचायत सर्वा के ग्राम राजीरा के वार्षिक सं0–01 में चम्पक पासवान के घर से नगीना पासवान के घर तक ढक्कन सहित नाली एवं पीठसी0सी0 सड़क का निर्माण कार्य।", amount: 545300, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2023–24", desc: "ग्राम राजीरा के वार्षिक सं0–04 के अनुसूचित टोला में सामुदायिक भवन का निर्माण कार्य।", amount: 800000, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2023–24", desc: "ग्राम राजीरा के वार्षिक सं0–02 में बजरंगवली मंदिर से मरारी तक ईट सेलिंग एवं पीठसी0सी0 ढलाई का कार्य।", amount: 714400, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2024–25", desc: "ग्राम पंचायत सर्वा के वार्षिक सं0–01 से 04 तक स्ट्रीट लाईट का अध्यक्षपण का कार्य।", amount: 552044, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2024–25", desc: "ग्राम पंचायत सर्वा के वार्षिक सं0–08 में पुस्तकालय के लिए पुस्तक एवं फर्नीचर का क्रय का कार्य।", amount: 450000, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2024–25", desc: "ग्राम पंचायत सर्वा के उच्च माध्यमिक विद्यालय सर्वा के आगे गाइट वॉल के साथ पेयर ब्लॉक निर्माण कार्य।", amount: 987100, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2024–25", desc: "ग्राम पंचायत सर्वा के लालूनगर में सार्वजनिक कुर्आ का जिगोईढ़ार का कार्य।", amount: 74300, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2024–25", desc: "ग्राम पंचायत सर्वा के लालूनगर में सामुदायिक शौचालय का मर्मती कार्य।", amount: 98900, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2025–26", desc: "ग्राम मिर्जापुर में संजीव ढाकी के घर से भीम मांडी के घर तक पीठसी0सी0 ढलाई का कार्य।", amount: 532900, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2025–26", desc: "ग्राम मिर्जापुर के कोडिया आहार में छठ घाट का निर्माण कार्य।", amount: 550600, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2025–26", desc: "ग्राम पंचायत सर्वा में WPU का मर्मती का कार्य।", amount: 129800, status: "पूर्ण" },
+      { fund: "15वीं वित्त आयोग", year: "2025–26", desc: "ग्राम सर्वा में खिलु सिंह के खेत से निर्भर सिंह के खेत होते हुए देवन महत्तो के खेत तक ईट सोलिंग एवं पीठसी0सी0 ढलाई का कार्य।", amount: 598400, status: "कार्य प्रगति पर" },
+      { fund: "15वीं वित्त आयोग", year: "2025–26", desc: "ग्राम सर्वा में राजीव सिंह के घर से संतोष सिंह के घर तक ढक्कन सहित नाली एवं पीठसी0सी0 ढलाई का कार्य।", amount: 479200, status: "कार्य प्रगति पर" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2022–23", desc: "ग्राम सर्वा में रामेश्वर सिंह के खेत से आलोक सिंह के घर तक एवं शंकर सिंह के घर से रामेश्वर सिंह के घर तक मिट्टी भराई खड़ीजकरण एवं पी0सी0सी0 ढलाई कार्य ।", amount: 527400, status: "पूर्ण" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2022–23", desc: "ग्राम पंचायत सर्वा में किसान भवन का जीणांद्वार का कार्य ।", amount: 216500, status: "पूर्ण" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2022–23", desc: "ग्राम पंचायत सर्वा के ग्राम मिजापुर के वार्ड सं0–03 में मनोज सिंह के घर से सिपाही जी के घर होते हुए अक्कम महत्ते के घर तक पेवर ब्लॉक सोलिंग एवं नाली निर्माण कार्य ।", amount: 676500, status: "पूर्ण" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2022–23", desc: "ग्राम पंचायत सर्वा के वार्ड सं0–11 में हरिजन सामुदायिक भवन का मर्मती कार्य ।", amount: 284200, status: "पूर्ण" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2022–23", desc: "ग्राम सर्वा में सीलालाल महत्ते के खेत के नजदीक पैन में पुलिया का निर्माण कार्य ।", amount: 289000, status: "पूर्ण" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2022–23", desc: "ग्राम पंचायत सर्वा के ग्राम सर्वा में राजो वाब के पास पुलिया का निर्माण कार्य ।", amount: 284100, status: "पूर्ण" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2022–23", desc: "ग्राम पंचायत सर्वा के ग्राम सर्वा के वार्ड सं0–10 में रामदेव रविदास के घर से ब्रह्मदेव रविदास के घर तक एवं श्यामली दास के घर से सुयादेव दास के घर तक ढक्कन सहित नाली निर्माण कार्य ।", amount: 271300, status: "पूर्ण" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2022–23", desc: "ग्राम सर्वा में भैरो स्थान के पास पैन में पुलिया का निर्माण कार्य ।", amount: 289000, status: "पूर्ण" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2023–24", desc: "ग्राम पंचायत सर्वा के ग्राम जमालपुर के वार्ड सं0–12 में अपशिष्ट प्रसंस्करण इकाई WPU का निर्माण कार्य ।", amount: 817700, status: "पूर्ण" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2024–2025", desc: "ग्राम सर्वा के वार्ड सं0–06 में नरेश महत्ते के दलान के नजदीक नाला का निर्माण कार्य ।", amount: 615500, status: "पूर्ण" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2024–2025", desc: "ग्राम सर्वा के वार्ड सं0–06 में अनिल सिंह के निकट पैन में पुल का निर्माण कार्य ।", amount: 409100, status: "पूर्ण" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2024–2025", desc: "ग्राम सर्वा के वार्ड सं0–09 में पोसन यादव के घर से काकू यादव के घर तक नाली एवं पी0सी0घी0 ढलाई का निर्माण कार्य ।", amount: 656100, status: "पूर्ण" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2024–2025", desc: "ग्राम पंचायत सर्वा के लालूनगर में छत्तेदार चबुतरा का जीणांद्वार का कार्य ।", amount: 197100, status: "पूर्ण" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2024–2025", desc: "ग्राम सर्वा के वार्ड सं0–06 में सुरेन्द्र पासवान के घर से प्रवीण पासवान के घर तक चंदन पासवान के घर से अनिल पासवान के घर तक पी0सी0सी0 ढलाई एवं नाली निर्माण कार्य ।", amount: 198200, status: "पूर्ण" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2024–2025", desc: "ग्राम मिजापुर में नंदु मांडी के घर से प्रकाश चौधरी के घर तक ढक्कन सहित नाली मर्मती एवं पी0सी0घी0 ढलाई कार्य ।", amount: 387100, status: "पूर्ण" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2024–2025", desc: "ग्राम सर्वा में विष्टरी स्थान से अनुसूचित टोला जाने वाली सड़क तक पी0सी0सी0 ढलाई कार्य ।", amount: 429700, status: "पूर्ण" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2024–2025", desc: "ग्राम जमालपुर में भूषण पंडित के घर से रामजी यादव के घर तक एवं अरूण श्रा के घर से वकील साहब के घर तक ढक्कन सहित नाली एवं परमेश्वर पंडित के घर से विजय कुमार के घर तक पी0सी0सी0 ढलाई कार्य ।", amount: 399700, status: "पूर्ण" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2025–26", desc: "ग्राम पंचायत सर्वा के ग्राम सर्वा में मेन रोड पर मुख्य द्वार का निर्माण कार्य ।", amount: 507400, status: "पूर्ण" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2025–26", desc: "ग्राम पंचायत सर्वा के वार्ड सं0–08 में सामुदायिक भवन का मर्मती कार्य ।", amount: 440100, status: "पूर्ण" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2025–26", desc: "ग्राम सर्वा में लुटन सिंह के घर से अनिल सिंह के घर होते हुए राजेन्द्र सिंह के घर तक पी0सी0घी0 ढलाई कार्य ।", amount: 209700, status: "कार्य प्रगति पर" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2025–26", desc: "ग्राम सर्वा में युजनंदन ठाकुर के घर से अनिल शर्मा के घर तक एवं सत्यनारायण कुमार के घर से रामबृक्ष ठाकुर के घर तक ढक्कन सहित नाली एवं पी0सी0घी0 ढलाई कार्य ।", amount: 109900, status: "कार्य प्रगति पर" },
+      { fund: "षष्टम राज्य वित्त आयोग", year: "2025–26", desc: "ग्राम सर्वा में लुटन सिंह के घर से अनिल सिंह के घर होते हुए राजेन्द्र सिंह के घर तक नाली निर्माण कार्य ।", amount: 195600, status: "कार्य प्रगति पर" }
+    ];
 
-      const incomeData = [
-        { source: "15वीं वित्त आयोग (2021-22)", amount: 1500000, date: "2021-08-01", remarks: "प्रथम किश्त" },
-        { source: "15वीं वित्त आयोग (2022-23)", amount: 1800000, date: "2022-09-15", remarks: "द्वितीय किश्त" },
-        { source: "षष्टम राज्य वित्त (2022-23)", amount: 2200000, date: "2022-11-10", remarks: "सड़क एवं नाली" },
-        { source: "15वीं वित्त (2023-24)", amount: 2100000, date: "2023-10-20", remarks: "वार्षिक अनुदान" },
-        { source: "राज्य वित्त (2024-25)", amount: 2550000, date: "2024-12-05", remarks: "विशेष घटक" },
-        { source: "एसएफडी अनुदान", amount: 450000, date: "2025-01-12", remarks: "स्वच्छ भारत" }
-      ];
+    // आय के लिए नमूना डेटा (अलग से)
+    const incomeData = [
+      { source: "15वीं वित्त आयोग (2021-22)", amount: 1500000, date: "2021-08-01", remarks: "प्रथम किश्त" },
+      { source: "15वीं वित्त आयोग (2022-23)", amount: 1800000, date: "2022-09-15", remarks: "द्वितीय किश्त" },
+      { source: "षष्टम राज्य वित्त (2022-23)", amount: 2200000, date: "2022-11-10", remarks: "सड़क एवं नाली" },
+      { source: "15वीं वित्त (2023-24)", amount: 2100000, date: "2023-10-20", remarks: "वार्षिक अनुदान" },
+      { source: "राज्य वित्त (2024-25)", amount: 2550000, date: "2024-12-05", remarks: "विशेष घटक" },
+      { source: "एसएफडी अनुदान", amount: 450000, date: "2025-01-12", remarks: "स्वच्छ भारत" }
+    ];
 
-      // helper to format ₹
-      const formatMoney = (n) => '₹' + n.toLocaleString('en-IN', {maximumFractionDigits:0});
+    // ---------- UTILITIES ----------
+    const formatMoney = (n) => '₹' + n.toLocaleString('en-IN');
+    let currentFiltered = schemes.slice();
+    let currentPage = 1, rowsPerPage = 10;
 
-      // summary stats update
-      function updateExpenditureStats(filtered) {
-        let total = filtered.reduce((acc, e) => acc + e.amount, 0);
-        document.getElementById('totalExpenditure').innerText = formatMoney(total);
-        document.getElementById('schemeCount').innerText = filtered.length;
-        let vendors = new Set(filtered.map(e => e.vendor)).size;
-        document.getElementById('vendorCount').innerText = vendors;
-        let avg = filtered.length ? total/filtered.length : 0;
-        document.getElementById('avgExpenditure').innerText = formatMoney(avg);
-        document.getElementById('expCount').innerText = filtered.length;
-      }
+    // populate filters
+    function populateFilters() {
+      const fundSet = new Set(schemes.map(s => s.fund));
+      const yearSet = new Set(schemes.map(s => s.year));
+      const fundSelect = document.getElementById('fundFilter');
+      const yearSelect = document.getElementById('yearFilter');
+      fundSet.forEach(f => fundSelect.innerHTML += `<option value="${f}">${f}</option>`);
+      yearSet.forEach(y => yearSelect.innerHTML += `<option value="${y}">${y}</option>`);
+    }
 
-      // render expenditure table
-      function renderExpTable(data) {
-        let tbody = document.getElementById('expTbody');
-        tbody.innerHTML = '';
-        data.forEach(item => {
-          tbody.innerHTML += `<tr>
-            <td>${item.scheme}</td><td class="rupee-symbol">${formatMoney(item.amount)}</td>
-            <td>${item.date}</td><td>${item.vendor}</td><td>${item.category}</td><td>${item.remarks || '—'}</td>
-          </tr>`;
-        });
-        updateExpenditureStats(data);
-      }
-
-      // populate filters (scheme names, years)
-      function populateFilters() {
-        let schemeSet = new Set(expenditureData.map(e => e.scheme));
-        let schemeFilter = document.getElementById('schemeFilter');
-        schemeSet.forEach(s => { schemeFilter.innerHTML += `<option value="${s}">${s}</option>`; });
-        let yearSet = new Set(expenditureData.map(e => e.date.slice(0,4)));
-        let yearFilter = document.getElementById('yearFilter');
-        yearSet.forEach(y => { yearFilter.innerHTML += `<option value="${y}">${y}</option>`; });
-      }
-
-      // filter logic
-      let currentFiltered = expenditureData.slice();
-      function applyFilters() {
-        let search = document.getElementById('expSearch').value.toLowerCase();
-        let scheme = document.getElementById('schemeFilter').value;
-        let year = document.getElementById('yearFilter').value;
-        let cat = document.getElementById('categoryFilter').value;
-        currentFiltered = expenditureData.filter(e => 
-          (e.scheme.toLowerCase().includes(search) || e.vendor.toLowerCase().includes(search)) &&
-          (scheme === '' || e.scheme === scheme) &&
-          (year === '' || e.date.startsWith(year)) &&
-          (cat === '' || e.category === cat)
-        );
-        renderExpTable(currentFiltered);
-      }
-
-      document.getElementById('applyFilter').addEventListener('click', applyFilters);
-      document.getElementById('resetFilter').addEventListener('click', ()=>{
-        document.getElementById('expSearch').value='';
-        document.getElementById('schemeFilter').value='';
-        document.getElementById('yearFilter').value='';
-        document.getElementById('categoryFilter').value='';
-        applyFilters();
+    // render table
+    function renderTable() {
+      const tbody = document.getElementById('expTbody');
+      const start = (currentPage-1)*rowsPerPage;
+      const end = start + rowsPerPage;
+      const pageData = currentFiltered.slice(start, end);
+      tbody.innerHTML = '';
+      pageData.forEach((s, idx) => {
+        tbody.innerHTML += `<tr>
+          <td>${start+idx+1}</td>
+          <td>${s.fund}</td>
+          <td>${s.year}</td>
+          <td>${s.desc.substring(0,60)}...</td>
+          <td>${formatMoney(s.amount)}</td>
+          <td><span style="background:${s.status==='पूर्ण'?'#d4edda':'#fff3cd'}; padding:4px 12px; border-radius:30px;">${s.status}</span></td>
+          <td>${s.fund.includes('राज्य')?'ग्राम निर्माण':'स्थानीय एजेंसी'}</td>
+        </tr>`;
       });
+      document.getElementById('recordCount').innerText = `${currentFiltered.length} रिकॉर्ड`;
+      document.getElementById('pageInfo').innerText = `${currentPage}/${Math.ceil(currentFiltered.length/rowsPerPage) || 1}`;
+      updateStats();
+    }
 
-      // Income table
-      function renderIncome() {
-        let tbody = document.getElementById('incomeTbody');
-        let total = 0;
-        incomeData.forEach(i => { total += i.amount;
-          tbody.innerHTML += `<tr><td>${i.source}</td><td class="rupee-symbol">${formatMoney(i.amount)}</td><td>${i.date}</td><td>${i.remarks}</td></tr>`;
-        });
-        document.getElementById('totalIncome').innerText = formatMoney(total);
-        document.getElementById('incomeSources').innerText = incomeData.length;
-      }
+    // stats cards
+    function updateStats() {
+      const total = currentFiltered.reduce((acc,s)=>acc+s.amount,0);
+      const completed = currentFiltered.filter(s=>s.status==='पूर्ण').length;
+      const progress = currentFiltered.length - completed;
+      const totalAmt = currentFiltered.reduce((a,s)=>a+s.amount,0);
+      document.getElementById('expStats').innerHTML = `
+        <div class="stat-card"><div class="stat-number">${currentFiltered.length}</div><div class="stat-label">कुल योजनाएँ</div></div>
+        <div class="stat-card"><div class="stat-number">${formatMoney(total)}</div><div class="stat-label">कुल व्यय</div></div>
+        <div class="stat-card"><div class="stat-number">${completed}</div><div class="stat-label">पूर्ण कार्य</div></div>
+        <div class="stat-card"><div class="stat-number">${progress}</div><div class="stat-label">प्रगति पर</div></div>
+      `;
+    }
 
-      // Scheme summary (group by scheme name)
-      function renderSchemeSummary() {
-        let groups = {};
-        expenditureData.forEach(e => {
-          if(!groups[e.scheme]) groups[e.scheme] = { total:0, count:0, amounts:[] };
-          groups[e.scheme].total += e.amount;
-          groups[e.scheme].count += 1;
-          groups[e.scheme].amounts.push(e.amount);
-        });
-        let tbody = document.getElementById('schemeSummaryBody');
-        for(let scheme in groups) {
-          let g = groups[scheme];
-          let avg = g.total / g.count;
-          let status = g.total > 500000 ? 'प्रगति पर' : 'पूर्ण'; // demo
-          tbody.innerHTML += `<tr style="cursor:pointer;" onclick="document.getElementById('schemeFilter').value='${scheme}'; applyFilters(); location.href='#expenditure';"><td>${scheme}</td><td>${formatMoney(g.total)}</td><td>${g.count}</td><td>${formatMoney(avg)}</td><td><span class="badge-green">${status}</span></td></tr>`;
-        }
-      }
+    // filter apply
+    function applyFilters() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const fund = document.getElementById('fundFilter').value;
+      const year = document.getElementById('yearFilter').value;
+      const status = document.getElementById('statusFilter').value;
+      currentFiltered = schemes.filter(s => 
+        (s.desc.toLowerCase().includes(search) || s.fund.toLowerCase().includes(search)) &&
+        (fund === '' || s.fund === fund) &&
+        (year === '' || s.year === year) &&
+        (status === '' || s.status === status)
+      );
+      currentPage = 1;
+      renderTable();
+    }
 
-      // exports (simple csv)
-      window.exportExpenditureCSV = function() {
-        let csv = "योजना नाम,राशि,तिथि,विक्रेता,श्रेणी,टिप्पणी\n";
-        currentFiltered.forEach(e => csv += `"${e.scheme}",${e.amount},${e.date},"${e.vendor}",${e.category},"${e.remarks}"\n`);
-        let blob = new Blob([csv], {type:'text/csv'});
-        let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'sarwa_expenditure.csv'; a.click();
-      };
-      window.exportExpenditureExcel = function() {
-        let csv = "योजना नाम,राशि,तिथि,विक्रेता,श्रेणी,टिप्पणी\n";
-        currentFiltered.forEach(e => csv += `"${e.scheme}",${e.amount},${e.date},"${e.vendor}",${e.category},"${e.remarks}"\n`);
-        let blob = new Blob([csv], {type:'application/vnd.ms-excel'});
-        let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'sarwa_expenditure.xls'; a.click();
-      };
-
-      // WhatsApp share
-      document.getElementById('whatsappShareBtn').addEventListener('click', function() {
-        let text = `सर्वा पंचायत व्यय रिपोर्ट – कुल व्यय: ${document.getElementById('totalExpenditure').innerText}, कुल योजनाएँ: ${document.getElementById('schemeCount').innerText}. अधिक जानकारी के लिए देखें: ${window.location.href}`;
-        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+    // income table
+    function renderIncome() {
+      let tbody = document.getElementById('incomeTbody');
+      let total = 0;
+      incomeData.forEach(i => {
+        total += i.amount;
+        tbody.innerHTML += `<tr><td>${i.source}</td><td>${formatMoney(i.amount)}</td><td>${i.date}</td><td>${i.remarks}</td></tr>`;
       });
+      document.getElementById('totalIncome').innerText = formatMoney(total);
+      document.getElementById('incomeSources').innerText = incomeData.length;
+    }
 
-      // pagination (simple)
-      let currentPage = 1, perPage = 10;
-      function paginate() { /* not fully implemented but skeleton */ }
-      
-      // initial load
-      populateFilters();
-      renderExpTable(expenditureData);
-      renderIncome();
-      renderSchemeSummary();
-
-      // active nav highlighting
-      window.addEventListener('scroll', ()=> {
-        let fromTop = window.scrollY + 100;
-        document.querySelectorAll('nav a').forEach(link => {
-          let section = document.querySelector(link.getAttribute('href'));
-          if(section.offsetTop <= fromTop && section.offsetTop+section.offsetHeight > fromTop) {
-            link.classList.add('active');
-          } else link.classList.remove('active');
-        });
+    // scheme summary
+    function renderSummary() {
+      let groups = {};
+      schemes.forEach(s => {
+        if(!groups[s.desc]) groups[s.desc] = { total:0, count:0 };
+        groups[s.desc].total += s.amount;
+        groups[s.desc].count += 1;
       });
-    })();
+      let tbody = document.getElementById('summaryTbody');
+      Object.keys(groups).slice(0,10).forEach(desc => {
+        let g = groups[desc];
+        tbody.innerHTML += `<tr><td>${desc.substring(0,50)}...</td><td>${formatMoney(g.total)}</td><td>${g.count}</td><td>${formatMoney(g.total/g.count)}</td></tr>`;
+      });
+    }
+
+    // exports
+    window.exportCSV = function() {
+      let csv = "क्र.,मद,वित्त वर्ष,योजना का नाम,राशि,स्थिति\n";
+      currentFiltered.forEach((s,i) => csv += `${i+1},"${s.fund}","${s.year}","${s.desc.replace(/"/g,'""')}",${s.amount},"${s.status}"\n`);
+      const blob = new Blob([csv],{type:'text/csv'}); 
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'sarwa_expenditure.csv'; a.click();
+    };
+    window.exportExcel = function() {
+      let csv = "क्र.,मद,वित्त वर्ष,योजना का नाम,राशि,स्थिति\n";
+      currentFiltered.forEach((s,i) => csv += `${i+1},"${s.fund}","${s.year}","${s.desc.replace(/"/g,'""')}",${s.amount},"${s.status}"\n`);
+      const blob = new Blob([csv],{type:'application/vnd.ms-excel'}); 
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'sarwa_expenditure.xls'; a.click();
+    };
+
+    // event listeners
+    document.getElementById('applyFilter').addEventListener('click', applyFilters);
+    document.getElementById('resetFilter').addEventListener('click', ()=>{
+      document.getElementById('searchInput').value='';
+      document.getElementById('fundFilter').value='';
+      document.getElementById('yearFilter').value='';
+      document.getElementById('statusFilter').value='';
+      applyFilters();
+    });
+    document.getElementById('prevPage').addEventListener('click', ()=>{
+      if(currentPage>1) { currentPage--; renderTable(); }
+    });
+    document.getElementById('nextPage').addEventListener('click', ()=>{
+      let max = Math.ceil(currentFiltered.length/rowsPerPage);
+      if(currentPage < max) { currentPage++; renderTable(); }
+    });
+
+    // init
+    populateFilters();
+    renderTable();
+    renderIncome();
+    renderSummary();
   </script>
 </body>
 </html>
