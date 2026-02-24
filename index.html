@@ -13,6 +13,8 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <!-- jsPDF -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- SheetJS (एक्सेल एक्सपोर्ट के लिए) -->
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
   <style>
     * {
       margin: 0;
@@ -80,6 +82,10 @@
       border-color: #f97316;
       border-top-color: #facc15;
     }
+    body.dark-mode .toast-notification {
+      background: #334155;
+      color: #f8fafc;
+    }
 
     .flagship-dashboard {
       max-width: 1600px;
@@ -87,6 +93,28 @@
       display: flex;
       flex-direction: column;
       gap: 24px;
+    }
+
+    /* === टोस्ट नोटिफिकेशन === */
+    .toast-notification {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #1e3a8a;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-weight: 500;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      z-index: 9999;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+    }
+    .toast-notification.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* === हेडर === */
@@ -150,6 +178,14 @@
     .commission-tag:hover {
       background: #facc15;
       color: #1e3a8a;
+    }
+    /* लाइव घड़ी */
+    .live-clock {
+      font-size: 1.2rem;
+      background: #ffffff20;
+      border-radius: 40px;
+      padding: 8px 20px;
+      font-weight: 500;
     }
 
     /* स्टैट्स कार्ड */
@@ -233,6 +269,7 @@
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
+      align-items: center;
     }
     .pill {
       background: #ffedd5;
@@ -262,6 +299,55 @@
       color: #7b2c0d;
       cursor: pointer;
       outline: none;
+    }
+    /* एक्स्ट्रा टूल्स */
+    .extra-tools {
+      display: flex;
+      gap: 8px;
+    }
+    .extra-btn {
+      background: #ffedd5;
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #7b2c0d;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .extra-btn:hover {
+      background: #f97316;
+      color: white;
+    }
+
+    /* कॉलम टॉगल ड्रॉपडाउन */
+    .col-toggle {
+      position: relative;
+      display: inline-block;
+    }
+    .col-toggle-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background: white;
+      border: 1px solid #f97316;
+      border-radius: 20px;
+      padding: 12px;
+      z-index: 100;
+      min-width: 200px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    .col-toggle-content.show {
+      display: block;
+    }
+    .col-toggle-content label {
+      display: block;
+      padding: 6px 0;
+      cursor: pointer;
     }
 
     /* इनसाइट पैनल */
@@ -443,6 +529,31 @@
       text-align: right;
       font-weight: 600;
     }
+    /* पेजिनेशन */
+    .pagination {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      padding: 16px 24px;
+    }
+    .page-btn {
+      background: #ffedd5;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-weight: 600;
+      color: #7b2c0d;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .page-btn.active {
+      background: #f97316;
+      color: white;
+    }
+    .page-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
 
     /* फुटर */
     .excellence-footer {
@@ -496,7 +607,7 @@
   <div class="masthead">
     <div class="brand-row">
       <div class="insignia">
-        <div class="gov-icon"><i class="fas fa-university"></i></div> <!-- सही आइकन -->
+        <div class="gov-icon"><i class="fas fa-university"></i></div>
         <div class="gov-title">
           <h1>15वीं वित्त + षष्टम राज्य वित्त</h1>
           <div class="sub">
@@ -505,8 +616,11 @@
           </div>
         </div>
       </div>
-      <div class="commission-tag" onclick="toggleDarkMode()">
-        <i class="fas fa-moon"></i> डार्क मोड
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <span class="live-clock" id="liveClock"></span>
+        <div class="commission-tag" onclick="toggleDarkMode()">
+          <i class="fas fa-moon"></i> डार्क मोड
+        </div>
       </div>
     </div>
 
@@ -519,7 +633,7 @@
     </div>
   </div>
 
-  <!-- कंट्रोल रिबन -->
+  <!-- कंट्रोल रिबन (extra tools के साथ) -->
   <div class="control-ribbon">
     <div class="search-module">
       <i class="fas fa-search"></i>
@@ -538,6 +652,34 @@
         <option value="2024–2025">2024–2025</option>
         <option value="2025–26">2025–26</option>
       </select>
+    </div>
+    <div class="extra-tools">
+      <!-- फुल स्क्रीन बटन -->
+      <button class="extra-btn" onclick="toggleFullScreen()" title="फुल स्क्रीन"><i class="fas fa-expand"></i></button>
+      <!-- कॉलम टॉगल (15वीं) -->
+      <div class="col-toggle" id="colToggle15">
+        <button class="extra-btn" onclick="toggleColDropdown('15')"><i class="fas fa-columns"></i></button>
+        <div class="col-toggle-content" id="colDropdown15">
+          <label><input type="checkbox" checked data-col="0"> क्र.</label>
+          <label><input type="checkbox" checked data-col="1"> मद</label>
+          <label><input type="checkbox" checked data-col="2"> वित्त वर्ष</label>
+          <label><input type="checkbox" checked data-col="3"> योजना का नाम</label>
+          <label><input type="checkbox" checked data-col="4"> राशि</label>
+          <label><input type="checkbox" checked data-col="5"> स्थिति</label>
+        </div>
+      </div>
+      <!-- कॉलम टॉगल (राज्य) -->
+      <div class="col-toggle" id="colToggleState">
+        <button class="extra-btn" onclick="toggleColDropdown('state')"><i class="fas fa-columns"></i></button>
+        <div class="col-toggle-content" id="colDropdownState">
+          <label><input type="checkbox" checked data-col="0"> क्र.</label>
+          <label><input type="checkbox" checked data-col="1"> मद</label>
+          <label><input type="checkbox" checked data-col="2"> वित्त वर्ष</label>
+          <label><input type="checkbox" checked data-col="3"> योजना का नाम</label>
+          <label><input type="checkbox" checked data-col="4"> राशि</label>
+          <label><input type="checkbox" checked data-col="5"> स्थिति</label>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -562,7 +704,7 @@
     </div>
   </div>
 
-  <!-- 15वीं वित्त टेबल -->
+  <!-- 15वीं वित्त टेबल (पेजिनेशन के साथ) -->
   <div class="table-section">
     <div class="table-header">
       <h2><i class="fas fa-landmark"></i> 15वीं वित्त आयोग</h2>
@@ -575,9 +717,10 @@
         <tfoot><tr><td colspan="5" class="grand-total-label">कुल</td><td class="rupee-cell grand-total-amt" id="footer15Total">₹0</td></tr></tfoot>
       </table>
     </div>
+    <div class="pagination" id="pagination15"></div>
   </div>
 
-  <!-- षष्टम राज्य वित्त टेबल -->
+  <!-- षष्टम राज्य वित्त टेबल (पेजिनेशन के साथ) -->
   <div class="table-section">
     <div class="table-header">
       <h2><i class="fas fa-building"></i> षष्टम राज्य वित्त</h2>
@@ -590,22 +733,28 @@
         <tfoot><tr><td colspan="5" class="grand-total-label">कुल</td><td class="rupee-cell grand-total-amt" id="footerStateTotal">₹0</td></tr></tfoot>
       </table>
     </div>
+    <div class="pagination" id="paginationState"></div>
   </div>
 
-  <!-- फुटर -->
+  <!-- फुटर (एक्सेल एक्सपोर्ट बटन जोड़ा) -->
   <div class="excellence-footer">
     <div><i class="fas fa-check-double"></i> पंचायत सर्वा · 24 फरवरी 2026</div>
     <div class="footer-actions">
       <button class="btn-icon" onclick="exportCSV()"><i class="fas fa-file-csv"></i> CSV</button>
+      <button class="btn-icon" onclick="exportExcel()"><i class="fas fa-file-excel"></i> Excel</button>
       <button class="btn-icon" onclick="exportPDF()"><i class="fas fa-file-pdf"></i> PDF</button>
       <button class="btn-icon" onclick="window.print()"><i class="fas fa-print"></i> प्रिंट</button>
     </div>
   </div>
+
+  <!-- टोस्ट नोटिफिकेशन -->
+  <div id="toast" class="toast-notification"></div>
 </div>
 
 <script>
-  // ---------- पूरा जावास्क्रिप्ट भाग (बिना किसी बदलाव के) ----------
+  // ---------- समस्त डेटा (24+22) ----------
   const schemes = [
+    // 15वीं वित्त (24)
     { fund: "15वीं वित्त आयोग", year: "2021–22", desc: "ग्राम पंचायत सर्वा के ग्राम सर्वा के वार्षिक सं0–07 में बौद्धी पोखर के चारों तरफ मिट्टी भराई एवं खरंजीकरण कार्य।", amount: 1096700, status: "पूर्ण" },
     { fund: "15वीं वित्त आयोग", year: "2021–22", desc: "ग्राम पंचायत सर्वा के ग्राम सर्वा में परमेश्वर साथ से सिभेक्षण महत्ता तक पीठसी0सी0 ढलाई कार्य।", amount: 319100, status: "पूर्ण" },
     { fund: "15वीं वित्त आयोग", year: "2022–23", desc: "ग्राम सर्वा में गेट्टीनी पैन पुल से चादीपुर तक पैन सफाई का मिनांग कार्य।", amount: 1156700, status: "पूर्ण" },
@@ -630,6 +779,7 @@
     { fund: "15वीं वित्त आयोग", year: "2025–26", desc: "ग्राम पंचायत सर्वा में WPU का मर्मती का कार्य।", amount: 129800, status: "पूर्ण" },
     { fund: "15वीं वित्त आयोग", year: "2025–26", desc: "ग्राम सर्वा में खिलु सिंह के खेत से निर्भर सिंह के खेत होते हुए देवन महत्तो के खेत तक ईट सोलिंग एवं पीठसी0सी0 ढलाई का कार्य।", amount: 598400, status: "कार्य प्रगति पर" },
     { fund: "15वीं वित्त आयोग", year: "2025–26", desc: "ग्राम सर्वा में राजीव सिंह के घर से संतोष सिंह के घर तक ढक्कन सहित नाली एवं पीठसी0सी0 ढलाई का कार्य।", amount: 479200, status: "कार्य प्रगति पर" },
+    // षष्टम राज्य वित्त (22)
     { fund: "षष्टम राज्य वित्त आयोग", year: "2022–23", desc: "ग्राम सर्वा में रामेश्वर सिंह के खेत से आलोक सिंह के घर तक एवं शंकर सिंह के घर से रामेश्वर सिंह के घर तक मिट्टी भराई खड़ीजकरण एवं पी0सी0सी0 ढलाई कार्य ।", amount: 527400, status: "पूर्ण" },
     { fund: "षष्टम राज्य वित्त आयोग", year: "2022–23", desc: "ग्राम पंचायत सर्वा में किसान भवन का जीणांद्वार का कार्य ।", amount: 216500, status: "पूर्ण" },
     { fund: "षष्टम राज्य वित्त आयोग", year: "2022–23", desc: "ग्राम पंचायत सर्वा के ग्राम मिजापुर के वार्ड सं0–03 में मनोज सिंह के घर से सिपाही जी के घर होते हुए अक्कम महत्ते के घर तक पेवर ब्लॉक सोलिंग एवं नाली निर्माण कार्य ।", amount: 676500, status: "पूर्ण" },
@@ -654,9 +804,81 @@
     { fund: "षष्टम राज्य वित्त आयोग", year: "2025–26", desc: "ग्राम सर्वा में लुटन सिंह के घर से अनिल सिंह के घर होते हुए राजेन्द्र सिंह के घर तक नाली निर्माण कार्य ।", amount: 195600, status: "कार्य प्रगति पर" }
   ];
 
+  // ग्लोबल वेरिएबल
   let currentSort = { table: null, col: 0, asc: true };
   let chartInstance;
+  // पेजिनेशन के लिए
+  let currentPage15 = 1;
+  let currentPageState = 1;
+  const rowsPerPage = 10;
 
+  // टोस्ट फंक्शन
+  function showToast(message, duration = 3000) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, duration);
+  }
+
+  // फुल स्क्रीन टॉगल
+  function toggleFullScreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+    showToast('फुल स्क्रीन मोड टॉगल किया गया');
+  }
+
+  // कॉलम ड्रॉपडाउन टॉगल
+  function toggleColDropdown(table) {
+    const dropdown = document.getElementById(`colDropdown${table === '15' ? '15' : 'State'}`);
+    dropdown.classList.toggle('show');
+  }
+
+  // कॉलम विजिबिलिटी अपडेट करें
+  function updateColumnVisibility(tableId) {
+    const table = document.getElementById(tableId === '15' ? 'table15' : 'tableState');
+    const checkboxes = document.querySelectorAll(`#colDropdown${tableId === '15' ? '15' : 'State'} input[type="checkbox"]`);
+    const headers = table.querySelectorAll('thead th');
+    checkboxes.forEach((cb, index) => {
+      const colIndex = parseInt(cb.dataset.col);
+      const visible = cb.checked;
+      // हर रो में इस कॉलम को छुपाएं/दिखाएं
+      table.querySelectorAll(`tr`).forEach(row => {
+        if (row.cells[colIndex]) {
+          row.cells[colIndex].style.display = visible ? '' : 'none';
+        }
+      });
+      // हेडर भी
+      if (headers[colIndex]) {
+        headers[colIndex].style.display = visible ? '' : 'none';
+      }
+    });
+  }
+
+  // कॉलम चेकबॉक्स पर इवेंट
+  document.querySelectorAll('.col-toggle-content input').forEach(cb => {
+    cb.addEventListener('change', function() {
+      const parentId = this.closest('.col-toggle-content').id;
+      const tableId = parentId === 'colDropdown15' ? '15' : 'state';
+      updateColumnVisibility(tableId);
+    });
+  });
+
+  // लाइव घड़ी
+  function updateClock() {
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString('hi-IN', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    document.getElementById('liveClock').innerHTML = `<i class="far fa-clock"></i> ${timeStr}`;
+  }
+  setInterval(updateClock, 1000);
+
+  // फॉर्मेट मनी
   function formatMoney(n) {
     let [int, frac] = n.toFixed(2).split('.');
     let last = int.slice(-3);
@@ -665,16 +887,58 @@
     return '₹' + rest.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + last + '.' + frac;
   }
 
-  function renderTable(tbodyId, data) {
+  // टेबल रेंडर (पेजिनेशन के साथ)
+  function renderTable(tbodyId, data, page = 1, tableType) {
     const tbody = document.getElementById(tbodyId);
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const pageData = data.slice(start, end);
     tbody.innerHTML = '';
-    data.forEach((s, i) => {
+    pageData.forEach((s, i) => {
       let cls = s.status === 'पूर्ण' ? 'complete' : 'progress';
       let ico = s.status === 'पूर्ण' ? 'fa-check' : 'fa-clock';
-      tbody.innerHTML += `<tr><td>${i+1}</td><td>${s.fund}</td><td>${s.year}</td><td>${s.desc}</td><td class="rupee-cell">${formatMoney(s.amount)}</td><td><span class="status-super ${cls}"><i class="fas ${ico}"></i> ${s.status}</span></td></tr>`;
+      tbody.innerHTML += `<tr><td>${start + i + 1}</td><td>${s.fund}</td><td>${s.year}</td><td>${s.desc}</td><td class="rupee-cell">${formatMoney(s.amount)}</td><td><span class="status-super ${cls}"><i class="fas ${ico}"></i> ${s.status}</span></td></tr>`;
     });
+    // पेजिनेशन बटन अपडेट
+    renderPagination(data.length, page, tableType);
+    // कॉलम विजिबिलिटी फिर से लागू करें (यूजर की सेटिंग बनी रहे)
+    setTimeout(() => {
+      updateColumnVisibility(tableType === '15' ? '15' : 'state');
+    }, 50);
   }
 
+  function renderPagination(totalRows, currentPage, tableType) {
+    const totalPages = Math.ceil(totalRows / rowsPerPage);
+    const paginationDiv = document.getElementById(tableType === '15' ? 'pagination15' : 'paginationState');
+    if (totalPages <= 1) {
+      paginationDiv.innerHTML = '';
+      return;
+    }
+    let html = '';
+    // प्रीव बटन
+    html += `<button class="page-btn" onclick="changePage('${tableType}', ${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}><i class="fas fa-chevron-left"></i></button>`;
+    for (let i = 1; i <= totalPages; i++) {
+      if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+        html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage('${tableType}', ${i})">${i}</button>`;
+      } else if (i === currentPage - 3 || i === currentPage + 3) {
+        html += `<button class="page-btn" disabled>...</button>`;
+      }
+    }
+    html += `<button class="page-btn" onclick="changePage('${tableType}', ${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}><i class="fas fa-chevron-right"></i></button>`;
+    paginationDiv.innerHTML = html;
+  }
+
+  function changePage(tableType, newPage) {
+    if (tableType === '15') {
+      currentPage15 = newPage;
+      filterData(); // फिल्टर के बाद रेंडर होगा
+    } else {
+      currentPageState = newPage;
+      filterData();
+    }
+  }
+
+  // मेट्रिक्स अपडेट (पहले जैसा)
   function updateMetrics() {
     const total = schemes.length;
     const completed = schemes.filter(s => s.status === 'पूर्ण').length;
@@ -704,6 +968,7 @@
     `;
   }
 
+  // चार्ट
   function renderChart() {
     const years = [...new Set(schemes.map(s => s.year))];
     const counts = years.map(y => schemes.filter(s => s.year === y).length);
@@ -729,6 +994,7 @@
     });
   }
 
+  // फिल्टर फंक्शन (अब पेजिनेशन रीसेट करता है)
   function filterData() {
     const search = document.getElementById('searchInput').value.toLowerCase();
     const statusFilter = document.querySelector('.pill.active')?.getAttribute('data-filter') || 'all';
@@ -741,48 +1007,60 @@
     });
     const f15 = filtered.filter(s => s.fund === '15वीं वित्त आयोग');
     const fState = filtered.filter(s => s.fund === 'षष्टम राज्य वित्त आयोग');
-    renderTable('table15Body', f15);
-    renderTable('tableStateBody', fState);
+
+    // पेजिनेशन को पहले पेज पर रीसेट करें (यदि फिल्टर बदला है)
+    if (currentPage15 > Math.ceil(f15.length / rowsPerPage)) currentPage15 = 1;
+    if (currentPageState > Math.ceil(fState.length / rowsPerPage)) currentPageState = 1;
+
+    renderTable('table15Body', f15, currentPage15, '15');
+    renderTable('tableStateBody', fState, currentPageState, 'state');
     document.getElementById('footer15Total').innerText = formatMoney(f15.reduce((a,s)=>a+s.amount,0));
     document.getElementById('footerStateTotal').innerText = formatMoney(fState.reduce((a,s)=>a+s.amount,0));
     document.getElementById('badge15').innerText = f15.length + ' कार्य';
     document.getElementById('badgeState').innerText = fState.length + ' कार्य';
+
+    showToast('फ़िल्टर लागू किया गया');
   }
 
+  // सॉर्ट (पेजिनेशन रीसेट नहीं करता, लेकिन सॉर्टेड डेटा के पहले पेज पर ले जाएगा)
   function sortTable(col, tableId) {
     const tbodyId = tableId === '15' ? 'table15Body' : 'tableStateBody';
-    const tbody = document.getElementById(tbodyId);
-    const rows = Array.from(tbody.rows);
+    // हमें सभी फिल्टर्ड डेटा चाहिए (वर्तमान फिल्टर के अनुसार)
+    const search = document.getElementById('searchInput').value.toLowerCase();
+    const statusFilter = document.querySelector('.pill.active')?.getAttribute('data-filter') || 'all';
+    const yearFilter = document.getElementById('yearFilter').value;
+    const filtered = schemes.filter(s => {
+      const matchSearch = s.desc.toLowerCase().includes(search) || s.fund.toLowerCase().includes(search);
+      const matchStatus = statusFilter === 'all' ? true : (statusFilter === 'complete' ? s.status === 'पूर्ण' : s.status === 'कार्य प्रगति पर');
+      const matchYear = yearFilter === 'all' ? true : s.year === yearFilter;
+      return matchSearch && matchStatus && matchYear;
+    });
+    let data = tableId === '15' ? filtered.filter(s => s.fund === '15वीं वित्त आयोग') : filtered.filter(s => s.fund === 'षष्टम राज्य वित्त आयोग');
+
     const asc = currentSort.table === tableId && currentSort.col === col ? !currentSort.asc : true;
     currentSort = { table: tableId, col, asc };
-    rows.sort((a,b) => {
-      let aVal = a.cells[col].innerText;
-      let bVal = b.cells[col].innerText;
-      if (col === 4) {
-        aVal = parseFloat(aVal.replace(/[^0-9.]/g,''));
-        bVal = parseFloat(bVal.replace(/[^0-9.]/g,''));
-      }
+    data.sort((a,b) => {
+      let aVal, bVal;
+      if (col === 0) { // क्र. के हिसाब से सॉर्ट नहीं करेंगे, क्योंकि वह इंडेक्स है
+        return 0;
+      } else if (col === 1) { aVal = a.fund; bVal = b.fund; }
+      else if (col === 2) { aVal = a.year; bVal = b.year; }
+      else if (col === 3) { aVal = a.desc; bVal = b.desc; }
+      else if (col === 4) { aVal = a.amount; bVal = b.amount; }
+      else if (col === 5) { aVal = a.status; bVal = b.status; }
       if (asc) return aVal > bVal ? 1 : -1;
       else return aVal < bVal ? 1 : -1;
     });
-    tbody.innerHTML = '';
-    rows.forEach((r, idx) => {
-      r.cells[0].innerText = idx + 1;
-      tbody.appendChild(r);
-    });
+
+    // पेज 1 पर जाएं
+    if (tableId === '15') currentPage15 = 1;
+    else currentPageState = 1;
+
+    renderTable(tbodyId, data, 1, tableId);
+    showToast('डेटा सॉर्ट किया गया');
   }
 
-  function fillTables() {
-    const s15 = schemes.filter(s => s.fund === '15वीं वित्त आयोग');
-    const sState = schemes.filter(s => s.fund === 'षष्टम राज्य वित्त आयोग');
-    renderTable('table15Body', s15);
-    renderTable('tableStateBody', sState);
-    document.getElementById('footer15Total').innerText = formatMoney(s15.reduce((a,s)=>a+s.amount,0));
-    document.getElementById('footerStateTotal').innerText = formatMoney(sState.reduce((a,s)=>a+s.amount,0));
-    document.getElementById('badge15').innerText = s15.length + ' कार्य';
-    document.getElementById('badgeState').innerText = sState.length + ' कार्य';
-  }
-
+  // एक्सपोर्ट CSV (पहले जैसा)
   function exportCSV() {
     let csv = "क्र.,मद,वित्त वर्ष,योजना का नाम,राशि,स्थिति\n";
     schemes.forEach((s,i) => {
@@ -794,8 +1072,23 @@
     a.href = url;
     a.download = 'panchayat_sarva_data.csv';
     a.click();
+    showToast('CSV डाउनलोड हुआ');
   }
 
+  // एक्सपोर्ट Excel
+  function exportExcel() {
+    const wsData = [["क्र.", "मद", "वित्त वर्ष", "योजना का नाम", "राशि", "स्थिति"]];
+    schemes.forEach((s, i) => {
+      wsData.push([i+1, s.fund, s.year, s.desc, s.amount, s.status]);
+    });
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
+    XLSX.utils.book_append_sheet(wb, ws, "कार्य");
+    XLSX.writeFile(wb, "panchayat_sarva_data.xlsx");
+    showToast('Excel डाउनलोड हुआ');
+  }
+
+  // एक्सपोर्ट PDF (पहले जैसा)
   function exportPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
@@ -806,8 +1099,10 @@
       y += 7;
     });
     doc.save('panchayat_sarva.pdf');
+    showToast('PDF डाउनलोड हुआ');
   }
 
+  // डार्क मोड
   function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
     const btnIcon = document.querySelector('.commission-tag i');
@@ -816,25 +1111,51 @@
       btnIcon.classList.toggle('fa-sun');
     }
     renderChart();
+    showToast('डार्क मोड टॉगल किया गया');
   }
 
-  document.getElementById('searchInput').addEventListener('input', filterData);
-  document.getElementById('yearFilter').addEventListener('change', filterData);
+  // इवेंट्स
+  document.getElementById('searchInput').addEventListener('input', () => {
+    currentPage15 = 1;
+    currentPageState = 1;
+    filterData();
+  });
+  document.getElementById('yearFilter').addEventListener('change', () => {
+    currentPage15 = 1;
+    currentPageState = 1;
+    filterData();
+  });
   document.querySelectorAll('.pill').forEach(p => {
     p.addEventListener('click', function() {
       document.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
       this.classList.add('active');
+      currentPage15 = 1;
+      currentPageState = 1;
       filterData();
     });
   });
 
-  fillTables();
+  // बाहर क्लिक करने पर कॉलम ड्रॉपडाउन बंद करें
+  window.addEventListener('click', function(e) {
+    if (!e.target.closest('.col-toggle')) {
+      document.querySelectorAll('.col-toggle-content').forEach(d => d.classList.remove('show'));
+    }
+  });
+
+  // इनिशियलाइज़
   updateMetrics();
   renderChart();
+  filterData(); // पेजिनेशन के साथ टेबल लोड करेगा
+  updateClock();
+
   window.sortTable = sortTable;
   window.exportCSV = exportCSV;
+  window.exportExcel = exportExcel;
   window.exportPDF = exportPDF;
   window.toggleDarkMode = toggleDarkMode;
+  window.toggleFullScreen = toggleFullScreen;
+  window.toggleColDropdown = toggleColDropdown;
+  window.changePage = changePage;
 </script>
 </body>
 </html>
