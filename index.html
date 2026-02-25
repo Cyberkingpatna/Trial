@@ -962,58 +962,6 @@
     </div>
   </div>
 
-  <!-- 15वीं वित्त टेबल (पेजिनेशन के साथ) -->
-  <div class="table-section">
-    <div class="table-header">
-      <h2><i class="fas fa-landmark"></i> <span id="table15Title">15वीं वित्त आयोग</span></h2>
-      <div class="badge" id="badge15">0 कार्य</div>
-    </div>
-    <div class="table-scroll">
-      <table id="table15">
-        <thead><tr><th onclick="sortTable(0, '15')">क्र. <i class="fas fa-sort"></i></th><th onclick="sortTable(1, '15')">मद <i class="fas fa-sort"></i></th><th onclick="sortTable(2, '15')">वित्त वर्ष <i class="fas fa-sort"></i></th><th onclick="sortTable(3, '15')">योजना का नाम <i class="fas fa-sort"></i></th><th onclick="sortTable(4, '15')">राशि <i class="fas fa-sort"></i></th><th>स्थिति</th></tr></thead>
-        <tbody id="table15Body"></tbody>
-        <tfoot><tr><td colspan="5" class="grand-total-label">कुल</td><td class="rupee-cell grand-total-amt" id="footer15Total">₹0</td></tr></tfoot>
-      </table>
-    </div>
-    <div class="pagination-wrapper" id="paginationWrapper15">
-      <div class="rows-selector">
-        <span id="rowsLabel15">पंक्तियाँ:</span>
-        <select id="rowsPerPage15" onchange="changeRowsPerPage('15')">
-          <option value="5">5</option>
-          <option value="10" selected>10</option>
-          <option value="20">20</option>
-        </select>
-      </div>
-      <div class="pagination" id="pagination15"></div>
-    </div>
-  </div>
-
-  <!-- षष्टम राज्य वित्त टेबल (पेजिनेशन के साथ) -->
-  <div class="table-section">
-    <div class="table-header">
-      <h2><i class="fas fa-building"></i> <span id="tableStateTitle">षष्टम राज्य वित्त</span></h2>
-      <div class="badge" id="badgeState">0 कार्य</div>
-    </div>
-    <div class="table-scroll">
-      <table id="tableState">
-        <thead><tr><th onclick="sortTable(0, 'state')">क्र. <i class="fas fa-sort"></i></th><th onclick="sortTable(1, 'state')">मद <i class="fas fa-sort"></i></th><th onclick="sortTable(2, 'state')">वित्त वर्ष <i class="fas fa-sort"></i></th><th onclick="sortTable(3, 'state')">योजना का नाम <i class="fas fa-sort"></i></th><th onclick="sortTable(4, 'state')">राशि <i class="fas fa-sort"></i></th><th>स्थिति</th></tr></thead>
-        <tbody id="tableStateBody"></tbody>
-        <tfoot><tr><td colspan="5" class="grand-total-label">कुल</td><td class="rupee-cell grand-total-amt" id="footerStateTotal">₹0</td></tr></tfoot>
-      </table>
-    </div>
-    <div class="pagination-wrapper" id="paginationWrapperState">
-      <div class="rows-selector">
-        <span id="rowsLabelState">पंक्तियाँ:</span>
-        <select id="rowsPerPageState" onchange="changeRowsPerPage('state')">
-          <option value="5">5</option>
-          <option value="10" selected>10</option>
-          <option value="20">20</option>
-        </select>
-      </div>
-      <div class="pagination" id="paginationState"></div>
-    </div>
-  </div>
-
   <!-- ========== नई टेबल 1: कर्मियों की सूची (पहला फोटो) ========== -->
   <div class="table-section">
     <div class="table-header">
@@ -1086,6 +1034,58 @@
         </select>
       </div>
       <div class="pagination" id="paginationPanchayat"></div>
+    </div>
+  </div>
+
+  <!-- 15वीं वित्त टेबल (पेजिनेशन के साथ) -->
+  <div class="table-section">
+    <div class="table-header">
+      <h2><i class="fas fa-landmark"></i> <span id="table15Title">15वीं वित्त आयोग</span></h2>
+      <div class="badge" id="badge15">0 कार्य</div>
+    </div>
+    <div class="table-scroll">
+      <table id="table15">
+        <thead><tr><th onclick="sortTable(0, '15')">क्र. <i class="fas fa-sort"></i></th><th onclick="sortTable(1, '15')">मद <i class="fas fa-sort"></i></th><th onclick="sortTable(2, '15')">वित्त वर्ष <i class="fas fa-sort"></i></th><th onclick="sortTable(3, '15')">योजना का नाम <i class="fas fa-sort"></i></th><th onclick="sortTable(4, '15')">राशि <i class="fas fa-sort"></i></th><th>स्थिति</th></tr></thead>
+        <tbody id="table15Body"></tbody>
+        <tfoot><tr><td colspan="5" class="grand-total-label">कुल</td><td class="rupee-cell grand-total-amt" id="footer15Total">₹0</td></tr></tfoot>
+      </table>
+    </div>
+    <div class="pagination-wrapper" id="paginationWrapper15">
+      <div class="rows-selector">
+        <span id="rowsLabel15">पंक्तियाँ:</span>
+        <select id="rowsPerPage15" onchange="changeRowsPerPage('15')">
+          <option value="5">5</option>
+          <option value="10" selected>10</option>
+          <option value="20">20</option>
+        </select>
+      </div>
+      <div class="pagination" id="pagination15"></div>
+    </div>
+  </div>
+
+  <!-- षष्टम राज्य वित्त टेबल (पेजिनेशन के साथ) -->
+  <div class="table-section">
+    <div class="table-header">
+      <h2><i class="fas fa-building"></i> <span id="tableStateTitle">षष्टम राज्य वित्त</span></h2>
+      <div class="badge" id="badgeState">0 कार्य</div>
+    </div>
+    <div class="table-scroll">
+      <table id="tableState">
+        <thead><tr><th onclick="sortTable(0, 'state')">क्र. <i class="fas fa-sort"></i></th><th onclick="sortTable(1, 'state')">मद <i class="fas fa-sort"></i></th><th onclick="sortTable(2, 'state')">वित्त वर्ष <i class="fas fa-sort"></i></th><th onclick="sortTable(3, 'state')">योजना का नाम <i class="fas fa-sort"></i></th><th onclick="sortTable(4, 'state')">राशि <i class="fas fa-sort"></i></th><th>स्थिति</th></tr></thead>
+        <tbody id="tableStateBody"></tbody>
+        <tfoot><tr><td colspan="5" class="grand-total-label">कुल</td><td class="rupee-cell grand-total-amt" id="footerStateTotal">₹0</td></tr></tfoot>
+      </table>
+    </div>
+    <div class="pagination-wrapper" id="paginationWrapperState">
+      <div class="rows-selector">
+        <span id="rowsLabelState">पंक्तियाँ:</span>
+        <select id="rowsPerPageState" onchange="changeRowsPerPage('state')">
+          <option value="5">5</option>
+          <option value="10" selected>10</option>
+          <option value="20">20</option>
+        </select>
+      </div>
+      <div class="pagination" id="paginationState"></div>
     </div>
   </div>
 
