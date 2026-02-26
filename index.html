@@ -15,7 +15,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <!-- SheetJS -->
   <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+  <!-- PWA मेनिफेस्ट (इनलाइन डेटा URI) -->
+  <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%BE%E0%A4%AE%20%E0%A4%AA%E0%A4%82%E0%A4%9A%E0%A4%BE%E0%A4%AF%E0%A4%A4%20%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%B5%E0%A4%BE%22%2C%22short_name%22%3A%22%E0%A4%B8%E0%A4%B0%E0%A5%8D%E0%A4%B5%E0%A4%BE%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23f0f4f8%22%2C%22theme_color%22%3A%22%231e3a8a%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2245%22%20fill%3D%22%23FF9933%22%2F%3E%3Ctext%20x%3D%2220%22%20y%3D%2265%22%20font-size%3D%2250%22%20fill%3D%22white%22%3E%E0%A4%B8%3C%2Ftext%3E%3C%2Fsvg%3E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
   <style>
+    /* मूल स्टाइल (पिछले जैसा) */
     * {
       margin: 0;
       padding: 0;
@@ -38,6 +41,23 @@
       --gradient-border: linear-gradient(90deg, #FF9933, #138808, #000080);
     }
 
+    /* थीम वेरिएबल */
+    body.theme-green {
+      --saffron: #2e7d32;
+      --green: #1b5e20;
+      --navy: #0a3f0a;
+      --blue: #1b5e20;
+      --header-bg: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+      --table-header-bg: #1b5e20;
+    }
+    body.theme-blue {
+      --saffron: #1976d2;
+      --green: #0d47a1;
+      --navy: #0a1a4a;
+      --blue: #0d47a1;
+      --header-bg: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+      --table-header-bg: #0d47a1;
+    }
     body.dark-mode {
       --saffron: #b95f00;
       --green: #0e630e;
@@ -63,14 +83,19 @@
       scroll-behavior: smooth;
     }
 
-    .flagship-dashboard {
-      max-width: 1600px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+    /* प्रिंट स्टाइल */
+    @media print {
+      .control-ribbon, .extra-tools, .footer-actions, .fab, .back-to-top, .comment-section, .theme-selector, .voice-btn, .amount-filter {
+        display: none !important;
+      }
+      body { background: white; padding: 0; }
+      .flagship-dashboard { max-width: 100%; }
+      .official-masthead { background: white; color: black; border: 1px solid #ccc; }
+      .stat-card { background: #f9f9f9; color: black; }
+      .feature-card, .chart-card, .finance-summary, .table-section { break-inside: avoid; }
     }
 
+    /* बाकी स्टाइल (पिछले कोड से कॉपी, नए एलिमेंट के लिए अतिरिक्त) */
     .tricolor-strip {
       display: flex;
       height: 6px;
@@ -208,6 +233,24 @@
       background: var(--green);
       color: white;
     }
+
+    .theme-selector {
+      display: flex;
+      gap: 5px;
+    }
+    .theme-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 2px solid white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .theme-btn:hover { transform: scale(1.1); }
+    .theme-btn.default { background: #1e3a8a; }
+    .theme-btn.dark { background: #0f172a; }
+    .theme-btn.green { background: #1b5e20; }
+    .theme-btn.blue { background: #0d47a1; }
 
     .stats-grid {
       display: grid;
@@ -388,6 +431,15 @@
       outline: none;
       color: var(--text-dark);
     }
+    .voice-btn {
+      background: transparent;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--navy);
+      margin-left: 5px;
+    }
+    .voice-btn:hover { color: var(--saffron); }
 
     .filter-pills {
       display: flex;
@@ -418,6 +470,23 @@
       border-radius: 40px;
       font-weight: 600;
       font-size: 0.8rem;
+    }
+
+    .amount-filter {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--light-bg);
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+    }
+    .amount-filter input {
+      width: 80px;
+      padding: 4px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: white;
     }
 
     .extra-tools {
@@ -736,6 +805,53 @@
       transform: translateY(-2px);
     }
 
+    /* टिप्पणी अनुभाग */
+    .comment-section {
+      background: white;
+      border-radius: 28px;
+      padding: 18px;
+      box-shadow: var(--card-shadow);
+    }
+    .dark-mode .comment-section {
+      background: #1e293b;
+    }
+    .comment-list {
+      max-height: 200px;
+      overflow-y: auto;
+      margin: 10px 0;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 10px;
+    }
+    .comment-item {
+      border-bottom: 1px dashed var(--saffron);
+      padding: 8px 0;
+    }
+    .comment-name {
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .comment-input {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .comment-input input, .comment-input textarea {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--light-bg);
+    }
+    .comment-input button {
+      background: var(--green);
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 40px;
+      cursor: pointer;
+    }
+
     .modal {
       display: none;
       position: fixed;
@@ -808,7 +924,6 @@
       transform: scale(1.1);
     }
 
-    /* बैक टु टॉप */
     .back-to-top {
       position: fixed;
       bottom: 30px;
@@ -868,6 +983,13 @@
       </div>
       <div class="header-actions">
         <span class="live-clock" id="liveClock"><i class="far fa-clock"></i> </span>
+        <!-- थीम चयनकर्ता -->
+        <div class="theme-selector">
+          <div class="theme-btn default" onclick="setTheme('default')" title="डिफ़ॉल्ट"></div>
+          <div class="theme-btn dark" onclick="setTheme('dark')" title="डार्क"></div>
+          <div class="theme-btn green" onclick="setTheme('green')" title="हरा"></div>
+          <div class="theme-btn blue" onclick="setTheme('blue')" title="नीला"></div>
+        </div>
         <div class="commission-tag" onclick="toggleDarkMode()" tabindex="0" role="button">
           <i class="fas fa-moon"></i> <span id="darkModeText">डार्क मोड</span>
         </div>
@@ -910,11 +1032,12 @@
     </div>
   </div>
 
-  <!-- कंट्रोल रिबन -->
+  <!-- कंट्रोल रिबन (अब अतिरिक्त फ़िल्टर के साथ) -->
   <div class="control-ribbon">
     <div class="search-module">
       <i class="fas fa-search"></i>
       <input type="text" placeholder="कार्य खोजें..." id="searchInput">
+      <button class="voice-btn" onclick="startVoiceSearch()" title="बोलकर खोजें"><i class="fas fa-microphone"></i></button>
     </div>
     <div class="filter-pills" id="filterPills">
       <button class="pill active" data-filter="all"><i class="fas fa-layer-group"></i> <span class="filterAll">सभी</span></button>
@@ -930,6 +1053,14 @@
         <option value="2025–26">2025–26</option>
       </select>
       <button class="pill" onclick="resetFilters()"><i class="fas fa-undo-alt"></i> <span class="resetLabel">रीसेट</span></button>
+    </div>
+    <!-- राशि सीमा फ़िल्टर -->
+    <div class="amount-filter">
+      <span>राशि सीमा:</span>
+      <input type="number" id="minAmount" placeholder="न्यूनतम" value="0" min="0" step="1000">
+      <span>-</span>
+      <input type="number" id="maxAmount" placeholder="अधिकतम" value="10000000" min="0" step="1000">
+      <button class="pill" onclick="applyAmountFilter()">लागू करें</button>
     </div>
     <div class="extra-tools">
       <button class="extra-btn" onclick="toggleFullScreen()" title="फुल स्क्रीन"><i class="fas fa-expand"></i></button>
@@ -1108,6 +1239,17 @@
     </div>
   </div>
 
+  <!-- टिप्पणी अनुभाग -->
+  <div class="comment-section">
+    <div class="feature-title"><i class="fas fa-comments"></i> टिप्पणी / सुझाव</div>
+    <div class="comment-list" id="commentList"></div>
+    <div class="comment-input">
+      <input type="text" id="commentName" placeholder="आपका नाम">
+      <textarea id="commentText" placeholder="आपकी टिप्पणी..." rows="2"></textarea>
+      <button onclick="addComment()">भेजें</button>
+    </div>
+  </div>
+
   <!-- फुटर -->
   <div class="excellence-footer">
     <div>
@@ -1118,6 +1260,7 @@
       <button class="btn-icon" onclick="exportCSV()"><i class="fas fa-file-csv"></i> CSV</button>
       <button class="btn-icon" onclick="exportExcel()"><i class="fas fa-file-excel"></i> Excel</button>
       <button class="btn-icon" onclick="exportPDF()"><i class="fas fa-file-pdf"></i> PDF</button>
+      <button class="btn-icon" onclick="exportHTML()"><i class="fas fa-file-code"></i> HTML</button>
       <button class="btn-icon" onclick="window.print()"><i class="fas fa-print"></i> <span id="printLabel">प्रिंट</span></button>
     </div>
   </div>
@@ -1258,6 +1401,7 @@
   let currentPagePanchayat = 1, rowsPerPagePanchayat = 10;
 
   let currentLanguage = 'hi';
+  let minAmount = 0, maxAmount = 10000000;
 
   function showToast(message, duration = 3000) {
     const toast = document.getElementById('toast');
@@ -1547,7 +1691,8 @@
       const matchSearch = s.desc.toLowerCase().includes(search) || s.fund.toLowerCase().includes(search);
       const matchStatus = statusFilter === 'all' ? true : (statusFilter === 'complete' ? s.status === 'पूर्ण' : s.status === 'कार्य प्रगति पर');
       const matchYear = yearFilter === 'all' ? true : s.year === yearFilter;
-      return matchSearch && matchStatus && matchYear;
+      const matchAmount = s.amount >= minAmount && s.amount <= maxAmount;
+      return matchSearch && matchStatus && matchYear && matchAmount;
     });
     const f15 = filtered.filter(s => s.fund === '15वीं वित्त आयोग');
     const fState = filtered.filter(s => s.fund === 'षष्टम राज्य वित्त आयोग');
@@ -1565,11 +1710,21 @@
     showToast(currentLanguage === 'hi' ? 'फ़िल्टर लागू किया गया' : 'Filter applied');
   }
 
+  function applyAmountFilter() {
+    minAmount = parseFloat(document.getElementById('minAmount').value) || 0;
+    maxAmount = parseFloat(document.getElementById('maxAmount').value) || 1e9;
+    currentPage15 = 1; currentPageState = 1;
+    filterData();
+  }
+
   function resetFilters() {
     document.getElementById('searchInput').value = '';
     document.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
     document.querySelector('[data-filter="all"]').classList.add('active');
     document.getElementById('yearFilter').value = 'all';
+    document.getElementById('minAmount').value = 0;
+    document.getElementById('maxAmount').value = 10000000;
+    minAmount = 0; maxAmount = 10000000;
     currentPage15 = 1; currentPageState = 1;
     filterData();
     showToast(currentLanguage === 'hi' ? 'सभी फ़िल्टर हटा दिए गए' : 'All filters reset');
@@ -1584,7 +1739,8 @@
       const matchSearch = s.desc.toLowerCase().includes(search) || s.fund.toLowerCase().includes(search);
       const matchStatus = statusFilter === 'all' ? true : (statusFilter === 'complete' ? s.status === 'पूर्ण' : s.status === 'कार्य प्रगति पर');
       const matchYear = yearFilter === 'all' ? true : s.year === yearFilter;
-      return matchSearch && matchStatus && matchYear;
+      const matchAmount = s.amount >= minAmount && s.amount <= maxAmount;
+      return matchSearch && matchStatus && matchYear && matchAmount;
     });
     let data = tableId === '15' ? filtered.filter(s => s.fund === '15वीं वित्त आयोग') : filtered.filter(s => s.fund === 'षष्टम राज्य वित्त आयोग');
 
@@ -1712,6 +1868,36 @@
     showToast('PDF ' + (currentLanguage === 'hi' ? 'डाउनलोड हुआ' : 'downloaded'));
   }
 
+  function exportHTML() {
+    const html = `<!DOCTYPE html>
+<html>
+<head><title>ग्राम पंचायत सर्वा रिपोर्ट</title><style>body{font-family:Inter;padding:20px;} table{border-collapse:collapse;width:100%;} th{background:#1e3a8a;color:white;padding:8px;} td{border:1px solid #ddd;padding:6px;}</style></head>
+<body>
+<h1>ग्राम पंचायत सर्वा - सम्पूर्ण रिपोर्ट</h1>
+<h2>योजनाएँ</h2>
+<table><tr><th>क्र.</th><th>मद</th><th>वित्त वर्ष</th><th>योजना का नाम</th><th>राशि</th><th>स्थिति</th></tr>
+${schemes.map((s,i)=>`<tr><td>${i+1}</td><td>${s.fund}</td><td>${s.year}</td><td>${s.desc}</td><td>${s.amount}</td><td>${s.status}</td></tr>`).join('')}
+</table>
+<h2>कर्मीगण</h2>
+<table><tr><th>क्र.</th><th>नाम</th><th>पदनाम</th><th>मोबाईल</th><th>कार्य अवधि</th></tr>
+${personnel.map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td>${p.designation}</td><td>${p.mobile}</td><td>${p.procedure}</td></tr>`).join('')}
+</table>
+<h2>जनप्रतिनिधि</h2>
+<table><tr><th>क्र.</th><th>नाम</th><th>पदनाम</th><th>मोबाईल</th></tr>
+${representatives.map((r,i)=>`<tr><td>${i+1}</td><td>${r.name}</td><td>${r.designation}</td><td>${r.mobile}</td></tr>`).join('')}
+</table>
+<h2>ग्राम कचहरी</h2>
+<table><tr><th>क्र.</th><th>नाम</th><th>पदनाम</th><th>मोबाईल</th></tr>
+${panchayatMembers.map((m,i)=>`<tr><td>${i+1}</td><td>${m.name}</td><td>${m.designation}</td><td>${m.mobile}</td></tr>`).join('')}
+</table>
+</body></html>`;
+    const blob = new Blob([html], { type: 'text/html' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'panchayat_sarva_report.html'; a.click();
+    showToast('HTML रिपोर्ट डाउनलोड हुई');
+  }
+
   function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
     const btnIcon = document.querySelector('.commission-tag i');
@@ -1760,19 +1946,78 @@
     showToast(currentLanguage === 'hi' ? 'भाषा बदली गई' : 'Language switched');
   }
 
-  function showProjectModal(fund, year, desc, amount, status) {
-    document.getElementById('modalFund').innerText = fund;
-    document.getElementById('modalYear').innerText = year;
-    document.getElementById('modalDesc').innerText = desc;
-    document.getElementById('modalAmount').innerText = formatMoney(amount);
-    document.getElementById('modalStatus').innerText = status;
-    document.getElementById('projectModal').classList.add('show');
+  function setTheme(theme) {
+    document.body.classList.remove('dark-mode', 'theme-green', 'theme-blue');
+    if (theme === 'dark') document.body.classList.add('dark-mode');
+    else if (theme === 'green') document.body.classList.add('theme-green');
+    else if (theme === 'blue') document.body.classList.add('theme-blue');
+    // default: no extra class
+    renderCharts();
   }
 
-  function closeModal() {
-    document.getElementById('projectModal').classList.remove('show');
+  function startVoiceSearch() {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      showToast('आपका ब्राउज़र वॉयस सर्च सपोर्ट नहीं करता');
+      return;
+    }
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'hi-IN';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    recognition.start();
+    recognition.onresult = (event) => {
+      const speechResult = event.results[0][0].transcript;
+      document.getElementById('searchInput').value = speechResult;
+      filterData();
+    };
+    recognition.onerror = () => showToast('वॉयस सर्च में त्रुटि');
   }
 
+  function addComment() {
+    const name = document.getElementById('commentName').value.trim();
+    const text = document.getElementById('commentText').value.trim();
+    if (!name || !text) { showToast('नाम और टिप्पणी दर्ज करें'); return; }
+    const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+    comments.push({ name, text, date: new Date().toLocaleString() });
+    localStorage.setItem('comments', JSON.stringify(comments));
+    displayComments();
+    document.getElementById('commentName').value = '';
+    document.getElementById('commentText').value = '';
+    showToast('टिप्पणी सहेजी गई');
+  }
+
+  function displayComments() {
+    const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+    const list = document.getElementById('commentList');
+    list.innerHTML = comments.map(c => `<div class="comment-item"><span class="comment-name">${c.name}</span> (${c.date})<br>${c.text}</div>`).join('') || 'कोई टिप्पणी नहीं';
+  }
+
+  // कीबोर्ड शॉर्टकट
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.key === 'f') {
+      e.preventDefault();
+      document.getElementById('searchInput').focus();
+    } else if (e.key === 'Escape') {
+      closeModal();
+    } else if (e.ctrlKey && e.key === 'p') {
+      e.preventDefault();
+      window.print();
+    }
+  });
+
+  // PWA सर्विस वर्कर
+  if ('serviceWorker' in navigator) {
+    const swCode = `
+      self.addEventListener('install', (e) => e.waitUntil(self.skipWaiting()));
+      self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()));
+      self.addEventListener('fetch', (e) => e.respondWith(fetch(e.request).catch(() => caches.match(e.request))));
+    `;
+    const blob = new Blob([swCode], { type: 'application/javascript' });
+    const swUrl = URL.createObjectURL(blob);
+    navigator.serviceWorker.register(swUrl).then(() => console.log('SW registered')).catch(console.error);
+  }
+
+  // इनिशियलाइज़
   document.getElementById('searchInput').addEventListener('input', () => { currentPage15 = 1; currentPageState = 1; filterData(); });
   document.getElementById('yearFilter').addEventListener('change', () => { currentPage15 = 1; currentPageState = 1; filterData(); });
   document.querySelectorAll('.pill').forEach(p => {
@@ -1798,6 +2043,7 @@
   filterData();
   renderAllNewTables();
   updateClock();
+  displayComments();
   setTimeout(() => {
     updateColumnVisibility('15');
     updateColumnVisibility('state');
@@ -1807,6 +2053,7 @@
   window.exportCSV = exportCSV;
   window.exportExcel = exportExcel;
   window.exportPDF = exportPDF;
+  window.exportHTML = exportHTML;
   window.toggleDarkMode = toggleDarkMode;
   window.toggleFullScreen = toggleFullScreen;
   window.toggleColDropdown = toggleColDropdown;
@@ -1816,6 +2063,10 @@
   window.toggleLanguage = toggleLanguage;
   window.showProjectModal = showProjectModal;
   window.closeModal = closeModal;
+  window.applyAmountFilter = applyAmountFilter;
+  window.startVoiceSearch = startVoiceSearch;
+  window.addComment = addComment;
+  window.setTheme = setTheme;
 </script>
 </body>
 </html>
