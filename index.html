@@ -16,8 +16,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
   <!-- SheetJS -->
   <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
-  <!-- PWA मेनिफेस्ट (अलग फ़ाइल की तरह व्यवहार करेगा) -->
-  <link rel="manifest" href="manifest.json">
   <style>
     /* ===== मूल स्टाइल (कुछ संशोधनों सहित) ===== */
     * {
@@ -1549,7 +1547,7 @@
         <td>${start + i + 1}</td>
         <td>${s.fund}</td>
         <td>${s.year}</td>
-        <td title="${s.desc}">${s.desc.substring(0, 60)}${s.desc.length > 60 ? '…' : ''}</td>
+        <td title="${s.desc}">${s.desc}</td>   <!-- यहाँ पूरा नाम दिख रहा है -->
         <td class="rupee-cell">${formatMoney(s.amount)}</td>
         <td><span class="status-super ${cls}"><i class="fas ${ico}"></i> ${s.status}</span></td>
       </tr>`;
@@ -1950,32 +1948,50 @@
 
   // ========== एक्सपोर्ट ==========
   function exportCSV() {
-    // ... (पिछले जैसा, लेकिन फ़िल्टर किए गए डेटा के साथ)
+    // सरल संस्करण – बस स्कीम के लिए
+    let csv = "क्र.,मद,वित्त वर्ष,योजना का नाम,राशि,स्थिति\n";
+    schemes.forEach((s,i) => csv += `${i+1},"${s.fund}","${s.year}","${s.desc.replace(/"/g,'""')}",${s.amount},"${s.status}"\n`);
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'panchayat_sarva_schemes.csv'; a.click();
     showToast(t('csvDownloaded'));
   }
 
   function exportExcel() {
-    // ... (पिछले जैसा)
+    const wb = XLSX.utils.book_new();
+    let wsData = [["क्र.", "मद", "वित्त वर्ष", "योजना का नाम", "राशि", "स्थिति"]];
+    schemes.forEach((s, i) => wsData.push([i+1, s.fund, s.year, s.desc, s.amount, s.status]));
+    let ws = XLSX.utils.aoa_to_sheet(wsData);
+    XLSX.utils.book_append_sheet(wb, ws, "योजनाएँ");
+    XLSX.writeFile(wb, "panchayat_sarva_schemes.xlsx");
     showToast(t('excelDownloaded'));
   }
 
   function exportPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-    doc.text("ग्राम पंचायत सर्वा - सम्पूर्ण डेटा", 10, 10);
-    doc.setFontSize(8);
-    // स्कीम टेबल
+    doc.text("ग्राम पंचायत सर्वा - योजनाएँ", 10, 10);
     doc.autoTable({ html: '#table15', startY: 20, theme: 'striped' });
     doc.autoTable({ html: '#tableState', startY: doc.lastAutoTable.finalY + 10, theme: 'striped' });
-    doc.autoTable({ html: '#tablePersonnel', startY: doc.lastAutoTable.finalY + 10, theme: 'striped' });
-    doc.autoTable({ html: '#tableRep', startY: doc.lastAutoTable.finalY + 10, theme: 'striped' });
-    doc.autoTable({ html: '#tablePanchayat', startY: doc.lastAutoTable.finalY + 10, theme: 'striped' });
-    doc.save('panchayat_sarva_complete.pdf');
+    doc.save('panchayat_sarva_schemes.pdf');
     showToast(t('pdfDownloaded'));
   }
 
   function exportHTML() {
-    // ... (पिछले जैसा)
+    const html = `<!DOCTYPE html>
+<html>
+<head><title>ग्राम पंचायत सर्वा रिपोर्ट</title><style>body{font-family:Inter;padding:20px;} table{border-collapse:collapse;width:100%;} th{background:#1e3a8a;color:white;padding:8px;} td{border:1px solid #ddd;padding:6px;}</style></head>
+<body>
+<h1>ग्राम पंचायत सर्वा - योजनाएँ</h1>
+<table><tr><th>क्र.</th><th>मद</th><th>वित्त वर्ष</th><th>योजना का नाम</th><th>राशि</th><th>स्थिति</th></tr>
+${schemes.map((s,i)=>`<tr><td>${i+1}</td><td>${s.fund}</td><td>${s.year}</td><td>${s.desc}</td><td>${s.amount}</td><td>${s.status}</td></tr>`).join('')}
+</table>
+</body></html>`;
+    const blob = new Blob([html], { type: 'text/html' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'panchayat_sarva_schemes.html'; a.click();
     showToast(t('htmlDownloaded'));
   }
 
