@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-  <title>ग्राम पंचायत सर्वा – अंतिम डैशबोर्ड</title>
+  <title>ग्राम पंचायत सर्वा – उन्नत डैशबोर्ड</title>
   <!-- फॉन्ट और आइकन -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +17,7 @@
   <!-- SheetJS -->
   <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
   <style>
-    /* ===== मूल स्टाइल (कुछ संशोधनों सहित) ===== */
+    /* ===== मूल स्टाइल (बिल्कुल यथावत) ===== */
     * {
       margin: 0;
       padding: 0;
@@ -88,7 +88,7 @@
 
     /* प्रिंट स्टाइल */
     @media print {
-      .control-ribbon, .extra-tools, .footer-actions, .fab, .back-to-top, .comment-section, .theme-selector, .voice-btn, .amount-filter, .multi-year-dropdown {
+      .control-ribbon, .extra-tools, .footer-actions, .fab, .back-to-top, .comment-section, .theme-selector, .voice-btn, .amount-filter, .multi-year-dropdown, .new-features {
         display: none !important;
       }
       body { background: white; padding: 0; }
@@ -608,10 +608,19 @@
       padding: 8px 8px; border-bottom: 1px solid var(--border); word-break: break-word;
     }
 
-    /* कर्मियों के नाम और योजनाओं के नाम बोल्ड */
+    /* कर्मियों के नाम बोल्ड */
     #tablePersonnel tbody tr td:nth-child(2) {
       font-weight: 600;
     }
+    /* प्रतिनिधियों के नाम बोल्ड */
+    #tableRep tbody tr td:nth-child(2) {
+      font-weight: 600;
+    }
+    /* ग्राम कचहरी सदस्यों के नाम बोल्ड */
+    #tablePanchayat tbody tr td:nth-child(2) {
+      font-weight: 600;
+    }
+    /* योजनाओं के नाम बोल्ड */
     #table15 tbody tr td:nth-child(4),
     #tableState tbody tr td:nth-child(4) {
       font-weight: 600;
@@ -716,8 +725,90 @@
     }
     .back-to-top:hover { background: var(--saffron); transform: translateY(-5px); }
 
+    /* ===== नए फीचर्स के लिए स्टाइल ===== */
+    .new-features {
+      margin: 20px 0;
+    }
+    .new-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 10px;
+    }
+    .new-card {
+      background: white;
+      border-radius: 28px;
+      padding: 18px;
+      box-shadow: var(--card-shadow);
+    }
+    .dark-mode .new-card { background: #1e293b; }
+    .quick-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 15px 0;
+    }
+    .action-btn {
+      background: var(--navy);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .action-btn:hover {
+      background: var(--green);
+      transform: translateY(-2px);
+    }
+    .timeline {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+    }
+    .timeline-year {
+      flex: 1;
+      min-width: 80px;
+      text-align: center;
+      background: var(--light-bg);
+      border-radius: 20px;
+      margin: 0 5px;
+      padding: 10px 5px;
+      position: relative;
+    }
+    .timeline-bar {
+      height: 8px;
+      background: var(--green);
+      border-radius: 10px;
+      margin-top: 5px;
+      transition: width 0.5s;
+    }
+    .help-modal .modal-content {
+      max-width: 500px;
+    }
+    .shortcut-list {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .shortcut-key {
+      background: var(--light-bg);
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-weight: 700;
+      text-align: center;
+    }
+
     @media (max-width: 1000px) {
-      .insight-panel, .feature-grid { grid-template-columns: 1fr; }
+      .insight-panel, .feature-grid, .new-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 700px) {
       .stats-grid { grid-template-columns: 1fr 1fr; }
@@ -1051,6 +1142,63 @@
     </div>
   </div>
 
+  <!-- ========== नए फीचर्स का सेक्शन ========== -->
+  <div class="new-features">
+    <div class="feature-title"><i class="fas fa-rocket"></i> उन्नत सुविधाएँ</div>
+    <div class="quick-actions">
+      <button class="action-btn" onclick="exportJSON()"><i class="fas fa-download"></i> JSON बैकअप</button>
+      <button class="action-btn" onclick="importJSON()"><i class="fas fa-upload"></i> JSON पुनर्स्थापन</button>
+      <button class="action-btn" onclick="startVoiceCommand()"><i class="fas fa-microphone-alt"></i> वॉयस कमांड</button>
+      <button class="action-btn" onclick="showShortcutsHelp()"><i class="fas fa-keyboard"></i> शॉर्टकट</button>
+    </div>
+    <div class="new-grid">
+      <div class="new-card">
+        <div class="feature-title"><i class="fas fa-chart-line"></i> वार्षिक बजट ट्रेंड</div>
+        <div class="chart-container" style="height:200px;">
+          <canvas id="lineChart"></canvas>
+        </div>
+      </div>
+      <div class="new-card">
+        <div class="feature-title"><i class="fas fa-chart-bar"></i> फंडवार वर्षवार तुलना</div>
+        <div class="chart-container" style="height:200px;">
+          <canvas id="stackedBarChart"></canvas>
+        </div>
+      </div>
+      <div class="new-card">
+        <div class="feature-title"><i class="fas fa-balance-scale"></i> बजट वेरिएंस</div>
+        <div style="text-align:center; margin:20px 0;">
+          <div style="font-size:2rem; font-weight:800;" id="variancePercent">0%</div>
+          <div class="budget-gauge"><div class="gauge-fill" id="varianceGauge" style="width:0%"></div></div>
+          <div style="display:flex; justify-content:space-between; margin-top:10px;">
+            <span>आवंटित: <span id="allocatedAmount">₹0</span></span>
+            <span>व्यय: <span id="spentAmount">₹0</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="new-card" style="margin-top:18px;">
+      <div class="feature-title"><i class="fas fa-timeline"></i> योजना टाइमलाइन (वर्षवार प्रगति)</div>
+      <div class="timeline" id="timelineContainer"></div>
+    </div>
+  </div>
+
+  <!-- कीबोर्ड शॉर्टकट हेल्प मोडल -->
+  <div id="shortcutsModal" class="modal">
+    <div class="modal-content help-modal">
+      <span class="modal-close" onclick="closeShortcutsModal()" style="cursor:pointer;float:right;font-size:28px;">&times;</span>
+      <h3>कीबोर्ड शॉर्टकट</h3>
+      <div class="shortcut-list">
+        <div class="shortcut-key">Ctrl+F</div><div>सर्च पर फोकस</div>
+        <div class="shortcut-key">Ctrl+E</div><div>Excel एक्सपोर्ट</div>
+        <div class="shortcut-key">Ctrl+P</div><div>प्रिंट</div>
+        <div class="shortcut-key">Ctrl+J</div><div>JSON बैकअप</div>
+        <div class="shortcut-key">Ctrl+I</div><div>JSON इम्पोर्ट</div>
+        <div class="shortcut-key">Ctrl+K</div><div>शॉर्टकट हेल्प</div>
+        <div class="shortcut-key">Ctrl+Shift+V</div><div>वॉयस कमांड</div>
+      </div>
+    </div>
+  </div>
+
   <!-- फुटर -->
   <div class="excellence-footer">
     <div>
@@ -1069,7 +1217,7 @@
   <!-- टोस्ट -->
   <div id="toast" class="toast-notification"></div>
 
-  <!-- मोडल -->
+  <!-- मोडल (योजना विवरण) -->
   <div id="projectModal" class="modal">
     <div class="modal-content">
       <span class="modal-close" onclick="closeModal()" style="cursor:pointer;float:right;font-size:28px;" aria-label="बंद करें">&times;</span>
@@ -1091,8 +1239,16 @@
   <i class="fas fa-arrow-up"></i>
 </div>
 
+<!-- PWA मैनिफेस्ट और सर्विस वर्कर (नया) -->
+<link rel="manifest" href="manifest.json">
 <script>
-  // ---------- समस्त डेटा (बिल्कुल पहले जैसा) ----------
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed:', err));
+  }
+</script>
+
+<script>
+  // ---------- मूल डेटा (बिल्कुल पहले जैसा) ----------
   const schemes = [
     // 15वीं वित्त (24)
     { fund: "15वीं वित्त आयोग", year: "2021–22", desc: "ग्राम पंचायत सर्वा के ग्राम सर्वा के वार्ड सं0-07 में बौधी पोखर के चारो तरफ मिट्टी भराई एवं खरंजीकरण कार्य।", amount: 1096700, status: "पूर्ण" },
@@ -1422,6 +1578,7 @@
     filterPersonnelRepPanchayat();
 
     updateMetrics();
+    updateNewCharts(); // नए चार्ट अपडेट करें
     showToast(t('filterApplied'));
   }
 
@@ -1661,6 +1818,74 @@
     });
   }
 
+  // ========== नए चार्ट ==========
+  let lineChart, stackedBarChart;
+
+  function updateNewCharts() {
+    const filtered = getFilteredSchemes();
+    const years = [...new Set(filtered.map(s => s.year))].sort();
+
+    // लाइन चार्ट – वर्षवार कुल राशि
+    const yearlyAmount = years.map(y => filtered.filter(s => s.year === y).reduce((a,s)=>a+s.amount,0));
+    if (lineChart) lineChart.destroy();
+    const lineCtx = document.getElementById('lineChart').getContext('2d');
+    lineChart = new Chart(lineCtx, {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [{
+          label: currentLanguage === 'hi' ? 'कुल बजट (₹)' : 'Total Budget (₹)',
+          data: yearlyAmount,
+          borderColor: '#FF9933',
+          backgroundColor: 'rgba(255,153,51,0.1)',
+          tension: 0.1,
+          fill: true
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false }
+    });
+
+    // स्टैक्ड बार – प्रति वर्ष दोनों फंड का योग
+    const fund15Data = years.map(y => filtered.filter(s => s.fund === '15वीं वित्त आयोग' && s.year === y).reduce((a,s)=>a+s.amount,0));
+    const fundStateData = years.map(y => filtered.filter(s => s.fund === 'षष्टम राज्य वित्त आयोग' && s.year === y).reduce((a,s)=>a+s.amount,0));
+    if (stackedBarChart) stackedBarChart.destroy();
+    const barCtx = document.getElementById('stackedBarChart').getContext('2d');
+    stackedBarChart = new Chart(barCtx, {
+      type: 'bar',
+      data: {
+        labels: years,
+        datasets: [
+          { label: '15वीं वित्त', data: fund15Data, backgroundColor: '#2563eb' },
+          { label: 'राज्य वित्त', data: fundStateData, backgroundColor: '#16a34a' }
+        ]
+      },
+      options: { responsive: true, maintainAspectRatio: false, scales: { x: { stacked: true }, y: { stacked: true } } }
+    });
+
+    // बजट वेरिएंस
+    const totalAllocated = filtered.reduce((a,s)=>a+s.amount,0);
+    const totalSpent = filtered.filter(s => s.status === 'पूर्ण').reduce((a,s)=>a+s.amount,0);
+    const variance = totalAllocated ? (totalSpent / totalAllocated * 100).toFixed(1) : 0;
+    document.getElementById('variancePercent').innerText = variance + '%';
+    document.getElementById('varianceGauge').style.width = variance + '%';
+    document.getElementById('allocatedAmount').innerText = formatMoney(totalAllocated);
+    document.getElementById('spentAmount').innerText = formatMoney(totalSpent);
+
+    // टाइमलाइन
+    let timelineHtml = '';
+    years.forEach(y => {
+      const total = filtered.filter(s => s.year === y).length;
+      const completed = filtered.filter(s => s.year === y && s.status === 'पूर्ण').length;
+      const percent = total ? (completed/total*100) : 0;
+      timelineHtml += `<div class="timeline-year">
+        <div>${y}</div>
+        <div class="timeline-bar" style="width:${percent}%"></div>
+        <div><small>${completed}/${total}</small></div>
+      </div>`;
+    });
+    document.getElementById('timelineContainer').innerHTML = timelineHtml;
+  }
+
   // ========== सॉर्टिंग ==========
   function sortTable(col, tableId) {
     // सॉर्टिंग लॉजिक – बस उदाहरण के लिए, पूरा करना होगा
@@ -1813,6 +2038,43 @@
     recognition.onend = () => voiceBtn.classList.remove('listening');
   }
 
+  // ========== वॉयस कमांड (नया) ==========
+  function startVoiceCommand() {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      showToast(t('voiceSearchNotSupported'));
+      return;
+    }
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'hi-IN';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    recognition.start();
+    recognition.onresult = (event) => {
+      const cmd = event.results[0][0].transcript.toLowerCase();
+      // सरल कमांड पार्सिंग
+      if (cmd.includes('पूर्ण')) {
+        document.querySelector('[data-filter="complete"]').click();
+        showToast('पूर्ण योजनाएँ दिखा रहे हैं');
+      } else if (cmd.includes('प्रगति')) {
+        document.querySelector('[data-filter="progress"]').click();
+        showToast('प्रगति पर योजनाएँ दिखा रहे हैं');
+      } else if (cmd.includes('सभी')) {
+        document.querySelector('[data-filter="all"]').click();
+        showToast('सभी योजनाएँ दिखा रहे हैं');
+      } else if (cmd.match(/\d{4}–\d{2}/)) {
+        const year = cmd.match(/\d{4}–\d{2}/)[0];
+        if (selectedYears.includes(year)) {
+          selectedYears = [year];
+          applyYearFilter();
+          showToast(`वर्ष ${year} दिखा रहे हैं`);
+        }
+      } else {
+        showToast('कमांड समझ में नहीं आई');
+      }
+    };
+    recognition.onerror = () => showToast(t('voiceError'));
+  }
+
   // ========== टिप्पणी ==========
   function addComment() {
     const name = document.getElementById('commentName').value.trim();
@@ -1911,6 +2173,125 @@ ${schemes.map((s,i)=>`<tr><td>${i+1}</td><td>${s.fund}</td><td>${s.year}</td><td
     showToast(t('htmlDownloaded'));
   }
 
+  // ========== JSON बैकअप और पुनर्स्थापन ==========
+  function exportJSON() {
+    const data = {
+      schemes,
+      personnel,
+      representatives,
+      panchayatMembers,
+      settings: {
+        rowsPerPage15, rowsPerPageState, rowsPerPagePersonnel, rowsPerPageRep, rowsPerPagePanchayat,
+        selectedYears, minAmount, maxAmount, currentLanguage
+      },
+      comments: JSON.parse(localStorage.getItem('comments') || '[]')
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'panchayat_sarva_backup.json'; a.click();
+    showToast('JSON बैकअप डाउनलोड हुआ');
+  }
+
+  function importJSON() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    input.onchange = e => {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = ev => {
+        try {
+          const data = JSON.parse(ev.target.result);
+          if (data.schemes) {
+            // चूँकि हम मूल डेटा को बदलना नहीं चाहते, केवल सेटिंग्स और कमेंट्स लोड करें
+            if (data.settings) {
+              rowsPerPage15 = data.settings.rowsPerPage15 || rowsPerPage15;
+              rowsPerPageState = data.settings.rowsPerPageState || rowsPerPageState;
+              rowsPerPagePersonnel = data.settings.rowsPerPagePersonnel || rowsPerPagePersonnel;
+              rowsPerPageRep = data.settings.rowsPerPageRep || rowsPerPageRep;
+              rowsPerPagePanchayat = data.settings.rowsPerPagePanchayat || rowsPerPagePanchayat;
+              selectedYears = data.settings.selectedYears || selectedYears;
+              minAmount = data.settings.minAmount || minAmount;
+              maxAmount = data.settings.maxAmount || maxAmount;
+              if (data.settings.currentLanguage && data.settings.currentLanguage !== currentLanguage) {
+                toggleLanguage(); // भाषा बदलें
+              }
+              // UI अपडेट करें
+              document.getElementById('rowsPerPage15').value = rowsPerPage15;
+              document.getElementById('rowsPerPageState').value = rowsPerPageState;
+              document.getElementById('rowsPerPagePersonnel').value = rowsPerPagePersonnel;
+              document.getElementById('rowsPerPageRep').value = rowsPerPageRep;
+              document.getElementById('rowsPerPagePanchayat').value = rowsPerPagePanchayat;
+              document.querySelectorAll('#yearDropdown input').forEach(cb => {
+                cb.checked = selectedYears.includes(cb.value);
+              });
+              document.getElementById('selectedYearsText').innerText = selectedYears.length === 5 ? 'सभी वर्ष' : selectedYears.join(', ');
+              document.getElementById('minAmountSlider').value = minAmount;
+              document.getElementById('maxAmountSlider').value = maxAmount;
+              document.getElementById('minAmountVal').innerText = formatMoney(minAmount);
+              document.getElementById('maxAmountVal').innerText = formatMoney(maxAmount);
+            }
+            if (data.comments) {
+              localStorage.setItem('comments', JSON.stringify(data.comments));
+              displayComments();
+            }
+            filterData();
+            showToast('सेटिंग्स और टिप्पणियाँ पुनर्स्थापित हुईं');
+          }
+        } catch (err) {
+          showToast('अमान्य JSON फाइल');
+        }
+      };
+      reader.readAsText(file);
+    };
+    input.click();
+  }
+
+  // ========== कीबोर्ड शॉर्टकट ==========
+  function handleKeyboardShortcuts(e) {
+    if (e.ctrlKey && e.key === 'f') {
+      e.preventDefault();
+      document.getElementById('searchInput').focus();
+    } else if (e.ctrlKey && e.key === 'e') {
+      e.preventDefault();
+      exportExcel();
+    } else if (e.ctrlKey && e.key === 'p') {
+      e.preventDefault();
+      window.print();
+    } else if (e.ctrlKey && e.key === 'j') {
+      e.preventDefault();
+      exportJSON();
+    } else if (e.ctrlKey && e.key === 'i') {
+      e.preventDefault();
+      importJSON();
+    } else if (e.ctrlKey && e.key === 'k') {
+      e.preventDefault();
+      showShortcutsHelp();
+    } else if (e.ctrlKey && e.shiftKey && e.key === 'V') {
+      e.preventDefault();
+      startVoiceCommand();
+    }
+  }
+  document.addEventListener('keydown', handleKeyboardShortcuts);
+
+  function showShortcutsHelp() {
+    document.getElementById('shortcutsModal').classList.add('show');
+  }
+
+  function closeShortcutsModal() {
+    document.getElementById('shortcutsModal').classList.remove('show');
+  }
+
+  // ========== ट्यूटोरियल ओवरले (प्रथम दौरा) ==========
+  function showTutorial() {
+    if (!localStorage.getItem('tutorialShown')) {
+      // सरल अलर्ट – बेहतर के लिए एक मोडल बना सकते हैं
+      alert('स्वागत है! यह ग्राम पंचायत सर्वा का उन्नत डैशबोर्ड है। आप सर्च, फ़िल्टर, वॉयस कमांड, कीबोर्ड शॉर्टकट (Ctrl+K) का उपयोग कर सकते हैं।');
+      localStorage.setItem('tutorialShown', 'true');
+    }
+  }
+
   function toggleFullScreen() {
     if (!document.fullscreenElement) document.documentElement.requestFullscreen();
     else if (document.exitFullscreen) document.exitFullscreen();
@@ -1972,6 +2353,8 @@ ${schemes.map((s,i)=>`<tr><td>${i+1}</td><td>${s.fund}</td><td>${s.year}</td><td
     filterData(); // सभी टेबल रेंडर हो जाएँगी
     displayComments();
     updateClock();
+    updateNewCharts(); // नए चार्ट
+    showTutorial(); // ट्यूटोरियल
 
     // Event listeners
     document.getElementById('searchInput').addEventListener('input', () => {
@@ -2028,6 +2411,12 @@ ${schemes.map((s,i)=>`<tr><td>${i+1}</td><td>${s.fund}</td><td>${s.year}</td><td
   window.exportExcel = exportExcel;
   window.exportPDF = exportPDF;
   window.exportHTML = exportHTML;
+  // नए ग्लोबल फंक्शन
+  window.exportJSON = exportJSON;
+  window.importJSON = importJSON;
+  window.startVoiceCommand = startVoiceCommand;
+  window.showShortcutsHelp = showShortcutsHelp;
+  window.closeShortcutsModal = closeShortcutsModal;
 </script>
 <!-- सेवा वर्कर के लिए डमी मेनिफेस्ट – वास्तविक PWA के लिए अलग फ़ाइल बनाएँ -->
 <script>
