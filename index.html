@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-  <title>ग्राम पंचायत सर्वा – उन्नत डैशबोर्ड (टिप्पणी अनुभाग नीचे)</title>
+  <title>ग्राम पंचायत सर्वा – उन्नत डैशबोर्ड (बिना एक्सपोर्ट)</title>
   <!-- फॉन्ट और आइकन -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,11 +11,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <!-- चार्ट.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <!-- jsPDF + AutoTable -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
-  <!-- SheetJS -->
-  <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
   <style>
     /* ===== पूरी स्टाइल यथावत ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -28,7 +23,7 @@
     body.theme-green { --saffron: #2e7d32; --green: #1b5e20; --navy: #0a3f0a; --blue: #1b5e20; --header-bg: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%); --table-header-bg: #1b5e20; }
     body.theme-blue { --saffron: #1976d2; --green: #0d47a1; --navy: #0a1a4a; --blue: #0d47a1; --header-bg: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%); --table-header-bg: #0d47a1; }
     body { font-family: 'Inter', sans-serif; background: var(--light-bg); padding: 24px 20px; color: var(--text-dark); line-height: 1.5; transition: background-color 0.3s, color 0.3s; scroll-behavior: smooth; }
-    @media print { .control-ribbon, .extra-tools, .footer-actions, .fab, .back-to-top, .comment-section, .theme-selector, .voice-btn, .amount-filter, .multi-year-dropdown, .new-features, .table-search-wrapper { display: none !important; } body { background: white; padding: 0; } .official-masthead { background: white; color: black; border: 1px solid #ccc; } .stat-card { background: #f9f9f9; color: black; } }
+    @media print { .control-ribbon, .extra-tools, .fab, .back-to-top, .comment-section, .theme-selector, .voice-btn, .amount-filter, .multi-year-dropdown, .new-features, .table-search-wrapper { display: none !important; } body { background: white; padding: 0; } .official-masthead { background: white; color: black; border: 1px solid #ccc; } .stat-card { background: #f9f9f9; color: black; } }
     .tricolor-strip { display: flex; height: 6px; border-radius: 6px 6px 0 0; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
     .tricolor-strip .saffron { flex: 1; background: #FF9933; } .tricolor-strip .white { flex: 1; background: #FFFFFF; } .tricolor-strip .green { flex: 1; background: #138808; }
     .official-masthead { background: var(--header-bg); border-radius: 32px; padding: 24px 28px; color: white; box-shadow: var(--card-shadow); border: 1px solid rgba(255,255,255,0.2); position: relative; overflow: hidden; }
@@ -153,15 +148,6 @@
     .comment-input { display: flex; gap: 8px; flex-wrap: wrap; }
     .comment-input input, .comment-input textarea { flex: 1; padding: 8px; border: 1px solid var(--border); border-radius: 20px; background: var(--light-bg); }
     .comment-input button { background: var(--green); color: white; border: none; padding: 8px 20px; border-radius: 40px; cursor: pointer; }
-    .footer-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-    .btn-icon { background: var(--navy); color: white; border: none; padding: 8px 20px; border-radius: 40px; font-weight: 600; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 6px; }
-    .btn-icon:hover { background: var(--green); transform: translateY(-2px); }
-    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); align-items: center; justify-content: center; }
-    .modal.show { display: flex; }
-    .modal-content { background: white; padding: 24px; border-radius: 32px; max-width: 450px; width: 90%; box-shadow: 0 25px 40px rgba(0,0,0,0.4); border: 3px solid var(--saffron); }
-    .dark-mode .modal-content { background: #1e293b; }
-    .toast-notification { position: fixed; bottom: 30px; right: 30px; background: var(--navy); color: white; padding: 10px 24px; border-radius: 50px; font-weight: 500; box-shadow: 0 10px 20px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transform: translateY(20px); transition: 0.3s; }
-    .toast-notification.show { opacity: 1; transform: translateY(0); }
     .fab { position: fixed; bottom: 30px; left: 30px; background: var(--navy); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); cursor: pointer; transition: 0.2s; z-index: 999; }
     .fab:hover { background: var(--saffron); transform: scale(1.1); }
     .back-to-top { position: fixed; bottom: 30px; right: 30px; background: var(--green); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); cursor: pointer; transition: 0.2s; z-index: 999; opacity: 0.8; }
@@ -170,15 +156,17 @@
     .new-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 10px; }
     .new-card { background: white; border-radius: 28px; padding: 18px; box-shadow: var(--card-shadow); }
     .dark-mode .new-card { background: #1e293b; }
-    .quick-actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 15px 0; }
-    .action-btn { background: var(--navy); color: white; border: none; padding: 8px 16px; border-radius: 40px; font-weight: 600; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 6px; }
-    .action-btn:hover { background: var(--green); transform: translateY(-2px); }
+    /* quick-actions हटा दी गईं क्योंकि उनमें एक्सपोर्ट बटन थे */
     .timeline { display: flex; justify-content: space-between; margin-top: 15px; overflow-x: auto; padding-bottom: 10px; }
     .timeline-year { flex: 1; min-width: 80px; text-align: center; background: var(--light-bg); border-radius: 20px; margin: 0 5px; padding: 10px 5px; position: relative; }
     .timeline-bar { height: 8px; background: var(--green); border-radius: 10px; margin-top: 5px; transition: width 0.5s; }
-    .help-modal .modal-content { max-width: 500px; }
-    .shortcut-list { display: grid; grid-template-columns: 1fr 2fr; gap: 8px; margin-top: 10px; }
-    .shortcut-key { background: var(--light-bg); padding: 4px 8px; border-radius: 8px; font-family: monospace; font-weight: 700; text-align: center; }
+    .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); align-items: center; justify-content: center; }
+    .modal.show { display: flex; }
+    .modal-content { background: white; padding: 24px; border-radius: 32px; max-width: 450px; width: 90%; box-shadow: 0 25px 40px rgba(0,0,0,0.4); border: 3px solid var(--saffron); }
+    .dark-mode .modal-content { background: #1e293b; }
+    .toast-notification { position: fixed; bottom: 30px; right: 30px; background: var(--navy); color: white; padding: 10px 24px; border-radius: 50px; font-weight: 500; box-shadow: 0 10px 20px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; transform: translateY(20px); transition: 0.3s; }
+    .toast-notification.show { opacity: 1; transform: translateY(0); }
+    .footer-actions { display: none; } /* फुटर के बटन हटा दिए */
     @media (max-width: 1000px) { .insight-panel, .feature-grid, .new-grid { grid-template-columns: 1fr; } }
     @media (max-width: 700px) { .stats-grid { grid-template-columns: 1fr 1fr; } .header-actions { justify-content: center; } .table-search-wrapper { max-width: 100%; margin-left: 0; } }
     @media (max-width: 500px) { .stats-grid { grid-template-columns: 1fr; } }
@@ -363,15 +351,10 @@
     <div class="pagination-wrapper"><div class="rows-selector"><span class="rowsLabel">पंक्तियाँ:</span><select id="rowsPerPageState" onchange="changeRowsPerPage('state')"><option value="5">5</option><option value="10" selected>10</option><option value="20">20</option></select></div><div class="pagination" id="paginationState"></div></div>
   </div>
 
-  <!-- नए फीचर्स का सेक्शन -->
+  <!-- नए फीचर्स का सेक्शन (बिना एक्सपोर्ट बटन) -->
   <div class="new-features">
     <div class="feature-title"><i class="fas fa-rocket"></i> उन्नत सुविधाएँ</div>
-    <div class="quick-actions">
-      <button class="action-btn" onclick="exportJSON()"><i class="fas fa-download"></i> JSON बैकअप</button>
-      <button class="action-btn" onclick="importJSON()"><i class="fas fa-upload"></i> JSON पुनर्स्थापन</button>
-      <button class="action-btn" onclick="startVoiceCommand()"><i class="fas fa-microphone-alt"></i> वॉयस कमांड</button>
-      <button class="action-btn" onclick="showShortcutsHelp()"><i class="fas fa-keyboard"></i> शॉर्टकट</button>
-    </div>
+    <!-- quick-actions पूरी हटा दी गई -->
     <div class="new-grid">
       <div class="new-card"><div class="feature-title"><i class="fas fa-chart-line"></i> वार्षिक बजट ट्रेंड</div><div class="chart-container" style="height:200px;"><canvas id="lineChart"></canvas></div></div>
       <div class="new-card"><div class="feature-title"><i class="fas fa-chart-bar"></i> फंडवार वर्षवार तुलना</div><div class="chart-container" style="height:200px;"><canvas id="stackedBarChart"></canvas></div></div>
@@ -383,7 +366,7 @@
   <!-- मानचित्र अनुभाग -->
   <div class="map-section"><div class="table-header"><h2><i class="fas fa-map-marked-alt" style="color:#FF9933;"></i> ग्राम पंचायत सर्वा का मानचित्र</h2></div><div class="map-container"><img src="FINAL SARWA MAP.jpg" alt="सर्वा ग्राम पंचायत मानचित्र" loading="lazy" oncontextmenu="return false;" draggable="false"></div></div>
 
-  <!-- ========== टिप्पणी / सुझाव अनुभाग (अब सबसे नीचे) ========== -->
+  <!-- टिप्पणी / सुझाव अनुभाग (सबसे नीचे) -->
   <div class="comment-section">
     <div class="feature-title"><i class="fas fa-comments"></i> टिप्पणी / सुझाव</div>
     <div class="comment-list" id="commentList"></div>
@@ -394,11 +377,11 @@
     </div>
   </div>
 
-  <!-- कीबोर्ड शॉर्टकट हेल्प मोडल -->
-  <div id="shortcutsModal" class="modal"><div class="modal-content help-modal"><span class="modal-close" onclick="closeShortcutsModal()" style="cursor:pointer;float:right;font-size:28px;">&times;</span><h3>कीबोर्ड शॉर्टकट</h3><div class="shortcut-list"><div class="shortcut-key">Ctrl+F</div><div>सर्च पर फोकस</div><div class="shortcut-key">Ctrl+E</div><div>Excel एक्सपोर्ट</div><div class="shortcut-key">Ctrl+P</div><div>प्रिंट</div><div class="shortcut-key">Ctrl+J</div><div>JSON बैकअप</div><div class="shortcut-key">Ctrl+I</div><div>JSON इम्पोर्ट</div><div class="shortcut-key">Ctrl+K</div><div>शॉर्टकट हेल्प</div><div class="shortcut-key">Ctrl+Shift+V</div><div>वॉयस कमांड</div></div></div></div>
-
-  <!-- फुटर -->
-  <div class="excellence-footer"><div><i class="fas fa-check-double" style="color:#FF9933;"></i> पंचायत सर्वा · <span id="lastUpdated"></span><br><span style="font-size:0.75rem;"> Developed By- Aman Kumar | DEO</span></div><div class="footer-actions"><button class="btn-icon" onclick="exportCSV()"><i class="fas fa-file-csv"></i> CSV</button><button class="btn-icon" onclick="exportExcel()"><i class="fas fa-file-excel"></i> Excel</button><button class="btn-icon" onclick="exportPDF()"><i class="fas fa-file-pdf"></i> PDF</button><button class="btn-icon" onclick="exportHTML()"><i class="fas fa-file-code"></i> HTML</button><button class="btn-icon" onclick="window.print()"><i class="fas fa-print"></i> <span id="printLabel">प्रिंट</span></button></div></div>
+  <!-- फुटर (बिना बटन) -->
+  <div class="excellence-footer" style="margin-top:20px; padding:15px 0; border-top:1px solid var(--border); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+    <div><i class="fas fa-check-double" style="color:#FF9933;"></i> पंचायत सर्वा · <span id="lastUpdated"></span><br><span style="font-size:0.75rem;"> Developed By- Aman Kumar | DEO</span></div>
+    <!-- footer-actions हटा दी गई -->
+  </div>
 
   <!-- टोस्ट -->
   <div id="toast" class="toast-notification"></div>
@@ -762,19 +745,10 @@
     `).join('') || (currentLanguage === 'hi' ? 'कोई टिप्पणी नहीं' : 'No comments');
   }
 
-  // ========== अन्य फंक्शन (वॉयस, एक्सपोर्ट, मोडल) ==========
+  // ========== अन्य फंक्शन (वॉयस, मोडल) ==========
   function startVoiceSearch() { showToast('वॉयस सर्च'); }
-  function startVoiceCommand() { showToast('वॉयस कमांड'); }
   function showProjectModal(f,y,d,a,s) { document.getElementById('modalFund').innerText = f; document.getElementById('modalYear').innerText = y; document.getElementById('modalDesc').innerText = d; document.getElementById('modalAmount').innerText = formatMoney(a); document.getElementById('modalStatus').innerText = s; document.getElementById('projectModal').classList.add('show'); }
   function closeModal() { document.getElementById('projectModal').classList.remove('show'); }
-  function exportCSV() { showToast('CSV'); }
-  function exportExcel() { showToast('Excel'); }
-  function exportPDF() { showToast('PDF'); }
-  function exportHTML() { showToast('HTML'); }
-  function exportJSON() { showToast('JSON'); }
-  function importJSON() { showToast('Import JSON'); }
-  function showShortcutsHelp() { document.getElementById('shortcutsModal').classList.add('show'); }
-  function closeShortcutsModal() { document.getElementById('shortcutsModal').classList.remove('show'); }
   function saveSettings() { }
   function loadSettings() { }
 
@@ -794,8 +768,8 @@
     document.querySelectorAll('.prd-logo, .india-logo, .map-container img').forEach(img => { img.addEventListener('contextmenu', e => e.preventDefault()); img.addEventListener('dragstart', e => e.preventDefault()); });
   };
 
-  // एक्सपोर्ट फंक्शन ग्लोबल
-  window.toggleLanguage = toggleLanguage; window.setTheme = setTheme; window.toggleFullScreen = toggleFullScreen; window.startVoiceSearch = startVoiceSearch; window.resetFilters = resetFilters; window.applyAmountFilter = applyAmountFilter; window.toggleYearDropdown = toggleYearDropdown; window.applyYearFilter = applyYearFilter; window.changePage = changePage; window.changeRowsPerPage = changeRowsPerPage; window.sortTable = sortTable; window.showProjectModal = showProjectModal; window.closeModal = closeModal; window.addComment = addComment; window.deleteComment = deleteComment; window.exportCSV = exportCSV; window.exportExcel = exportExcel; window.exportPDF = exportPDF; window.exportHTML = exportHTML; window.exportJSON = exportJSON; window.importJSON = importJSON; window.startVoiceCommand = startVoiceCommand; window.showShortcutsHelp = showShortcutsHelp; window.closeShortcutsModal = closeShortcutsModal;
+  // एक्सपोर्ट फंक्शन पूरी तरह हटा दिए गए
+  window.toggleLanguage = toggleLanguage; window.setTheme = setTheme; window.toggleFullScreen = toggleFullScreen; window.startVoiceSearch = startVoiceSearch; window.resetFilters = resetFilters; window.applyAmountFilter = applyAmountFilter; window.toggleYearDropdown = toggleYearDropdown; window.applyYearFilter = applyYearFilter; window.changePage = changePage; window.changeRowsPerPage = changeRowsPerPage; window.sortTable = sortTable; window.showProjectModal = showProjectModal; window.closeModal = closeModal; window.addComment = addComment; window.deleteComment = deleteComment;
 </script>
 </body>
 </html>
