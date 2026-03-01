@@ -1121,16 +1121,6 @@
     </div>
   </div>
 
-  <!-- मानचित्र अनुभाग -->
-  <div class="map-section">
-    <div class="table-header">
-      <h2><i class="fas fa-map-marked-alt" style="color:#FF9933;"></i> ग्राम पंचायत सर्वा का मानचित्र</h2>
-    </div>
-    <div class="map-container">
-      <img src="FINAL SARWA MAP.jpg" alt="सर्वा ग्राम पंचायत मानचित्र" loading="lazy" oncontextmenu="return false;" draggable="false">
-    </div>
-  </div>
-
   <!-- टिप्पणी / सुझाव अनुभाग -->
   <div class="comment-section">
     <div class="feature-title"><i class="fas fa-comments"></i> टिप्पणी / सुझाव</div>
@@ -1179,6 +1169,16 @@
     <div class="new-card" style="margin-top:18px;">
       <div class="feature-title"><i class="fas fa-timeline"></i> योजना टाइमलाइन (वर्षवार प्रगति)</div>
       <div class="timeline" id="timelineContainer"></div>
+    </div>
+  </div>
+
+  <!-- मानचित्र अनुभाग (अब सबसे नीचे) -->
+  <div class="map-section">
+    <div class="table-header">
+      <h2><i class="fas fa-map-marked-alt" style="color:#FF9933;"></i> ग्राम पंचायत सर्वा का मानचित्र</h2>
+    </div>
+    <div class="map-container">
+      <img src="FINAL SARWA MAP.jpg" alt="सर्वा ग्राम पंचायत मानचित्र" loading="lazy" oncontextmenu="return false;" draggable="false">
     </div>
   </div>
 
@@ -1348,7 +1348,7 @@
 
   // ========== ग्लोबल वेरिएबल ==========
   let currentSort = { table: null, col: 0, asc: true };
-  let chartInstance, pieChartInstance;
+  let chartInstance, pieChartInstance, lineChart, stackedBarChart;
 
   // Pagination variables
   let currentPage15 = 1, currentPageState = 1, currentPagePersonnel = 1, currentPageRep = 1, currentPagePanchayat = 1;
@@ -1621,7 +1621,7 @@
         <td>${start + i + 1}</td>
         <td>${s.fund}</td>
         <td>${s.year}</td>
-        <td title="${s.desc}">${s.desc}</td>   <!-- योजना का पूरा नाम -->
+        <td title="${s.desc}">${s.desc}</td>
         <td class="rupee-cell">${formatMoney(s.amount)}</td>
         <td><span class="status-super ${cls}"><i class="fas ${ico}"></i> ${s.status}</span></td>
       </tr>`;
@@ -1819,8 +1819,6 @@
   }
 
   // ========== नए चार्ट ==========
-  let lineChart, stackedBarChart;
-
   function updateNewCharts() {
     const filtered = getFilteredSchemes();
     const years = [...new Set(filtered.map(s => s.year))].sort();
@@ -1886,16 +1884,139 @@
     document.getElementById('timelineContainer').innerHTML = timelineHtml;
   }
 
-  // ========== सॉर्टिंग ==========
-  function sortTable(col, tableId) {
-    // सॉर्टिंग लॉजिक – बस उदाहरण के लिए, पूरा करना होगा
+  // ========== सॉर्टिंग (अब पूरी तरह कार्यान्वित) ==========
+  function sortTable(col, tableType) {
+    // क्र. कॉलम (col===0) पर सॉर्ट न करें
+    if (col === 0) {
+      showToast(t('dataSorted')); // बस संदेश दिखाएँ, कोई सॉर्ट नहीं
+      return;
+    }
+
+    let data, sortedData;
+    const search = document.getElementById('searchInput').value.toLowerCase();
+
+    if (tableType === '15' || tableType === 'state') {
+      const filtered = getFilteredSchemes();
+      if (tableType === '15') {
+        data = filtered.filter(s => s.fund === '15वीं वित्त आयोग');
+      } else {
+        data = filtered.filter(s => s.fund === 'षष्टम राज्य वित्त आयोग');
+      }
+      sortedData = sortArray(data, col, tableType, currentSort.asc);
+      // टॉगल दिशा
+      currentSort.asc = !currentSort.asc;
+      // रेंडर करें
+      if (tableType === '15') {
+        renderTable('table15Body', sortedData, 1, '15', rowsPerPage15);
+        document.getElementById('footer15Total').innerText = formatMoney(sortedData.reduce((a,s)=>a+s.amount,0));
+        currentPage15 = 1;
+      } else {
+        renderTable('tableStateBody', sortedData, 1, 'state', rowsPerPageState);
+        document.getElementById('footerStateTotal').innerText = formatMoney(sortedData.reduce((a,s)=>a+s.amount,0));
+        currentPageState = 1;
+      }
+    } else if (tableType === 'personnel') {
+      data = personnel.filter(p => 
+        p.name.toLowerCase().includes(search) || 
+        p.designation.toLowerCase().includes(search) || 
+        p.mobile.includes(search)
+      );
+      sortedData = sortArray(data, col, tableType, currentSort.asc);
+      currentSort.asc = !currentSort.asc;
+      renderPersonnelTable(sortedData);
+      currentPagePersonnel = 1;
+    } else if (tableType === 'rep') {
+      data = representatives.filter(r => 
+        r.name.toLowerCase().includes(search) || 
+        r.designation.toLowerCase().includes(search) || 
+        r.mobile.includes(search)
+      );
+      sortedData = sortArray(data, col, tableType, currentSort.asc);
+      currentSort.asc = !currentSort.asc;
+      renderRepTable(sortedData);
+      currentPageRep = 1;
+    } else if (tableType === 'panchayat') {
+      data = panchayatMembers.filter(m => 
+        m.name.toLowerCase().includes(search) || 
+        m.designation.toLowerCase().includes(search) || 
+        m.mobile.includes(search)
+      );
+      sortedData = sortArray(data, col, tableType, currentSort.asc);
+      currentSort.asc = !currentSort.asc;
+      renderPanchayatTable(sortedData);
+      currentPagePanchayat = 1;
+    }
+
     showToast(t('dataSorted'));
+  }
+
+  function sortArray(arr, col, tableType, asc) {
+    return arr.slice().sort((a, b) => {
+      let valA, valB;
+      if (tableType === '15' || tableType === 'state') {
+        // col: 1=fund, 2=year, 3=desc, 4=amount, 5=status
+        switch(col) {
+          case 1: valA = a.fund; valB = b.fund; break;
+          case 2: valA = a.year; valB = b.year; break;
+          case 3: valA = a.desc; valB = b.desc; break;
+          case 4: valA = a.amount; valB = b.amount; break;
+          case 5: valA = a.status; valB = b.status; break;
+          default: return 0;
+        }
+      } else if (tableType === 'personnel') {
+        switch(col) {
+          case 1: valA = a.name; valB = b.name; break;
+          case 2: valA = a.designation; valB = b.designation; break;
+          case 3: valA = a.mobile; valB = b.mobile; break;
+          case 4: valA = a.procedure; valB = b.procedure; break;
+          case 5: valA = a.attendance; valB = b.attendance; break;
+          default: return 0;
+        }
+      } else if (tableType === 'rep' || tableType === 'panchayat') {
+        switch(col) {
+          case 1: valA = a.name; valB = b.name; break;
+          case 2: valA = a.designation; valB = b.designation; break;
+          case 3: valA = a.mobile; valB = b.mobile; break;
+          default: return 0;
+        }
+      }
+
+      // संख्यात्मक तुलना
+      if (typeof valA === 'number' && typeof valB === 'number') {
+        return asc ? valA - valB : valB - valA;
+      }
+
+      // स्टेटस के लिए कस्टम क्रम
+      if (tableType === '15' || tableType === 'state') {
+        if (col === 5) { // status
+          const order = { 'पूर्ण': 1, 'कार्य प्रगति पर': 2 };
+          valA = order[valA] || 0;
+          valB = order[valB] || 0;
+          return asc ? valA - valB : valB - valA;
+        }
+      }
+
+      // स्ट्रिंग तुलना
+      valA = String(valA).toLowerCase();
+      valB = String(valB).toLowerCase();
+      if (valA < valB) return asc ? -1 : 1;
+      if (valA > valB) return asc ? 1 : -1;
+      return 0;
+    });
   }
 
   // ========== फ़िल्टर ऐक्शन ==========
   function applyAmountFilter() {
-    minAmount = parseFloat(document.getElementById('minAmountSlider').value);
-    maxAmount = parseFloat(document.getElementById('maxAmountSlider').value);
+    let min = parseFloat(document.getElementById('minAmountSlider').value);
+    let max = parseFloat(document.getElementById('maxAmountSlider').value);
+    // यदि min > max तो स्वैप करें
+    if (min > max) {
+      [min, max] = [max, min];
+      document.getElementById('minAmountSlider').value = min;
+      document.getElementById('maxAmountSlider').value = max;
+    }
+    minAmount = min;
+    maxAmount = max;
     document.getElementById('minAmountVal').innerText = formatMoney(minAmount);
     document.getElementById('maxAmountVal').innerText = formatMoney(maxAmount);
     currentPage15 = 1; currentPageState = 1;
