@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-  <title>ग्राम पंचायत सर्वा – उन्नत डैशबोर्ड (सभी चार्ट फिक्स)</title>
+  <title>ग्राम पंचायत सर्वा – उन्नत डैशबोर्ड (टिप्पणी अनुभाग नीचे)</title>
   <!-- फॉन्ट और आइकन -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +17,7 @@
   <!-- SheetJS -->
   <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
   <style>
-    /* ===== पूरी स्टाइल यथावत (पिछले वाले से ही) ===== */
+    /* ===== पूरी स्टाइल यथावत ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --saffron: #FF9933; --green: #138808; --white: #FFFFFF; --navy: #000080; --blue: #1e3a8a;
@@ -363,13 +363,6 @@
     <div class="pagination-wrapper"><div class="rows-selector"><span class="rowsLabel">पंक्तियाँ:</span><select id="rowsPerPageState" onchange="changeRowsPerPage('state')"><option value="5">5</option><option value="10" selected>10</option><option value="20">20</option></select></div><div class="pagination" id="paginationState"></div></div>
   </div>
 
-  <!-- टिप्पणी / सुझाव अनुभाग -->
-  <div class="comment-section">
-    <div class="feature-title"><i class="fas fa-comments"></i> टिप्पणी / सुझाव</div>
-    <div class="comment-list" id="commentList"></div>
-    <div class="comment-input"><input type="text" id="commentName" placeholder="आपका नाम"><textarea id="commentText" placeholder="आपकी टिप्पणी..." rows="2"></textarea><button onclick="addComment()">भेजें</button></div>
-  </div>
-
   <!-- नए फीचर्स का सेक्शन -->
   <div class="new-features">
     <div class="feature-title"><i class="fas fa-rocket"></i> उन्नत सुविधाएँ</div>
@@ -389,6 +382,17 @@
 
   <!-- मानचित्र अनुभाग -->
   <div class="map-section"><div class="table-header"><h2><i class="fas fa-map-marked-alt" style="color:#FF9933;"></i> ग्राम पंचायत सर्वा का मानचित्र</h2></div><div class="map-container"><img src="FINAL SARWA MAP.jpg" alt="सर्वा ग्राम पंचायत मानचित्र" loading="lazy" oncontextmenu="return false;" draggable="false"></div></div>
+
+  <!-- ========== टिप्पणी / सुझाव अनुभाग (अब सबसे नीचे) ========== -->
+  <div class="comment-section">
+    <div class="feature-title"><i class="fas fa-comments"></i> टिप्पणी / सुझाव</div>
+    <div class="comment-list" id="commentList"></div>
+    <div class="comment-input">
+      <input type="text" id="commentName" placeholder="आपका नाम">
+      <textarea id="commentText" placeholder="आपकी टिप्पणी..." rows="2"></textarea>
+      <button onclick="addComment()">भेजें</button>
+    </div>
+  </div>
 
   <!-- कीबोर्ड शॉर्टकट हेल्प मोडल -->
   <div id="shortcutsModal" class="modal"><div class="modal-content help-modal"><span class="modal-close" onclick="closeShortcutsModal()" style="cursor:pointer;float:right;font-size:28px;">&times;</span><h3>कीबोर्ड शॉर्टकट</h3><div class="shortcut-list"><div class="shortcut-key">Ctrl+F</div><div>सर्च पर फोकस</div><div class="shortcut-key">Ctrl+E</div><div>Excel एक्सपोर्ट</div><div class="shortcut-key">Ctrl+P</div><div>प्रिंट</div><div class="shortcut-key">Ctrl+J</div><div>JSON बैकअप</div><div class="shortcut-key">Ctrl+I</div><div>JSON इम्पोर्ट</div><div class="shortcut-key">Ctrl+K</div><div>शॉर्टकट हेल्प</div><div class="shortcut-key">Ctrl+Shift+V</div><div>वॉयस कमांड</div></div></div></div>
@@ -466,7 +470,7 @@
   let currentPage15 = 1, currentPageState = 1, currentPagePersonnel = 1, currentPageRep = 1, currentPagePanchayat = 1;
   let rowsPerPage15 = 10, rowsPerPageState = 10, rowsPerPagePersonnel = 10, rowsPerPageRep = 10, rowsPerPagePanchayat = 10;
   let currentLanguage = 'hi';
-  let selectedYears = ['2021–22', '2022–23', '2023–24', '2024–25', '2025–26'];
+  let selectedYears = ['2021–22','2022–23','2023–24','2024–25','2025–26'];
   let minAmount = 0, maxAmount = 2000000;
   let filterPersonnel = '', filterRep = '', filterPanchayat = '', filter15 = '', filterState = '';
 
@@ -727,12 +731,40 @@
   // ========== भाषा (सरल) ==========
   function toggleLanguage() { currentLanguage = currentLanguage === 'hi' ? 'en' : 'hi'; document.getElementById('langText').innerText = currentLanguage === 'hi' ? 'English' : 'हिंदी'; filterData(); renderCharts(); showToast('भाषा बदली'); }
 
-  // ========== अन्य फंक्शन (वॉयस, कमेंट, एक्सपोर्ट) यथावत ==========
+  // ========== टिप्पणी / सुझाव फंक्शन ==========
+  function addComment() {
+    const name = document.getElementById('commentName').value.trim();
+    const text = document.getElementById('commentText').value.trim();
+    if (!name || !text) { showToast('नाम और टिप्पणी दर्ज करें'); return; }
+    const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+    comments.push({ name, text, date: new Date().toLocaleString() });
+    localStorage.setItem('comments', JSON.stringify(comments));
+    displayComments();
+    document.getElementById('commentName').value = '';
+    document.getElementById('commentText').value = '';
+    showToast('टिप्पणी सहेजी गई');
+  }
+  function deleteComment(index) {
+    const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+    comments.splice(index, 1);
+    localStorage.setItem('comments', JSON.stringify(comments));
+    displayComments();
+    showToast('टिप्पणी हटा दी गई');
+  }
+  function displayComments() {
+    const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+    const list = document.getElementById('commentList');
+    list.innerHTML = comments.map((c, i) => `
+      <div class="comment-item">
+        <div class="comment-text"><span class="comment-name">${c.name}</span> (${c.date})<br>${c.text}</div>
+        <button class="delete-comment" onclick="deleteComment(${i})" title="हटाएँ"><i class="fas fa-trash"></i></button>
+      </div>
+    `).join('') || (currentLanguage === 'hi' ? 'कोई टिप्पणी नहीं' : 'No comments');
+  }
+
+  // ========== अन्य फंक्शन (वॉयस, एक्सपोर्ट, मोडल) ==========
   function startVoiceSearch() { showToast('वॉयस सर्च'); }
   function startVoiceCommand() { showToast('वॉयस कमांड'); }
-  function addComment() { showToast('टिप्पणी जोड़ी'); }
-  function deleteComment(i) { showToast('टिप्पणी हटाई'); }
-  function displayComments() { document.getElementById('commentList').innerHTML = ''; }
   function showProjectModal(f,y,d,a,s) { document.getElementById('modalFund').innerText = f; document.getElementById('modalYear').innerText = y; document.getElementById('modalDesc').innerText = d; document.getElementById('modalAmount').innerText = formatMoney(a); document.getElementById('modalStatus').innerText = s; document.getElementById('projectModal').classList.add('show'); }
   function closeModal() { document.getElementById('projectModal').classList.remove('show'); }
   function exportCSV() { showToast('CSV'); }
