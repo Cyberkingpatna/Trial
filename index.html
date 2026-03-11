@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
-    /* ===== मूल स्टाइल + नए जोड़ ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --saffron: #FF9933; --green: #138808; --white: #FFFFFF; --navy: #000080; --blue: #1e3a8a;
@@ -907,7 +906,6 @@
         commentAdded: 'टिप्पणी जोड़ दी गई',
         commentDeleted: 'टिप्पणी हटा दी गई',
         confirmDelete: 'क्या आप वाकई यह टिप्पणी हटाना चाहते हैं?',
-        // तालिका हेडर
         grievanceThead: ['क्र.','दिनांक','आवेदन संख्या','आवेदक का नाम','मोबाइल नं.','ब्लॉक','कार्यालय','विषय','स्थिति'],
         table15Thead: ['क्र.','मद','वित्त वर्ष','योजना का नाम','राशि','स्थिति'],
         tableStateThead: ['क्र.','मद','वित्त वर्ष','योजना का नाम','राशि','स्थिति'],
@@ -971,19 +969,14 @@
     let chartInstance, pieChartInstance;
     let currentRating = 0;
 
-    // Pagination variables
     let currentPage15 = 1, currentPageState = 1, currentPagePersonnel = 1, currentPageRep = 1, currentPagePanchayat = 1, currentPageGrievance = 1;
     let rowsPerPage15 = 10, rowsPerPageState = 10, rowsPerPagePersonnel = 10, rowsPerPageRep = 10, rowsPerPagePanchayat = 10, rowsPerPageGrievance = 10;
 
-    // Filtered data
     let filtered15 = schemes.filter(s => s.fund === '15वीं वित्त आयोग');
     let filteredState = schemes.filter(s => s.fund === 'षष्टम राज्य वित्त आयोग');
     let filteredGrievances = grievances.slice();
 
-    // ========== उपयोगिता फंक्शन ==========
-    function t(key) {
-      return translations[currentLanguage][key] || key;
-    }
+    function t(key) { return translations[currentLanguage][key] || key; }
 
     function showToast(message, duration = 3000) {
       const toast = document.getElementById('toast');
@@ -1035,7 +1028,6 @@
       saveSettings();
     }
 
-    // ========== फ़िल्टर फंक्शन (डिबाउंस सहित) ==========
     let filterTimer;
     function filterTable(type) {
       clearTimeout(filterTimer);
@@ -1076,7 +1068,6 @@
       }, 300);
     }
 
-    // ========== एक्सपोर्ट CSV ==========
     function exportTableToCSV(type) {
       let data, filename, headers;
       if (type === 'grievance') {
@@ -1113,7 +1104,6 @@
       showToast('CSV डाउनलोड हुआ');
     }
 
-    // ========== रेंडरिंग ==========
     function renderTable(tbodyId, data, page, tableType, rowsPerPage) {
       const tbody = document.getElementById(tbodyId);
       const start = (page - 1) * rowsPerPage;
@@ -1123,7 +1113,6 @@
       pageData.forEach((s, i) => {
         let cls = s.status === 'पूर्ण' ? 'complete' : 'progress';
         let ico = s.status === 'पूर्ण' ? 'fa-check' : 'fa-clock';
-        // data attributes for modal
         tbody.innerHTML += `<tr data-fund="${escapeHtml(s.fund)}" data-year="${escapeHtml(s.year)}" data-desc="${escapeHtml(s.desc)}" data-amount="${s.amount}" data-status="${escapeHtml(s.status)}" onclick="window.showProjectModal(this)">
           <td>${start + i + 1}</td>
           <td>${escapeHtml(s.fund)}</td>
@@ -1263,7 +1252,6 @@
     }
 
     function updateTableHeaders() {
-      // Update all thead based on language
       document.getElementById('grievanceThead').innerHTML = `<tr>${t('grievanceThead').map(h => `<th>${h}</th>`).join('')}</tr>`;
       document.getElementById('table15Thead').innerHTML = `<tr>${t('table15Thead').map(h => `<th>${h}</th>`).join('')}</tr>`;
       document.getElementById('tableStateThead').innerHTML = `<tr>${t('tableStateThead').map(h => `<th>${h}</th>`).join('')}</tr>`;
@@ -1343,7 +1331,7 @@
     }
 
     function updateGrievanceStats() {
-      const total = grievances.length; // use original grievances for stats
+      const total = grievances.length;
       const disposed = grievances.filter(g => g.status === 'Disposed').length;
       const pending = total - disposed;
       document.getElementById('totalGrievances').innerText = total;
@@ -1408,7 +1396,6 @@
       });
     }
 
-    // ========== मोडल ==========
     window.showProjectModal = function(row) {
       const dataset = row.dataset;
       document.getElementById('modalFund').innerText = dataset.fund;
@@ -1444,11 +1431,9 @@
       document.getElementById('grievanceModal').classList.remove('show');
     }
 
-    // ========== भाषा ==========
     window.toggleLanguage = function() {
       currentLanguage = currentLanguage === 'hi' ? 'en' : 'hi';
       document.getElementById('langText').innerText = currentLanguage === 'hi' ? 'English' : 'हिंदी';
-      // Update texts
       document.getElementById('mainHeading').innerText = t('mainHeading');
       document.getElementById('totalSchemesLabel').innerText = t('totalSchemesLabel');
       document.getElementById('completedSchemesLabel').innerText = t('completedSchemesLabel');
@@ -1492,7 +1477,6 @@
       saveSettings();
     }
 
-    // ========== रेटिंग ==========
     window.setRating = function(star) {
       currentRating = star;
       const stars = document.querySelectorAll('#ratingStars .star-btn i');
@@ -1502,7 +1486,6 @@
       });
     }
 
-    // ========== टिप्पणी ==========
     function addComment() {
       const name = document.getElementById('commentName').value.trim();
       const text = document.getElementById('commentText').value.trim();
@@ -1543,7 +1526,6 @@
     window.addComment = addComment;
     window.deleteComment = deleteComment;
 
-    // ========== कीबोर्ड शॉर्टकट ==========
     window.showShortcuts = function() {
       alert('कीबोर्ड शॉर्टकट:\nCtrl+F - खोज (सक्रिय तालिका में)\nEsc - मोडल बंद\nCtrl+P - प्रिंट\n? - यह सहायता');
     }
@@ -1563,7 +1545,6 @@
       }
     });
 
-    // ========== सेटिंग्स ==========
     function saveSettings() {
       const settings = {
         rowsPerPage15, rowsPerPageState, rowsPerPagePersonnel, rowsPerPageRep, rowsPerPagePanchayat, rowsPerPageGrievance,
@@ -1597,7 +1578,6 @@
       }
     }
 
-    // ========== इनिशियलाइज़ ==========
     window.onload = function() {
       loadSettings();
       setLastUpdated();
@@ -1609,19 +1589,16 @@
       displayComments();
       updateClock();
 
-      // इमेज प्रोटेक्शन
       document.querySelectorAll('.prd-logo, .india-logo, .map-container img, .banner-container img').forEach(img => {
         img.addEventListener('contextmenu', (e) => e.preventDefault());
         img.addEventListener('dragstart', (e) => e.preventDefault());
       });
 
-      // सर्च इवेंट्स
       document.getElementById('search15').addEventListener('input', () => filterTable('15'));
       document.getElementById('searchState').addEventListener('input', () => filterTable('state'));
       document.getElementById('searchGrievance').addEventListener('input', filterGrievanceTable);
     };
 
-    // एक्सपोर्ट फंक्शन को विंडो में डालें ताकि HTML में एक्सेस हो
     window.exportTableToCSV = exportTableToCSV;
     window.setTheme = setTheme;
     window.changePage = changePage;
