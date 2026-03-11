@@ -608,7 +608,7 @@
       font-weight: 600;
     }
 
-    tbody tr:hover td { background: var(--hover-bg); transition: 0.15s; }
+    tbody tr:hover td { background: var(--hover-bg); transition: 0.15s; cursor: pointer; }
 
     .status-super {
       display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 40px;
@@ -673,6 +673,7 @@
     }
     .btn-icon:hover { background: var(--green); transform: translateY(-2px); }
 
+    /* Modal styles */
     .modal {
       display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%;
       background-color: rgba(0,0,0,0.6); align-items: center; justify-content: center;
@@ -1088,7 +1089,7 @@
   <!-- टोस्ट -->
   <div id="toast" class="toast-notification"></div>
 
-  <!-- मोडल -->
+  <!-- मोडल (योजनाओं के लिए) -->
   <div id="projectModal" class="modal">
     <div class="modal-content">
       <span class="modal-close" onclick="closeModal()" style="cursor:pointer;float:right;font-size:28px;" aria-label="बंद करें">&times;</span>
@@ -1098,6 +1099,22 @@
       <p><strong id="modalDescLabel">योजना का नाम:</strong> <span id="modalDesc"></span></p>
       <p><strong id="modalAmountLabel">राशि:</strong> <span id="modalAmount"></span></p>
       <p><strong id="modalStatusLabel">स्थिति:</strong> <span id="modalStatus"></span></p>
+    </div>
+  </div>
+
+  <!-- नया मोडल: आवेदन विवरण के लिए -->
+  <div id="grievanceModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeGrievanceModal()" style="cursor:pointer;float:right;font-size:28px;" aria-label="बंद करें">&times;</span>
+      <h3 id="grievanceModalTitle">आवेदन का विवरण</h3>
+      <p><strong>दिनांक:</strong> <span id="modalGrievanceDate"></span></p>
+      <p><strong>आवेदन संख्या:</strong> <span id="modalGrievanceAppNo"></span></p>
+      <p><strong>आवेदक का नाम:</strong> <span id="modalGrievanceApplicant"></span></p>
+      <p><strong>मोबाइल नं.:</strong> <span id="modalGrievanceMobile"></span></p>
+      <p><strong>ब्लॉक:</strong> <span id="modalGrievanceBlock"></span></p>
+      <p><strong>कार्यालय:</strong> <span id="modalGrievanceOffice"></span></p>
+      <p><strong>विषय:</strong> <span id="modalGrievanceSubject"></span></p>
+      <p><strong>स्थिति:</strong> <span id="modalGrievanceStatus"></span></p>
     </div>
   </div>
 </div>
@@ -1282,6 +1299,7 @@
   let rowsPerPage15 = 10, rowsPerPageState = 10, rowsPerPagePersonnel = 10, rowsPerPageRep = 10, rowsPerPagePanchayat = 10;
   // नई pagination for grievance
   let currentPageGrievance = 1, rowsPerPageGrievance = 10;
+  let filteredGrievances = []; // होल्ड वर्तमान फ़िल्टर्ड आवेदन
 
   // Language
   let currentLanguage = 'hi';
@@ -1531,7 +1549,12 @@
     document.getElementById('badgeState').innerText = fState.length + (currentLanguage === 'hi' ? ' कार्य' : ' works');
 
     filterPersonnelRepPanchayat();
-    updateGrievanceTable();
+    
+    // आवेदन फ़िल्टर
+    filteredGrievances = getFilteredGrievances();
+    if (currentPageGrievance > Math.ceil(filteredGrievances.length / rowsPerPageGrievance)) currentPageGrievance = 1;
+    renderGrievanceTable();
+
     updateMetrics();
     showToast(t('filterApplied'));
   }
@@ -1561,12 +1584,6 @@
     renderPanchayatTable(filteredPan);
   }
 
-  function updateGrievanceTable() {
-    const filtered = getFilteredGrievances();
-    if (currentPageGrievance > Math.ceil(filtered.length / rowsPerPageGrievance)) currentPageGrievance = 1;
-    renderGrievanceTable(filtered);
-  }
-
   // ========== टेबल रेंडरिंग ==========
   function renderTable(tbodyId, data, page, tableType, rowsPerPage) {
     const tbody = document.getElementById(tbodyId);
@@ -1589,16 +1606,17 @@
     renderPagination(data.length, page, tableType, rowsPerPage);
   }
 
-  function renderGrievanceTable(data = grievances) {
+  function renderGrievanceTable() {
     const tbody = document.getElementById('tableGrievanceBody');
     const start = (currentPageGrievance - 1) * rowsPerPageGrievance;
     const end = start + rowsPerPageGrievance;
-    const pageData = data.slice(start, end);
+    const pageData = filteredGrievances.slice(start, end);
     tbody.innerHTML = '';
     pageData.forEach((g, i) => {
       let cls = g.status === 'Disposed' ? 'disposed' : 'pending';
       let ico = g.status === 'Disposed' ? 'fa-check' : 'fa-clock';
-      tbody.innerHTML += `<tr>
+      // यहाँ onclick जोड़ा गया है जो showGrievanceModal को कॉल करेगा
+      tbody.innerHTML += `<tr onclick="showGrievanceModal(${start + i})">
         <td>${start + i + 1}</td>
         <td>${g.date}</td>
         <td>${g.app_no}</td>
@@ -1610,8 +1628,8 @@
         <td><span class="status-super ${cls}"><i class="fas ${ico}"></i> ${g.status}</span></td>
       </tr>`;
     });
-    document.getElementById('badgeGrievance').innerText = data.length + (currentLanguage === 'hi' ? ' आवेदन' : ' applications');
-    renderPagination(data.length, currentPageGrievance, 'grievance', rowsPerPageGrievance);
+    document.getElementById('badgeGrievance').innerText = filteredGrievances.length + (currentLanguage === 'hi' ? ' आवेदन' : ' applications');
+    renderPagination(filteredGrievances.length, currentPageGrievance, 'grievance', rowsPerPageGrievance);
   }
 
   function renderPagination(totalRows, currentPage, tableType, rowsPerPage) {
@@ -1818,6 +1836,38 @@
     showToast(t('dataSorted'));
   }
 
+  // ========== मोडल फंक्शन ==========
+  function showProjectModal(fund, year, desc, amount, status) {
+    document.getElementById('modalFund').innerText = fund;
+    document.getElementById('modalYear').innerText = year;
+    document.getElementById('modalDesc').innerText = desc;
+    document.getElementById('modalAmount').innerText = formatMoney(amount);
+    document.getElementById('modalStatus').innerText = status;
+    document.getElementById('projectModal').classList.add('show');
+  }
+
+  function closeModal() {
+    document.getElementById('projectModal').classList.remove('show');
+  }
+
+  function showGrievanceModal(index) {
+    const g = filteredGrievances[index];
+    if (!g) return;
+    document.getElementById('modalGrievanceDate').innerText = g.date;
+    document.getElementById('modalGrievanceAppNo').innerText = g.app_no;
+    document.getElementById('modalGrievanceApplicant').innerText = g.applicant;
+    document.getElementById('modalGrievanceMobile').innerText = g.mobile;
+    document.getElementById('modalGrievanceBlock').innerText = g.block;
+    document.getElementById('modalGrievanceOffice').innerText = g.office;
+    document.getElementById('modalGrievanceSubject').innerText = g.subject;
+    document.getElementById('modalGrievanceStatus').innerText = g.status;
+    document.getElementById('grievanceModal').classList.add('show');
+  }
+
+  function closeGrievanceModal() {
+    document.getElementById('grievanceModal').classList.remove('show');
+  }
+
   // ========== फ़िल्टर ऐक्शन ==========
   function applyAmountFilter() {
     minAmount = parseFloat(document.getElementById('minAmountSlider').value);
@@ -2009,20 +2059,6 @@
     `).join('') || (currentLanguage === 'hi' ? 'कोई टिप्पणी नहीं' : 'No comments');
   }
 
-  // ========== मोडल ==========
-  function showProjectModal(fund, year, desc, amount, status) {
-    document.getElementById('modalFund').innerText = fund;
-    document.getElementById('modalYear').innerText = year;
-    document.getElementById('modalDesc').innerText = desc;
-    document.getElementById('modalAmount').innerText = formatMoney(amount);
-    document.getElementById('modalStatus').innerText = status;
-    document.getElementById('projectModal').classList.add('show');
-  }
-
-  function closeModal() {
-    document.getElementById('projectModal').classList.remove('show');
-  }
-
   // ========== एक्सपोर्ट ==========
   function exportCSV() {
     let csv = "क्र.,मद,वित्त वर्ष,योजना का नाम,राशि,स्थिति\n";
@@ -2147,6 +2183,8 @@ ${grievances.map((g,i)=>`<tr><td>${i+1}</td><td>${g.date}</td><td>${g.app_no}</t
     setLastUpdated();
     updateMetrics();
     renderCharts();
+    // पहली बार filteredGrievances को सेट करें
+    filteredGrievances = grievances.slice(); // सभी आवेदन
     filterData(); // सभी टेबल रेंडर हो जाएँगी
     displayComments();
     updateClock();
@@ -2201,6 +2239,8 @@ ${grievances.map((g,i)=>`<tr><td>${i+1}</td><td>${g.date}</td><td>${g.app_no}</t
   window.sortGrievance = sortGrievance;
   window.showProjectModal = showProjectModal;
   window.closeModal = closeModal;
+  window.showGrievanceModal = showGrievanceModal;
+  window.closeGrievanceModal = closeGrievanceModal;
   window.addComment = addComment;
   window.deleteComment = deleteComment;
   window.exportCSV = exportCSV;
