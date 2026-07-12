@@ -556,7 +556,6 @@
         .contact-info-box .info-row { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; }
         .contact-info-box .info-row i { color: var(--gold); font-size: 1.4rem; width: 30px; margin-top: 3px; }
         .contact-info-box .info-row p { font-size: 0.95rem; margin-bottom: 0; }
-        .google-map-placeholder { width: 100%; height: 200px; background: #222; border-radius: 8px; margin-top: 15px; display: flex; justify-content: center; align-items: center; color: var(--text-muted); border: 1px solid #333; font-size: 0.9rem; gap: 10px; }
 
         /* ================================================================================= */
         /* ======================== 21. NEWSLETTER & FOOTER ================================ */
@@ -708,6 +707,8 @@
             <li><a href="#blog">Blog</a></li>
             <li><a href="#faq">FAQ</a></li>
             <li><a href="#contact">Contact</a></li>
+            <!-- NEW: Book Now Button in Navbar -->
+            <li><a href="#" id="openBookingBtn" class="btn btn-primary btn-sm" style="padding: 8px 20px; border-radius: 30px; color:#111;">Book Now</a></li>
         </ul>
         <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
     </nav>
@@ -832,7 +833,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 8. WHY CHOOSE US SECTION (NEW SECTION ADDED)                    -->
+    <!-- 8. WHY CHOOSE US SECTION                                       -->
     <!-- ============================================================== -->
     <section id="why-choose-us" class="bg-dark-section">
         <div class="container">
@@ -902,7 +903,6 @@
             </div>
 
             <div class="gallery-grid" id="galleryGrid">
-                <!-- 24 Gallery Items -->
                 <div class="gallery-item reveal" data-category="wedding">
                     <img src="https://images.pexels.com/photos/169193/pexels-photo-169193.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Elegant Wedding">
                     <div class="overlay"><h4>Elegant Wedding</h4><span>Wedding</span></div>
@@ -1157,7 +1157,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 12. PRICING / QUOTATION SECTION (EXPANDED DETAILS)              -->
+    <!-- 12. PRICING / QUOTATION SECTION                                -->
     <!-- ============================================================== -->
     <section id="pricing" class="bg-section">
         <div class="container">
@@ -1168,7 +1168,6 @@
             </div>
             
             <div class="pricing-wrapper reveal">
-                <!-- Header -->
                 <div class="quotation-header">
                     <h2>THE WEDDING</h2>
                     <h3>Wedding Photography & Cinematography</h3>
@@ -1176,9 +1175,7 @@
                     <h3 style="color: #888; margin-top: 15px; font-size: 0.9rem;">— WEDDING PHOTOGRAPHY PACKAGES —</h3>
                 </div>
 
-                <!-- 3 Main Packages -->
                 <div class="pricing-grid">
-                    <!-- Silver -->
                     <div class="price-card reveal">
                         <div class="card-title">Package 1 <br> SILVER</div>
                         <ul>
@@ -1193,7 +1190,6 @@
                         <div class="price-tag">PRICE: <br> <span>₹80,000</span></div>
                     </div>
                     
-                    <!-- Gold (Featured) -->
                     <div class="price-card featured reveal">
                         <div class="card-title" style="color:#111; background:var(--gold);">PACKAGE 2 <br> GOLD</div>
                         <ul>
@@ -1210,7 +1206,6 @@
                         <div class="price-tag" style="border:1px solid var(--gold);">PRICE: <br> <span style="color: var(--gold);">₹1,20,000</span></div>
                     </div>
 
-                    <!-- Premium Luxury -->
                     <div class="price-card reveal">
                         <div class="card-title">Package 3 <br> PREMIUM LUXURY</div>
                         <ul>
@@ -1228,9 +1223,7 @@
                     </div>
                 </div>
 
-                <!-- Additional Services & Booking Terms -->
                 <div class="extras-grid">
-                    <!-- Additional Services -->
                     <div class="extras-box reveal">
                         <h4><i class="fas fa-plus-circle"></i> ADDITIONAL SERVICES</h4>
                         <div class="row-item"><span>Drone Shoot</span> <span>₹5,000</span></div>
@@ -1240,7 +1233,6 @@
                         <div class="row-item"><span>Extra Album</span> <span>₹8,000</span></div>
                     </div>
 
-                    <!-- Booking Terms -->
                     <div class="extras-box reveal">
                         <h4><i class="fas fa-file-contract"></i> BOOKING TERMS</h4>
                         <div class="row-item"><span><i class="fas fa-calendar-check" style="color:var(--gold);"></i> 30% Advance for Booking Confirmation</span> <span></span></div>
@@ -1250,7 +1242,6 @@
                     </div>
                 </div>
 
-                <!-- Gifts Section -->
                 <div class="gift-container">
                     <div class="gift-wrapper">
                         <div class="gift-box-inner">
@@ -1391,7 +1382,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 14. FAQ ACCORDION SECTION                                      -->
+    <!-- 14. FAQ ACCORDION SECTION (WITH NEW SEARCH BAR)                 -->
     <!-- ============================================================== -->
     <section id="faq" class="bg-section">
         <div class="container">
@@ -1400,6 +1391,12 @@
                 <p>Everything you need to know before we start.</p>
                 <span class="ornate-line"></span>
             </div>
+            
+            <!-- NEW: FAQ Search Bar -->
+            <div style="max-width: 600px; margin: 0 auto 30px; text-align: center;">
+                <input type="text" id="faqSearch" placeholder="Search FAQ (e.g., Drone, Advance, Album)..." style="width: 100%; padding: 12px 15px; background: #151515; border: 1px solid #333; border-radius: 6px; color: #fff; outline: none; transition: 0.3s; font-family: 'Poppins', sans-serif;">
+            </div>
+
             <div class="faq-wrapper">
                 <div class="faq-item reveal">
                     <div class="faq-question">How far in advance should we book? <span class="icon">+</span></div>
@@ -1446,7 +1443,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 15. CONTACT US SECTION (UPDATED: WHATSAPP ENQUIRY)              -->
+    <!-- 15. CONTACT US SECTION (WITH REAL GOOGLE MAP)                   -->
     <!-- ============================================================== -->
     <section id="contact">
         <div class="container">
@@ -1493,7 +1490,6 @@
                             <label>Tell us about your vision...</label>
                             <textarea id="message" rows="5" placeholder="Describe your dream shoot, location, dates, and any special requirements..." required></textarea>
                         </div>
-                        <!-- This button now triggers a WhatsApp message -->
                         <button type="submit" class="btn btn-primary btn-block" id="submitBtn">Send Enquiry via WhatsApp</button>
                     </form>
                 </div>
@@ -1529,9 +1525,10 @@
                             <p><strong style="color:#fff;">Working Hours:</strong><br>Mon – Sat: 10 AM – 7 PM</p>
                         </div>
                     </div>
-                    <div class="google-map-placeholder">
-                        <i class="fas fa-map" style="color: var(--gold); font-size: 1.5rem;"></i> 
-                        Find us on Google Maps
+                    
+                    <!-- NEW: Real Google Map Integration -->
+                    <div style="width: 100%; border-radius: 8px; overflow: hidden; margin-top: 15px; border: 1px solid #333;">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3598.665583716536!2d85.14019131501472!3d25.59422398372776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed57633da6c54b%3A0x34e5b18d59fd0b25!2sPatna%2C%20Bihar!5e0!3m2!1sen!2sin!4v1681234567890!5m2!1sen!2sin" width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
@@ -1628,7 +1625,29 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 20. JAVASCRIPT SECTION                                         -->
+    <!-- 20. MODAL: BOOK YOUR DATE POPUP                                -->
+    <!-- ============================================================== -->
+    <div id="bookingModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); backdrop-filter:blur(5px); z-index:9999; justify-content:center; align-items:center;">
+        <div style="background:#111; border:2px solid var(--gold); padding:40px; max-width:450px; width:90%; border-radius:10px; position:relative;">
+            <span id="closeModalBtn" style="position:absolute; top:15px; right:20px; font-size:28px; color:#aaa; cursor:pointer; transition:0.3s; font-family: sans-serif;">&times;</span>
+            <h2 style="color:var(--gold); font-size:1.8rem; text-align:center;">Secure Your Date!</h2>
+            <p style="text-align:center; color:#aaa; margin-bottom:20px;">Limited slots available for 2026 weddings</p>
+            
+            <div class="form-group">
+                <label style="color:#ccc;">Your Full Name</label>
+                <input type="text" id="modalName" placeholder="e.g. Amit Sharma" style="width:100%; padding:12px; background:#222; border:1px solid #333; border-radius:5px; color:#fff; outline:none;">
+            </div>
+            <div class="form-group">
+                <label style="color:#ccc;">Phone Number</label>
+                <input type="tel" id="modalPhone" placeholder="+91 98765 43210" style="width:100%; padding:12px; background:#222; border:1px solid #333; border-radius:5px; color:#fff; outline:none;">
+            </div>
+            
+            <button onclick="submitModalBooking()" class="btn btn-primary" style="width:100%; margin-top:10px;">Book Now via WhatsApp</button>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 21. JAVASCRIPT SECTION                                         -->
     <!-- ============================================================== -->
     <script>
         // 1. PRELOADER
@@ -1875,12 +1894,24 @@
             });
         });
 
-        // 10. CONTACT FORM SUBMISSION (NOW DIRECTLY TO WHATSAPP)
+        // 10. FAQ SEARCH LOGIC (NEW)
+        document.getElementById('faqSearch').addEventListener('keyup', function() {
+            let searchValue = this.value.toLowerCase();
+            let faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(function(item) {
+                let text = item.innerText.toLowerCase();
+                if(text.includes(searchValue)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // 11. CONTACT FORM SUBMISSION (TO WHATSAPP)
         var contactForm = document.getElementById('contactForm');
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            // Collect the form data
             var name = document.getElementById('name').value;
             var email = document.getElementById('email').value;
             var phone = document.getElementById('phone').value;
@@ -1888,7 +1919,6 @@
             var eventType = document.getElementById('event').value || "Not Specified";
             var message = document.getElementById('message').value;
 
-            // Construct the WhatsApp message string
             var whatsappMessage = "✨ *New Enquiry from The Wedding Website*%0A%0A" +
                                   "*Name:* " + name + "%0A" +
                                   "*Phone:* " + phone + "%0A" +
@@ -1897,11 +1927,8 @@
                                   "*Event Type:* " + eventType + "%0A" +
                                   "*Message:* " + message;
 
-            // Define the target number (India format: 91 7654200109)
             var phoneNumber = "917654200109";
             var whatsappURL = "https://wa.me/" + phoneNumber + "?text=" + whatsappMessage;
-
-            // Open WhatsApp in a new tab
             window.open(whatsappURL, '_blank');
         });
 
@@ -1917,6 +1944,29 @@
                 navLinks.classList.remove('active');
             }
         });
+
+        // 12. MODAL BOOKING LOGIC (NEW)
+        const openBtn = document.getElementById('openBookingBtn');
+        const modal = document.getElementById('bookingModal');
+        const closeBtn = document.getElementById('closeModalBtn');
+
+        if(openBtn) {
+            openBtn.addEventListener('click', function(e){
+                e.preventDefault();
+                modal.style.display = 'flex';
+            });
+        }
+        closeBtn.addEventListener('click', function(){ modal.style.display = 'none'; });
+        window.addEventListener('click', function(e){ if(e.target == modal) modal.style.display = 'none'; });
+
+        function submitModalBooking() {
+            let name = document.getElementById('modalName').value;
+            let phone = document.getElementById('modalPhone').value;
+            if(!name || !phone) { alert("Please enter Name and Phone Number to confirm booking."); return; }
+            let msg = "📅 *New Booking Request from Website*%0A%0A*Name:* " + name + "%0A*Phone:* " + phone + "%0A*Action:* Please confirm availability for my wedding date.";
+            window.open("https://wa.me/917654200109?text=" + msg, '_blank');
+            modal.style.display = 'none';
+        }
     </script>
 </body>
 </html>
