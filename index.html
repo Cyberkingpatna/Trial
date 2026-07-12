@@ -77,7 +77,7 @@
     </script>
 
     <!-- ================================================================================= -->
-    <!-- CSS STYLES (MOBILE OPTIMIZED)                                                     -->
+    <!-- CSS STYLES (ALL NEW FEATURES ADDED)                                               -->
     <!-- ================================================================================= -->
     <style>
         /* ------------------- 1. CSS VARIABLES & RESET ------------------- */
@@ -148,7 +148,7 @@
         .reveal { opacity: 0; transform: translateY(50px); transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* ------------------- 3. THEME TOGGLE & CUSTOM LANGUAGE TOGGLE (MOBILE REPOSITIONED) ------------------- */
+        /* ------------------- 3. THEME TOGGLE & CUSTOM LANGUAGE TOGGLE ------------------- */
         .toggle-wrapper {
             position: fixed;
             top: 100px;
@@ -173,20 +173,14 @@
             align-items: center;
             justify-content: center;
         }
-        .theme-toggle:hover, .lang-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: var(--shadow-gold);
-        }
-        .lang-toggle {
-            font-size: 0.75rem;
-            font-weight: 700;
-            font-family: 'Poppins', sans-serif;
-            letter-spacing: 0.5px;
-        }
-        .lang-toggle.active-lang {
-            background: var(--gold);
-            color: #fff;
-            border-color: var(--gold);
+        .theme-toggle:hover, .lang-toggle:hover { transform: scale(1.1); box-shadow: var(--shadow-gold); }
+        .lang-toggle { font-size: 0.75rem; font-weight: 700; font-family: 'Poppins', sans-serif; letter-spacing: 0.5px; }
+        .lang-toggle.active-lang { background: var(--gold); color: #fff; border-color: var(--gold); }
+
+        @media (max-width: 768px) {
+            .toggle-wrapper { top: auto; bottom: 100px; right: 15px; flex-direction: row; gap: 8px; }
+            .theme-toggle, .lang-toggle { width: 40px; height: 40px; font-size: 1rem; }
+            .lang-toggle { font-size: 0.6rem; }
         }
 
         /* ------------------- 4. PRELOADER ------------------- */
@@ -215,9 +209,7 @@
             border: 2px solid transparent; cursor: pointer; border-radius: 50px;
             transition: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); position: relative; overflow: hidden;
         }
-        .btn-primary {
-            background: var(--gold); color: #fff; border-color: var(--gold); box-shadow: 0 4px 15px rgba(196, 147, 94, 0.3);
-        }
+        .btn-primary { background: var(--gold); color: #fff; border-color: var(--gold); box-shadow: 0 4px 15px rgba(196, 147, 94, 0.3); }
         .btn-primary:hover { background: var(--gold-dark); border-color: var(--gold-dark); transform: translateY(-4px); box-shadow: var(--shadow-gold); }
         .btn-gold { background: transparent; color: var(--gold); border-color: var(--gold); z-index: 1; }
         .btn-gold::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--gold); transition: left 0.5s; z-index: -1; }
@@ -247,40 +239,15 @@
 
         /* ------------------- 7. HERO SECTION WITH VIDEO ------------------- */
         .hero {
-            position: relative;
-            height: 100vh;
-            min-height: 720px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+            position: relative; height: 100vh; min-height: 720px;
+            display: flex; justify-content: center; align-items: center; text-align: center;
             overflow: hidden;
             background: linear-gradient(rgba(74, 14, 14, 0.75), rgba(45, 6, 6, 0.95)), url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center center / cover no-repeat;
-            padding-top: 80px;
-            border-bottom: 6px solid var(--gold);
+            padding-top: 80px; border-bottom: 6px solid var(--gold);
         }
-        .hero-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 0;
-            pointer-events: none;
-            opacity: 0.6;
-        }
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            max-width: 900px;
-            padding: 0 20px;
-        }
-        .hero-content .sub-title {
-            display: inline-block; color: var(--gold); font-weight: 600; letter-spacing: 4px;
-            text-transform: uppercase; font-size: 0.85rem; margin-bottom: 20px;
-            padding: 10px 25px; border: 1px solid var(--gold); border-radius: 50px; background: rgba(0, 0, 0, 0.4);
-        }
+        .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; pointer-events: none; opacity: 0.6; }
+        .hero-content { position: relative; z-index: 10; max-width: 900px; padding: 0 20px; }
+        .hero-content .sub-title { display: inline-block; color: var(--gold); font-weight: 600; letter-spacing: 4px; text-transform: uppercase; font-size: 0.85rem; margin-bottom: 20px; padding: 10px 25px; border: 1px solid var(--gold); border-radius: 50px; background: rgba(0, 0, 0, 0.4); }
         .hero-content h1 { font-size: 5.8rem; line-height: 1.05; margin-bottom: 25px; color: #fff; text-shadow: 0 5px 25px rgba(0, 0, 0, 0.5); }
         .hero-content h1 .highlight { color: var(--gold); text-shadow: 0 0 40px rgba(196, 147, 94, 0.5); animation: glowPulse 3s infinite; }
         @keyframes glowPulse { 0% { text-shadow: 0 0 20px rgba(196, 147, 94, 0.3); } 50% { text-shadow: 0 0 50px rgba(196, 147, 94, 0.7); } 100% { text-shadow: 0 0 20px rgba(196, 147, 94, 0.3); } }
@@ -356,60 +323,20 @@
         .partner-logo { background: var(--bg-card); padding: 12px 25px; border-radius: 30px; border: 1px solid var(--border-color); font-weight: 600; color: var(--text-muted); font-size: 0.95rem; box-shadow: var(--shadow-box); transition: 0.3s ease; }
         .partner-logo:hover { border-color: var(--gold); color: var(--text-primary); transform: translateY(-4px); }
 
-        /* ------------------- 15. OUR JOURNEY TIMELINE (NEW) ------------------- */
-        #journey {
-            background: var(--bg-section);
-        }
-        .timeline {
-            position: relative;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 0;
-        }
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 4px;
-            background: var(--gold);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -2px;
-            border-radius: 4px;
-        }
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            background-color: inherit;
-            width: 50%;
-        }
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            right: -10px;
-            background-color: var(--bg-card);
-            border: 4px solid var(--gold);
-            top: 15px;
-            border-radius: 50%;
-            z-index: 1;
-        }
+        /* ------------------- 15. OUR JOURNEY TIMELINE ------------------- */
+        #journey { background: var(--bg-section); }
+        .timeline { position: relative; max-width: 900px; margin: 0 auto; padding: 40px 0; }
+        .timeline::after { content: ''; position: absolute; width: 4px; background: var(--gold); top: 0; bottom: 0; left: 50%; margin-left: -2px; border-radius: 4px; }
+        .timeline-item { padding: 10px 40px; position: relative; background-color: inherit; width: 50%; }
+        .timeline-item::after { content: ''; position: absolute; width: 20px; height: 20px; right: -10px; background-color: var(--bg-card); border: 4px solid var(--gold); top: 15px; border-radius: 50%; z-index: 1; }
         .timeline-item.left { left: 0; }
         .timeline-item.right { left: 50%; }
         .timeline-item.right::after { left: -10px; }
-        .timeline-content {
-            padding: 20px 30px;
-            background: var(--bg-card);
-            position: relative;
-            border-radius: 12px;
-            box-shadow: var(--shadow-box);
-            border: 1px solid var(--border-color);
-        }
+        .timeline-content { padding: 20px 30px; background: var(--bg-card); position: relative; border-radius: 12px; box-shadow: var(--shadow-box); border: 1px solid var(--border-color); }
         .timeline-content h3 { color: var(--gold); font-size: 1.5rem; margin-bottom: 5px; }
         .timeline-content p { margin-bottom: 0; font-size: 0.95rem; }
 
-        /* ------------------- 16. PORTFOLIO ------------------- */
+        /* ------------------- 16. PORTFOLIO (IMAGES) ------------------- */
         .gallery-filter { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 45px; }
         .filter-btn { background: transparent; border: 1px solid var(--border-color); padding: 12px 28px; color: var(--text-muted); font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s ease; border-radius: 4px; }
         .filter-btn:hover, .filter-btn.active { background: var(--gold); color: #fff; border-color: var(--gold); box-shadow: 0 4px 15px rgba(196, 147, 94, 0.3); }
@@ -431,7 +358,39 @@
         .lightbox-container .close-lb { position: absolute; top: 30px; right: 40px; font-size: 3.5rem; color: #fff; cursor: pointer; transition: 0.3s ease; }
         .lightbox-container .close-lb:hover { color: var(--gold); transform: rotate(90deg); }
 
-        /* ------------------- 17. TEAM ------------------- */
+        /* ------------------- 17. VIDEO PORTFOLIO (NEW) ------------------- */
+        #video-portfolio {
+            background: var(--bg-card);
+            padding: 60px 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .video-item {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: var(--shadow-gold);
+            border: 1px solid var(--gold);
+        }
+        .video-item iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* ------------------- 18. TEAM ------------------- */
         .team-wrapper { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 35px; text-align: center; }
         .team-member { background: var(--bg-card); padding: 35px 20px; border: 1px solid var(--border-color); border-radius: 12px; transition: 0.3s ease; box-shadow: var(--shadow-box); }
         .team-member:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: var(--shadow-gold); }
@@ -440,7 +399,7 @@
         .team-member h4 { color: var(--text-primary); font-size: 1.15rem; margin-bottom: 5px; }
         .team-member p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; }
 
-        /* ------------------- 18. TESTIMONIALS ------------------- */
+        /* ------------------- 19. TESTIMONIALS (OLD & NEW REVIEWS) ------------------- */
         .testimonial-wrapper { max-width: 850px; margin: 0 auto; overflow: hidden; position: relative; border-radius: 12px; box-shadow: var(--shadow-box); }
         .testimonial-track { display: flex; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .testimonial-item { min-width: 100%; padding: 50px 40px; background: var(--bg-card); border-left: 6px solid var(--gold); border-radius: 12px; text-align: center; }
@@ -450,7 +409,55 @@
         .slider-dot { width: 14px; height: 14px; background: rgba(0, 0, 0, 0.08); border-radius: 50%; cursor: pointer; transition: 0.3s ease; border: 1px solid transparent; }
         .slider-dot.active { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 15px rgba(196, 147, 94, 0.3); }
 
-        /* ------------------- 19. PRICING & CALCULATOR ------------------- */
+        /* ------------------- 20. NEW: CLIENT REVIEW SUBMISSION FORM ------------------- */
+        #submit-review {
+            background: var(--bg-section);
+            padding: 60px 0;
+        }
+        .review-form-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-box);
+            border: 1px solid var(--border-color);
+        }
+        .review-form-box h3 { color: var(--gold); text-align: center; margin-bottom: 25px; font-size: 1.8rem; }
+        .star-rating {
+            direction: rtl;
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+        .star-rating input { display: none; }
+        .star-rating label {
+            font-size: 2rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .star-rating label:hover, .star-rating label:hover ~ label, .star-rating input:checked ~ label {
+            color: #ffc107;
+        }
+        .user-reviews-list {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .user-review-item {
+            background: var(--bg-body);
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--gold);
+        }
+        .user-review-item .u-name { font-weight: 600; color: var(--text-primary); }
+        .user-review-item .u-stars { color: #ffc107; font-size: 0.9rem; }
+        .user-review-item .u-text { font-size: 0.9rem; color: var(--text-muted); margin-top: 5px; }
+
+        /* ------------------- 21. PRICING & COMPARATOR ------------------- */
         .pricing-wrapper { border: 2px solid var(--gold); padding: 50px; background: var(--bg-card); box-shadow: var(--shadow-gold); border-radius: 16px; }
         .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
         .price-card { background: var(--bg-section); border: 1px solid var(--border-color); padding: 30px 25px; border-radius: 12px; transition: 0.3s ease; }
@@ -465,14 +472,19 @@
         .price-card .price-tag span { font-size: 2.2rem; font-weight: 700; color: var(--gold); display: block; }
         .price-card.featured .price-tag { border: 2px solid var(--gold); background: var(--bg-card); }
 
+        /* NEW: Compare Button & Table */
+        .compare-btn-wrapper { text-align: center; margin-bottom: 30px; }
+        .comparison-table-wrapper { display: none; margin-top: 30px; overflow-x: auto; }
+        .comparison-table-wrapper.active { display: block; }
+        .comparison-table { width: 100%; border-collapse: collapse; background: var(--bg-card); border-radius: 12px; box-shadow: var(--shadow-box); }
+        .comparison-table th, .comparison-table td { padding: 15px; text-align: center; border: 1px solid var(--border-color); }
+        .comparison-table th { background: var(--gold); color: #fff; font-weight: 600; }
+        .comparison-table td:first-child { font-weight: 600; text-align: left; color: var(--text-primary); }
+        .comparison-table .check { color: #28a745; }
+        .comparison-table .cross { color: #dc3545; }
+
         /* Add-ons Table & Dynamic Calculator */
-        .addons-wrapper {
-            margin-top: 40px;
-            padding: 30px;
-            background: var(--bg-section);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-        }
+        .addons-wrapper { margin-top: 40px; padding: 30px; background: var(--bg-section); border-radius: 12px; border: 1px solid var(--border-color); }
         .addons-wrapper h3 { color: var(--gold); text-align: center; margin-bottom: 20px; font-size: 2rem; }
         .addons-table { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 800px; margin: 0 auto; }
         .addon-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border-color); transition: 0.3s; }
@@ -483,7 +495,7 @@
         .calc-total-box { text-align: center; margin-top: 25px; padding: 20px; background: var(--maroon-dark); border-radius: 8px; color: #fff; }
         .calc-total-box .total-amount { font-size: 2.5rem; color: var(--gold); font-weight: 700; font-family: 'Poppins', sans-serif; }
 
-        /* ------------------- 20. BLOG ------------------- */
+        /* ------------------- 22. BLOG ------------------- */
         .blog-wrapper { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
         .blog-card { background: var(--bg-card); border-radius: 12px; overflow: hidden; transition: 0.3s ease; box-shadow: var(--shadow-box); border: 1px solid var(--border-color); }
         .blog-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: var(--shadow-gold); }
@@ -492,11 +504,10 @@
         .blog-card:hover .blog-img img { transform: scale(1.1); }
         .blog-card .blog-content { padding: 30px; }
         .blog-card .blog-content .meta { display: flex; gap: 20px; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px; font-weight: 400; }
-        .blog-card .blog-content .meta span { display: flex; align-items: center; gap: 6px; }
         .blog-card .blog-content h4 { font-size: 1.2rem; color: var(--text-primary); margin-bottom: 12px; }
         .blog-card .blog-content p { font-size: 0.95rem; margin-bottom: 20px; }
 
-        /* ------------------- 21. FAQ ------------------- */
+        /* ------------------- 23. FAQ ------------------- */
         .faq-wrapper { max-width: 850px; margin: 0 auto; }
         .faq-item { background: var(--bg-card); margin-bottom: 15px; border-radius: 10px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: var(--shadow-box); transition: 0.3s ease; }
         .faq-item:hover { border-color: var(--gold); }
@@ -506,34 +517,37 @@
         .faq-item .faq-answer { max-height: 0; padding: 0 30px; overflow: hidden; transition: max-height 0.5s ease, padding 0.4s ease; color: var(--text-muted); background: var(--bg-section); line-height: 1.6; }
         .faq-item.active .faq-answer { max-height: 300px; padding: 20px 30px; }
 
-        /* ------------------- 22. INSTAGRAM FEED ------------------- */
+        /* ------------------- 24. INSTAGRAM & GOOGLE REVIEWS ------------------- */
         .instagram-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; max-width: 900px; margin: 0 auto; }
         .insta-placeholder { background: var(--bg-card); border-radius: 12px; height: 180px; box-shadow: var(--shadow-box); display: flex; align-items: center; justify-content: center; color: var(--text-muted); border: 1px solid var(--border-color); transition: 0.3s ease; }
         .insta-placeholder:hover { transform: scale(1.03); border-color: var(--gold); }
         .insta-placeholder i { font-size: 3rem; color: var(--gold); }
 
-        /* ------------------- 23. 360° VIRTUAL TOUR ------------------- */
-        #virtualtour {
+        /* Google Reviews Widget */
+        #google-reviews {
             background: var(--bg-card);
-            padding: 60px 0;
+            padding: 40px 0;
             text-align: center;
             border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
         }
-        #virtualtour .tour-container {
-            max-width: 900px;
+        #google-reviews .g-reviews-embed {
+            max-width: 800px;
             margin: 0 auto;
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: var(--shadow-gold);
+            box-shadow: var(--shadow-box);
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
         }
-        #virtualtour iframe {
+        #google-reviews .g-reviews-embed iframe, #google-reviews .g-reviews-embed div {
             width: 100%;
-            height: 450px;
             border: none;
         }
 
-        /* ------------------- 24. CONTACT & MAP ------------------- */
+        /* ------------------- 25. CONTACT & MAP ------------------- */
         .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
         .contact-form h2 { color: var(--gold); font-size: 2.4rem; margin-bottom: 25px; }
         .form-group { margin-bottom: 22px; }
@@ -548,7 +562,7 @@
         .contact-info-box .info-row p { font-size: 0.95rem; margin-bottom: 0; }
         .map-container { width: 100%; border-radius: 12px; overflow: hidden; margin-top: 20px; border: 1px solid var(--border-color); }
 
-        /* ------------------- 25. FOOTER ------------------- */
+        /* ------------------- 26. FOOTER & COOKIE BANNER ------------------- */
         .main-footer { background: var(--maroon-dark); color: #fff; padding: 70px 0 30px; border-top: 6px solid var(--gold); }
         .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 45px; padding-bottom: 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
         .footer-grid h4 { color: var(--gold); font-size: 1.3rem; margin-bottom: 25px; }
@@ -562,7 +576,7 @@
         .footer-bottom { text-align: center; padding-top: 30px; color: rgba(255, 255, 255, 0.5); font-size: 0.85rem; }
         .footer-bottom span { color: var(--gold); font-weight: 600; }
 
-        /* ------------------- 26. BACK TO TOP & FLOATING BUTTONS ------------------- */
+        /* ------------------- 27. BACK TO TOP & FLOATING BUTTONS ------------------- */
         .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: var(--gold); color: #fff; border: none; border-radius: 50%; font-size: 1.4rem; cursor: pointer; opacity: 0; visibility: hidden; transition: 0.3s ease; box-shadow: var(--shadow-gold); z-index: 998; display: flex; justify-content: center; align-items: center; }
         .back-to-top.visible { opacity: 1; visibility: visible; }
         .back-to-top:hover { transform: scale(1.12) translateY(-4px); background: var(--gold-dark); }
@@ -571,7 +585,7 @@
         .fab-btn:hover { transform: scale(1.12) rotate(-4deg); }
         .fab-call { background: #007bff; } .fab-whatsapp { background: #25D366; } .fab-book { background: var(--gold); }
 
-        /* ------------------- 27. BOOKING DATE MODAL ------------------- */
+        /* ------------------- 28. BOOKING & EXIT MODALS ------------------- */
         #bookingDateModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(6px); z-index: 10001; justify-content: center; align-items: center; padding: 20px; }
         #bookingDateModal.active { display: flex; }
         .booking-modal-box { background: var(--bg-card); padding: 40px; border-radius: 16px; max-width: 450px; width: 100%; border: 2px solid var(--gold); box-shadow: var(--shadow-gold); position: relative; text-align: center; }
@@ -582,44 +596,18 @@
         .booking-modal-box .btn-close-modal { background: transparent; border: none; color: var(--text-muted); cursor: pointer; margin-top: 15px; font-size: 0.9rem; transition: 0.3s; }
         .booking-modal-box .btn-close-modal:hover { color: var(--text-primary); }
 
-        /* ------------------- 28. EXIT INTENT POPUP ------------------- */
-        #exitPopup {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(6px);
-            z-index: 99999;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+        /* Exit Modal */
+        #exitPopup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(6px); z-index: 99999; display: none; justify-content: center; align-items: center; padding: 20px; opacity: 0; transition: opacity 0.3s ease; }
         #exitPopup.show { display: flex; opacity: 1; }
-        .exit-popup-box {
-            background: var(--bg-card);
-            padding: 50px;
-            border-radius: 20px;
-            max-width: 500px;
-            width: 100%;
-            border: 2px solid var(--gold);
-            box-shadow: var(--shadow-gold);
-            text-align: center;
-            position: relative;
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        @keyframes popIn {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
+        .exit-popup-box { background: var(--bg-card); padding: 50px; border-radius: 20px; max-width: 500px; width: 100%; border: 2px solid var(--gold); box-shadow: var(--shadow-gold); text-align: center; position: relative; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         .exit-popup-box h2 { color: var(--gold); font-size: 2.5rem; margin-bottom: 10px; }
         .exit-popup-box p { margin-bottom: 25px; font-size: 1.1rem; }
         .exit-popup-box .btn-close-exit { position: absolute; top: 15px; right: 20px; font-size: 2rem; color: var(--text-muted); cursor: pointer; transition: 0.3s; background: transparent; border: none; }
         .exit-popup-box .btn-close-exit:hover { color: var(--text-primary); transform: rotate(90deg); }
         .exit-popup-box .exit-discount { font-size: 4rem; font-weight: 900; color: var(--gold); font-family: 'Poppins', sans-serif; }
 
-        /* ------------------- 29. OTP DASHBOARD (Client Gallery + Like/Comment) ------------------- */
+        /* ------------------- 29. OTP & DASHBOARD ------------------- */
         #otpLoginModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px); z-index: 9998; justify-content: center; align-items: center; }
         #otpLoginModal.active { display: flex; }
         .otp-login-box { background: var(--bg-card); padding: 45px; border-radius: 18px; width: 420px; max-width: 90%; border: 1px solid var(--gold); box-shadow: var(--shadow-gold); text-align: center; }
@@ -640,8 +628,6 @@
         .dash-card h4 { font-size: 1.2rem; margin-bottom: 10px; color: var(--text-primary); }
         .dash-progress { width: 100%; height: 8px; background: var(--bg-section); border-radius: 10px; margin: 12px 0; overflow: hidden; }
         .dash-progress span { display: block; height: 100%; background: var(--gold); border-radius: 10px; }
-
-        /* Like & Comment on Gallery */
         .gallery-interactions { display: flex; align-items: center; gap: 15px; margin-top: 10px; }
         .gallery-interactions .like-btn { color: var(--text-muted); cursor: pointer; font-size: 1.2rem; transition: 0.3s; background: transparent; border: none; display: flex; align-items: center; gap: 5px; }
         .gallery-interactions .like-btn.liked { color: #ff4757; }
@@ -651,69 +637,55 @@
         .client-gallery-grid .gallery-img-wrap { position: relative; }
         .client-gallery-grid img { width: 100%; height: 100px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border-color); transition: 0.3s; }
         .client-gallery-grid img:hover { transform: scale(1.05); border-color: var(--gold); }
-        .client-gallery-grid .gallery-comment { font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; text-align: center; }
 
-        /* ------------------- 30. RESPONSIVE MEDIA QUERIES (MOBILE OPTIMIZED) ------------------- */
+        /* ------------------- 30. LEAD MAGNET MODAL (NEW) ------------------- */
+        #leadModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(6px); z-index: 10000; justify-content: center; align-items: center; padding: 20px; }
+        #leadModal.active { display: flex; }
+        .lead-modal-box { background: var(--bg-card); padding: 40px; border-radius: 16px; max-width: 450px; width: 100%; border: 2px solid var(--gold); box-shadow: var(--shadow-gold); position: relative; text-align: center; }
+        .lead-modal-box h2 { color: var(--gold); font-size: 1.8rem; margin-bottom: 10px; }
+        .lead-modal-box p { color: var(--text-muted); margin-bottom: 25px; font-size: 0.95rem; }
+        .lead-modal-box input { width: 100%; padding: 14px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1rem; outline: none; transition: 0.3s; color: var(--text-primary); background: var(--bg-body); }
+        .lead-modal-box input:focus { border-color: var(--gold); }
+        .lead-modal-box .btn-close-lead { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; background: transparent; border: none; transition: 0.3s; }
+        .lead-modal-box .btn-close-lead:hover { color: var(--text-primary); }
+
+        /* ------------------- 31. RESPONSIVE MEDIA QUERIES ------------------- */
         @media (max-width: 1024px) {
             .hero-content h1 { font-size: 4.2rem; }
             .pricing-grid, .process-wrapper, .choose-wrapper, .addons-table { grid-template-columns: 1fr 1fr; }
             .footer-grid { grid-template-columns: repeat(2, 1fr); }
             .contact-wrapper, .about-wrapper { grid-template-columns: 1fr; }
             .stats-wrapper { grid-template-columns: repeat(2, 1fr); }
-            #virtualtour iframe { height: 300px; }
         }
         @media (max-width: 768px) {
-            /* Mobile Navbar */
             .hamburger { display: block; }
             .nav-links { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: var(--bg-card); flex-direction: column; justify-content: center; align-items: center; transition: right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); border-left: 2px solid var(--gold); gap: 20px; box-shadow: -5px 0 25px rgba(0, 0, 0, 0.06); }
             .nav-links.active { right: 0; }
             .navbar { padding: 15px 20px; }
-            
-            /* Mobile Hero */
             .hero-content h1 { font-size: 2.6rem; }
             .hero-content p { font-size: 1rem; }
             .hero-content .cta-group { flex-direction: column; align-items: center; width: 100%; }
             .hero-content .cta-group .btn { width: 100%; max-width: 280px; }
-            
-            /* Mobile Grids */
             .stats-wrapper, .pricing-grid, .process-wrapper, .choose-wrapper, .addons-table, .footer-grid, .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
             .pricing-wrapper { padding: 20px; }
             .section-title h2 { font-size: 2.2rem; }
-            
-            /* Mobile Portfolio */
             .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
             .gallery-item { height: 250px; }
-            
-            /* Mobile Toggles (Repositioned to bottom) */
-            .toggle-wrapper {
-                top: auto;
-                bottom: 100px;
-                right: 15px;
-                flex-direction: row;
-                gap: 8px;
-            }
+            .toggle-wrapper { top: auto; bottom: 100px; right: 15px; flex-direction: row; gap: 8px; }
             .theme-toggle, .lang-toggle { width: 40px; height: 40px; font-size: 1rem; }
             .lang-toggle { font-size: 0.6rem; }
-
-            /* Mobile Forms (Prevent Zoom) */
-            input, select, textarea, .form-group input, .form-group select, .form-group textarea {
-                font-size: 16px !important;
-            }
-
-            /* Mobile Lightbox */
+            input, select, textarea, .form-group input, .form-group select, .form-group textarea { font-size: 16px !important; }
             .lightbox-container .close-lb { top: 15px; right: 25px; font-size: 2.5rem; }
-            
-            /* Mobile Floating Buttons */
             .action-fab { left: 15px; bottom: 20px; gap: 10px; }
             .fab-btn { width: 48px; height: 48px; font-size: 1.3rem; }
-            
-            /* Mobile Modals */
-            .otp-login-box, .exit-popup-box { padding: 30px 20px; }
-            #virtualtour iframe { height: 250px; }
+            .otp-login-box, .exit-popup-box, .lead-modal-box, .booking-modal-box { padding: 30px 20px; }
             .timeline::after { left: 31px; }
             .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
             .timeline-item.right { left: 0%; }
             .timeline-item.left::after, .timeline-item.right::after { left: 21px; }
+            .video-grid { grid-template-columns: 1fr; }
+            .comparison-table { font-size: 0.8rem; }
+            .comparison-table th, .comparison-table td { padding: 10px 5px; }
         }
         @media (max-width: 480px) {
             .hero-content h1 { font-size: 2.2rem; letter-spacing: 1px; }
@@ -728,12 +700,10 @@
 <body>
 
     <!-- ============================================================== -->
-    <!-- 1. THEME TOGGLE & CUSTOM LANGUAGE TOGGLE (MOBILE BOTTOM)        -->
+    <!-- 1. THEME & LANGUAGE TOGGLES                                     -->
     <!-- ============================================================== -->
     <div class="toggle-wrapper">
-        <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
-            <i class="fas fa-moon"></i>
-        </button>
+        <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode"><i class="fas fa-moon"></i></button>
         <button class="lang-toggle active-lang" id="langToggle" title="Change Language">EN</button>
     </div>
 
@@ -744,9 +714,7 @@
         <div class="loader-wrapper">
             <div class="loader-ring"></div>
             <div class="loader-text">The Wedding</div>
-            <div class="loader-progress">
-                <div class="loader-progress-bar" id="loaderBar"></div>
-            </div>
+            <div class="loader-progress"><div class="loader-progress-bar" id="loaderBar"></div></div>
         </div>
     </div>
 
@@ -765,9 +733,10 @@
             <li><a href="#process">Process</a></li>
             <li><a href="#journey">Our Journey</a></li>
             <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#video-portfolio">Videos</a></li> <!-- NEW LINK -->
             <li><a href="#team">Team</a></li>
             <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#virtualtour">360° Tour</a></li>
+            <li><a href="#submit-review">Review</a></li> <!-- NEW LINK -->
             <li><a href="#blog">Blog</a></li>
             <li><a href="#faq">FAQ</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -816,14 +785,11 @@
     <section id="about">
         <div class="container">
             <div class="about-wrapper">
-                <div class="about-image reveal-left">
-                    <img src="https://images.pexels.com/photos/2781195/pexels-photo-2781195.jpeg" alt="About The Wedding Studio">
-                </div>
+                <div class="about-image reveal-left"><img src="https://images.pexels.com/photos/2781195/pexels-photo-2781195.jpeg" alt="About The Wedding Studio"></div>
                 <div class="about-content reveal-right">
                     <span class="text-gold text-uppercase" style="letter-spacing: 3px; font-weight: 600;">Our Philosophy</span>
                     <h2>Where Every Wedding Becomes A Masterpiece</h2>
                     <p>At The Wedding, we believe every frame is a canvas for emotions. Founded in 2004, we’ve grown from a small passion project into a full‑service creative powerhouse, delivering world‑class visual stories across weddings, commercial campaigns, and editorial shoots.</p>
-                    <p>Our team combines technical mastery with artistic intuition, ensuring that each project isn’t just a collection of images, but a timeless narrative. We obsess over light, composition, and the subtle moments that others miss.</p>
                     <ul class="highlight-list">
                         <li><i class="fas fa-check-circle"></i> Cinematic Wedding Films</li>
                         <li><i class="fas fa-check-circle"></i> Luxury Wedding Photography</li>
@@ -910,19 +876,9 @@
                 <span class="ornate-line"></span>
             </div>
             <div class="partners-wrapper reveal">
-                <div class="awards-badge">
-                    <div class="badge-item"><i class="fas fa-star"></i><span>18 International Awards</span></div>
-                    <div class="badge-item"><i class="fas fa-trophy"></i><span>WPJA Best of 2025</span></div>
-                    <div class="badge-item"><i class="fas fa-medal"></i><span>Asia Wedding Awards</span></div>
-                </div>
+                <div class="awards-badge"><div class="badge-item"><i class="fas fa-star"></i><span>18 International Awards</span></div><div class="badge-item"><i class="fas fa-trophy"></i><span>WPJA Best of 2025</span></div></div>
                 <p class="text-muted">We shoot with cutting-edge equipment from:</p>
-                <div class="partners-grid">
-                    <span class="partner-logo"><i class="fas fa-camera"></i> Canon</span>
-                    <span class="partner-logo"><i class="fas fa-video"></i> Sony Cinema</span>
-                    <span class="partner-logo"><i class="fas fa-plane"></i> DJI Drones</span>
-                    <span class="partner-logo"><i class="fas fa-pen-fancy"></i> Adobe Suite</span>
-                    <span class="partner-logo"><i class="fas fa-lightbulb"></i> Profoto</span>
-                </div>
+                <div class="partners-grid"><span class="partner-logo"><i class="fas fa-camera"></i> Canon</span><span class="partner-logo"><i class="fas fa-video"></i> Sony Cinema</span><span class="partner-logo"><i class="fas fa-plane"></i> DJI Drones</span></div>
             </div>
         </div>
     </section>
@@ -938,54 +894,23 @@
                 <span class="ornate-line"></span>
             </div>
             <div class="timeline">
-                <div class="timeline-item left reveal">
-                    <div class="timeline-content">
-                        <h3>2004 — The Beginning</h3>
-                        <p>The Wedding Studio was founded in Patna with a single camera and a big dream. Started capturing local weddings with a focus on raw emotion.</p>
-                    </div>
-                </div>
-                <div class="timeline-item right reveal">
-                    <div class="timeline-content">
-                        <h3>2010 — First International Shoot</h3>
-                        <p>Expanded horizons and shot our first destination wedding in Thailand. Brought cinematic 4K storytelling to Indian weddings.</p>
-                    </div>
-                </div>
-                <div class="timeline-item left reveal">
-                    <div class="timeline-content">
-                        <h3>2015 — 1,000 Weddings Milestone</h3>
-                        <p>Completed 1,000 wedding projects. Recognized as one of the top 10 wedding studios in Bihar by local media.</p>
-                    </div>
-                </div>
-                <div class="timeline-item right reveal">
-                    <div class="timeline-content">
-                        <h3>2020 — International Award</h3>
-                        <p>Won the "WPJA Best of 2020" award for outstanding candid wedding photography. Became the go-to studio for luxury weddings.</p>
-                    </div>
-                </div>
-                <div class="timeline-item left reveal">
-                    <div class="timeline-content">
-                        <h3>2022 — New State-of-the-Art Studio</h3>
-                        <p>Inaugurated a brand new 3000 sq ft studio in Patna City with modern editing suites, green screens, and premium lighting setups.</p>
-                    </div>
-                </div>
-                <div class="timeline-item right reveal">
-                    <div class="timeline-content">
-                        <h3>2026 — 800+ Happy Clients & Counting</h3>
-                        <p>Continuing our legacy with 18 international awards, a dedicated team of 12 creatives, and a promise to make every wedding a cinematic masterpiece.</p>
-                    </div>
-                </div>
+                <div class="timeline-item left reveal"><div class="timeline-content"><h3>2004 — The Beginning</h3><p>The Wedding Studio was founded in Patna with a single camera and a big dream.</p></div></div>
+                <div class="timeline-item right reveal"><div class="timeline-content"><h3>2010 — First International Shoot</h3><p>Expanded horizons and shot our first destination wedding in Thailand.</p></div></div>
+                <div class="timeline-item left reveal"><div class="timeline-content"><h3>2015 — 1,000 Weddings Milestone</h3><p>Completed 1,000 wedding projects. Recognized as one of the top 10 wedding studios in Bihar.</p></div></div>
+                <div class="timeline-item right reveal"><div class="timeline-content"><h3>2020 — International Award</h3><p>Won the "WPJA Best of 2020" award for outstanding candid wedding photography.</p></div></div>
+                <div class="timeline-item left reveal"><div class="timeline-content"><h3>2026 — 800+ Happy Clients & Counting</h3><p>Continuing our legacy with 18 international awards and a promise to make every wedding a cinematic masterpiece.</p></div></div>
             </div>
         </div>
     </section>
 
     <!-- ============================================================== -->
-    <!-- 12. PORTFOLIO GALLERY                                             -->
+    <!-- 12. PORTFOLIO (IMAGES)                                           -->
     <!-- ============================================================== -->
     <section id="portfolio" class="bg-section">
         <div class="container">
             <div class="section-title reveal">
                 <h2>OUR <span class="text-light">PORTFOLIO</span></h2>
-                <p>Browse our finest cinematic works. Click "Book This Project" to instantly start a conversation about your wedding.</p>
+                <p>Browse our finest cinematic works. Click "Book This Project" to instantly start a conversation.</p>
                 <span class="ornate-line"></span>
             </div>
             <div class="gallery-filter reveal">
@@ -993,7 +918,6 @@
                 <button class="filter-btn" data-filter="wedding">Wedding</button>
                 <button class="filter-btn" data-filter="portrait">Portrait</button>
                 <button class="filter-btn" data-filter="commercial">Commercial</button>
-                <button class="filter-btn" data-filter="landscape">Landscape</button>
             </div>
             <div class="gallery-grid" id="galleryGrid">
                 <div class="gallery-item reveal" data-category="wedding"><img src="https://images.pexels.com/photos/169193/pexels-photo-169193.jpeg" alt="Elegant Wedding"><div class="overlay"><h4>Elegant Wedding</h4><span>Wedding</span><a href="javascript:void(0)" onclick="openBookingModal('Elegant Wedding Project')" class="book-project-btn">Book This Project</a></div></div>
@@ -1010,38 +934,54 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 13. TEAM MEMBERS                                                 -->
+    <!-- 13. VIDEO PORTFOLIO (NEW FEATURE)                               -->
+    <!-- ============================================================== -->
+    <section id="video-portfolio">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>CINEMATIC <span class="text-light">FILMS</span></h2>
+                <p>Watch our award-winning cinematic wedding films and teasers.</p>
+                <span class="ornate-line"></span>
+            </div>
+            <div class="video-grid reveal">
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0" title="Wedding Highlight Reel 1" allowfullscreen></iframe>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0" title="Wedding Highlight Reel 2" allowfullscreen></iframe>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0" title="Wedding Teaser 3" allowfullscreen></iframe>
+                </div>
+            </div>
+            <p class="text-center mt-20"><i>Replace the above YouTube links with your actual cinematic film links.</i></p>
+        </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- 14. TEAM MEMBERS                                                 -->
     <!-- ============================================================== -->
     <section id="team">
         <div class="container">
-            <div class="section-title reveal">
-                <h2>THE CREATIVE <span class="text-light">FORCE</span></h2>
-                <p>Talented individuals who breathe life into every project with passion and precision.</p>
-                <span class="ornate-line"></span>
-            </div>
+            <div class="section-title reveal"><h2>THE CREATIVE <span class="text-light">FORCE</span></h2><span class="ornate-line"></span></div>
             <div class="team-wrapper">
                 <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Nikhil Kapoor"><h4>Nikhil Kapoor</h4><p>Founder & Lead Photographer</p></div>
                 <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Kriti Sharma"><h4>Kriti Sharma</h4><p>Creative Director</p></div>
                 <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/men/86.jpg" alt="Arjun Mehta"><h4>Arjun Mehta</h4><p>Senior Cinematographer</p></div>
-                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Riya Patel"><h4>Riya Patel</h4><p>Editor & Colorist</p></div>
             </div>
         </div>
     </section>
 
     <!-- ============================================================== -->
-    <!-- 14. TESTIMONIALS                                                  -->
+    <!-- 15. TESTIMONIALS (SLIDER)                                       -->
     <!-- ============================================================== -->
     <section class="bg-section">
         <div class="container">
-            <div class="section-title reveal">
-                <h2>WORDS OF <span class="text-light">LOVE</span></h2>
-                <p>Real stories from real people who trusted us with their most precious memories.</p>
-                <span class="ornate-line"></span>
-            </div>
+            <div class="section-title reveal"><h2>WORDS OF <span class="text-light">LOVE</span></h2><span class="ornate-line"></span></div>
             <div class="testimonial-wrapper reveal">
                 <div class="testimonial-track" id="testimonialTrack">
-                    <div class="testimonial-item"><p>"The Wedding transformed our wedding into a dreamy film. Every picture still makes us emotional. The drone shots were breathtaking!"</p><h5>— Priya & Rahul Mehta</h5></div>
-                    <div class="testimonial-item"><p>"Their attention to detail and ability to make us comfortable was beyond compare. The album is a masterpiece. We will cherish it forever."</p><h5>— Ananya Gupta</h5></div>
+                    <div class="testimonial-item"><p>"The Wedding transformed our wedding into a dreamy film. Every picture still makes us emotional."</p><h5>— Priya & Rahul Mehta</h5></div>
+                    <div class="testimonial-item"><p>"Their attention to detail and ability to make us comfortable was beyond compare."</p><h5>— Ananya Gupta</h5></div>
                 </div>
                 <div class="slider-dots" id="sliderDots"></div>
             </div>
@@ -1049,46 +989,69 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 15. PRICING & CALCULATOR                                          -->
+    <!-- 16. CLIENT REVIEW SUBMISSION FORM (NEW)                         -->
+    <!-- ============================================================== -->
+    <section id="submit-review">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>SHARE YOUR <span class="text-light">EXPERIENCE</span></h2>
+                <p>We value your feedback. Submit your review and help others find their perfect wedding story.</p>
+                <span class="ornate-line"></span>
+            </div>
+            <div class="review-form-box reveal">
+                <h3><i class="fas fa-star text-gold"></i> Leave a Review</h3>
+                <form id="reviewForm" onsubmit="submitReview(event)">
+                    <div class="form-group"><label>Your Name</label><input type="text" id="rName" required></div>
+                    <div class="form-group"><label>Your Rating</label><div class="star-rating"><input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label><input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label><input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label><input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label><input type="radio" id="star1" name="rating" value="1" checked><label for="star1">★</label></div></div>
+                    <div class="form-group"><label>Your Review</label><textarea id="rText" rows="3" placeholder="Share your story..." required></textarea></div>
+                    <button type="submit" class="btn btn-primary" style="width:100%;">Submit Review</button>
+                </form>
+                <div class="user-reviews-list" id="userReviewsList">
+                    <h4 style="margin-top:20px; color:var(--gold);">Recent Reviews</h4>
+                    <!-- Dynamically injected reviews will appear here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- 17. PRICING & COMPARATOR                                        -->
     <!-- ============================================================== -->
     <section id="pricing">
         <div class="container">
-            <div class="section-title reveal">
-                <h2>INVESTMENT <span class="text-light">PLANS</span></h2>
-                <p>Transparent pricing. Plan your budget now.</p>
-                <span class="ornate-line"></span>
+            <div class="section-title reveal"><h2>INVESTMENT <span class="text-light">PLANS</span></h2><span class="ornate-line"></span></div>
+            <div class="compare-btn-wrapper reveal">
+                <button onclick="toggleComparison()" class="btn btn-gold btn-sm" style="background:transparent; border-color:var(--gold);">Compare All Packages <i class="fas fa-arrow-down" style="margin-left:8px;"></i></button>
             </div>
             <div class="pricing-wrapper reveal">
                 <div class="pricing-grid">
-                    <div class="price-card reveal">
-                        <div class="card-title">Silver</div>
-                        <ul><li><i class="fas fa-camera"></i> 1 Photographer</li><li><i class="fas fa-video"></i> 1 Cinematographer</li><li><i class="fas fa-images"></i> 200+ Photos</li></ul>
-                        <div class="price-tag">PRICE: <br> <span>₹80,000</span></div>
-                        <div class="text-center mt-20"><a href="javascript:void(0)" onclick="openBookingModal('Silver Package')" class="btn btn-primary" style="border-radius:30px;">Book Silver</a></div>
-                    </div>
-                    <div class="price-card featured reveal">
-                        <div class="card-title" style="background:var(--gold); color:#fff; padding:12px; margin-top:-30px; margin-bottom:25px; border-radius:8px 8px 0 0;">Gold</div>
-                        <ul><li><i class="fas fa-camera"></i> 1 Photographer</li><li><i class="fas fa-plane"></i> Drone Coverage</li><li><i class="fas fa-book"></i> Premium Album</li></ul>
-                        <div class="price-tag" style="border:2px solid var(--gold); background:var(--bg-card);">PRICE: <br> <span style="color:var(--gold);">₹1,20,000</span></div>
-                        <div class="text-center mt-20"><a href="javascript:void(0)" onclick="openBookingModal('Gold Package')" class="btn btn-primary" style="border-radius:30px;">Book Gold</a></div>
-                    </div>
-                    <div class="price-card reveal">
-                        <div class="card-title">Luxury</div>
-                        <ul><li><i class="fas fa-camera"></i> 2 Photographers</li><li><i class="fas fa-calendar-alt"></i> Haldi, Mehndi & Wedding</li><li><i class="fas fa-images"></i> 400+ Photos</li></ul>
-                        <div class="price-tag">PRICE: <br> <span>₹1,40,000</span></div>
-                        <div class="text-center mt-20"><a href="javascript:void(0)" onclick="openBookingModal('Luxury Package')" class="btn btn-primary" style="border-radius:30px;">Book Luxury</a></div>
-                    </div>
+                    <div class="price-card reveal"><div class="card-title">Silver</div><ul><li><i class="fas fa-camera"></i> 1 Photographer</li><li><i class="fas fa-video"></i> 1 Cinematographer</li><li><i class="fas fa-images"></i> 200+ Photos</li></ul><div class="price-tag">PRICE: <br> <span>₹80,000</span></div><div class="text-center mt-20"><a href="javascript:void(0)" onclick="openBookingModal('Silver Package')" class="btn btn-primary" style="border-radius:30px;">Book Silver</a></div></div>
+                    <div class="price-card featured reveal"><div class="card-title" style="background:var(--gold); color:#fff; padding:12px; margin-top:-30px; margin-bottom:25px; border-radius:8px 8px 0 0;">Gold</div><ul><li><i class="fas fa-camera"></i> 1 Photographer</li><li><i class="fas fa-plane"></i> Drone Coverage</li><li><i class="fas fa-book"></i> Premium Album</li></ul><div class="price-tag" style="border:2px solid var(--gold); background:var(--bg-card);">PRICE: <br> <span style="color:var(--gold);">₹1,20,000</span></div><div class="text-center mt-20"><a href="javascript:void(0)" onclick="openBookingModal('Gold Package')" class="btn btn-primary" style="border-radius:30px;">Book Gold</a></div></div>
+                    <div class="price-card reveal"><div class="card-title">Luxury</div><ul><li><i class="fas fa-camera"></i> 2 Photographers</li><li><i class="fas fa-calendar-alt"></i> Haldi, Mehndi & Wedding</li><li><i class="fas fa-images"></i> 400+ Photos</li></ul><div class="price-tag">PRICE: <br> <span>₹1,40,000</span></div><div class="text-center mt-20"><a href="javascript:void(0)" onclick="openBookingModal('Luxury Package')" class="btn btn-primary" style="border-radius:30px;">Book Luxury</a></div></div>
                 </div>
 
-                <!-- Calculator -->
+                <!-- Comparison Table -->
+                <div class="comparison-table-wrapper" id="comparisonTableWrapper">
+                    <table class="comparison-table">
+                        <thead><tr><th>Features</th><th>Silver</th><th>Gold</th><th>Luxury</th></tr></thead>
+                        <tbody>
+                            <tr><td>Photographers</td><td>1</td><td>1</td><td>2</td></tr>
+                            <tr><td>Cinematographers</td><td>1</td><td>2</td><td>2</td></tr>
+                            <tr><td>Drone Coverage</td><td class="cross"><i class="fas fa-times"></i></td><td class="check"><i class="fas fa-check"></i></td><td class="check"><i class="fas fa-check"></i></td></tr>
+                            <tr><td>Haldi/Mehndi/Sangeet</td><td class="cross"><i class="fas fa-times"></i></td><td class="cross"><i class="fas fa-times"></i></td><td class="check"><i class="fas fa-check"></i></td></tr>
+                            <tr><td>Edited Photos</td><td>200+</td><td>200+</td><td>400+</td></tr>
+                            <tr><td>Premium Album</td><td class="cross"><i class="fas fa-times"></i></td><td class="check"><i class="fas fa-check"></i></td><td class="check"><i class="fas fa-check"></i></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Add-ons -->
                 <div class="addons-wrapper">
                     <h3><i class="fas fa-cogs"></i> Customize Your Package</h3>
                     <div class="addons-table">
                         <div class="addon-item"><input type="checkbox" class="addon-check" data-price="5000"> <label>Drone Shoot</label> <span class="addon-price">+₹5,000</span></div>
                         <div class="addon-item"><input type="checkbox" class="addon-check" data-price="12000"> <label>LED Screen Coverage</label> <span class="addon-price">+₹12,000</span></div>
-                        <div class="addon-item"><input type="checkbox" class="addon-check" data-price="8000"> <label>Crane Camera</label> <span class="addon-price">+₹8,000</span></div>
-                        <div class="addon-item"><input type="checkbox" class="addon-check" data-price="10000"> <label>Same Day Edit</label> <span class="addon-price">+₹10,000</span></div>
-                        <div class="addon-item"><input type="checkbox" class="addon-check" data-price="8000"> <label>Extra Album</label> <span class="addon-price">+₹8,000</span></div>
+                        <div class="addon-item"><input type="checkbox" class="addon-check" data-price="8000"> <label>Same Day Edit</label> <span class="addon-price">+₹8,000</span></div>
                         <div class="addon-item"><input type="checkbox" class="addon-check" data-price="15000"> <label>Extended Coverage</label> <span class="addon-price">+₹15,000</span></div>
                     </div>
                     <div class="calc-total-box">
@@ -1102,46 +1065,31 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 16. 360° VIRTUAL TOUR                                            -->
+    <!-- 18. 360° VIRTUAL TOUR                                            -->
     <!-- ============================================================== -->
     <section id="virtualtour">
         <div class="container">
-            <div class="section-title reveal">
-                <h2>TAKE A <span class="text-light">VIRTUAL TOUR</span></h2>
-                <p>Explore our state-of-the-art studio and editing suites in 360° from your home.</p>
-                <span class="ornate-line"></span>
-            </div>
-            <div class="tour-container reveal">
-                <iframe src="https://www.360cities.net/embed_iframe/patna-india-2015" loading="lazy" allowfullscreen></iframe>
-            </div>
+            <div class="section-title reveal"><h2>TAKE A <span class="text-light">VIRTUAL TOUR</span></h2><span class="ornate-line"></span></div>
+            <div class="tour-container reveal"><iframe src="https://www.360cities.net/embed_iframe/patna-india-2015" loading="lazy" allowfullscreen></iframe></div>
         </div>
     </section>
 
     <!-- ============================================================== -->
-    <!-- 17. BLOG                                                            -->
+    <!-- 19. BLOG & FAQ                                                   -->
     <!-- ============================================================== -->
     <section id="blog" class="bg-section">
         <div class="container">
-            <div class="section-title reveal">
-                <h2>FROM OUR <span class="text-light">JOURNAL</span></h2>
-                <span class="ornate-line"></span>
-            </div>
+            <div class="section-title reveal"><h2>FROM OUR <span class="text-light">JOURNAL</span></h2><span class="ornate-line"></span></div>
             <div class="blog-wrapper">
-                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/3014856/pexels-photo-3014856.jpeg" alt="Blog 1"></div><div class="blog-content"><div class="meta"><span>Jan 12, 2026</span></div><h4>10 Wedding Trends Defining 2026</h4><p>Candid moments, vintage filters, and drone shots are reshaping Indian weddings.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
-                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg" alt="Blog 2"></div><div class="blog-content"><div class="meta"><span>Dec 28, 2025</span></div><h4>How to Pose Naturally</h4><p>Simple tricks to look effortless and relaxed in front of the camera.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
+                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/3014856/pexels-photo-3014856.jpeg"></div><div class="blog-content"><div class="meta"><span>Jan 12, 2026</span></div><h4>10 Wedding Trends Defining 2026</h4><p>Candid moments, vintage filters, and drone shots are reshaping Indian weddings.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
+                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg"></div><div class="blog-content"><div class="meta"><span>Dec 28, 2025</span></div><h4>How to Pose Naturally</h4><p>Simple tricks to look effortless and relaxed in front of the camera.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
             </div>
         </div>
     </section>
 
-    <!-- ============================================================== -->
-    <!-- 18. FAQ ACCORDION                                                 -->
-    <!-- ============================================================== -->
     <section id="faq">
         <div class="container">
-            <div class="section-title reveal">
-                <h2>FREQUENTLY ASKED <span class="text-light">QUESTIONS</span></h2>
-                <span class="ornate-line"></span>
-            </div>
+            <div class="section-title reveal"><h2>FREQUENTLY ASKED <span class="text-light">QUESTIONS</span></h2><span class="ornate-line"></span></div>
             <div class="faq-wrapper">
                 <div class="faq-item reveal"><div class="faq-question">How far in advance should we book? <span class="icon">+</span></div><div class="faq-answer">We recommend booking 6–12 months ahead for peak season.</div></div>
                 <div class="faq-item reveal"><div class="faq-question">How can I book my date? <span class="icon">+</span></div><div class="faq-answer">Click "Book Now", select your date, and we will contact you on WhatsApp immediately!</div></div>
@@ -1150,14 +1098,11 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 19. INSTAGRAM FEED & CONTACT                                     -->
+    <!-- 20. INSTAGRAM & GOOGLE REVIEWS                                  -->
     <!-- ============================================================== -->
     <section id="instagram" class="bg-section">
         <div class="container text-center">
-            <div class="section-title reveal">
-                <h2>FOLLOW OUR <span class="text-light">JOURNEY</span></h2>
-                <span class="ornate-line"></span>
-            </div>
+            <div class="section-title reveal"><h2>FOLLOW OUR <span class="text-light">JOURNEY</span></h2><span class="ornate-line"></span></div>
             <div class="instagram-grid reveal">
                 <div class="insta-placeholder"><i class="fab fa-instagram"></i></div>
                 <div class="insta-placeholder"><i class="fab fa-instagram"></i></div>
@@ -1167,12 +1112,30 @@
         </div>
     </section>
 
+    <section id="google-reviews">
+        <div class="container">
+            <div class="section-title reveal"><h2>WHAT OUR <span class="text-light">CLIENTS SAY</span> ON GOOGLE</h2><span class="ornate-line"></span></div>
+            <div class="g-reviews-embed reveal">
+                <!-- Replace the div below with your Google Reviews Embed Code -->
+                <div style="padding:20px; border:2px dashed var(--border-color); width:100%;">
+                    <i class="fas fa-star text-gold fa-2x"></i>
+                    <i class="fas fa-star text-gold fa-2x"></i>
+                    <i class="fas fa-star text-gold fa-2x"></i>
+                    <i class="fas fa-star text-gold fa-2x"></i>
+                    <i class="fas fa-star text-gold fa-2x"></i>
+                    <p style="margin-top:10px;">4.9/5 Average Rating</p>
+                    <p style="font-size:0.8rem;"><i>Paste your Google My Business Widget code here for live reviews.</i></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- 21. CONTACT & MAP                                               -->
+    <!-- ============================================================== -->
     <section id="contact">
         <div class="container">
-            <div class="section-title reveal">
-                <h2>LET'S CREATE <span class="text-light">TOGETHER</span></h2>
-                <span class="ornate-line"></span>
-            </div>
+            <div class="section-title reveal"><h2>LET'S CREATE <span class="text-light">TOGETHER</span></h2><span class="ornate-line"></span></div>
             <div class="contact-wrapper">
                 <div class="contact-form reveal-left">
                     <h2>Send a Message</h2>
@@ -1194,13 +1157,9 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 20. FOOTER & COOKIE BANNER                                       -->
+    <!-- 22. FOOTER, COOKIE & BACK TO TOP                                -->
     <!-- ============================================================== -->
-    <div id="cookieConsent">
-        <p>We use cookies to enhance your experience. By continuing you agree.</p>
-        <button class="btn-cookie" onclick="acceptCookies()">Accept</button>
-    </div>
-
+    <div id="cookieConsent"><p>We use cookies to enhance your experience. By continuing you agree.</p><button class="btn-cookie" onclick="acceptCookies()">Accept</button></div>
     <footer class="main-footer">
         <div class="container">
             <div class="footer-grid">
@@ -1213,9 +1172,6 @@
         </div>
     </footer>
 
-    <!-- ============================================================== -->
-    <!-- 21. BACK TO TOP & FLOATING BUTTONS                               -->
-    <!-- ============================================================== -->
     <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
     <div class="action-fab">
         <a href="tel:7654200109" class="fab-btn fab-call"><i class="fas fa-phone-alt"></i></a>
@@ -1224,7 +1180,7 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 22. BOOKING DATE MODAL                                           -->
+    <!-- 23. BOOKING MODAL                                               -->
     <!-- ============================================================== -->
     <div id="bookingDateModal">
         <div class="booking-modal-box">
@@ -1238,7 +1194,7 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 23. EXIT INTENT POPUP                                            -->
+    <!-- 24. EXIT INTENT POPUP                                           -->
     <!-- ============================================================== -->
     <div id="exitPopup">
         <div class="exit-popup-box">
@@ -1252,18 +1208,30 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 24. OTP LOGIN & DASHBOARD (Client Gallery + Like/Comment)       -->
+    <!-- 25. LEAD MAGNET MODAL (NEW)                                     -->
+    <!-- ============================================================== -->
+    <div id="leadModal">
+        <div class="lead-modal-box">
+            <button class="btn-close-lead" onclick="closeLeadModal()"><i class="fas fa-times"></i></button>
+            <h2><i class="fas fa-file-pdf text-gold"></i> Free Wedding Checklist</h2>
+            <p>Get our exclusive 30-step wedding planning checklist PDF to kickstart your perfect wedding!</p>
+            <input type="text" id="leadName" placeholder="Your Name">
+            <input type="email" id="leadEmail" placeholder="Your Email">
+            <button onclick="downloadChecklist()" class="btn btn-primary" style="width:100%;">Download Now (Mock PDF)</button>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 26. OTP LOGIN & DASHBOARD                                       -->
     <!-- ============================================================== -->
     <div id="otpLoginModal">
         <div class="otp-login-box">
             <h2>Welcome Back!</h2>
-            <p id="otpLoginStep" style="font-size:0.9rem;">Enter your registered phone number to receive a secure OTP.</p>
-            
+            <p id="otpLoginStep">Enter your registered phone number to receive a secure OTP.</p>
             <div id="loginStepPhone">
                 <input type="tel" id="loginPhone" placeholder="+91 98765 43210" style="width:100%; padding:15px; border:1px solid var(--border-color); border-radius:8px; margin-bottom:20px; outline:none; background:var(--bg-body); color:var(--text-primary);">
                 <button class="btn btn-primary" onclick="sendOTP()" style="width:100%;">Send OTP</button>
             </div>
-            
             <div id="loginStepOTP" style="display:none;">
                 <div class="otp-inputs" id="otpInputContainer">
                     <input type="text" maxlength="1" class="otp-field">
@@ -1276,8 +1244,6 @@
                 <button class="btn btn-primary" onclick="verifyOTP()" style="width:100%; margin-top:10px;">Verify OTP</button>
                 <p style="margin-top:15px; font-size:0.8rem; color:var(--text-muted);"><i>Demo: Use OTP <strong>123456</strong></i></p>
             </div>
-            
-            <p style="margin-top:15px; font-size:0.8rem; color:var(--text-muted);">Don't have an account? <a href="#contact" class="text-gold" onclick="document.getElementById('otpLoginModal').classList.remove('active');">Contact us to register</a></p>
         </div>
     </div>
 
@@ -1292,40 +1258,20 @@
                 <h4>Photo Gallery</h4>
                 <p>Your high-resolution wedding photos are ready.</p>
                 <div class="dash-progress"><span style="width: 100%;"></span></div>
-                
                 <div class="client-gallery-grid">
-                    <div class="gallery-img-wrap">
-                        <img src="https://images.pexels.com/photos/169193/pexels-photo-169193.jpeg">
-                        <div class="gallery-interactions">
-                            <button class="like-btn" onclick="toggleLike(this)"><i class="fas fa-heart"></i> <span class="like-count">0</span></button>
-                        </div>
-                    </div>
-                    <div class="gallery-img-wrap">
-                        <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg">
-                        <div class="gallery-interactions">
-                            <button class="like-btn" onclick="toggleLike(this)"><i class="fas fa-heart"></i> <span class="like-count">0</span></button>
-                        </div>
-                    </div>
-                    <div class="gallery-img-wrap">
-                        <img src="https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg">
-                        <div class="gallery-interactions">
-                            <button class="like-btn" onclick="toggleLike(this)"><i class="fas fa-heart"></i> <span class="like-count">0</span></button>
-                        </div>
-                    </div>
+                    <div class="gallery-img-wrap"><img src="https://images.pexels.com/photos/169193/pexels-photo-169193.jpeg"><div class="gallery-interactions"><button class="like-btn" onclick="toggleLike(this)"><i class="fas fa-heart"></i> <span class="like-count">0</span></button></div></div>
+                    <div class="gallery-img-wrap"><img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg"><div class="gallery-interactions"><button class="like-btn" onclick="toggleLike(this)"><i class="fas fa-heart"></i> <span class="like-count">0</span></button></div></div>
                 </div>
-                <div style="margin-top:10px;">
-                    <input type="text" class="comment-input" placeholder="Write a comment..." style="width:100%; border:1px solid var(--border-color); border-radius:20px; padding:8px 15px; font-size:0.8rem; outline:none; background:var(--bg-body); color:var(--text-primary);" onkeypress="if(event.key==='Enter') addComment(this)">
-                </div>
+                <div style="margin-top:10px;"><input type="text" class="comment-input" placeholder="Write a comment..." style="width:100%; border:1px solid var(--border-color); border-radius:20px; padding:8px 15px; font-size:0.8rem; outline:none; background:var(--bg-body); color:var(--text-primary);" onkeypress="if(event.key==='Enter') addComment(this)"></div>
                 <button onclick="downloadGallery()" class="btn btn-sm btn-gold" style="margin-top:15px;">Download All (ZIP)</button>
             </div>
-
             <div class="dash-card"><div class="icon"><i class="fas fa-video"></i></div><h4>Cinematic Film</h4><p>Teaser and highlight ready.</p><div class="dash-progress"><span style="width: 75%;"></span></div></div>
             <div class="dash-card" style="grid-column: span 2;"><div class="icon"><i class="fas fa-hourglass-half"></i></div><h4>Wedding Countdown</h4><div style="display:flex; justify-content:space-between; font-family:'Poppins', sans-serif; font-weight:600; font-size:1.5rem; color:var(--gold); text-align:center; margin-top:10px;"><div><span id="cdDays" style="font-size:2.5rem; display:block;">00</span>Days</div><div><span id="cdHours" style="font-size:2.5rem; display:block;">00</span>Hrs</div><div><span id="cdMins" style="font-size:2.5rem; display:block;">00</span>Mins</div><div><span id="cdSecs" style="font-size:2.5rem; display:block;">00</span>Secs</div></div></div>
         </div>
     </div>
 
     <!-- ============================================================== -->
-    <!-- 25. JAVASCRIPT (ALL FEATURES INTEGRATED)                        -->
+    <!-- 27. JAVASCRIPT (ALL FEATURES INTEGRATED)                        -->
     <!-- ============================================================== -->
     <script>
         // 1. PRELOADER
@@ -1423,7 +1369,6 @@
         const bookingModal = document.getElementById('bookingDateModal');
         const bookingContext = document.getElementById('bookingContext');
         const bookingDate = document.getElementById('bookingDate');
-
         function openBookingModal(context) {
             bookingContext.value = context;
             bookingModal.classList.add('active');
@@ -1451,7 +1396,56 @@
         });
         function closeExitPopup() { exitPopup.classList.remove('show'); }
 
-        // 9. OTP LOGIN, DASHBOARD & GALLERY
+        // 9. LEAD MAGNET MODAL (NEW)
+        const leadModal = document.getElementById('leadModal');
+        function openLeadModal() { leadModal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeLeadModal() { leadModal.classList.remove('active'); document.body.style.overflow = 'auto'; }
+        function downloadChecklist() {
+            let name = document.getElementById('leadName').value;
+            let email = document.getElementById('leadEmail').value;
+            if(!name || !email) { alert("Please enter your Name and Email to download!"); return; }
+            alert("✅ Mock PDF Download initiated! Data saved (Name: " + name + ", Email: " + email + "). Replace this with a real PDF link.");
+            closeLeadModal();
+        }
+
+        // 10. COMPARISON TABLE TOGGLE (NEW)
+        function toggleComparison() {
+            const wrapper = document.getElementById('comparisonTableWrapper');
+            wrapper.classList.toggle('active');
+        }
+
+        // 11. CLIENT REVIEW FORM (NEW)
+        function submitReview(e) {
+            e.preventDefault();
+            let name = document.getElementById('rName').value;
+            let rating = document.querySelector('input[name="rating"]:checked').value;
+            let text = document.getElementById('rText').value;
+            let review = { name: name, rating: rating, text: text, date: new Date().toLocaleDateString() };
+            
+            let reviews = JSON.parse(localStorage.getItem('clientReviews')) || [];
+            reviews.unshift(review);
+            localStorage.setItem('clientReviews', JSON.stringify(reviews));
+            
+            document.getElementById('reviewForm').reset();
+            loadReviews();
+            alert("✅ Thank you! Your review has been submitted successfully.");
+        }
+
+        function loadReviews() {
+            let reviews = JSON.parse(localStorage.getItem('clientReviews')) || [];
+            let container = document.getElementById('userReviewsList');
+            let html = '<h4 style="margin-top:20px; color:var(--gold);">Recent Reviews</h4>';
+            reviews.forEach(r => {
+                let stars = '';
+                for(let i=0; i<parseInt(r.rating); i++) stars += '★';
+                html += `<div class="user-review-item"><div class="u-name">${r.name}</div><div class="u-stars">${stars}</div><div class="u-text">${r.text}</div></div>`;
+            });
+            container.innerHTML = html;
+        }
+        // Load existing reviews on page load
+        document.addEventListener('DOMContentLoaded', loadReviews);
+
+        // 12. OTP LOGIN, DASHBOARD & GALLERY
         const otpLoginModal = document.getElementById('otpLoginModal');
         const dashboardLink = document.getElementById('dashboardLink');
         const loginStepPhone = document.getElementById('loginStepPhone');
@@ -1528,7 +1522,7 @@
             });
         }
 
-        // 10. COUNTDOWN TIMER
+        // 13. COUNTDOWN TIMER
         let countDownDate = new Date("Dec 25, 2026 00:00:00").getTime();
         document.getElementById('bookingDate').addEventListener('change', function() {
             let selected = new Date(this.value + 'T00:00:00').getTime();
@@ -1543,11 +1537,9 @@
             document.getElementById('cdSecs').innerText = Math.floor((distance % (1000 * 60)) / 1000);
         }, 1000);
 
-        // 11. CUSTOM LANGUAGE TRANSLATION TOGGLE (DEFAULT ENGLISH)
+        // 14. CUSTOM LANGUAGE TRANSLATION TOGGLE (DEFAULT ENGLISH)
         const langToggle = document.getElementById('langToggle');
-        let currentLang = 'en'; // Default is English
-
-        // You can add or modify translations here
+        let currentLang = 'en';
         const translations = {
             'en': {
                 'heroSub': 'Premium Wedding Studio',
@@ -1574,11 +1566,7 @@
         langToggle.addEventListener('click', function() {
             currentLang = currentLang === 'en' ? 'hi' : 'en';
             this.innerText = currentLang.toUpperCase();
-            if(currentLang === 'hi') {
-                this.classList.add('active-lang');
-            } else {
-                this.classList.remove('active-lang');
-            }
+            if(currentLang === 'hi') { this.classList.add('active-lang'); } else { this.classList.remove('active-lang'); }
             applyTranslations(currentLang);
         });
 
@@ -1588,7 +1576,6 @@
             document.querySelector('.hero-content p').innerHTML = translations[lang].heroP;
             document.querySelector('#about .about-content h2').innerHTML = translations[lang].aboutTitle;
             document.querySelector('#about .about-content p').innerHTML = translations[lang].aboutP1;
-            
             let serviceItems = document.querySelectorAll('#services .service-item h4');
             if(serviceItems.length >= 3) {
                 serviceItems[0].innerHTML = translations[lang].service1;
