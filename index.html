@@ -27,6 +27,16 @@
     <!-- JSZip Library for Gallery Download -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
+    <!-- NEW: EmailJS Library for Email Integration -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            // Initialize EmailJS with your Public Key
+            // Go to https://www.emailjs.com/ to get a free key and create template IDs
+            emailjs.init("YOUR_PUBLIC_KEY");
+        })();
+    </script>
+
     <!-- Google Analytics & Facebook Pixel Base Scripts (Replace IDs below) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
     <script>
@@ -77,7 +87,7 @@
     </script>
 
     <!-- ================================================================================= -->
-    <!-- CSS STYLES (WATERMARK GALLERY & CHAT FORWARD)                                     -->
+    <!-- CSS STYLES (NEW FEATURES ADDED)                                                   -->
     <!-- ================================================================================= -->
     <style>
         /* ------------------- 1. CSS VARIABLES & RESET ------------------- */
@@ -387,7 +397,7 @@
         .team-member h4 { color: var(--text-primary); font-size: 1.15rem; margin-bottom: 5px; }
         .team-member p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; }
 
-        /* ------------------- 19. TESTIMONIALS ------------------- */
+        /* ------------------- 19. TESTIMONIALS (NEW: PAUSE ON HOVER) ------------------- */
         .testimonial-wrapper { max-width: 850px; margin: 0 auto; overflow: hidden; position: relative; border-radius: 12px; box-shadow: var(--shadow-box); }
         .testimonial-track { display: flex; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .testimonial-item { min-width: 100%; padding: 50px 40px; background: var(--bg-card); border-left: 6px solid var(--gold); border-radius: 12px; text-align: center; }
@@ -529,8 +539,104 @@
         #mobileBottomBar .mobile-book-btn { background: #fff; color: var(--maroon); border: none; padding: 10px 25px; border-radius: 30px; font-weight: 700; font-size: 0.9rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); transition: 0.3s; display: flex; align-items: center; gap: 10px; }
         #mobileBottomBar .mobile-book-btn:hover { transform: scale(1.03); }
 
-        /* ------------------- 29. ON-LOAD FREE QUOTE POPUP ------------------- */
-        #onLoadQuoteModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(6px); z-index: 10002; justify-content: center; align-items: center; padding: 20px; }
+        /* ------------------- 29. NEW: MULTI-STEP BOOKING WIZARD MODAL ------------------- */
+        #bookingWizardModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
+            z-index: 10002;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        #bookingWizardModal.active { display: flex; }
+        .wizard-modal-box {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 16px;
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+            box-shadow: var(--shadow-gold);
+            border: 1px solid var(--gold);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .wizard-modal-box .btn-close-wizard {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            transition: 0.3s;
+        }
+        .wizard-modal-box .btn-close-wizard:hover { color: var(--text-primary); transform: rotate(90deg); }
+        .wizard-modal-box h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--maroon);
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 15px;
+        }
+        .wizard-step { display: none; animation: fadeInStep 0.4s ease; }
+        .wizard-step.active { display: block; }
+        @keyframes fadeInStep {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .wizard-step .step-title { font-size: 1.2rem; font-weight: 600; color: var(--text-primary); margin-bottom: 15px; text-align: center; }
+        .wizard-step .step-desc { font-size: 0.9rem; color: var(--text-muted); text-align: center; margin-bottom: 20px; }
+        
+        /* Step 1: Package Selection */
+        .package-select-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        .package-option {
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .package-option:hover { border-color: var(--gold); transform: translateY(-4px); }
+        .package-option.selected { border-color: var(--gold); background: rgba(196, 147, 94, 0.1); box-shadow: var(--shadow-gold); }
+        .package-option h4 { font-size: 1.1rem; color: var(--maroon); margin-bottom: 5px; }
+        .package-option .p-price { font-weight: 700; color: var(--gold); }
+        
+        /* Steps 2 & 3 Inputs */
+        .wizard-form-group { margin-bottom: 15px; }
+        .wizard-form-group label { display: block; font-size: 0.9rem; font-weight: 500; color: var(--text-muted); margin-bottom: 5px; }
+        .wizard-form-group input { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 1rem; outline: none; background: var(--bg-body); color: var(--text-primary); transition: 0.3s; }
+        .wizard-form-group input:focus { border-color: var(--gold); box-shadow: 0 0 5px rgba(196, 147, 94, 0.2); }
+        
+        .wizard-nav { display: flex; justify-content: space-between; margin-top: 25px; gap: 15px; }
+        .wizard-nav .btn { flex: 1; padding: 12px; font-size: 0.85rem; }
+        .wizard-nav .btn-prev { background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); }
+        .wizard-nav .btn-prev:hover { background: var(--bg-section); color: var(--text-primary); border-color: var(--text-primary); }
+        .wizard-steps-indicator { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .wizard-steps-indicator .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border-color); transition: 0.3s; }
+        .wizard-steps-indicator .dot.active { background: var(--gold); }
+
+        /* Step 3 Summary */
+        #wizardSummary { background: var(--bg-section); padding: 15px; border-radius: 8px; margin-bottom: 15px; font-size: 0.95rem; }
+        #wizardSummary p { margin-bottom: 5px; color: var(--text-primary); }
+
+        @media (max-width: 480px) {
+            .wizard-modal-box { padding: 20px; }
+            .package-select-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ------------------- 30. ON-LOAD FREE QUOTE POPUP ------------------- */
+        #onLoadQuoteModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(6px); z-index: 10001; justify-content: center; align-items: center; padding: 20px; }
         #onLoadQuoteModal.active { display: flex; }
         .quote-modal-box { background: #fff; padding: 30px 40px 40px 40px; border-radius: 16px; max-width: 480px; width: 100%; position: relative; text-align: left; box-shadow: var(--shadow-gold); border: 1px solid var(--gold); max-height: 90vh; overflow-y: auto; }
         .quote-modal-box .btn-close-quote { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; background: transparent; border: none; transition: 0.3s; }
@@ -553,7 +659,7 @@
         .quote-modal-box .btn-submit-quote:hover { background: #c9302c; transform: scale(1.02); }
         .quote-modal-box .quote-footer { text-align: center; margin-top: 15px; font-size: 0.7rem; color: var(--text-muted); }
 
-        /* ------------------- 30. CHATBOT (WITH ADMIN FORWARDING - NEW) ------------------- */
+        /* ------------------- 31. CHATBOT (WITH ADMIN FORWARDING) ------------------- */
         .chatbot-toggle { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.6rem; cursor: pointer; box-shadow: var(--shadow-gold); z-index: 999; border: none; transition: 0.3s ease; }
         .chatbot-toggle:hover { transform: scale(1.1); background: var(--gold-dark); }
         .chatbot-window { position: fixed; bottom: 110px; right: 30px; width: 360px; height: 460px; background: var(--bg-card); border-radius: 18px; box-shadow: var(--shadow-modal); border: 1px solid var(--gold); display: none; flex-direction: column; overflow: hidden; z-index: 9999; transform-origin: bottom right; animation: slideUpChat 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
@@ -578,7 +684,7 @@
         .chat-footer .chat-input-row button { width: 44px; height: 44px; background: var(--gold); color: #fff; border: none; border-radius: 50%; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; font-size: 1.1rem; }
         .chat-footer .chat-input-row button:hover { background: var(--gold-dark); transform: scale(1.05); }
 
-        /* ------------------- 31. OTP & DASHBOARD (WATERMARK GALLERY) ------------------- */
+        /* ------------------- 32. OTP & DASHBOARD (WATERMARK GALLERY) ------------------- */
         #otpLoginModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px); z-index: 9998; justify-content: center; align-items: center; }
         #otpLoginModal.active { display: flex; }
         .otp-login-box { background: var(--bg-card); padding: 45px; border-radius: 18px; width: 420px; max-width: 90%; border: 1px solid var(--gold); box-shadow: var(--shadow-gold); text-align: center; }
@@ -599,39 +705,18 @@
         .dash-card h4 { font-size: 1.2rem; margin-bottom: 10px; color: var(--text-primary); }
         .dash-progress { width: 100%; height: 8px; background: var(--bg-section); border-radius: 10px; margin: 12px 0; overflow: hidden; }
         .dash-progress span { display: block; height: 100%; background: var(--gold); border-radius: 10px; }
-
-        /* ---------- NEW: WATERMARK OVERLAY FOR CLIENT GALLERY ---------- */
         .client-gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; margin-top: 15px; }
         .client-gallery-grid .gallery-img-wrap { position: relative; overflow: hidden; border-radius: 6px; border: 1px solid var(--border-color); transition: 0.3s; }
         .client-gallery-grid .gallery-img-wrap:hover { border-color: var(--gold); transform: scale(1.02); }
         .client-gallery-grid .gallery-img-wrap img { width: 100%; height: 100px; object-fit: cover; display: block; }
-        
-        /* The Watermark CSS */
-        .client-gallery-grid .gallery-img-wrap::after {
-            content: "The Wedding";
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-            color: rgba(255, 255, 255, 0.85);
-            background: rgba(74, 14, 14, 0.7);
-            padding: 2px 8px;
-            font-size: 10px;
-            font-weight: 700;
-            font-family: 'Playfair Display', serif;
-            letter-spacing: 1px;
-            border-radius: 4px;
-            pointer-events: none;
-            z-index: 2;
-            backdrop-filter: blur(2px);
-        }
-        
+        .client-gallery-grid .gallery-img-wrap::after { content: "The Wedding"; position: absolute; bottom: 5px; right: 5px; color: rgba(255, 255, 255, 0.85); background: rgba(74, 14, 14, 0.7); padding: 2px 8px; font-size: 10px; font-weight: 700; font-family: 'Playfair Display', serif; letter-spacing: 1px; border-radius: 4px; pointer-events: none; z-index: 2; backdrop-filter: blur(2px); }
         .gallery-interactions { display: flex; align-items: center; gap: 15px; margin-top: 10px; }
         .gallery-interactions .like-btn { color: var(--text-muted); cursor: pointer; font-size: 1.2rem; transition: 0.3s; background: transparent; border: none; display: flex; align-items: center; gap: 5px; }
         .gallery-interactions .like-btn.liked { color: #ff4757; }
         .gallery-interactions .comment-input { flex: 1; border: 1px solid var(--border-color); border-radius: 20px; padding: 5px 12px; font-size: 0.8rem; outline: none; background: var(--bg-body); color: var(--text-primary); }
         .gallery-interactions .comment-input:focus { border-color: var(--gold); }
 
-        /* ------------------- 32. RESPONSIVE MEDIA QUERIES ------------------- */
+        /* ------------------- 33. RESPONSIVE MEDIA QUERIES ------------------- */
         @media (max-width: 1024px) {
             .hero-content h1 { font-size: 4.2rem; }
             .pricing-grid, .process-wrapper, .choose-wrapper, .addons-table { grid-template-columns: 1fr 1fr; }
@@ -662,7 +747,7 @@
             input, select, textarea, .form-group input, .form-group select, .form-group textarea { font-size: 16px !important; }
             .lightbox-container .close-lb { top: 15px; right: 25px; font-size: 2.5rem; }
             .fab-btn { width: 48px; height: 48px; font-size: 1.3rem; }
-            .otp-login-box, .exit-popup-box, .lead-modal-box, .booking-modal-box, .quote-modal-box { padding: 30px 20px; }
+            .otp-login-box, .exit-popup-box, .lead-modal-box, .wizard-modal-box, .quote-modal-box { padding: 30px 20px; }
             .timeline::after { left: 31px; }
             .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
             .timeline-item.right { left: 0%; }
@@ -670,6 +755,9 @@
             .video-grid { grid-template-columns: 1fr; }
             .comparison-table { font-size: 0.8rem; }
             .comparison-table th, .comparison-table td { padding: 10px 5px; }
+            .package-select-grid { grid-template-columns: 1fr; }
+            .wizard-nav { flex-direction: column; }
+            .wizard-nav .btn { width: 100%; }
         }
         @media (max-width: 480px) {
             .hero-content h1 { font-size: 2.2rem; letter-spacing: 1px; }
@@ -725,7 +813,7 @@
             <li><a href="#faq">FAQ</a></li>
             <li><a href="#contact">Contact</a></li>
             <li><a href="#" id="dashboardLink">Dashboard</a></li>
-            <li><a href="javascript:void(0)" onclick="openBookingModal('General Enquiry')" class="btn btn-primary btn-sm" style="border-radius:30px;">Book Now</a></li>
+            <li><a href="javascript:void(0)" onclick="openBookingWizard()" class="btn btn-primary btn-sm" style="border-radius:30px;">Book Now</a></li>
         </ul>
         <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
     </nav>
@@ -745,7 +833,7 @@
             <h1>YOUR DREAM <br> <span class="highlight">WEDDING</span> <br> DESERVES A <br> CINEMATIC STORY</h1>
             <p>Luxury Wedding Photography & Films Crafted With Emotion, Elegance & Timeless Memories. Trusted by 800+ couples across India.</p>
             <div class="cta-group">
-                <a href="javascript:void(0)" onclick="openBookingModal('General Enquiry')" class="btn btn-primary">Book Your Date Now</a>
+                <a href="javascript:void(0)" onclick="openBookingWizard()" class="btn btn-primary">Book Your Date Now</a>
                 <a href="#pricing" class="btn btn-gold">View Packages</a>
                 <a href="#portfolio" class="btn btn-dark">View Portfolio</a>
             </div>
@@ -891,7 +979,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 12. PORTFOLIO (IMAGES)                                           -->
+    <!-- 12. PORTFOLIO (IMAGES) - WITH LAZY LOADING                      -->
     <!-- ============================================================== -->
     <section id="portfolio" class="bg-section">
         <div class="container">
@@ -907,9 +995,10 @@
                 <button class="filter-btn" data-filter="commercial">Commercial</button>
             </div>
             <div class="gallery-grid" id="galleryGrid">
-                <div class="gallery-item reveal" data-category="wedding"><img src="https://images.pexels.com/photos/169193/pexels-photo-169193.jpeg" alt="Elegant Wedding"><div class="overlay"><h4>Elegant Wedding</h4><span>Wedding</span><a href="javascript:void(0)" onclick="openBookingModal('Elegant Wedding Project')" class="book-project-btn">Book This Project</a></div></div>
-                <div class="gallery-item reveal" data-category="portrait"><img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg" alt="Natural Portrait"><div class="overlay"><h4>Natural Portrait</h4><span>Portrait</span><a href="javascript:void(0)" onclick="openBookingModal('Natural Portrait Project')" class="book-project-btn">Book This Project</a></div></div>
-                <div class="gallery-item reveal" data-category="commercial"><img src="https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg" alt="Product Shoot"><div class="overlay"><h4>Product Shoot</h4><span>Commercial</span><a href="javascript:void(0)" onclick="openBookingModal('Product Shoot Project')" class="book-project-btn">Book This Project</a></div></div>
+                <!-- Added loading="lazy" to all portfolio images -->
+                <div class="gallery-item reveal" data-category="wedding"><img loading="lazy" src="https://images.pexels.com/photos/169193/pexels-photo-169193.jpeg" alt="Elegant Wedding"><div class="overlay"><h4>Elegant Wedding</h4><span>Wedding</span><a href="javascript:void(0)" onclick="openBookingWizard('Elegant Wedding Project')" class="book-project-btn">Book This Project</a></div></div>
+                <div class="gallery-item reveal" data-category="portrait"><img loading="lazy" src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg" alt="Natural Portrait"><div class="overlay"><h4>Natural Portrait</h4><span>Portrait</span><a href="javascript:void(0)" onclick="openBookingWizard('Natural Portrait Project')" class="book-project-btn">Book This Project</a></div></div>
+                <div class="gallery-item reveal" data-category="commercial"><img loading="lazy" src="https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg" alt="Product Shoot"><div class="overlay"><h4>Product Shoot</h4><span>Commercial</span><a href="javascript:void(0)" onclick="openBookingWizard('Product Shoot Project')" class="book-project-btn">Book This Project</a></div></div>
             </div>
         </div>
     </section>
@@ -939,26 +1028,26 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 14. TEAM MEMBERS                                                 -->
+    <!-- 14. TEAM MEMBERS (WITH LAZY LOADING)                           -->
     <!-- ============================================================== -->
     <section id="team">
         <div class="container">
             <div class="section-title reveal"><h2>THE CREATIVE <span class="text-light">FORCE</span></h2><span class="ornate-line"></span></div>
             <div class="team-wrapper">
-                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Nikhil Kapoor"><h4>Nikhil Kapoor</h4><p>Founder & Lead Photographer</p></div>
-                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Kriti Sharma"><h4>Kriti Sharma</h4><p>Creative Director</p></div>
-                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/men/86.jpg" alt="Arjun Mehta"><h4>Arjun Mehta</h4><p>Senior Cinematographer</p></div>
+                <div class="team-member reveal"><img loading="lazy" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Nikhil Kapoor"><h4>Nikhil Kapoor</h4><p>Founder & Lead Photographer</p></div>
+                <div class="team-member reveal"><img loading="lazy" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Kriti Sharma"><h4>Kriti Sharma</h4><p>Creative Director</p></div>
+                <div class="team-member reveal"><img loading="lazy" src="https://randomuser.me/api/portraits/men/86.jpg" alt="Arjun Mehta"><h4>Arjun Mehta</h4><p>Senior Cinematographer</p></div>
             </div>
         </div>
     </section>
 
     <!-- ============================================================== -->
-    <!-- 15. TESTIMONIALS (SLIDER)                                       -->
+    <!-- 15. TESTIMONIALS (SLIDER - PAUSE ON HOVER)                     -->
     <!-- ============================================================== -->
     <section class="bg-section">
         <div class="container">
             <div class="section-title reveal"><h2>WORDS OF <span class="text-light">LOVE</span></h2><span class="ornate-line"></span></div>
-            <div class="testimonial-wrapper reveal">
+            <div class="testimonial-wrapper reveal" id="testimonialWrapper">
                 <div class="testimonial-track" id="testimonialTrack">
                     <div class="testimonial-item"><p>"The Wedding transformed our wedding into a dreamy film. Every picture still makes us emotional."</p><h5>— Priya & Rahul Mehta</h5></div>
                     <div class="testimonial-item"><p>"Their attention to detail and ability to make us comfortable was beyond compare."</p><h5>— Ananya Gupta</h5></div>
@@ -1004,9 +1093,9 @@
             </div>
             <div class="pricing-wrapper reveal">
                 <div class="pricing-grid">
-                    <div class="price-card reveal"><div class="card-title">Silver</div><ul><li><i class="fas fa-camera"></i> 1 Photographer</li><li><i class="fas fa-video"></i> 1 Cinematographer</li><li><i class="fas fa-images"></i> 200+ Photos</li></ul><div class="price-tag">PRICE: <br> <span>₹80,000</span></div><div class="text-center mt-20"><a href="javascript:void(0)" onclick="openBookingModal('Silver Package')" class="btn btn-primary" style="border-radius:30px;">Book Silver</a></div></div>
-                    <div class="price-card featured reveal"><div class="card-title" style="background:var(--gold); color:#fff; padding:12px; margin-top:-30px; margin-bottom:25px; border-radius:8px 8px 0 0;">Gold</div><ul><li><i class="fas fa-camera"></i> 1 Photographer</li><li><i class="fas fa-plane"></i> Drone Coverage</li><li><i class="fas fa-book"></i> Premium Album</li></ul><div class="price-tag" style="border:2px solid var(--gold); background:var(--bg-card);">PRICE: <br> <span style="color:var(--gold);">₹1,20,000</span></div><div class="text-center mt-20"><a href="javascript:void(0)" onclick="openBookingModal('Gold Package')" class="btn btn-primary" style="border-radius:30px;">Book Gold</a></div></div>
-                    <div class="price-card reveal"><div class="card-title">Luxury</div><ul><li><i class="fas fa-camera"></i> 2 Photographers</li><li><i class="fas fa-calendar-alt"></i> Haldi, Mehndi & Wedding</li><li><i class="fas fa-images"></i> 400+ Photos</li></ul><div class="price-tag">PRICE: <br> <span>₹1,40,000</span></div><div class="text-center mt-20"><a href="javascript:void(0)" onclick="openBookingModal('Luxury Package')" class="btn btn-primary" style="border-radius:30px;">Book Luxury</a></div></div>
+                    <div class="price-card reveal"><div class="card-title">Silver</div><ul><li><i class="fas fa-camera"></i> 1 Photographer</li><li><i class="fas fa-video"></i> 1 Cinematographer</li><li><i class="fas fa-images"></i> 200+ Photos</li></ul><div class="price-tag">PRICE: <br> <span>₹80,000</span></div><div class="text-center mt-20"><a href="javascript:void(0)" onclick="openBookingWizard('Silver Package')" class="btn btn-primary" style="border-radius:30px;">Book Silver</a></div></div>
+                    <div class="price-card featured reveal"><div class="card-title" style="background:var(--gold); color:#fff; padding:12px; margin-top:-30px; margin-bottom:25px; border-radius:8px 8px 0 0;">Gold</div><ul><li><i class="fas fa-camera"></i> 1 Photographer</li><li><i class="fas fa-plane"></i> Drone Coverage</li><li><i class="fas fa-book"></i> Premium Album</li></ul><div class="price-tag" style="border:2px solid var(--gold); background:var(--bg-card);">PRICE: <br> <span style="color:var(--gold);">₹1,20,000</span></div><div class="text-center mt-20"><a href="javascript:void(0)" onclick="openBookingWizard('Gold Package')" class="btn btn-primary" style="border-radius:30px;">Book Gold</a></div></div>
+                    <div class="price-card reveal"><div class="card-title">Luxury</div><ul><li><i class="fas fa-camera"></i> 2 Photographers</li><li><i class="fas fa-calendar-alt"></i> Haldi, Mehndi & Wedding</li><li><i class="fas fa-images"></i> 400+ Photos</li></ul><div class="price-tag">PRICE: <br> <span>₹1,40,000</span></div><div class="text-center mt-20"><a href="javascript:void(0)" onclick="openBookingWizard('Luxury Package')" class="btn btn-primary" style="border-radius:30px;">Book Luxury</a></div></div>
                 </div>
 
                 <div class="comparison-table-wrapper" id="comparisonTableWrapper">
@@ -1043,7 +1132,7 @@
                     <div class="calc-total-box">
                         <p style="color:#fff; margin:0; font-size:0.9rem;">Total Estimated Cost</p>
                         <div class="total-amount" id="calcTotal">₹80,000</div>
-                        <button onclick="openBookingModal('Custom Add-on Package')" class="btn btn-gold" style="margin-top:15px; border-color:#fff; color:#fff; font-size:0.8rem;">Book This Custom Plan</button>
+                        <button onclick="openBookingWizard('Custom Add-on Package')" class="btn btn-gold" style="margin-top:15px; border-color:#fff; color:#fff; font-size:0.8rem;">Book This Custom Plan</button>
                     </div>
                 </div>
             </div>
@@ -1061,14 +1150,14 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 19. BLOG & FAQ                                                   -->
+    <!-- 19. BLOG & FAQ (WITH LAZY LOADING)                             -->
     <!-- ============================================================== -->
     <section id="blog" class="bg-section">
         <div class="container">
             <div class="section-title reveal"><h2>FROM OUR <span class="text-light">JOURNAL</span></h2><span class="ornate-line"></span></div>
             <div class="blog-wrapper">
-                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/3014856/pexels-photo-3014856.jpeg"></div><div class="blog-content"><div class="meta"><span>Jan 12, 2026</span></div><h4>10 Wedding Trends Defining 2026</h4><p>Candid moments, vintage filters, and drone shots are reshaping Indian weddings.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
-                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg"></div><div class="blog-content"><div class="meta"><span>Dec 28, 2025</span></div><h4>How to Pose Naturally</h4><p>Simple tricks to look effortless and relaxed in front of the camera.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
+                <div class="blog-card reveal"><div class="blog-img"><img loading="lazy" src="https://images.pexels.com/photos/3014856/pexels-photo-3014856.jpeg"></div><div class="blog-content"><div class="meta"><span>Jan 12, 2026</span></div><h4>10 Wedding Trends Defining 2026</h4><p>Candid moments, vintage filters, and drone shots are reshaping Indian weddings.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
+                <div class="blog-card reveal"><div class="blog-img"><img loading="lazy" src="https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg"></div><div class="blog-content"><div class="meta"><span>Dec 28, 2025</span></div><h4>How to Pose Naturally</h4><p>Simple tricks to look effortless and relaxed in front of the camera.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
             </div>
         </div>
     </section>
@@ -1111,7 +1200,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 21. CONTACT & MAP                                               -->
+    <!-- 21. CONTACT & MAP (WITH EMAILJS INTEGRATION)                   -->
     <!-- ============================================================== -->
     <section id="contact">
         <div class="container">
@@ -1156,20 +1245,20 @@
     <div class="action-fab">
         <a href="tel:7654200109" class="fab-btn fab-call"><i class="fas fa-phone-alt"></i></a>
         <a href="https://wa.me/917654200109" target="_blank" class="fab-btn fab-whatsapp"><i class="fab fa-whatsapp"></i></a>
-        <a href="javascript:void(0)" onclick="openBookingModal('General Enquiry')" class="fab-btn fab-book"><i class="fas fa-calendar-check"></i></a>
+        <a href="javascript:void(0)" onclick="openBookingWizard()" class="fab-btn fab-book"><i class="fas fa-calendar-check"></i></a>
     </div>
 
     <!-- ============================================================== -->
     <!-- 23. MOBILE STICKY BOTTOM BAR                                      -->
     <!-- ============================================================== -->
     <div id="mobileBottomBar">
-        <button class="mobile-book-btn" onclick="openBookingModal('General Enquiry')">
+        <button class="mobile-book-btn" onclick="openBookingWizard()">
             <i class="fas fa-calendar-check"></i> Book Your Date Now
         </button>
     </div>
 
     <!-- ============================================================== -->
-    <!-- 24. ON-LOAD FREE QUOTE POPUP                                    -->
+    <!-- 24. ON-LOAD FREE QUOTE POPUP (WITH EMAILJS)                    -->
     <!-- ============================================================== -->
     <div id="onLoadQuoteModal">
         <div class="quote-modal-box">
@@ -1194,19 +1283,95 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 25. BOOKING, EXIT & LEAD MODALS                                 -->
+    <!-- 25. NEW: MULTI-STEP BOOKING WIZARD MODAL                       -->
     <!-- ============================================================== -->
-    <div id="bookingDateModal">
-        <div class="booking-modal-box">
-            <h2>Select Your Date</h2>
-            <p>Pick your date. We will contact you immediately.</p>
-            <input type="hidden" id="bookingContext" value="General Enquiry">
-            <input type="date" id="bookingDate">
-            <button onclick="confirmBooking()" class="btn btn-primary" style="width:100%;">Send Request</button>
-            <button onclick="closeBookingModal()" class="btn-close-modal">Cancel</button>
+    <div id="bookingWizardModal">
+        <div class="wizard-modal-box">
+            <button class="btn-close-wizard" onclick="closeBookingWizard()"><i class="fas fa-times"></i></button>
+            <h2>Book Your Date</h2>
+            
+            <div class="wizard-steps-indicator">
+                <span class="dot active" data-step="1"></span>
+                <span class="dot" data-step="2"></span>
+                <span class="dot" data-step="3"></span>
+            </div>
+
+            <!-- Step 1: Choose Package -->
+            <div class="wizard-step active" id="wizardStep1">
+                <div class="step-title">Select Your Package</div>
+                <div class="step-desc">Choose the plan that best fits your dream wedding.</div>
+                <div class="package-select-grid">
+                    <div class="package-option" onclick="selectPackage(this, 'Silver', 80000)">
+                        <h4>Silver</h4>
+                        <p>1 Photographer<br>1 Cinematographer</p>
+                        <div class="p-price">₹80,000</div>
+                    </div>
+                    <div class="package-option" onclick="selectPackage(this, 'Gold', 120000)">
+                        <h4>Gold</h4>
+                        <p>1 Photographer<br>Drone Coverage</p>
+                        <div class="p-price">₹1,20,000</div>
+                    </div>
+                    <div class="package-option" onclick="selectPackage(this, 'Luxury', 140000)">
+                        <h4>Luxury</h4>
+                        <p>2 Photographers<br>Haldi, Mehndi & Wedding</p>
+                        <div class="p-price">₹1,40,000</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Date & Add-ons -->
+            <div class="wizard-step" id="wizardStep2">
+                <div class="step-title">Select Date & Add-ons</div>
+                <div class="step-desc">Pick your event date and any additional services.</div>
+                
+                <div class="wizard-form-group">
+                    <label>Date of Event <span style="color:#dc3545;">*</span></label>
+                    <input type="date" id="wizDate">
+                </div>
+                
+                <div style="margin-bottom:15px;">
+                    <label style="font-size:0.9rem; font-weight:500; color:var(--text-muted);">Add-ons (Optional)</label>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:5px;">
+                        <div class="addon-item"><input type="checkbox" class="wiz-addon" data-price="5000"> <label style="font-weight:400;">Drone Shoot</label> <span class="addon-price">+₹5,000</span></div>
+                        <div class="addon-item"><input type="checkbox" class="wiz-addon" data-price="12000"> <label style="font-weight:400;">LED Screen</label> <span class="addon-price">+₹12,000</span></div>
+                        <div class="addon-item"><input type="checkbox" class="wiz-addon" data-price="10000"> <label style="font-weight:400;">Same Day Edit</label> <span class="addon-price">+₹10,000</span></div>
+                        <div class="addon-item"><input type="checkbox" class="wiz-addon" data-price="15000"> <label style="font-weight:400;">Ext. Coverage</label> <span class="addon-price">+₹15,000</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Contact & Finalize -->
+            <div class="wizard-step" id="wizardStep3">
+                <div class="step-title">Finalize Your Booking</div>
+                <div class="step-desc">Enter your details to send the booking request.</div>
+                
+                <div class="wizard-form-group">
+                    <label>Full Name <span style="color:#dc3545;">*</span></label>
+                    <input type="text" id="wizName" placeholder="Your full name">
+                </div>
+                <div class="wizard-form-group">
+                    <label>Phone Number <span style="color:#dc3545;">*</span></label>
+                    <input type="tel" id="wizPhone" placeholder="+91 98765 43210">
+                </div>
+
+                <div id="wizardSummary">
+                    <p><strong>Package:</strong> <span id="sumPackage">None selected</span></p>
+                    <p><strong>Date:</strong> <span id="sumDate">Not selected</span></p>
+                    <p><strong>Total Estimate:</strong> <span id="sumTotal">₹0</span></p>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="wizard-nav">
+                <button class="btn btn-prev" id="wizPrev" onclick="prevWizardStep()" style="display:none;">Previous</button>
+                <button class="btn btn-primary" id="wizNext" onclick="nextWizardStep()">Next</button>
+            </div>
         </div>
     </div>
 
+    <!-- ============================================================== -->
+    <!-- 26. EXIT & LEAD MODALS                                          -->
+    <!-- ============================================================== -->
     <div id="exitPopup">
         <div class="exit-popup-box">
             <button class="btn-close-exit" onclick="closeExitPopup()"><i class="fas fa-times"></i></button>
@@ -1230,7 +1395,7 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 26. OTP LOGIN & DASHBOARD (WITH WATERMARK GALLERY)              -->
+    <!-- 27. OTP LOGIN & DASHBOARD (WITH WATERMARK GALLERY)              -->
     <!-- ============================================================== -->
     <div id="otpLoginModal">
         <div class="otp-login-box">
@@ -1267,8 +1432,8 @@
                 <p>Your high-resolution wedding photos are ready.</p>
                 <div class="dash-progress"><span style="width: 100%;"></span></div>
                 <div class="client-gallery-grid">
-                    <div class="gallery-img-wrap"><img src="https://images.pexels.com/photos/169193/pexels-photo-169193.jpeg"><div class="gallery-interactions"><button class="like-btn" onclick="toggleLike(this)"><i class="fas fa-heart"></i> <span class="like-count">0</span></button></div></div>
-                    <div class="gallery-img-wrap"><img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg"><div class="gallery-interactions"><button class="like-btn" onclick="toggleLike(this)"><i class="fas fa-heart"></i> <span class="like-count">0</span></button></div></div>
+                    <div class="gallery-img-wrap"><img loading="lazy" src="https://images.pexels.com/photos/169193/pexels-photo-169193.jpeg"><div class="gallery-interactions"><button class="like-btn" onclick="toggleLike(this)"><i class="fas fa-heart"></i> <span class="like-count">0</span></button></div></div>
+                    <div class="gallery-img-wrap"><img loading="lazy" src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg"><div class="gallery-interactions"><button class="like-btn" onclick="toggleLike(this)"><i class="fas fa-heart"></i> <span class="like-count">0</span></button></div></div>
                 </div>
                 <div style="margin-top:10px;"><input type="text" class="comment-input" placeholder="Write a comment..." style="width:100%; border:1px solid var(--border-color); border-radius:20px; padding:8px 15px; font-size:0.8rem; outline:none; background:var(--bg-body); color:var(--text-primary);" onkeypress="if(event.key==='Enter') addComment(this)"></div>
                 <button onclick="downloadGallery()" class="btn btn-sm btn-gold" style="margin-top:15px;">Download All (ZIP)</button>
@@ -1279,7 +1444,7 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 27. JAVASCRIPT (ALL FEATURES INTEGRATED)                        -->
+    <!-- 28. JAVASCRIPT (ALL FEATURES INTEGRATED)                        -->
     <!-- ============================================================== -->
     <script>
         // 1. PRELOADER
@@ -1412,7 +1577,78 @@
             totalDisplay.textContent = '₹' + total.toLocaleString('en-IN');
         });
 
-        // 9. ON-LOAD QUOTE MODAL
+        // 9. TESTIMONIAL SLIDER - PAUSE ON HOVER (NEW)
+        const testimonialWrapper = document.getElementById('testimonialWrapper');
+        let slideInterval;
+
+        function goToSlide(index) {
+            currentSlide = index;
+            track.style.transform = 'translateX(-' + (index * 100) + '%)';
+            dots.forEach(function(d) { d.classList.remove('active'); });
+            dots[index].classList.add('active');
+        }
+
+        function startAutoSlide() {
+            // Clear any existing interval first
+            if(slideInterval) clearInterval(slideInterval);
+            slideInterval = setInterval(function() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                goToSlide(currentSlide);
+            }, 5000);
+        }
+
+        // Pause on hover
+        testimonialWrapper.addEventListener('mouseenter', function() {
+            clearInterval(slideInterval);
+        });
+
+        testimonialWrapper.addEventListener('mouseleave', function() {
+            startAutoSlide();
+        });
+
+        // Initialize slider
+        var track = document.getElementById('testimonialTrack');
+        var slides = track.querySelectorAll('.testimonial-item');
+        var dotsContainer = document.getElementById('sliderDots');
+        var currentSlide = 0;
+
+        slides.forEach(function(_, index) {
+            var dot = document.createElement('span');
+            dot.className = 'slider-dot' + (index === 0 ? ' active' : '');
+            dot.addEventListener('click', function() {
+                clearInterval(slideInterval);
+                goToSlide(index);
+                startAutoSlide();
+            });
+            dotsContainer.appendChild(dot);
+        });
+        var dots = document.querySelectorAll('.slider-dot');
+        startAutoSlide();
+
+        // 10. EMAILJS INTEGRATION (NEW - Mock + Real Ready)
+        function sendEmailViaEmailJS(formType, templateParams) {
+            // REPLACE WITH YOUR EMAILJS SERVICE ID AND TEMPLATE ID
+            const serviceID = 'YOUR_SERVICE_ID';
+            const templateID = 'YOUR_TEMPLATE_ID';
+            
+            // Simulate sending because user doesn't have keys yet
+            console.log(`[EMAILJS SIMULATION] ${formType} submitted.`);
+            console.log('Data:', templateParams);
+            alert(`✅ ${formType} data successfully sent to your Admin Email! \n(Replace 'YOUR_SERVICE_ID' & 'YOUR_TEMPLATE_ID' in code to enable real email sending.)`);
+
+            // UNCOMMENT BELOW AND ADD YOUR KEYS FOR REAL EMAIL SENDING
+            /*
+            emailjs.send(serviceID, templateID, templateParams)
+                .then(function() {
+                    alert("✅ Your message has been sent to the Admin via Email!");
+                }, function(error) {
+                    alert("❌ Failed to send email. Please try again later.");
+                    console.error('FAILED...', error);
+                });
+            */
+        }
+
+        // 11. ON-LOAD QUOTE MODAL (WITH WHATSAPP + EMAILJS)
         const quoteModal = document.getElementById('onLoadQuoteModal');
         let isCaptchaChecked = false;
 
@@ -1453,68 +1689,169 @@
             
             let formattedDate = new Date(date + 'T00:00:00').toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
+            // WhatsApp redirect
             let msg = `✨ *New Free Quote Request from Website*%0A%0A`;
             msg += `👤 *Name:* ${name}%0A`;
             msg += `📞 *Mobile:* ${mobile}%0A`;
             msg += `📍 *Location:* ${location}%0A`;
             msg += `📅 *Date of Event:* ${formattedDate}%0A%0A`;
             msg += `Please contact me regarding availability and packages.`;
-
             window.open(`https://wa.me/917654200109?text=${msg}`, '_blank');
-            
+
+            // EmailJS Integration
+            let emailParams = {
+                from_name: name,
+                from_phone: mobile,
+                from_location: location,
+                from_date: formattedDate
+            };
+            sendEmailViaEmailJS('Free Quote Request', emailParams);
+
             closeQuoteModal();
         }
 
-        // 10. BOOKING MODAL
-        const bookingModal = document.getElementById('bookingDateModal');
-        const bookingContext = document.getElementById('bookingContext');
-        const bookingDate = document.getElementById('bookingDate');
-        function openBookingModal(context) {
-            bookingContext.value = context;
-            bookingModal.classList.add('active');
+        // 12. CONTACT FORM (WHATSAPP + EMAILJS)
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var name = document.getElementById('name').value;
+            var phone = document.getElementById('phone').value;
+            var message = document.getElementById('message').value;
+            
+            // WhatsApp redirect
+            var whatsappMessage = "✨ *New Enquiry from Website*%0A%0A*Name:* " + name + "%0A*Phone:* " + phone + "%0A*Message:* " + message;
+            window.open("https://wa.me/917654200109?text=" + whatsappMessage, '_blank');
+
+            // EmailJS Integration
+            let emailParams = {
+                from_name: name,
+                from_phone: phone,
+                message: message
+            };
+            sendEmailViaEmailJS('Contact Form Enquiry', emailParams);
+        });
+
+        // 13. MULTI-STEP BOOKING WIZARD LOGIC (NEW)
+        const wizardModal = document.getElementById('bookingWizardModal');
+        let currentWizardStep = 1;
+        let wizData = { package: 'None', price: 0, date: '', addonsTotal: 0 };
+
+        function openBookingWizard(context = 'General Enquiry') {
+            wizardModal.classList.add('active');
             document.body.style.overflow = 'hidden';
+            // Reset wizard to step 1
+            currentWizardStep = 1;
+            document.querySelectorAll('.wizard-step').forEach(el => el.classList.remove('active'));
+            document.getElementById('wizardStep1').classList.add('active');
+            document.getElementById('wizPrev').style.display = 'none';
+            document.getElementById('wizNext').innerText = 'Next';
+            updateWizardDots();
+            
+            // Pre-select package if called from a specific button
+            if(context.includes('Silver')) selectPackage(document.querySelector('.package-option:nth-child(1)'), 'Silver', 80000);
+            else if(context.includes('Gold')) selectPackage(document.querySelector('.package-option:nth-child(2)'), 'Gold', 120000);
+            else if(context.includes('Luxury')) selectPackage(document.querySelector('.package-option:nth-child(3)'), 'Luxury', 140000);
         }
-        function closeBookingModal() {
-            bookingModal.classList.remove('active');
+
+        function closeBookingWizard() {
+            wizardModal.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
-        function confirmBooking() {
-            let date = bookingDate.value;
-            if(!date) { alert("Please select a date!"); return; }
-            let formattedDate = new Date(date + 'T00:00:00').toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-            window.open(`https://wa.me/917654200109?text=📅 *Booking Date:* ${formattedDate}%0A📦 *Package:* ${bookingContext.value}`, '_blank');
-            closeBookingModal();
+
+        function updateWizardDots() {
+            document.querySelectorAll('.wizard-steps-indicator .dot').forEach(d => {
+                d.classList.toggle('active', parseInt(d.getAttribute('data-step')) === currentWizardStep);
+            });
         }
 
-        // 11. EXIT INTENT POPUP
-        const exitPopup = document.getElementById('exitPopup');
-        document.addEventListener('mouseleave', function(e) {
-            if(e.clientY < 0 && !localStorage.getItem('exitIntentShown')) {
-                exitPopup.classList.add('show');
-                localStorage.setItem('exitIntentShown', 'true');
+        function selectPackage(el, name, price) {
+            document.querySelectorAll('.package-option').forEach(p => p.classList.remove('selected'));
+            el.classList.add('selected');
+            wizData.package = name;
+            wizData.price = price;
+            updateSummary();
+        }
+
+        function updateSummary() {
+            let date = document.getElementById('wizDate').value;
+            let addons = document.querySelectorAll('.wiz-addon:checked');
+            let addonTotal = 0;
+            addons.forEach(a => addonTotal += parseInt(a.getAttribute('data-price')));
+            wizData.addonsTotal = addonTotal;
+            wizData.date = date;
+
+            let total = wizData.price + wizData.addonsTotal;
+
+            document.getElementById('sumPackage').innerText = wizData.package;
+            document.getElementById('sumDate').innerText = date ? new Date(date + 'T00:00:00').toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : 'Not selected';
+            document.getElementById('sumTotal').innerText = '₹' + total.toLocaleString('en-IN');
+        }
+
+        // Bind date and addons to update summary
+        document.getElementById('wizDate').addEventListener('change', updateSummary);
+        document.querySelectorAll('.wiz-addon').forEach(cb => cb.addEventListener('change', updateSummary));
+
+        function nextWizardStep() {
+            if(currentWizardStep === 1) {
+                if(wizData.package === 'None') { alert("Please select a package to continue."); return; }
+                document.getElementById('wizardStep1').classList.remove('active');
+                document.getElementById('wizardStep2').classList.add('active');
+                currentWizardStep = 2;
+                document.getElementById('wizPrev').style.display = 'inline-flex';
+                document.getElementById('wizNext').innerText = 'Next';
+            } else if(currentWizardStep === 2) {
+                if(!document.getElementById('wizDate').value) { alert("Please select your event date."); return; }
+                document.getElementById('wizardStep2').classList.remove('active');
+                document.getElementById('wizardStep3').classList.add('active');
+                currentWizardStep = 3;
+                document.getElementById('wizNext').innerText = 'Finalize Booking';
+                updateSummary();
+            } else if(currentWizardStep === 3) {
+                // Final Step: Submit
+                let name = document.getElementById('wizName').value;
+                let phone = document.getElementById('wizPhone').value;
+                if(!name || !phone) { alert("Please enter your name and phone number."); return; }
+
+                let date = document.getElementById('wizDate').value;
+                let formattedDate = new Date(date + 'T00:00:00').toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                let total = wizData.price + wizData.addonsTotal;
+
+                let msg = `✨ *New Booking Request from Website*%0A%0A`;
+                msg += `👤 *Name:* ${name}%0A`;
+                msg += `📞 *Phone:* ${phone}%0A`;
+                msg += `📦 *Package:* ${wizData.package}%0A`;
+                msg += `📅 *Date:* ${formattedDate}%0A`;
+                msg += `💰 *Total Estimate:* ₹${total.toLocaleString('en-IN')}`;
+
+                // WhatsApp Redirect
+                window.open(`https://wa.me/917654200109?text=${msg}`, '_blank');
+                closeBookingWizard();
             }
-        });
-        function closeExitPopup() { exitPopup.classList.remove('show'); }
-
-        // 12. LEAD MAGNET MODAL
-        const leadModal = document.getElementById('leadModal');
-        function openLeadModal() { leadModal.classList.add('active'); document.body.style.overflow = 'hidden'; }
-        function closeLeadModal() { leadModal.classList.remove('active'); document.body.style.overflow = 'auto'; }
-        function downloadChecklist() {
-            let name = document.getElementById('leadName').value;
-            let email = document.getElementById('leadEmail').value;
-            if(!name || !email) { alert("Please enter your Name and Email to download!"); return; }
-            alert("✅ Mock PDF Download initiated! Data saved (Name: " + name + ", Email: " + email + "). Replace this with a real PDF link.");
-            closeLeadModal();
+            updateWizardDots();
         }
 
-        // 13. COMPARISON TABLE TOGGLE
+        function prevWizardStep() {
+            if(currentWizardStep === 2) {
+                document.getElementById('wizardStep2').classList.remove('active');
+                document.getElementById('wizardStep1').classList.add('active');
+                currentWizardStep = 1;
+                document.getElementById('wizPrev').style.display = 'none';
+                document.getElementById('wizNext').innerText = 'Next';
+            } else if(currentWizardStep === 3) {
+                document.getElementById('wizardStep3').classList.remove('active');
+                document.getElementById('wizardStep2').classList.add('active');
+                currentWizardStep = 2;
+                document.getElementById('wizNext').innerText = 'Next';
+            }
+            updateWizardDots();
+        }
+
+        // 14. COMPARISON TABLE TOGGLE
         function toggleComparison() {
             const wrapper = document.getElementById('comparisonTableWrapper');
             wrapper.classList.toggle('active');
         }
 
-        // 14. CLIENT REVIEW FORM
+        // 15. CLIENT REVIEW FORM
         function submitReview(e) {
             e.preventDefault();
             let name = document.getElementById('rName').value;
@@ -1544,7 +1881,28 @@
         }
         document.addEventListener('DOMContentLoaded', loadReviews);
 
-        // 15. OTP LOGIN, DASHBOARD & GALLERY
+        // 16. EXIT & LEAD MODALS
+        const exitPopup = document.getElementById('exitPopup');
+        document.addEventListener('mouseleave', function(e) {
+            if(e.clientY < 0 && !localStorage.getItem('exitIntentShown')) {
+                exitPopup.classList.add('show');
+                localStorage.setItem('exitIntentShown', 'true');
+            }
+        });
+        function closeExitPopup() { exitPopup.classList.remove('show'); }
+
+        const leadModal = document.getElementById('leadModal');
+        function openLeadModal() { leadModal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeLeadModal() { leadModal.classList.remove('active'); document.body.style.overflow = 'auto'; }
+        function downloadChecklist() {
+            let name = document.getElementById('leadName').value;
+            let email = document.getElementById('leadEmail').value;
+            if(!name || !email) { alert("Please enter your Name and Email to download!"); return; }
+            alert("✅ Mock PDF Download initiated! Data saved (Name: " + name + ", Email: " + email + "). Replace this with a real PDF link.");
+            closeLeadModal();
+        }
+
+        // 17. OTP LOGIN, DASHBOARD & GALLERY
         const otpLoginModal = document.getElementById('otpLoginModal');
         const dashboardLink = document.getElementById('dashboardLink');
         const loginStepPhone = document.getElementById('loginStepPhone');
@@ -1621,9 +1979,9 @@
             });
         }
 
-        // 16. COUNTDOWN TIMER
+        // 18. COUNTDOWN TIMER
         let countDownDate = new Date("Dec 25, 2026 00:00:00").getTime();
-        document.getElementById('bookingDate').addEventListener('change', function() {
+        document.getElementById('wizDate').addEventListener('change', function() {
             let selected = new Date(this.value + 'T00:00:00').getTime();
             if(selected > new Date().getTime()) countDownDate = selected;
         });
@@ -1636,7 +1994,7 @@
             document.getElementById('cdSecs').innerText = Math.floor((distance % (1000 * 60)) / 1000);
         }, 1000);
 
-        // 17. CUSTOM LANGUAGE TRANSLATION TOGGLE (DEFAULT ENGLISH)
+        // 19. CUSTOM LANGUAGE TRANSLATION TOGGLE (DEFAULT ENGLISH)
         const langToggle = document.getElementById('langToggle');
         let currentLang = 'en';
         const translations = {
@@ -1683,7 +2041,7 @@
             }
         }
 
-        // 18. CHATBOT LOGIC (WITH ADMIN WHATSAPP FORWARDING - NEW)
+        // 20. CHATBOT LOGIC (WITH ADMIN WHATSAPP FORWARDING)
         let chatMode = 'standard';
         document.getElementById('chatModeStandard').addEventListener('click', function() {
             chatMode = 'standard'; this.classList.add('active'); document.getElementById('chatModeAI').classList.remove('active');
@@ -1722,7 +2080,6 @@
                         addMessage("🤖 (AI Mock): I'm analyzing your request. For real AI integration, please replace this function with your OpenAI API key.", 'bot');
                     }, 1000);
                 } else {
-                    // Check if it's a complex query that should be forwarded to Admin
                     let isComplex = userMsg.toLowerCase().includes('date') || 
                                     userMsg.toLowerCase().includes('change') || 
                                     userMsg.toLowerCase().includes('custom') ||
@@ -1730,27 +2087,19 @@
                                     userMsg.toLowerCase().includes('discount');
                     
                     if(isComplex) {
-                        // Simulate Forwarding to Admin
                         addMessage("⏳ Forwarding your query to the Admin via WhatsApp...", 'bot');
                         
                         setTimeout(() => {
-                            // Construct the admin WhatsApp message
                             let adminMsg = `📋 *Admin Alert: New Chat Query from Client*%0A%0A`;
                             adminMsg += `💬 *Client Message:* ${userMsg}%0A%0A`;
                             adminMsg += `Please reply to this client as soon as possible.`;
                             
-                            // Simulate the admin WhatsApp redirect (in real-world, this would be an API call)
-                            // For frontend demo, we use a mock alert
                             alert("✅ [SIMULATED] WhatsApp Message forwarded to Admin (7654200109)!\n\nMessage: " + userMsg);
-                            
-                            // Open a hidden dummy WhatsApp link to simulate the actual redirect (optional, for realism)
-                            // window.open(`https://wa.me/${adminNumber}?text=${encodeURIComponent(adminMsg)}`, '_blank');
                             
                             addMessage("✅ Your query has been forwarded to the Admin team. They will get back to you via WhatsApp shortly! 📲", 'bot');
                         }, 1500);
                         
                     } else {
-                        // Standard reply
                         let botReply = "Thank you for your message! For any special requests, just ask, and I will forward it to the Admin.";
                         setTimeout(() => { addMessage(botReply, 'bot'); }, 800);
                     }
