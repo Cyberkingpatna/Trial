@@ -33,39 +33,34 @@
 
     <style>
         /* ================================================================================= */
-        /* ======================== 1. CSS VARIABLES AND ROOT SETUP (NEW THEME) ============ */
+        /* ======================== 1. CSS VARIABLES AND ROOT SETUP ======================== */
         /* ================================================================================= */
         
         :root {
-            /* Colors - Main Theme (Switched to Soft Cream & Refined Gold) */
-            --bg-dark: #fcfaf8;       /* Light Cream Background */
-            --bg-section: #f7f4f0;    /* Slightly darker cream for section break */
-            --bg-card: #ffffff;       /* Pure White Cards */
-            --bg-card-hover: #f0ece8; /* Light grey hover */
+            --bg-dark: #fcfaf8;
+            --bg-section: #f7f4f0;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f0ece8;
             
-            /* Gold Theme Palette */
-            --gold: #c4935e;          /* Refined, soft Gold */
+            --gold: #c4935e;
             --gold-light: #e6cca8;
             --gold-dark: #a37548;
             --gold-glow: rgba(196, 147, 94, 0.2);
             
-            /* Text Colors (Switched to Dark for light backgrounds) */
             --text-light: #2a2a2a;
             --text-white: #1a1a1a;
             --text-muted: #666666;
             --text-gray: #888888;
             --text-dark: #111111;
             
-            /* Borders */
             --border-gold: 1px solid rgba(196, 147, 94, 0.3);
             --border-light: 1px solid rgba(0, 0, 0, 0.05);
             --border-dark: 1px solid rgba(0, 0, 0, 0.08);
             
-            /* Shadows (Softer for light theme) */
             --shadow-gold: 0 10px 40px rgba(196, 147, 94, 0.15);
             --shadow-box: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --shadow-modal: 0 20px 60px rgba(0, 0, 0, 0.15);
             
-            /* Transitions */
             --transition-fast: all 0.3s ease;
             --transition-smooth: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             --transition-bounce: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -306,7 +301,6 @@
         .hero {
             position: relative; height: 100vh; min-height: 700px;
             display: flex; justify-content: center; align-items: center; text-align: center;
-            /* Changed the dark gradient to a bright overlay for the new light theme */
             background: linear-gradient(to right, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.4)), url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center center/cover no-repeat;
             padding-top: 80px;
         }
@@ -597,7 +591,7 @@
         .scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(to right, var(--gold), var(--gold-light)); z-index: 1001; transition: width 0.1s linear; }
 
         /* ================================================================================= */
-        /* ======================== 24. FLOATING CALL/WHATSAPP ACTION BAR ================== */
+        /* ======================== 24. FLOATING ACTION BUTTONS ============================ */
         /* ================================================================================= */
         .action-fab {
             position: fixed; bottom: 30px; left: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 999;
@@ -610,15 +604,113 @@
         .fab-call:hover { transform: scale(1.15); background: #0056b3; }
         .fab-whatsapp { background: #25D366; }
         .fab-whatsapp:hover { transform: scale(1.15); background: #1ebd5a; }
+        /* NEW: Floating Book Now Button */
+        .fab-book { background: var(--gold); }
+        .fab-book:hover { transform: scale(1.15); background: var(--gold-dark); }
         .fab-btn::before {
             content: ''; position: absolute; width: 100%; height: 100%; border-radius: 50%;
             border: 2px solid rgba(255,255,255,0.4); animation: fabPulse 2s infinite;
         }
         .fab-whatsapp::before { animation-delay: 0.3s; }
+        .fab-book::before { animation-delay: 0.6s; }
         @keyframes fabPulse { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.6); opacity: 0; } }
 
         /* ================================================================================= */
-        /* ======================== 25. MEDIA QUERIES (RESPONSIVE) ========================== */
+        /* ======================== 25. NEW: CHATBOT STYLES ================================= */
+        /* ================================================================================= */
+        .chatbot-toggle {
+            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+            background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 1.8rem; cursor: pointer; box-shadow: var(--shadow-gold);
+            z-index: 999; transition: var(--transition-bounce); border: none;
+        }
+        .chatbot-toggle:hover { transform: scale(1.1); background: var(--gold-dark); }
+        .chatbot-toggle.closed { display: none; }
+
+        .chatbot-window {
+            position: fixed; bottom: 100px; right: 30px; width: 350px; height: 450px;
+            background: #fff; border-radius: 16px; box-shadow: var(--shadow-modal);
+            border: 1px solid var(--border-gold); display: none; flex-direction: column;
+            overflow: hidden; z-index: 9999; transform-origin: bottom right;
+            animation: slideUpChat 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .chatbot-window.active { display: flex; }
+        @keyframes slideUpChat { from { opacity: 0; transform: scale(0.8) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+        .chat-header {
+            background: var(--gold); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;
+            color: #fff; font-weight: 600; border-bottom: 1px solid var(--gold-dark);
+        }
+        .chat-header i { cursor: pointer; transition: 0.3s; }
+        .chat-header i:hover { transform: rotate(90deg); }
+
+        .chat-body { flex: 1; padding: 15px; overflow-y: auto; background: #fcfaf8; display: flex; flex-direction: column; gap: 10px; }
+        .chat-body::-webkit-scrollbar { width: 4px; }
+        .chat-body::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 5px; }
+
+        .chat-msg { max-width: 85%; padding: 10px 15px; border-radius: 12px; font-size: 0.9rem; line-height: 1.5; color: #1a1a1a; word-wrap: break-word; }
+        .chat-msg.bot { background: #e6cca8; align-self: flex-start; border-bottom-left-radius: 2px; }
+        .chat-msg.user { background: var(--text-dark); color: #fff; align-self: flex-end; border-bottom-right-radius: 2px; }
+
+        .chat-footer { padding: 10px; background: #fff; border-top: 1px solid var(--border-light); display: flex; gap: 10px; }
+        .chat-footer input {
+            flex: 1; border: 1px solid var(--border-light); border-radius: 30px; padding: 10px 15px;
+            outline: none; font-family: 'Poppins', sans-serif; font-size: 0.9rem; transition: 0.3s;
+        }
+        .chat-footer input:focus { border-color: var(--gold); }
+        .chat-footer button {
+            width: 40px; height: 40px; background: var(--gold); color: #fff; border: none; border-radius: 50%;
+            cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center;
+        }
+        .chat-footer button:hover { background: var(--gold-dark); transform: scale(1.05); }
+
+        /* ================================================================================= */
+        /* ======================== 26. NEW: CLIENT DASHBOARD STYLES ======================= */
+        /* ================================================================================= */
+        #loginModal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); z-index: 9998;
+            justify-content: center; align-items: center;
+        }
+        #loginModal.active { display: flex; }
+        .login-box {
+            background: #fff; padding: 40px; border-radius: 16px; width: 400px; max-width: 90%;
+            border: 1px solid var(--border-gold); box-shadow: var(--shadow-modal); text-align: center;
+        }
+        .login-box h2 { color: var(--gold); margin-bottom: 5px; }
+        .login-box p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px; }
+        .login-box input {
+            width: 100%; padding: 14px; border: 1px solid var(--border-dark); border-radius: 8px;
+            margin-bottom: 15px; font-family: 'Poppins', sans-serif; outline: none; transition: 0.3s;
+        }
+        .login-box input:focus { border-color: var(--gold); }
+        .login-box .btn { width: 100%; }
+
+        /* Dashboard Overlay */
+        #dashboardPanel {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-section); z-index: 9997; overflow-y: auto; padding-top: 80px;
+        }
+        #dashboardPanel.active { display: block; }
+        .dashboard-header {
+            background: #fff; padding: 20px 40px; border-bottom: 1px solid var(--border-light);
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+        }
+        .dashboard-header h3 { color: var(--gold); font-size: 1.8rem; }
+        .dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; padding: 40px; max-width: 1200px; margin: 0 auto; }
+        .dash-card {
+            background: #fff; padding: 25px; border-radius: 12px; box-shadow: var(--shadow-box);
+            border: 1px solid var(--border-light); transition: 0.3s;
+        }
+        .dash-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+        .dash-card .icon { font-size: 2.5rem; color: var(--gold); margin-bottom: 15px; }
+        .dash-card h4 { font-size: 1.2rem; margin-bottom: 10px; }
+        .dash-progress { width: 100%; height: 8px; background: #eee; border-radius: 10px; margin: 10px 0; overflow: hidden; }
+        .dash-progress span { display: block; height: 100%; background: var(--gold); border-radius: 10px; }
+        .dash-card .btn-sm { margin-top: 15px; }
+
+        /* ================================================================================= */
+        /* ======================== 27. MEDIA QUERIES (RESPONSIVE) ========================== */
         /* ================================================================================= */
         @media (max-width: 1024px) {
             .hero-content h1 { font-size: 4.5rem; }
@@ -657,7 +749,10 @@
             .lightbox-container .close-lb { top: 15px; right: 25px; font-size: 2rem; }
             .action-fab { left: 15px; bottom: 20px; gap: 12px; }
             .fab-btn { width: 50px; height: 50px; font-size: 1.4rem; }
+            .chatbot-window { width: 320px; right: 10px; bottom: 90px; }
+            .chatbot-toggle { right: 10px; width: 55px; height: 55px; font-size: 1.5rem; }
             .why-choose-wrapper { grid-template-columns: 1fr; }
+            .dashboard-header { flex-direction: column; gap: 15px; align-items: flex-start; }
         }
         @media (max-width: 480px) {
             .hero-content h1 { font-size: 2.4rem; letter-spacing: 2px; }
@@ -668,6 +763,7 @@
             .gallery-grid { grid-template-columns: 1fr; }
             .team-wrapper { grid-template-columns: 1fr 1fr; }
             .navbar .logo { font-size: 1.6rem; }
+            .chatbot-window { width: 90%; right: 5%; }
         }
     </style>
 </head>
@@ -706,13 +802,15 @@
             <li><a href="#blog">Blog</a></li>
             <li><a href="#faq">FAQ</a></li>
             <li><a href="#contact">Contact</a></li>
+            <!-- NEW: Client Dashboard Link -->
+            <li><a href="#" id="dashboardLink">Client Dashboard</a></li>
             <li><a href="#" id="openBookingBtn" class="btn btn-primary btn-sm" style="padding: 8px 20px; border-radius: 30px; color:#fff;">Book Now</a></li>
         </ul>
         <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
     </nav>
 
     <!-- ============================================================== -->
-    <!-- 4. HERO SECTION (Price Badge REMOVED)                          -->
+    <!-- 4. HERO SECTION                                                -->
     <!-- ============================================================== -->
     <section class="hero" id="home">
         <div class="hero-content animate-float">
@@ -1604,7 +1702,7 @@
     <button class="back-to-top" id="backToTop" title="Go to top"><i class="fas fa-arrow-up"></i></button>
 
     <!-- ============================================================== -->
-    <!-- 19. FLOATING ACTION BUTTONS (CALL & WHATSAPP)                   -->
+    <!-- 19. FLOATING ACTION BUTTONS (CALL, WHATSAPP, AND NEW BOOK NOW)  -->
     <!-- ============================================================== -->
     <div class="action-fab">
         <a href="tel:7654200109" class="fab-btn fab-call" title="Call us directly">
@@ -1613,10 +1711,14 @@
         <a href="https://wa.me/917654200109" target="_blank" class="fab-btn fab-whatsapp" title="Chat with us on WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
+        <!-- NEW: Floating Book Now Button -->
+        <a href="#" id="openBookingBtn2" class="fab-btn fab-book" title="Book Your Date Now">
+            <i class="fas fa-calendar-check"></i>
+        </a>
     </div>
 
     <!-- ============================================================== -->
-    <!-- 20. MODAL: BOOK YOUR DATE POPUP                                -->
+    <!-- 20. MODAL: BOOK YOUR DATE POPUP (WITH DATE PICKER)              -->
     <!-- ============================================================== -->
     <div id="bookingModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.9); backdrop-filter:blur(5px); z-index:9999; justify-content:center; align-items:center;">
         <div style="background:#ffffff; border:2px solid var(--gold); padding:40px; max-width:450px; width:90%; border-radius:10px; position:relative; box-shadow: var(--shadow-gold);">
@@ -1632,13 +1734,121 @@
                 <label style="color:#555;">Phone Number</label>
                 <input type="tel" id="modalPhone" placeholder="+91 98765 43210" style="width:100%; padding:12px; background:#fcfaf8; border:1px solid rgba(0,0,0,0.1); border-radius:5px; color:#1a1a1a; outline:none;">
             </div>
+            <div class="form-group">
+                <label style="color:#555;">Proposed Wedding Date</label>
+                <input type="date" id="modalDate" style="width:100%; padding:12px; background:#fcfaf8; border:1px solid rgba(0,0,0,0.1); border-radius:5px; color:#1a1a1a; outline:none; font-family: 'Poppins', sans-serif;">
+            </div>
             
             <button onclick="submitModalBooking()" class="btn btn-primary" style="width:100%; margin-top:10px;">Book Now via WhatsApp</button>
         </div>
     </div>
 
     <!-- ============================================================== -->
-    <!-- 21. JAVASCRIPT SECTION                                         -->
+    <!-- 21. NEW: CHATBOT WIDGET                                        -->
+    <!-- ============================================================== -->
+    <button class="chatbot-toggle" id="chatToggle" title="Chat with us"><i class="fas fa-comment-dots"></i></button>
+    
+    <div class="chatbot-window" id="chatWindow">
+        <div class="chat-header">
+            <span><i class="fas fa-robot"></i> The Wedding Support</span>
+            <i class="fas fa-times" id="chatClose"></i>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-msg bot">Hello! Welcome to The Wedding. How can I assist you today? 💍</div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Ask me anything...">
+            <button id="chatSend"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 22. NEW: CLIENT DASHBOARD LOGIN MODAL                           -->
+    <!-- ============================================================== -->
+    <div id="loginModal">
+        <div class="login-box">
+            <h2>Welcome Back!</h2>
+            <p>Enter your secure password to access your exclusive client dashboard.</p>
+            <div class="form-group">
+                <label style="text-align:left; color:#555;">Password</label>
+                <input type="password" id="loginPass" placeholder="Enter the given password">
+            </div>
+            <button class="btn btn-primary" id="loginBtn">Unlock Dashboard</button>
+            <p style="margin-top:15px; font-size:0.8rem; color:var(--text-muted);"><i>Demo Password: <strong>wedding2026</strong></i></p>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 23. NEW: CLIENT DASHBOARD OVERLAY                               -->
+    <!-- ============================================================== -->
+    <div id="dashboardPanel">
+        <div class="dashboard-header">
+            <div>
+                <h3><i class="fas fa-user-circle" style="color:var(--gold);"></i> Client Portal</h3>
+                <p style="margin:0; font-size:0.9rem;">Welcome to your exclusive wedding management dashboard.</p>
+            </div>
+            <button class="btn btn-sm btn-dark" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+        
+        <div class="dash-grid">
+            <div class="dash-card">
+                <div class="icon"><i class="fas fa-images"></i></div>
+                <h4>Photo Gallery</h4>
+                <p>Your high-resolution wedding photos are ready.</p>
+                <div class="dash-progress"><span style="width: 100%;"></span></div>
+                <small style="color:var(--text-muted);">100% Processed</small>
+                <a href="#" class="btn btn-sm btn-gold" style="margin-top:15px;">Download Gallery</a>
+            </div>
+            
+            <div class="dash-card">
+                <div class="icon"><i class="fas fa-video"></i></div>
+                <h4>Cinematic Film</h4>
+                <p>Your teaser and highlight film are ready for review.</p>
+                <div class="dash-progress"><span style="width: 75%;"></span></div>
+                <small style="color:var(--text-muted);">75% Final Cut</small>
+                <a href="#" class="btn btn-sm btn-gold" style="margin-top:15px;">Watch Preview</a>
+            </div>
+            
+            <div class="dash-card">
+                <div class="icon"><i class="fas fa-calendar-check"></i></div>
+                <h4>Event Timeline</h4>
+                <p>Haldi (10:00 AM), Mehndi (2:00 PM), Wedding (8:00 PM).</p>
+                <div class="dash-progress"><span style="width: 100%;"></span></div>
+                <small style="color:var(--text-muted);">Schedule Finalized</small>
+                <a href="#" class="btn btn-sm btn-gold" style="margin-top:15px;">View Full Itinerary</a>
+            </div>
+            
+            <div class="dash-card">
+                <div class="icon"><i class="fas fa-credit-card"></i></div>
+                <h4>Payment Status</h4>
+                <p>You have paid 80% of the total invoice.</p>
+                <div class="dash-progress"><span style="width: 80%;"></span></div>
+                <small style="color:var(--text-muted);">₹1,12,000 / ₹1,40,000 Paid</small>
+                <a href="#" class="btn btn-sm btn-gold" style="margin-top:15px;">View Invoice</a>
+            </div>
+            
+            <div class="dash-card">
+                <div class="icon"><i class="fas fa-file-signature"></i></div>
+                <h4>Contract & Agreement</h4>
+                <p>Your service agreement is verified and signed.</p>
+                <div class="dash-progress"><span style="width: 100%;"></span></div>
+                <small style="color:var(--text-muted);">Signed & Sealed</small>
+                <a href="#" class="btn btn-sm btn-gold" style="margin-top:15px;">Download Contract</a>
+            </div>
+            
+            <div class="dash-card">
+                <div class="icon"><i class="fas fa-headset"></i></div>
+                <h4>Direct Support</h4>
+                <p>Need changes? Chat with our team instantly.</p>
+                <div class="dash-progress"><span style="width: 100%;"></span></div>
+                <small style="color:var(--text-muted);">Priority Support Active</small>
+                <a href="#" class="btn btn-sm btn-gold" style="margin-top:15px;">Contact Manager</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 24. JAVASCRIPT SECTION                                         -->
     <!-- ============================================================== -->
     <script>
         // 1. PRELOADER
@@ -1936,13 +2146,20 @@
             }
         });
 
-        // 12. MODAL BOOKING LOGIC
+        // 12. MODAL BOOKING LOGIC (SHARED FOR NAVBAR, FLOATING BUTTON, AND DASHBOARD)
         const openBtn = document.getElementById('openBookingBtn');
+        const openBtn2 = document.getElementById('openBookingBtn2');
         const modal = document.getElementById('bookingModal');
         const closeBtn = document.getElementById('closeModalBtn');
 
         if(openBtn) {
             openBtn.addEventListener('click', function(e){
+                e.preventDefault();
+                modal.style.display = 'flex';
+            });
+        }
+        if(openBtn2) {
+            openBtn2.addEventListener('click', function(e){
                 e.preventDefault();
                 modal.style.display = 'flex';
             });
@@ -1953,11 +2170,117 @@
         function submitModalBooking() {
             let name = document.getElementById('modalName').value;
             let phone = document.getElementById('modalPhone').value;
+            let date = document.getElementById('modalDate').value;
             if(!name || !phone) { alert("Please enter Name and Phone Number to confirm booking."); return; }
-            let msg = "📅 *New Booking Request from Website*%0A%0A*Name:* " + name + "%0A*Phone:* " + phone + "%0A*Action:* Please confirm availability for my wedding date.";
+            let msg = "📅 *New Booking Request from Website*%0A%0A*Name:* " + name + "%0A*Phone:* " + phone + "%0A*Proposed Date:* " + (date ? date : "Not selected") + "%0A*Action:* Please confirm availability for my wedding date.";
             window.open("https://wa.me/917654200109?text=" + msg, '_blank');
             modal.style.display = 'none';
         }
+
+        // 13. NEW: CHATBOT LOGIC
+        const chatToggle = document.getElementById('chatToggle');
+        const chatWindow = document.getElementById('chatWindow');
+        const chatClose = document.getElementById('chatClose');
+        const chatBody = document.getElementById('chatBody');
+        const chatInput = document.getElementById('chatInput');
+        const chatSend = document.getElementById('chatSend');
+
+        chatToggle.addEventListener('click', function() {
+            if(chatWindow.classList.contains('active')) {
+                chatWindow.classList.remove('active');
+                chatToggle.classList.remove('closed');
+            } else {
+                chatWindow.classList.add('active');
+                chatToggle.classList.add('closed');
+            }
+        });
+
+        chatClose.addEventListener('click', function() {
+            chatWindow.classList.remove('active');
+            chatToggle.classList.remove('closed');
+        });
+
+        function addMessage(text, sender) {
+            let msgDiv = document.createElement('div');
+            msgDiv.className = 'chat-msg ' + sender;
+            msgDiv.innerText = text;
+            chatBody.appendChild(msgDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function getBotReply(input) {
+            let txt = input.toLowerCase();
+            if(txt.includes('hello') || txt.includes('hi') || txt.includes('hey')) {
+                return "Hi there! Welcome to The Wedding Studio. How can I assist you today? 💍";
+            } else if(txt.includes('price') || txt.includes('cost') || txt.includes('package')) {
+                return "Our wedding packages start from ₹80,000. We offer Silver, Gold, and Premium Luxury plans. Visit our Pricing section for full breakdowns! ✨";
+            } else if(txt.includes('drone') || txt.includes('video') || txt.includes('film')) {
+                return "We specialize in high-end cinematic drone coverage and highlight films. Both Gold and Luxury packages include stunning aerial shots! 🚁";
+            } else if(txt.includes('book') || txt.includes('date')) {
+                return "To confirm your date, click the 'Book Now' button in the top menu, or tap the golden calendar button on the left side of the screen! 📅";
+            } else if(txt.includes('contact') || txt.includes('phone') || txt.includes('call')) {
+                return "You can reach our team directly at 7654200109 or send us a WhatsApp message. We usually reply within 1 hour! 📞";
+            } else {
+                return "Thank you for your message! For instant priority support, please call us at 7654200109 or drop us a WhatsApp text. We'll get back to you swiftly! 🚀";
+            }
+        }
+
+        chatSend.addEventListener('click', function() {
+            let userMsg = chatInput.value.trim();
+            if(userMsg !== "") {
+                addMessage(userMsg, 'user');
+                chatInput.value = '';
+                // Simulate bot typing delay
+                setTimeout(function() {
+                    let botReply = getBotReply(userMsg);
+                    addMessage(botReply, 'bot');
+                }, 800);
+            }
+        });
+
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                chatSend.click();
+            }
+        });
+
+        // 14. NEW: CLIENT DASHBOARD LOGIC
+        const dashboardLink = document.getElementById('dashboardLink');
+        const loginModal = document.getElementById('loginModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginPass = document.getElementById('loginPass');
+        const dashboardPanel = document.getElementById('dashboardPanel');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        dashboardLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            if(dashboardPanel.classList.contains('active')) {
+                dashboardPanel.classList.remove('active');
+            } else {
+                loginModal.classList.add('active');
+            }
+        });
+
+        loginBtn.addEventListener('click', function() {
+            let pass = loginPass.value;
+            if(pass === 'wedding2026') {
+                loginModal.classList.remove('active');
+                dashboardPanel.classList.add('active');
+                loginPass.value = '';
+            } else {
+                alert('Incorrect Password. Please try again. (Hint: wedding2026)');
+            }
+        });
+
+        logoutBtn.addEventListener('click', function() {
+            dashboardPanel.classList.remove('active');
+        });
+
+        window.addEventListener('click', function(e) {
+            if(e.target == loginModal) {
+                loginModal.classList.remove('active');
+            }
+        });
     </script>
 </body>
 </html>
