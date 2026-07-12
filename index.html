@@ -283,7 +283,7 @@
         .gallery-item:hover .overlay { transform: translateY(0); }
         .gallery-item .overlay h4 { color: #fff; font-size: 1.3rem; margin-bottom: 5px; }
         .gallery-item .overlay span { color: var(--gold); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-        .book-project-btn { display: inline-block; padding: 10px 22px; background: var(--gold); color: #fff; border-radius: 30px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; box-shadow: 0 4px 15px rgba(196, 147, 94, 0.5); transition: var(--transition-smooth); align-self: flex-start; }
+        .book-project-btn { display: inline-block; padding: 10px 22px; background: var(--gold); color: #fff; border-radius: 30px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; box-shadow: 0 4px 15px rgba(196, 147, 94, 0.5); transition: var(--transition-smooth); align-self: flex-start; cursor: pointer; }
         .book-project-btn:hover { background: #fff; color: var(--gold); transform: scale(1.06); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); }
 
         /* Lightbox */
@@ -397,7 +397,7 @@
         .back-to-top:hover { transform: scale(1.12) translateY(-4px); background: var(--gold-dark); }
         
         .action-fab { position: fixed; bottom: 30px; left: 30px; display: flex; flex-direction: column; gap: 12px; z-index: 999; }
-        .fab-btn { width: 56px; height: 56px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 1.6rem; box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; }
+        .fab-btn { width: 56px; height: 56px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 1.6rem; box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; cursor: pointer; }
         .fab-btn:hover { transform: scale(1.12) rotate(-4deg); }
         .fab-call { background: #007bff; } .fab-call:hover { background: #0056b3; }
         .fab-whatsapp { background: #25D366; } .fab-whatsapp:hover { background: #1ebd5a; }
@@ -445,7 +445,70 @@
         .dash-progress { width: 100%; height: 8px; background: #eee; border-radius: 10px; margin: 12px 0; overflow: hidden; }
         .dash-progress span { display: block; height: 100%; background: var(--gold); border-radius: 10px; }
 
-        /* ------------------- 26. RESPONSIVE ------------------- */
+        /* ------------------- 26. BOOKING DATE MODAL (NEW) ------------------- */
+        #bookingDateModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
+            z-index: 10001;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        #bookingDateModal.active { display: flex; }
+        .booking-modal-box {
+            background: #fff;
+            padding: 40px;
+            border-radius: 16px;
+            max-width: 450px;
+            width: 100%;
+            border: 2px solid var(--gold);
+            box-shadow: var(--shadow-gold);
+            position: relative;
+            text-align: center;
+        }
+        .booking-modal-box h2 {
+            font-size: 1.8rem;
+            color: var(--maroon);
+            margin-bottom: 5px;
+        }
+        .booking-modal-box p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+        .booking-modal-box input[type="date"] {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+            color: var(--text-light);
+        }
+        .booking-modal-box input[type="date"]:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(196, 147, 94, 0.2);
+        }
+        .booking-modal-box .btn-close-modal {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        .booking-modal-box .btn-close-modal:hover {
+            color: var(--maroon);
+        }
+
+        /* ------------------- 27. RESPONSIVE ------------------- */
         @media (max-width: 1024px) {
             .hero-content h1 { font-size: 4.2rem; }
             .pricing-grid, .process-wrapper, .choose-wrapper { grid-template-columns: 1fr 1fr; }
@@ -469,6 +532,7 @@
             .fab-btn { width: 48px; height: 48px; font-size: 1.3rem; }
             .chatbot-window { width: 90%; right: 5%; bottom: 90px; }
             .chatbot-toggle { right: 15px; width: 52px; height: 52px; font-size: 1.3rem; }
+            .booking-modal-box { padding: 30px 20px; }
         }
         @media (max-width: 480px) {
             .hero-content h1 { font-size: 2.2rem; letter-spacing: 1px; }
@@ -499,7 +563,6 @@
     <!-- ============================================================== -->
     <nav class="navbar" id="navbar">
         <a href="#" class="logo">
-            <!-- Put your logo.png in the same folder -->
             <img src="logo.png" alt="The Wedding" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
             <span style="display:none; font-family:'Playfair Display', serif; font-size:1.8rem; color:var(--maroon);">The <span style="color:var(--gold);">Wedding</span></span>
         </a>
@@ -514,9 +577,9 @@
             <li><a href="#blog">Blog</a></li>
             <li><a href="#faq">FAQ</a></li>
             <li><a href="#contact">Contact</a></li>
-            <!-- Fixed Dashboard Link -->
             <li><a href="#" id="dashboardLink">Client Dashboard</a></li>
-            <li><a href="https://wa.me/917654200109?text=Hi%20The%20Wedding%20Team!%20I%20want%20to%20book%20my%20date." target="_blank" class="btn btn-primary btn-sm" style="border-radius:30px;">Book Now</a></li>
+            <!-- UPDATED: Triggers Date Picker Modal -->
+            <li><a href="javascript:void(0)" onclick="openBookingModal('General Enquiry')" class="btn btn-primary btn-sm" style="border-radius:30px;">Book Now</a></li>
         </ul>
         <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
     </nav>
@@ -687,101 +750,102 @@
             </div>
 
             <div class="gallery-grid" id="galleryGrid">
+                <!-- UPDATED: All Portfolio books now trigger the Date Picker Modal -->
                 <div class="gallery-item reveal" data-category="wedding">
                     <img src="https://images.pexels.com/photos/169193/pexels-photo-169193.jpeg" alt="Elegant Wedding">
-                    <div class="overlay"><h4>Elegant Wedding</h4><span>Wedding</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Elegant%20Wedding'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Elegant Wedding</h4><span>Wedding</span><a href="javascript:void(0)" onclick="openBookingModal('Elegant Wedding Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="portrait">
                     <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg" alt="Natural Portrait">
-                    <div class="overlay"><h4>Natural Portrait</h4><span>Portrait</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Natural%20Portrait'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Natural Portrait</h4><span>Portrait</span><a href="javascript:void(0)" onclick="openBookingModal('Natural Portrait Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="commercial">
                     <img src="https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg" alt="Product Shoot">
-                    <div class="overlay"><h4>Product Shoot</h4><span>Commercial</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Product%20Shoot'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Product Shoot</h4><span>Commercial</span><a href="javascript:void(0)" onclick="openBookingModal('Product Shoot Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="wedding">
                     <img src="https://images.pexels.com/photos/2657227/pexels-photo-2657227.jpeg" alt="Indian Wedding">
-                    <div class="overlay"><h4>Indian Wedding</h4><span>Wedding</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Indian%20Wedding'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Indian Wedding</h4><span>Wedding</span><a href="javascript:void(0)" onclick="openBookingModal('Indian Wedding Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="portrait">
                     <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg" alt="Studio Portrait">
-                    <div class="overlay"><h4>Studio Portrait</h4><span>Portrait</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Studio%20Portrait'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Studio Portrait</h4><span>Portrait</span><a href="javascript:void(0)" onclick="openBookingModal('Studio Portrait Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="commercial">
                     <img src="https://images.pexels.com/photos/7441742/pexels-photo-7441742.jpeg" alt="Brand Campaign">
-                    <div class="overlay"><h4>Brand Campaign</h4><span>Commercial</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Brand%20Campaign'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Brand Campaign</h4><span>Commercial</span><a href="javascript:void(0)" onclick="openBookingModal('Brand Campaign Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="landscape">
                     <img src="https://images.pexels.com/photos/1676997/pexels-photo-1676997.jpeg" alt="Golden Horizon">
-                    <div class="overlay"><h4>Golden Horizon</h4><span>Landscape</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Golden%20Horizon'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Golden Horizon</h4><span>Landscape</span><a href="javascript:void(0)" onclick="openBookingModal('Golden Horizon Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="landscape">
                     <img src="https://images.pexels.com/photos/3408744/pexels-photo-3408744.jpeg" alt="Mountain Majesty">
-                    <div class="overlay"><h4>Mountain Majesty</h4><span>Landscape</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Mountain%20Majesty'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Mountain Majesty</h4><span>Landscape</span><a href="javascript:void(0)" onclick="openBookingModal('Mountain Majesty Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="wedding">
                     <img src="https://images.pexels.com/photos/3014856/pexels-photo-3014856.jpeg" alt="Mehendi Ceremony">
-                    <div class="overlay"><h4>Mehendi Ceremony</h4><span>Wedding</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Mehendi%20Ceremony'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Mehendi Ceremony</h4><span>Wedding</span><a href="javascript:void(0)" onclick="openBookingModal('Mehendi Ceremony Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="portrait">
                     <img src="https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg" alt="Casual Headshot">
-                    <div class="overlay"><h4>Casual Headshot</h4><span>Portrait</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Casual%20Headshot'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Casual Headshot</h4><span>Portrait</span><a href="javascript:void(0)" onclick="openBookingModal('Casual Headshot Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="commercial">
                     <img src="https://images.pexels.com/photos/1762851/pexels-photo-1762851.jpeg" alt="Fashion Editorial">
-                    <div class="overlay"><h4>Fashion Editorial</h4><span>Commercial</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Fashion%20Editorial'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Fashion Editorial</h4><span>Commercial</span><a href="javascript:void(0)" onclick="openBookingModal('Fashion Editorial Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="landscape">
                     <img src="https://images.pexels.com/photos/2123725/pexels-photo-2123725.jpeg" alt="City Skyline">
-                    <div class="overlay"><h4>City Skyline</h4><span>Landscape</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'City%20Skyline'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>City Skyline</h4><span>Landscape</span><a href="javascript:void(0)" onclick="openBookingModal('City Skyline Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="wedding">
                     <img src="https://images.pexels.com/photos/2385506/pexels-photo-2385506.jpeg" alt="Haldi Ceremony">
-                    <div class="overlay"><h4>Haldi Ceremony</h4><span>Wedding</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Haldi%20Ceremony'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Haldi Ceremony</h4><span>Wedding</span><a href="javascript:void(0)" onclick="openBookingModal('Haldi Ceremony Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="portrait">
                     <img src="https://images.pexels.com/photos/1070880/pexels-photo-1070880.jpeg" alt="Black and White Portrait">
-                    <div class="overlay"><h4>B&W Portrait</h4><span>Portrait</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Black%20and%20White%20Portrait'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>B&W Portrait</h4><span>Portrait</span><a href="javascript:void(0)" onclick="openBookingModal('Black & White Portrait Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="commercial">
                     <img src="https://images.pexels.com/photos/2528115/pexels-photo-2528115.jpeg" alt="Jewelry Commercial">
-                    <div class="overlay"><h4>Jewelry Commercial</h4><span>Commercial</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Jewelry%20Commercial'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Jewelry Commercial</h4><span>Commercial</span><a href="javascript:void(0)" onclick="openBookingModal('Jewelry Commercial Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="landscape">
                     <img src="https://images.pexels.com/photos/2964592/pexels-photo-2964592.jpeg" alt="Beach Sunset">
-                    <div class="overlay"><h4>Beach Sunset</h4><span>Landscape</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Beach%20Sunset'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Beach Sunset</h4><span>Landscape</span><a href="javascript:void(0)" onclick="openBookingModal('Beach Sunset Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="wedding">
                     <img src="https://images.pexels.com/photos/3599578/pexels-photo-3599578.jpeg" alt="Rings Detail">
-                    <div class="overlay"><h4>Rings Detail</h4><span>Wedding</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Rings%20Detail'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Rings Detail</h4><span>Wedding</span><a href="javascript:void(0)" onclick="openBookingModal('Rings Detail Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="portrait">
                     <img src="https://images.pexels.com/photos/3311614/pexels-photo-3311614.jpeg" alt="Fine Art Portrait">
-                    <div class="overlay"><h4>Fine Art Portrait</h4><span>Portrait</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Fine%20Art%20Portrait'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Fine Art Portrait</h4><span>Portrait</span><a href="javascript:void(0)" onclick="openBookingModal('Fine Art Portrait Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="commercial">
                     <img src="https://images.pexels.com/photos/4380974/pexels-photo-4380974.jpeg" alt="Food Commercial">
-                    <div class="overlay"><h4>Food Commercial</h4><span>Commercial</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Food%20Commercial'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Food Commercial</h4><span>Commercial</span><a href="javascript:void(0)" onclick="openBookingModal('Food Commercial Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="landscape">
                     <img src="https://images.pexels.com/photos/3153855/pexels-photo-3153855.jpeg" alt="Forest Trail">
-                    <div class="overlay"><h4>Forest Trail</h4><span>Landscape</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Forest%20Trail'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Forest Trail</h4><span>Landscape</span><a href="javascript:void(0)" onclick="openBookingModal('Forest Trail Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="wedding">
                     <img src="https://images.pexels.com/photos/2046632/pexels-photo-2046632.jpeg" alt="Sangeet Night">
-                    <div class="overlay"><h4>Sangeet Night</h4><span>Wedding</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Sangeet%20Night'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Sangeet Night</h4><span>Wedding</span><a href="javascript:void(0)" onclick="openBookingModal('Sangeet Night Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="portrait">
                     <img src="https://images.pexels.com/photos/1688152/pexels-photo-1688152.jpeg" alt="Maternity Portrait">
-                    <div class="overlay"><h4>Maternity Portrait</h4><span>Portrait</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Maternity%20Portrait'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Maternity Portrait</h4><span>Portrait</span><a href="javascript:void(0)" onclick="openBookingModal('Maternity Portrait Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="commercial">
                     <img src="https://images.pexels.com/photos/6893396/pexels-photo-6893396.jpeg" alt="Automotive Shoot">
-                    <div class="overlay"><h4>Automotive Shoot</h4><span>Commercial</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Automotive%20Shoot'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Automotive Shoot</h4><span>Commercial</span><a href="javascript:void(0)" onclick="openBookingModal('Automotive Shoot Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
                 <div class="gallery-item reveal" data-category="landscape">
                     <img src="https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg" alt="Mountain Range">
-                    <div class="overlay"><h4>Mountain Range</h4><span>Landscape</span><a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Mountain%20Range'%20project.%20I%20want%20to%20book%20this%20style." target="_blank" class="book-project-btn">Book This Project</a></div>
+                    <div class="overlay"><h4>Mountain Range</h4><span>Landscape</span><a href="javascript:void(0)" onclick="openBookingModal('Mountain Range Project')" class="book-project-btn">Book This Project</a></div>
                 </div>
             </div>
         </div>
@@ -863,25 +927,26 @@
             
             <div class="pricing-wrapper reveal">
                 <div class="pricing-grid">
+                    <!-- UPDATED: Package books trigger Date Picker Modal -->
                     <div class="price-card reveal">
                         <div class="card-title">Silver</div>
                         <ul><li><i class="fas fa-camera"></i> 1 Photographer</li><li><i class="fas fa-video"></i> 1 Cinematographer</li><li><i class="far fa-clock"></i> Full wedding coverage (120 - 130 min)</li><li><i class="fas fa-images"></i> 200+ Edited Photos</li><li><i class="fas fa-play-circle"></i> Highlight Video (3-5 Min)</li><li><i class="fas fa-book"></i> Album (12x36 40 sheets)</li><li><i class="fas fa-usb"></i> All Data in Pendrive</li></ul>
                         <div class="price-tag">PRICE: <br> <span>₹80,000</span></div>
-                        <div class="text-center mt-20"><a href="https://wa.me/917654200109?text=Hi!%20I%20want%20to%20book%20the%20Silver%20package%20for%20my%20wedding." target="_blank" class="btn btn-primary" style="border-radius:30px;">Book Silver</a></div>
+                        <div class="text-center mt-20"><a href="javascript:void(0)" onclick="openBookingModal('Silver Package')" class="btn btn-primary" style="border-radius:30px;">Book Silver</a></div>
                     </div>
                     
                     <div class="price-card featured reveal">
                         <div class="card-title" style="background:var(--gold); color:#fff; padding:12px; margin-top:-30px; margin-bottom:25px; border-radius:8px 8px 0 0;">Gold (Best Seller)</div>
                         <ul><li><i class="fas fa-camera"></i> 1 Photographer</li><li><i class="fas fa-video"></i> 2 Cinematographers</li><li><i class="fas fa-plane"></i> Drone coverage</li><li><i class="fas fa-calendar-check"></i> Full Wedding Coverage</li><li><i class="fas fa-images"></i> 200+ Edited Photos</li><li><i class="fas fa-play-circle"></i> Cinematic Highlight Film (5-8 Min)</li><li><i class="fas fa-play-circle"></i> Wedding Teaser (1 min)</li><li><i class="fas fa-book"></i> Premium Album (12x36 40 sheets)</li><li><i class="fas fa-usb"></i> All row data in pendrive</li></ul>
                         <div class="price-tag" style="border:2px solid var(--gold); background:#fff;">PRICE: <br> <span style="color:var(--gold);">₹1,20,000</span></div>
-                        <div class="text-center mt-20"><a href="https://wa.me/917654200109?text=Hi!%20I%20want%20to%20book%20the%20Gold%20package%20for%20my%20wedding." target="_blank" class="btn btn-primary" style="border-radius:30px;">Book Gold</a></div>
+                        <div class="text-center mt-20"><a href="javascript:void(0)" onclick="openBookingModal('Gold Package')" class="btn btn-primary" style="border-radius:30px;">Book Gold</a></div>
                     </div>
 
                     <div class="price-card reveal">
                         <div class="card-title">Luxury</div>
                         <ul><li><i class="fas fa-camera"></i> 2 Photographers (traditional+ candid)</li><li><i class="fas fa-video"></i> 2 Cinematographers</li><li><i class="fas fa-plane"></i> Drone Coverage</li><li><i class="fas fa-calendar-alt"></i> Haldi, Mehndi, Sangeet & Wedding</li><li><i class="fas fa-images"></i> 400+ Edited Photos</li><li><i class="fas fa-play-circle"></i> Cinematic Wedding Film (120-130 Min)</li><li><i class="fas fa-play-circle"></i> Teaser (1 minute) & highlight (8-10 min)</li><li><i class="fas fa-book"></i> Premium Album (12x36, 50 Sheets)</li><li><i class="fas fa-usb"></i> All Data in Premium Pendrive</li></ul>
                         <div class="price-tag">PRICE: <br> <span>₹1,40,000</span></div>
-                        <div class="text-center mt-20"><a href="https://wa.me/917654200109?text=Hi!%20I%20want%20to%20book%20the%20Luxury%20package%20for%20my%20wedding." target="_blank" class="btn btn-primary" style="border-radius:30px;">Book Luxury</a></div>
+                        <div class="text-center mt-20"><a href="javascript:void(0)" onclick="openBookingModal('Luxury Package')" class="btn btn-primary" style="border-radius:30px;">Book Luxury</a></div>
                     </div>
                 </div>
 
@@ -947,13 +1012,13 @@
                 <div class="faq-item reveal"><div class="faq-question">What happens if the weather is bad? <span class="icon">+</span></div><div class="faq-answer">We always have backup indoor locations and lighting arrangements. We shoot in all weather conditions to ensure you get the perfect shots.</div></div>
                 <div class="faq-item reveal"><div class="faq-question">How do we pay the advance? <span class="icon">+</span></div><div class="faq-answer">We accept bank transfers, UPI, or cash. A 30% advance is required to confirm your booking, and the remaining amount is paid as per the schedule mentioned in the terms.</div></div>
                 <div class="faq-item reveal"><div class="faq-question">Do you provide drone footage? <span class="icon">+</span></div><div class="faq-answer">Absolutely. Drone coverage is standard in our Gold and Premium Luxury packages, but can also be added as an additional service to the Silver package for ₹5,000.</div></div>
-                <div class="faq-item reveal"><div class="faq-question">How can I book my date? <span class="icon">+</span></div><div class="faq-answer">You can directly DM us on Instagram, <a href="tel:7654200109" class="text-gold" style="font-weight:600;">call us at 7654200109</a>, or <a href="https://wa.me/917654200109" target="_blank" class="text-gold" style="font-weight:600;">WhatsApp us</a> right away. We will immediately check availability and guide you.</div></div>
+                <div class="faq-item reveal"><div class="faq-question">How can I book my date? <span class="icon">+</span></div><div class="faq-answer">You can click the "Book Now" button anywhere on our website, select your preferred date from the popup calendar, and it will automatically send a WhatsApp message to us with your chosen date!</div></div>
                 <div class="faq-item reveal"><div class="faq-question">Do you offer pre-wedding shoots? <span class="icon">+</span></div><div class="faq-answer">Yes, pre-wedding shoots are part of our Gold and Luxury packages. We also offer standalone pre-wedding packages for couples who want to capture their story before the big day.</div></div>
                 <div class="faq-item reveal"><div class="faq-question">How many photographers will be on my wedding day? <span class="icon">+</span></div><div class="faq-answer">We provide a team of 2 to 4 photographers and cinematographers depending on your chosen package, ensuring every angle is perfectly covered.</div></div>
                 <div class="faq-item reveal"><div class="faq-question">What is your turnaround time for delivery? <span class="icon">+</span></div><div class="faq-answer">Our standard delivery time is 15 to 30 days from the date of your wedding. For special requests like Same Day Edit, we can do that at an additional cost.</div></div>
                 <div class="faq-item reveal"><div class="faq-question">Can we customize a package? <span class="icon">+</span></div><div class="faq-answer">Yes! We love creating custom packages. Just tell us your requirements, budget, and dates, and we will tailor a special plan just for you.</div></div>
                 <div class="faq-item reveal"><div class="faq-question">Do you have a studio in Patna? <span class="icon">+</span></div><div class="faq-answer">Yes, we are based in Patna City, Bihar. You can visit our office at Mahadev Sthan, Marchi Road, near Bypass Thana, Patna City - 800009.</div></div>
-                <div class="faq-item reveal"><div class="faq-question">How do I get a quote quickly? <span class="icon">+</span></div><div class="faq-answer">Simply click the "Book Now" or "Send Message" button on our website. It will open WhatsApp directly. Tell us your date and number of guests, and we'll give you a quote immediately!</div></div>
+                <div class="faq-item reveal"><div class="faq-question">How do I get a quote quickly? <span class="icon">+</span></div><div class="faq-answer">Simply click the "Book Now" button on our website. It will open a date picker. Select your date and we'll give you a quote immediately on WhatsApp!</div></div>
                 <div class="faq-item reveal"><div class="faq-question">What is included in the album design? <span class="icon">+</span></div><div class="faq-answer">Our albums are premium leather-bound, 12x36 inches, with 40-50 sheets. The design is custom-made based on your wedding theme. Additional albums are available at extra cost.</div></div>
                 <div class="faq-item reveal"><div class="faq-question">Do you offer cinematic editing for short reels? <span class="icon">+</span></div><div class="faq-answer">Yes! We create Instagram-friendly reels, teasers (1 minute), and highlight videos (5-10 minutes) that are perfect for social media sharing.</div></div>
                 <div class="faq-item reveal"><div class="faq-question">Are you available for out-of-station shoots? <span class="icon">+</span></div><div class="faq-answer">Yes, we are available for out-of-station and international shoots. Travel and accommodation expenses will be handled as per actuals.</div></div>
@@ -1045,7 +1110,8 @@
     <div class="action-fab">
         <a href="tel:7654200109" class="fab-btn fab-call" title="Call us directly"><i class="fas fa-phone-alt"></i></a>
         <a href="https://wa.me/917654200109" target="_blank" class="fab-btn fab-whatsapp" title="Chat with us on WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://wa.me/917654200109?text=Hi%20The%20Wedding%20Team!%20I%20want%20to%20book%20my%20date." target="_blank" class="fab-btn fab-book" title="Book Your Date Now"><i class="fas fa-calendar-check"></i></a>
+        <!-- UPDATED: Floating Book triggers Date Picker Modal -->
+        <a href="javascript:void(0)" onclick="openBookingModal('General Enquiry')" class="fab-btn fab-book" title="Book Your Date Now"><i class="fas fa-calendar-check"></i></a>
     </div>
 
     <!-- ============================================================== -->
@@ -1059,7 +1125,22 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 22. CLIENT DASHBOARD                                             -->
+    <!-- 22. NEW: BOOKING DATE PICKER MODAL                               -->
+    <!-- ============================================================== -->
+    <div id="bookingDateModal">
+        <div class="booking-modal-box">
+            <h2>Select Your Date</h2>
+            <p>Please pick your preferred date to send a booking request.</p>
+            <!-- Hidden input to store which package/project is being booked -->
+            <input type="hidden" id="bookingContext" value="General Enquiry">
+            <input type="date" id="bookingDate" min="2026-07-12">
+            <button onclick="confirmBooking()" class="btn btn-primary" style="width:100%;">Send Booking Request via WhatsApp</button>
+            <button onclick="closeBookingModal()" class="btn-close-modal">Cancel</button>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 23. CLIENT DASHBOARD                                             -->
     <!-- ============================================================== -->
     <div id="loginModal">
         <div class="login-box">
@@ -1084,7 +1165,7 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 23. JAVASCRIPT (FIXED & DEBUGGED)                              -->
+    <!-- 24. JAVASCRIPT (FIXED & DEBUGGED)                                -->
     <!-- ============================================================== -->
     <script>
         // 1. PRELOADER WITH LOADING BAR
@@ -1288,7 +1369,7 @@
         });
         chatInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') chatSend.click(); });
 
-        // 11. CLIENT DASHBOARD LOGIC (FIXED)
+        // 11. CLIENT DASHBOARD LOGIC
         const dashboardLink = document.getElementById('dashboardLink');
         const loginModal = document.getElementById('loginModal');
         const loginBtn = document.getElementById('loginBtn');
@@ -1296,7 +1377,6 @@
         const dashboardPanel = document.getElementById('dashboardPanel');
         const logoutBtn = document.getElementById('logoutBtn');
 
-        // Click on Navbar Dashboard Link to open Login
         dashboardLink.addEventListener('click', function(e) {
             e.preventDefault();
             loginModal.classList.add('active');
@@ -1313,6 +1393,66 @@
         });
         logoutBtn.addEventListener('click', function() { dashboardPanel.classList.remove('active'); });
         window.addEventListener('click', function(e) { if(e.target == loginModal) loginModal.classList.remove('active'); });
+
+        // 12. NEW: BOOKING DATE PICKER MODAL FUNCTIONS
+        const bookingModal = document.getElementById('bookingDateModal');
+        const bookingContext = document.getElementById('bookingContext');
+        const bookingDate = document.getElementById('bookingDate');
+
+        function openBookingModal(context) {
+            bookingContext.value = context; // Set the context (e.g., "Gold Package" or "Elegant Wedding Project")
+            bookingModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling behind modal
+        }
+
+        function closeBookingModal() {
+            bookingModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function confirmBooking() {
+            let context = bookingContext.value;
+            let date = bookingDate.value;
+
+            if(!date) {
+                alert("Please select a preferred date from the calendar!");
+                return;
+            }
+
+            // Format date to a readable string (e.g., "Monday, 12 July 2026")
+            let dateObj = new Date(date + 'T00:00:00');
+            let formattedDate = dateObj.toLocaleDateString('en-IN', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+
+            // Construct the WhatsApp message
+            let msg = `✨ *New Booking Request from The Wedding Website*%0A%0A`;
+            msg += `📅 *Selected Date:* ${formattedDate}%0A`;
+            msg += `📦 *Event / Package:* ${context}%0A%0A`;
+            msg += `Please confirm availability and share the package details. Thank you! 🙏`;
+
+            // Redirect to WhatsApp
+            window.open(`https://wa.me/917654200109?text=${msg}`, '_blank');
+            
+            // Close the modal
+            closeBookingModal();
+        }
+
+        // Close modal if user clicks outside the box
+        bookingModal.addEventListener('click', function(e) {
+            if (e.target === bookingModal) {
+                closeBookingModal();
+            }
+        });
+
+        // Set minimum date to today
+        document.addEventListener('DOMContentLoaded', function() {
+            let today = new Date().toISOString().split('T')[0];
+            bookingDate.setAttribute('min', today);
+        });
     </script>
 </body>
 </html>
