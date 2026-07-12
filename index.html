@@ -77,7 +77,7 @@
     </script>
 
     <!-- ================================================================================= -->
-    <!-- CSS STYLES (ALL NEW ENHANCEMENTS ADDED)                                           -->
+    <!-- CSS STYLES (ON-LOAD QUOTE POPUP ADDED)                                           -->
     <!-- ================================================================================= -->
     <style>
         /* ------------------- 1. CSS VARIABLES & RESET ------------------- */
@@ -411,7 +411,7 @@
         .user-review-item .u-stars { color: #ffc107; font-size: 0.9rem; }
         .user-review-item .u-text { font-size: 0.9rem; color: var(--text-muted); margin-top: 5px; }
 
-        /* ------------------- 21. PRICING, COMPARATOR & BUDGET SLIDER (NEW) ------------------- */
+        /* ------------------- 21. PRICING, COMPARATOR & BUDGET SLIDER ------------------- */
         .pricing-wrapper { border: 2px solid var(--gold); padding: 50px; background: var(--bg-card); box-shadow: var(--shadow-gold); border-radius: 16px; }
         .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
         .price-card { background: var(--bg-section); border: 1px solid var(--border-color); padding: 30px 25px; border-radius: 12px; transition: 0.3s ease; }
@@ -436,23 +436,10 @@
         .comparison-table .check { color: #28a745; }
         .comparison-table .cross { color: #dc3545; }
 
-        /* NEW: Budget Slider */
-        .budget-slider-container {
-            margin-top: 30px;
-            padding: 20px;
-            background: var(--bg-section);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            text-align: center;
-        }
+        .budget-slider-container { margin-top: 30px; padding: 20px; background: var(--bg-section); border-radius: 12px; border: 1px solid var(--border-color); text-align: center; }
         .budget-slider-container h4 { color: var(--gold); margin-bottom: 10px; }
         .budget-slider-wrapper { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-        .budget-slider-wrapper input[type="range"] {
-            width: 100%;
-            max-width: 500px;
-            accent-color: var(--gold);
-            cursor: pointer;
-        }
+        .budget-slider-wrapper input[type="range"] { width: 100%; max-width: 500px; accent-color: var(--gold); cursor: pointer; }
         .budget-value-display { font-size: 1.5rem; font-weight: 700; color: var(--maroon); }
         .budget-recommendation { font-size: 0.95rem; color: var(--text-muted); margin-top: 5px; font-weight: 500; }
 
@@ -537,37 +524,151 @@
         .fab-btn:hover { transform: scale(1.12) rotate(-4deg); }
         .fab-call { background: #007bff; } .fab-whatsapp { background: #25D366; } .fab-book { background: var(--gold); }
 
-        /* ------------------- 28. BOOKING & EXIT MODALS ------------------- */
-        #bookingDateModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(6px); z-index: 10001; justify-content: center; align-items: center; padding: 20px; }
-        #bookingDateModal.active { display: flex; }
-        .booking-modal-box { background: var(--bg-card); padding: 40px; border-radius: 16px; max-width: 450px; width: 100%; border: 2px solid var(--gold); box-shadow: var(--shadow-gold); position: relative; text-align: center; }
-        .booking-modal-box h2 { font-size: 1.8rem; color: var(--text-primary); margin-bottom: 5px; }
-        .booking-modal-box p { color: var(--text-muted); margin-bottom: 25px; font-size: 0.95rem; }
-        .booking-modal-box input[type="date"] { width: 100%; padding: 14px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 20px; font-family: 'Poppins', sans-serif; font-size: 1rem; outline: none; transition: 0.3s; color: var(--text-primary); background: var(--bg-body); }
-        .booking-modal-box input[type="date"]:focus { border-color: var(--gold); box-shadow: 0 0 10px rgba(196, 147, 94, 0.2); }
-        .booking-modal-box .btn-close-modal { background: transparent; border: none; color: var(--text-muted); cursor: pointer; margin-top: 15px; font-size: 0.9rem; transition: 0.3s; }
-        .booking-modal-box .btn-close-modal:hover { color: var(--text-primary); }
+        /* ------------------- 28. MOBILE STICKY BOTTOM BAR ------------------- */
+        #mobileBottomBar { display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: var(--gold); padding: 12px 20px; z-index: 9999; justify-content: center; align-items: center; box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.15); }
+        #mobileBottomBar .mobile-book-btn { background: #fff; color: var(--maroon); border: none; padding: 10px 25px; border-radius: 30px; font-weight: 700; font-size: 0.9rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); transition: 0.3s; display: flex; align-items: center; gap: 10px; }
+        #mobileBottomBar .mobile-book-btn:hover { transform: scale(1.03); }
 
-        #exitPopup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(6px); z-index: 99999; display: none; justify-content: center; align-items: center; padding: 20px; opacity: 0; transition: opacity 0.3s ease; }
-        #exitPopup.show { display: flex; opacity: 1; }
-        .exit-popup-box { background: var(--bg-card); padding: 50px; border-radius: 20px; max-width: 500px; width: 100%; border: 2px solid var(--gold); box-shadow: var(--shadow-gold); text-align: center; position: relative; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .exit-popup-box h2 { color: var(--gold); font-size: 2.5rem; margin-bottom: 10px; }
-        .exit-popup-box p { margin-bottom: 25px; font-size: 1.1rem; }
-        .exit-popup-box .btn-close-exit { position: absolute; top: 15px; right: 20px; font-size: 2rem; color: var(--text-muted); cursor: pointer; transition: 0.3s; background: transparent; border: none; }
-        .exit-popup-box .btn-close-exit:hover { color: var(--text-primary); transform: rotate(90deg); }
-        .exit-popup-box .exit-discount { font-size: 4rem; font-weight: 900; color: var(--gold); font-family: 'Poppins', sans-serif; }
+        /* ------------------- 29. ON-LOAD FREE QUOTE POPUP (NEW) ------------------- */
+        #onLoadQuoteModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
+            z-index: 10002;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        #onLoadQuoteModal.active { display: flex; }
+        .quote-modal-box {
+            background: #fff;
+            padding: 30px 40px 40px 40px;
+            border-radius: 16px;
+            max-width: 480px;
+            width: 100%;
+            position: relative;
+            text-align: left;
+            box-shadow: var(--shadow-gold);
+            border: 1px solid var(--gold);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .quote-modal-box .btn-close-quote {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            transition: 0.3s;
+        }
+        .quote-modal-box .btn-close-quote:hover { color: var(--text-primary); transform: rotate(90deg); }
+        .quote-modal-box h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--maroon);
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-align: center;
+        }
+        .quote-modal-box .form-group-q {
+            margin-bottom: 15px;
+        }
+        .quote-modal-box .form-group-q label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .quote-modal-box .form-group-q label span {
+            color: #dc3545;
+        }
+        .quote-modal-box .form-group-q input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            background: var(--bg-body);
+            color: var(--text-primary);
+            transition: 0.3s;
+        }
+        .quote-modal-box .form-group-q input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 5px rgba(196, 147, 94, 0.2);
+        }
+        .quote-modal-box .captcha-mock {
+            background: #f9f9f9;
+            border: 1px solid #d3d3d3;
+            border-radius: 4px;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .quote-modal-box .captcha-mock .checkbox-mock {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #555;
+            border-radius: 4px;
+            display: inline-block;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .quote-modal-box .captcha-mock .checkbox-mock.checked {
+            background: #2196F3;
+            border-color: #2196F3;
+        }
+        .quote-modal-box .captcha-mock .checkbox-mock i { color: #fff; font-size: 14px; display: none; }
+        .quote-modal-box .captcha-mock .checkbox-mock.checked i { display: block; }
+        .quote-modal-box .captcha-mock .captcha-text { font-size: 0.9rem; color: #444; font-weight: 500; flex: 1; }
+        .quote-modal-box .captcha-mock .captcha-logo { display: flex; flex-direction: column; align-items: center; font-size: 0.6rem; color: #777; }
+        .quote-modal-box .captcha-mock .captcha-logo i { font-size: 1.5rem; color: #4CAF50; }
+        
+        .quote-modal-box .btn-submit-quote {
+            width: 100%;
+            background: #ea4335;
+            color: #fff;
+            border: none;
+            padding: 14px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: 0.3s;
+            letter-spacing: 1px;
+        }
+        .quote-modal-box .btn-submit-quote:hover {
+            background: #c9302c;
+            transform: scale(1.02);
+        }
+        .quote-modal-box .quote-footer {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
 
-        /* ------------------- 29. LEAD MAGNET MODAL ------------------- */
-        #leadModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(6px); z-index: 10000; justify-content: center; align-items: center; padding: 20px; }
-        #leadModal.active { display: flex; }
-        .lead-modal-box { background: var(--bg-card); padding: 40px; border-radius: 16px; max-width: 450px; width: 100%; border: 2px solid var(--gold); box-shadow: var(--shadow-gold); position: relative; text-align: center; }
-        .lead-modal-box h2 { color: var(--gold); font-size: 1.8rem; margin-bottom: 10px; }
-        .lead-modal-box p { color: var(--text-muted); margin-bottom: 25px; font-size: 0.95rem; }
-        .lead-modal-box input { width: 100%; padding: 14px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 15px; font-family: 'Poppins', sans-serif; font-size: 1rem; outline: none; transition: 0.3s; color: var(--text-primary); background: var(--bg-body); }
-        .lead-modal-box input:focus { border-color: var(--gold); }
-        .lead-modal-box .btn-close-lead { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; background: transparent; border: none; transition: 0.3s; }
-        .lead-modal-box .btn-close-lead:hover { color: var(--text-primary); }
+        @media (max-width: 480px) {
+            .quote-modal-box { padding: 20px; }
+            .quote-modal-box h2 { font-size: 1.8rem; }
+            .quote-modal-box .captcha-mock { flex-wrap: wrap; justify-content: center; }
+        }
 
         /* ------------------- 30. OTP & DASHBOARD ------------------- */
         #otpLoginModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px); z-index: 9998; justify-content: center; align-items: center; }
@@ -600,42 +701,7 @@
         .client-gallery-grid img { width: 100%; height: 100px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border-color); transition: 0.3s; }
         .client-gallery-grid img:hover { transform: scale(1.05); border-color: var(--gold); }
 
-        /* ------------------- 31. MOBILE STICKY BOTTOM BAR (NEW) ------------------- */
-        #mobileBottomBar {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: var(--gold);
-            padding: 12px 20px;
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.15);
-        }
-        #mobileBottomBar .mobile-book-btn {
-            background: #fff;
-            color: var(--maroon);
-            border: none;
-            padding: 10px 25px;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        #mobileBottomBar .mobile-book-btn:hover {
-            transform: scale(1.03);
-        }
-
-        /* ------------------- 32. RESPONSIVE MEDIA QUERIES ------------------- */
+        /* ------------------- 31. RESPONSIVE MEDIA QUERIES ------------------- */
         @media (max-width: 1024px) {
             .hero-content h1 { font-size: 4.2rem; }
             .pricing-grid, .process-wrapper, .choose-wrapper, .addons-table { grid-template-columns: 1fr 1fr; }
@@ -644,11 +710,9 @@
             .stats-wrapper { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {
-            /* Mobile Stick Bar */
             #mobileBottomBar { display: flex; }
             .action-fab { bottom: 80px; }
             .toggle-wrapper { top: auto; bottom: 140px; right: 15px; flex-direction: row; gap: 8px; }
-            
             .hamburger { display: block; }
             .nav-links { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: var(--bg-card); flex-direction: column; justify-content: center; align-items: center; transition: right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); border-left: 2px solid var(--gold); gap: 20px; box-shadow: -5px 0 25px rgba(0, 0, 0, 0.06); }
             .nav-links.active { right: 0; }
@@ -668,7 +732,7 @@
             input, select, textarea, .form-group input, .form-group select, .form-group textarea { font-size: 16px !important; }
             .lightbox-container .close-lb { top: 15px; right: 25px; font-size: 2.5rem; }
             .fab-btn { width: 48px; height: 48px; font-size: 1.3rem; }
-            .otp-login-box, .exit-popup-box, .lead-modal-box, .booking-modal-box { padding: 30px 20px; }
+            .otp-login-box, .exit-popup-box, .lead-modal-box, .booking-modal-box, .quote-modal-box { padding: 30px 20px; }
             .timeline::after { left: 31px; }
             .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
             .timeline-item.right { left: 0%; }
@@ -1015,7 +1079,6 @@
                     <div class="price-card reveal"><div class="card-title">Luxury</div><ul><li><i class="fas fa-camera"></i> 2 Photographers</li><li><i class="fas fa-calendar-alt"></i> Haldi, Mehndi & Wedding</li><li><i class="fas fa-images"></i> 400+ Photos</li></ul><div class="price-tag">PRICE: <br> <span>₹1,40,000</span></div><div class="text-center mt-20"><a href="javascript:void(0)" onclick="openBookingModal('Luxury Package')" class="btn btn-primary" style="border-radius:30px;">Book Luxury</a></div></div>
                 </div>
 
-                <!-- Comparison Table -->
                 <div class="comparison-table-wrapper" id="comparisonTableWrapper">
                     <table class="comparison-table">
                         <thead><tr><th>Features</th><th>Silver</th><th>Gold</th><th>Luxury</th></tr></thead>
@@ -1030,7 +1093,6 @@
                     </table>
                 </div>
 
-                <!-- NEW: Budget Slider -->
                 <div class="budget-slider-container">
                     <h4><i class="fas fa-rupee-sign"></i> Find the Best Package for Your Budget</h4>
                     <div class="budget-slider-wrapper">
@@ -1040,7 +1102,6 @@
                     </div>
                 </div>
 
-                <!-- Add-ons -->
                 <div class="addons-wrapper">
                     <h3><i class="fas fa-cogs"></i> Customize Your Package</h3>
                     <div class="addons-table">
@@ -1170,7 +1231,7 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 23. MOBILE STICKY BOTTOM BAR (NEW)                              -->
+    <!-- 23. MOBILE STICKY BOTTOM BAR                                      -->
     <!-- ============================================================== -->
     <div id="mobileBottomBar">
         <button class="mobile-book-btn" onclick="openBookingModal('General Enquiry')">
@@ -1179,7 +1240,52 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 24. BOOKING MODAL                                               -->
+    <!-- 24. ON-LOAD FREE QUOTE POPUP (NEW)                              -->
+    <!-- ============================================================== -->
+    <div id="onLoadQuoteModal">
+        <div class="quote-modal-box">
+            <button class="btn-close-quote" onclick="closeQuoteModal()"><i class="fas fa-times"></i></button>
+            <h2>Get A Free Quote</h2>
+            <form id="quoteForm" onsubmit="submitQuoteForm(event)">
+                <div class="form-group-q">
+                    <label>Full name<span>*</span></label>
+                    <input type="text" id="qName" placeholder="Your full name" required>
+                </div>
+                <div class="form-group-q">
+                    <label>Mobile<span>*</span></label>
+                    <input type="tel" id="qMobile" placeholder="+91 98765 43210" required>
+                </div>
+                <div class="form-group-q">
+                    <label>Location<span>*</span></label>
+                    <input type="text" id="qLocation" placeholder="City / Venue" required>
+                </div>
+                <div class="form-group-q">
+                    <label>Date of Event<span>*</span></label>
+                    <input type="date" id="qDate" required>
+                </div>
+                
+                <!-- Mock ReCAPTCHA (Visual Only, Functional mock for UI) -->
+                <div class="captcha-mock" onclick="toggleCaptcha()">
+                    <div class="checkbox-mock" id="captchaBox">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <span class="captcha-text">I'm not a robot</span>
+                    <div class="captcha-logo">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>reCAPTCHA</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit-quote">Submit</button>
+                <div class="quote-footer">
+                    By Submitting This Form, You Agree To The Privacy Policy & Terms And Conditions.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 25. BOOKING, EXIT & LEAD MODALS                                 -->
     <!-- ============================================================== -->
     <div id="bookingDateModal">
         <div class="booking-modal-box">
@@ -1192,9 +1298,6 @@
         </div>
     </div>
 
-    <!-- ============================================================== -->
-    <!-- 25. EXIT INTENT POPUP                                           -->
-    <!-- ============================================================== -->
     <div id="exitPopup">
         <div class="exit-popup-box">
             <button class="btn-close-exit" onclick="closeExitPopup()"><i class="fas fa-times"></i></button>
@@ -1206,9 +1309,6 @@
         </div>
     </div>
 
-    <!-- ============================================================== -->
-    <!-- 26. LEAD MAGNET MODAL                                           -->
-    <!-- ============================================================== -->
     <div id="leadModal">
         <div class="lead-modal-box">
             <button class="btn-close-lead" onclick="closeLeadModal()"><i class="fas fa-times"></i></button>
@@ -1221,7 +1321,7 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 27. OTP LOGIN & DASHBOARD                                       -->
+    <!-- 26. OTP LOGIN & DASHBOARD                                       -->
     <!-- ============================================================== -->
     <div id="otpLoginModal">
         <div class="otp-login-box">
@@ -1270,7 +1370,7 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 28. JAVASCRIPT (ALL FEATURES INTEGRATED)                        -->
+    <!-- 27. JAVASCRIPT (ALL FEATURES INTEGRATED)                        -->
     <!-- ============================================================== -->
     <script>
         // 1. PRELOADER
@@ -1364,10 +1464,10 @@
         if (!localStorage.getItem('cookiesAccepted')) { document.getElementById('cookieConsent').style.display = 'flex'; }
         function acceptCookies() { localStorage.setItem('cookiesAccepted', 'true'); document.getElementById('cookieConsent').style.display = 'none'; }
 
-        // 7. VIDEO SOUND TOGGLE (NEW)
+        // 7. VIDEO SOUND TOGGLE
         const heroVideo = document.getElementById('heroVideo');
         const soundBtn = document.getElementById('videoSoundToggle');
-        let isMuted = true; // Default is muted
+        let isMuted = true;
         function toggleVideoSound() {
             isMuted = !isMuted;
             heroVideo.muted = isMuted;
@@ -1378,7 +1478,7 @@
             }
         }
 
-        // 8. BUDGET SLIDER LOGIC (NEW)
+        // 8. BUDGET SLIDER LOGIC
         const budgetSlider = document.getElementById('budgetSlider');
         const budgetDisplay = document.getElementById('budgetDisplay');
         const budgetRec = document.getElementById('budgetRecommendation');
@@ -1397,15 +1497,68 @@
             }
             budgetRec.innerText = recText;
             
-            // Also update the calculator base price dynamically based on slider
             basePrice = val;
-            // Trigger calculator update manually
             let total = basePrice;
             checkboxes.forEach(c => { if(c.checked) total += parseInt(c.getAttribute('data-price')); });
             totalDisplay.textContent = '₹' + total.toLocaleString('en-IN');
         });
 
-        // 9. BOOKING MODAL
+        // 9. ON-LOAD QUOTE MODAL (NEW)
+        const quoteModal = document.getElementById('onLoadQuoteModal');
+        let isCaptchaChecked = false;
+
+        // Trigger popup after 1.5 seconds of page load
+        setTimeout(() => {
+            // Check if user closed it before (optional: use localStorage to prevent re-opening)
+            if (!localStorage.getItem('quoteClosed')) {
+                quoteModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }, 1500);
+
+        function closeQuoteModal() {
+            quoteModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            localStorage.setItem('quoteClosed', 'true'); // Remember it for the session
+        }
+
+        function toggleCaptcha() {
+            let box = document.getElementById('captchaBox');
+            isCaptchaChecked = !isCaptchaChecked;
+            if(isCaptchaChecked) {
+                box.classList.add('checked');
+            } else {
+                box.classList.remove('checked');
+            }
+        }
+
+        function submitQuoteForm(e) {
+            e.preventDefault();
+            if(!isCaptchaChecked) {
+                alert("Please verify by clicking the 'I'm not a robot' checkbox.");
+                return;
+            }
+
+            let name = document.getElementById('qName').value;
+            let mobile = document.getElementById('qMobile').value;
+            let location = document.getElementById('qLocation').value;
+            let date = document.getElementById('qDate').value;
+            
+            let formattedDate = new Date(date + 'T00:00:00').toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+            let msg = `✨ *New Free Quote Request from Website*%0A%0A`;
+            msg += `👤 *Name:* ${name}%0A`;
+            msg += `📞 *Mobile:* ${mobile}%0A`;
+            msg += `📍 *Location:* ${location}%0A`;
+            msg += `📅 *Date of Event:* ${formattedDate}%0A%0A`;
+            msg += `Please contact me regarding availability and packages.`;
+
+            window.open(`https://wa.me/917654200109?text=${msg}`, '_blank');
+            
+            closeQuoteModal();
+        }
+
+        // 10. BOOKING MODAL
         const bookingModal = document.getElementById('bookingDateModal');
         const bookingContext = document.getElementById('bookingContext');
         const bookingDate = document.getElementById('bookingDate');
@@ -1426,7 +1579,7 @@
             closeBookingModal();
         }
 
-        // 10. EXIT INTENT POPUP
+        // 11. EXIT INTENT POPUP
         const exitPopup = document.getElementById('exitPopup');
         document.addEventListener('mouseleave', function(e) {
             if(e.clientY < 0 && !localStorage.getItem('exitIntentShown')) {
@@ -1436,7 +1589,7 @@
         });
         function closeExitPopup() { exitPopup.classList.remove('show'); }
 
-        // 11. LEAD MAGNET MODAL
+        // 12. LEAD MAGNET MODAL
         const leadModal = document.getElementById('leadModal');
         function openLeadModal() { leadModal.classList.add('active'); document.body.style.overflow = 'hidden'; }
         function closeLeadModal() { leadModal.classList.remove('active'); document.body.style.overflow = 'auto'; }
@@ -1448,13 +1601,13 @@
             closeLeadModal();
         }
 
-        // 12. COMPARISON TABLE TOGGLE
+        // 13. COMPARISON TABLE TOGGLE
         function toggleComparison() {
             const wrapper = document.getElementById('comparisonTableWrapper');
             wrapper.classList.toggle('active');
         }
 
-        // 13. CLIENT REVIEW FORM
+        // 14. CLIENT REVIEW FORM
         function submitReview(e) {
             e.preventDefault();
             let name = document.getElementById('rName').value;
@@ -1484,7 +1637,7 @@
         }
         document.addEventListener('DOMContentLoaded', loadReviews);
 
-        // 14. OTP LOGIN, DASHBOARD & GALLERY
+        // 15. OTP LOGIN, DASHBOARD & GALLERY
         const otpLoginModal = document.getElementById('otpLoginModal');
         const dashboardLink = document.getElementById('dashboardLink');
         const loginStepPhone = document.getElementById('loginStepPhone');
@@ -1561,7 +1714,7 @@
             });
         }
 
-        // 15. COUNTDOWN TIMER
+        // 16. COUNTDOWN TIMER
         let countDownDate = new Date("Dec 25, 2026 00:00:00").getTime();
         document.getElementById('bookingDate').addEventListener('change', function() {
             let selected = new Date(this.value + 'T00:00:00').getTime();
@@ -1576,7 +1729,7 @@
             document.getElementById('cdSecs').innerText = Math.floor((distance % (1000 * 60)) / 1000);
         }, 1000);
 
-        // 16. CUSTOM LANGUAGE TRANSLATION TOGGLE (DEFAULT ENGLISH)
+        // 17. CUSTOM LANGUAGE TRANSLATION TOGGLE (DEFAULT ENGLISH)
         const langToggle = document.getElementById('langToggle');
         let currentLang = 'en';
         const translations = {
