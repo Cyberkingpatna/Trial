@@ -5,18 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Wedding | Luxury Photography & Cinematography</title>
     
-    <!-- Font Awesome for Icons -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Playfair Display and Poppins -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Local Business Schema for SEO -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
       "name": "The Wedding - Luxury Photography & Cinematography",
-      "image": "https://images.pexels.com/photos/2781195/pexels-photo-2781195.jpeg",
       "telephone": "+917654200109",
       "email": "hello@thewedding.in",
       "address": {
@@ -26,16 +24,12 @@
         "addressRegion": "Bihar",
         "postalCode": "800009",
         "addressCountry": "IN"
-      },
-      "description": "Luxury Wedding Photography & Cinematography providing cinematic storytelling, drone coverage, and pre-wedding shoots across India."
+      }
     }
     </script>
 
     <style>
-        /* ================================================================================= */
-        /* ======================== 1. CSS VARIABLES AND ROOT SETUP ======================== */
-        /* ================================================================================= */
-        
+        /* =========== 1. CSS VARIABLES =========== */
         :root {
             --bg-body: #fcf8f4;
             --bg-section: #f5f0eb;
@@ -50,26 +44,17 @@
             --gold-glow: rgba(196, 147, 94, 0.3);
             
             --text-light: #2a2a2a;
-            --text-white: #1a1a1a;
             --text-muted: #666666;
+            --text-white: #ffffff;
             
-            --border-gold: 1px solid rgba(196, 147, 94, 0.4);
-            --border-light: 1px solid rgba(0, 0, 0, 0.05);
-            
-            --shadow-gold: 0 10px 40px rgba(196, 147, 94, 0.2);
+            --shadow-gold: 0 10px 40px rgba(196, 147, 94, 0.25);
             --shadow-box: 0 10px 30px rgba(0, 0, 0, 0.05);
-            --shadow-modal: 0 20px 60px rgba(0, 0, 0, 0.15);
-            
-            --transition-fast: all 0.3s ease;
-            --transition-smooth: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        /* ================================================================================= */
-        /* ======================== 2. GLOBAL RESET & TYPOGRAPHY =========================== */
-        /* ================================================================================= */
-        
+        /* =========== 2. GLOBAL RESET =========== */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+        html { scroll-behavior: smooth; scroll-padding-top: 90px; }
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-body);
@@ -77,267 +62,311 @@
             overflow-x: hidden;
             line-height: 1.7;
             font-weight: 300;
-            -webkit-font-smoothing: antialiased;
         }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Playfair Display', serif;
-            color: var(--text-white);
-            letter-spacing: 1px;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-        p { color: var(--text-muted); font-weight: 300; margin-bottom: 15px; font-size: 1rem; }
-        a { text-decoration: none; color: inherit; transition: var(--transition-fast); }
-        ul, ol { list-style: none; margin: 0; padding: 0; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; line-height: 1.2; }
+        p { color: var(--text-muted); margin-bottom: 15px; font-size: 1rem; }
+        a { text-decoration: none; color: inherit; transition: var(--transition-smooth); }
+        ul { list-style: none; padding: 0; margin: 0; }
         img { max-width: 100%; height: auto; display: block; }
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-body); }
         ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 5px; }
         ::selection { background: var(--gold); color: #fff; }
 
-        /* ================================================================================= */
-        /* ======================== 3. BUTTONS ============================================= */
-        /* ================================================================================= */
-        .btn {
-            display: inline-flex; align-items: center; justify-content: center;
-            padding: 16px 40px; font-family: 'Poppins', sans-serif; font-weight: 600;
-            font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase;
-            border: 2px solid transparent; cursor: pointer; border-radius: 50px;
-            transition: var(--transition-smooth); position: relative; overflow: hidden;
-        }
-        .btn-gold { background: transparent; color: var(--gold); border-color: var(--gold); z-index: 1; }
-        .btn-gold::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--gold); transition: left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); z-index: -1; }
-        .btn-gold:hover { color: #fff; box-shadow: var(--shadow-gold); }
-        .btn-gold:hover::before { left: 0; }
-        .btn-primary { background: var(--gold); color: #fff; border-color: var(--gold); }
-        .btn-primary:hover { background: var(--gold-dark); border-color: var(--gold-dark); transform: translateY(-3px); box-shadow: var(--shadow-gold); }
-        .btn-dark { background: transparent; color: var(--text-dark); border-color: rgba(0, 0, 0, 0.1); }
-        .btn-dark:hover { background: var(--text-dark); color: var(--text-white); border-color: var(--text-dark); }
-        .btn-sm { padding: 8px 20px; font-size: 0.7rem; letter-spacing: 1px; border-radius: 30px; }
-        .btn-lg { padding: 20px 50px; font-size: 1.1rem; }
-
-        /* ================================================================================= */
-        /* ======================== 4. PRELOADER =========================================== */
-        /* ================================================================================= */
-        #preloader {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #1a0a0a; display: flex; justify-content: center; align-items: center;
-            z-index: 99999; transition: opacity 0.6s ease;
-        }
-        #preloader.loaded { opacity: 0; visibility: hidden; pointer-events: none; }
-        .loader-wrapper { text-align: center; }
-        .loader-ring {
-            width: 80px; height: 80px; border: 4px solid rgba(255, 255, 255, 0.1);
-            border-top: 4px solid var(--gold); border-radius: 50%; margin: 0 auto 20px;
-            animation: spinLoader 1s linear infinite;
-        }
-        @keyframes spinLoader { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .loader-text { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.5rem; }
-        .loader-progress { width: 200px; height: 2px; background: rgba(255, 255, 255, 0.1); margin: 15px auto; border-radius: 10px; overflow: hidden; }
-        .loader-progress-bar { width: 0%; height: 100%; background: var(--gold); }
-
-        /* ================================================================================= */
-        /* ======================== 5. SCROLL REVEAL & UTILS =============================== */
-        /* ================================================================================= */
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        /* =========== 3. UTILITIES =========== */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-gold { color: var(--gold); }
         .text-center { text-align: center; }
         .bg-section { background: var(--bg-section); }
+        .d-flex { display: flex; } .flex-column { flex-direction: column; } .align-items-center { align-items: center; }
+        .justify-content-center { justify-content: center; } .gap-20 { gap: 20px; } .gap-30 { gap: 30px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+        .mt-20 { margin-top: 20px; } .mt-40 { margin-top: 40px; } .mb-20 { margin-bottom: 20px; } .mb-40 { margin-bottom: 40px; }
 
-        /* ================================================================================= */
-        /* ======================== 6. NAVIGATION BAR ====================================== */
-        /* ================================================================================= */
+        /* =========== 4. BUTTONS & ANIMATIONS =========== */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 14px 30px; font-family: 'Poppins', sans-serif; font-weight: 600;
+            font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase;
+            border: 2px solid transparent; cursor: pointer; border-radius: 50px;
+            transition: var(--transition-smooth); position: relative; overflow: hidden;
+        }
+        .btn-primary { background: var(--gold); color: #fff; border-color: var(--gold); }
+        .btn-primary:hover { background: var(--gold-dark); border-color: var(--gold-dark); transform: translateY(-3px); box-shadow: var(--shadow-gold); }
+        .btn-gold { background: transparent; color: var(--gold); border-color: var(--gold); }
+        .btn-gold:hover { background: var(--gold); color: #fff; box-shadow: var(--shadow-gold); }
+        .btn-dark { background: transparent; color: #fff; border-color: rgba(255,255,255,0.3); }
+        .btn-dark:hover { background: #fff; color: var(--maroon); border-color: #fff; }
+        .btn-sm { padding: 8px 20px; font-size: 0.7rem; }
+
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* =========== 5. PRELOADER =========== */
+        #preloader {
+            position: fixed; inset: 0; background: #1a0a0a; display: flex; justify-content: center; align-items: center;
+            z-index: 99999; transition: opacity 0.6s ease;
+        }
+        #preloader.loaded { opacity: 0; visibility: hidden; pointer-events: none; }
+        .loader-ring {
+            width: 80px; height: 80px; border: 4px solid rgba(255,255,255,0.1);
+            border-top: 4px solid var(--gold); border-radius: 50%; margin: 0 auto 20px;
+            animation: spinLoader 1s linear infinite;
+        }
+        @keyframes spinLoader { 100% { transform: rotate(360deg); } }
+        .loader-text { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.5rem; }
+
+        /* =========== 6. NAVIGATION BAR =========== */
         .navbar {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 60px; transition: var(--transition-smooth);
-            background: rgba(252, 248, 244, 0.85); backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border-gold);
+            background: rgba(252, 248, 244, 0.9); backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--gold);
             box-shadow: 0 4px 20px rgba(0,0,0,0.03);
         }
         .navbar.scrolled { background: rgba(252, 248, 244, 0.98); padding: 10px 60px; }
         .navbar .logo { display: flex; align-items: center; }
-        .navbar .logo .nav-logo { height: 50px; width: auto; transition: var(--transition-smooth); }
-        .navbar .logo .nav-logo:hover { transform: scale(1.05); }
+        .navbar .logo img { height: 50px; width: auto; transition: 0.3s; }
+        .navbar .logo img:hover { transform: scale(1.05); }
         .navbar .nav-links { display: flex; align-items: center; gap: 30px; }
         .navbar .nav-links li a { color: var(--text-muted); font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; position: relative; padding: 5px 0; }
-        .navbar .nav-links li a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--gold); transition: width 0.3s ease; }
-        .navbar .nav-links li a:hover { color: var(--text-dark); }
+        .navbar .nav-links li a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--gold); transition: width 0.3s; }
+        .navbar .nav-links li a:hover { color: var(--maroon); }
         .navbar .nav-links li a:hover::after { width: 100%; }
-        .navbar .hamburger { display: none; font-size: 1.8rem; color: var(--text-dark); cursor: pointer; background: transparent; border: none; outline: none; }
+        .navbar .hamburger { display: none; font-size: 1.8rem; color: var(--text-light); cursor: pointer; background: transparent; border: none; }
 
-        /* ================================================================================= */
-        /* ======================== 7. HERO SECTION ======================================== */
-        /* ================================================================================= */
+        /* =========== 7. HERO SECTION =========== */
         .hero {
             position: relative; height: 100vh; min-height: 700px;
             display: flex; justify-content: center; align-items: center; text-align: center;
-            /* Deep maroon cinematic overlay */
             background: linear-gradient(rgba(74, 14, 14, 0.85), rgba(45, 6, 6, 0.95)), url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center center/cover no-repeat;
             padding-top: 80px; border-bottom: 5px solid var(--gold);
         }
         .hero-content { position: relative; z-index: 10; max-width: 900px; padding: 0 20px; }
         .hero-content .sub-title {
-            display: inline-block; color: var(--gold); font-weight: 600; letter-spacing: 4px;
-            text-transform: uppercase; font-size: 0.85rem; margin-bottom: 15px;
-            padding: 8px 20px; border: 1px solid var(--gold); border-radius: 50px; background: rgba(0,0,0,0.3);
+            display: inline-block; color: var(--gold); font-weight: 600; letter-spacing: 4px; text-transform: uppercase;
+            font-size: 0.85rem; margin-bottom: 15px; padding: 8px 20px; border: 1px solid var(--gold); border-radius: 50px; background: rgba(0,0,0,0.3);
         }
         .hero-content h1 { font-size: 5.5rem; line-height: 1.1; margin-bottom: 25px; color: #fff; text-shadow: 0 5px 20px rgba(0,0,0,0.5); }
         .hero-content h1 .highlight { color: var(--gold); text-shadow: 0 0 40px rgba(196, 147, 94, 0.4); }
         .hero-content p { font-size: 1.2rem; color: rgba(255,255,255,0.8); max-width: 650px; margin: 0 auto 35px; }
         .hero-content .cta-group { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
 
-        /* ================================================================================= */
-        /* ======================== 8. COMMON SECTION & TITLES ============================= */
-        /* ================================================================================= */
-        section { padding: 100px 0; position: relative; }
+        /* =========== 8. SECTION TITLES =========== */
+        section { padding: 90px 0; position: relative; }
         .section-title { text-align: center; max-width: 700px; margin: 0 auto 60px; }
         .section-title h2 { font-size: 3.5rem; margin-bottom: 10px; font-weight: 900; color: var(--maroon); }
-        .section-title h2 .light { color: var(--text-dark); }
+        .section-title h2 .light { color: var(--text-light); }
         .section-title .ornate-line { display: block; width: 80px; height: 2px; background: var(--gold); margin: 15px auto 0; position: relative; }
         .section-title .ornate-line::before, .section-title .ornate-line::after { content: ''; position: absolute; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; top: -3px; }
         .section-title .ornate-line::before { left: -15px; }
         .section-title .ornate-line::after { right: -15px; }
 
-        /* ================================================================================= */
-        /* ======================== 9. STATS COUNTER ======================================= */
-        /* ================================================================================= */
+        /* =========== 9. STATS =========== */
         .stats-wrapper { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center; }
         .stats-wrapper .stat-item { background: #fff; padding: 30px 20px; border-radius: 10px; box-shadow: var(--shadow-box); border-top: 3px solid var(--gold); }
         .stats-wrapper .stat-item h3 { font-size: 3rem; color: var(--gold); margin-bottom: 5px; font-weight: 900; }
         .stats-wrapper .stat-item p { color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; }
 
-        /* ================================================================================= */
-        /* ======================== 10. PORTFOLIO & PROJECT BOOK NOW ======================== */
-        /* ================================================================================= */
+        /* =========== 10. ABOUT =========== */
+        .about-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .about-image { position: relative; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-box); }
+        .about-image img { width: 100%; border-radius: 12px; transition: transform 0.8s ease; }
+        .about-image:hover img { transform: scale(1.03); }
+        .about-content h2 { font-size: 3rem; color: var(--gold); margin-bottom: 20px; }
+        .about-content .highlight-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; margin-top: 20px; margin-bottom: 25px; }
+        .about-content .highlight-list li { display: flex; align-items: center; gap: 10px; color: #444; font-size: 0.95rem; }
+        .about-content .highlight-list li i { color: var(--gold); }
+
+        /* =========== 11. SERVICES & WHY CHOOSE =========== */
+        .services-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; }
+        .service-item { background: #fff; padding: 40px 20px; text-align: center; border: 1px solid rgba(0,0,0,0.05); border-radius: 8px; transition: var(--transition-smooth); box-shadow: var(--shadow-box); }
+        .service-item:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: var(--shadow-gold); }
+        .service-item .icon { display: inline-flex; width: 60px; height: 60px; background: rgba(196,147,94,0.1); border-radius: 50%; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.8rem; color: var(--gold); }
+        .service-item h4 { font-size: 1.1rem; color: var(--maroon); margin-bottom: 10px; }
+        .service-item p { font-size: 0.9rem; margin-bottom: 0; }
+
+        .choose-wrapper { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .choose-card { background: #fff; padding: 40px 30px; text-align: center; border: 1px solid rgba(0,0,0,0.05); border-radius: 8px; transition: var(--transition-smooth); position: relative; box-shadow: var(--shadow-box); }
+        .choose-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: var(--shadow-gold); }
+        .choose-card .num { font-family: 'Playfair Display', serif; font-size: 4rem; font-weight: 900; color: rgba(196,147,94,0.15); position: absolute; top: 10px; right: 15px; }
+        .choose-card i { font-size: 2.5rem; color: var(--gold); margin-bottom: 20px; }
+        .choose-card h4 { color: var(--maroon); font-size: 1.3rem; margin-bottom: 10px; }
+
+        /* =========== 12. PORTFOLIO =========== */
+        .gallery-filter { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 40px; }
+        .filter-btn { background: transparent; border: 1px solid rgba(0,0,0,0.1); padding: 10px 25px; color: var(--text-muted); font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; cursor: pointer; border-radius: 4px; transition: 0.3s; }
+        .filter-btn:hover, .filter-btn.active { background: var(--gold); color: #fff; border-color: var(--gold); }
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
         .gallery-item { position: relative; overflow: hidden; border-radius: 10px; cursor: pointer; height: 350px; box-shadow: var(--shadow-box); border: 1px solid rgba(0,0,0,0.03); }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
         .gallery-item:hover img { transform: scale(1.1); }
-        .gallery-item .overlay {
-            position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            transform: translateY(100%); transition: transform 0.5s ease; display: flex; flex-direction: column; justify-content: flex-end;
-            height: 100%; box-sizing: border-box;
-        }
+        .gallery-item .overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); transform: translateY(100%); transition: transform 0.5s ease; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; }
         .gallery-item:hover .overlay { transform: translateY(0); }
         .gallery-item .overlay h4 { color: #fff; font-size: 1.2rem; margin-bottom: 5px; }
-        .gallery-item .overlay span { color: var(--gold); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
-        .book-project-btn { 
-            display: inline-block; width: auto; padding: 8px 18px; 
-            background: var(--gold); color: #fff; border-radius: 30px; font-size: 0.7rem; 
-            font-weight: 600; text-transform: uppercase; margin-top: 15px; align-self: flex-start;
-            box-shadow: 0 4px 15px rgba(196, 147, 94, 0.4); transition: 0.3s;
-        }
+        .gallery-item .overlay span { color: var(--gold); font-size: 0.85rem; text-transform: uppercase; }
+        .book-project-btn { display: inline-block; padding: 8px 18px; background: var(--gold); color: #fff; border-radius: 30px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; margin-top: 15px; align-self: flex-start; box-shadow: 0 4px 15px rgba(196,147,94,0.4); transition: 0.3s; }
         .book-project-btn:hover { background: #fff; color: var(--gold); transform: scale(1.05); }
 
-        /* ================================================================================= */
-        /* ======================== 11. PRICING ============================================ */
-        /* ================================================================================= */
+        /* =========== 13. TEAM =========== */
+        .team-wrapper { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 30px; text-align: center; }
+        .team-member { background: #fff; padding: 30px 20px; border: 1px solid rgba(0,0,0,0.05); border-radius: 10px; transition: var(--transition-smooth); box-shadow: var(--shadow-box); }
+        .team-member:hover { transform: translateY(-8px); border-color: var(--gold); }
+        .team-member img { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; margin: 0 auto 15px; border: 4px solid rgba(196,147,94,0.3); transition: 0.3s; }
+        .team-member:hover img { border-color: var(--gold); }
+        .team-member h4 { color: var(--maroon); font-size: 1.1rem; }
+        .team-member p { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* =========== 14. TESTIMONIALS =========== */
+        .testimonial-wrapper { max-width: 800px; margin: 0 auto; overflow: hidden; position: relative; }
+        .testimonial-track { display: flex; transition: transform 0.6s ease; }
+        .testimonial-item { min-width: 100%; padding: 40px; background: #fff; border-left: 5px solid var(--gold); border-radius: 6px; text-align: center; box-shadow: var(--shadow-box); }
+        .testimonial-item p { font-size: 1.1rem; font-style: italic; color: #444; line-height: 1.8; }
+        .testimonial-item h5 { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-top: 10px; }
+        .slider-dots { display: flex; justify-content: center; gap: 12px; margin-top: 30px; }
+        .slider-dot { width: 12px; height: 12px; background: rgba(0,0,0,0.1); border-radius: 50%; cursor: pointer; transition: 0.3s; }
+        .slider-dot.active { background: var(--gold); }
+
+        /* =========== 15. PRICING =========== */
         .pricing-wrapper { border: 2px solid var(--gold); padding: 40px; background: #fff; box-shadow: var(--shadow-gold); border-radius: 12px; }
         .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
-        .price-card { background: var(--bg-body); border: 1px solid var(--border-light); padding: 25px; transition: var(--transition-smooth); border-radius: 8px; }
+        .price-card { background: var(--bg-body); border: 1px solid rgba(0,0,0,0.05); padding: 25px; border-radius: 8px; transition: var(--transition-smooth); }
         .price-card.featured { border: 2px solid var(--gold); background: #fff; box-shadow: var(--shadow-gold); transform: scale(1.02); }
         .price-card:hover { transform: translateY(-5px); border-color: var(--gold); }
+        .price-card .card-title { font-size: 1.6rem; color: var(--gold); text-transform: uppercase; text-align: center; margin-bottom: 15px; }
+        .price-card.featured .card-title { background: var(--gold); color: #fff; padding: 10px; margin-top: -25px; margin-bottom: 20px; border-radius: 5px 5px 0 0; }
+        .price-card ul li { padding: 8px 0; border-bottom: 1px dashed #eee; display: flex; gap: 10px; font-size: 0.9rem; color: #555; }
+        .price-card ul li i { color: var(--gold); }
+        .price-card .price-tag { text-align: center; margin-top: 20px; padding: 15px; background: #f5f0eb; border-radius: 5px; }
+        .price-card .price-tag span { font-size: 2rem; font-weight: 700; color: var(--gold); }
+        .price-card.featured .price-tag { border: 2px solid var(--gold); background: #fff; }
 
-        /* ================================================================================= */
-        /* ======================== 12. FOOTER & OTHERS ==================================== */
-        /* ================================================================================= */
+        /* =========== 16. BLOG =========== */
+        .blog-wrapper { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+        .blog-card { background: #fff; border-radius: 8px; overflow: hidden; transition: var(--transition-smooth); box-shadow: var(--shadow-box); border: 1px solid rgba(0,0,0,0.03); }
+        .blog-card:hover { transform: translateY(-8px); border-color: var(--gold); }
+        .blog-card .blog-img { height: 200px; overflow: hidden; }
+        .blog-card .blog-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .blog-card:hover .blog-img img { transform: scale(1.08); }
+        .blog-card .blog-content { padding: 25px; }
+        .blog-card .blog-content h4 { color: var(--maroon); margin-bottom: 10px; }
+        .blog-card .blog-content .meta { display: flex; gap: 15px; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 10px; }
+
+        /* =========== 17. FAQ =========== */
+        .faq-wrapper { max-width: 800px; margin: 0 auto; }
+        .faq-item { background: #fff; margin-bottom: 15px; border-radius: 6px; border: 1px solid rgba(0,0,0,0.05); overflow: hidden; box-shadow: var(--shadow-box); }
+        .faq-item .faq-question { padding: 20px 25px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 500; color: var(--maroon); }
+        .faq-item .faq-question .icon { font-size: 1.5rem; transition: 0.4s; color: var(--gold); }
+        .faq-item.active .faq-question .icon { transform: rotate(45deg); }
+        .faq-item .faq-answer { max-height: 0; padding: 0 25px; overflow: hidden; transition: max-height 0.5s ease, padding 0.4s ease; color: var(--text-muted); background: #faf8f6; }
+        .faq-item.active .faq-answer { max-height: 250px; padding: 20px 25px; }
+
+        /* =========== 18. CONTACT & MAP =========== */
+        .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+        .contact-form h2 { color: var(--gold); font-size: 2.2rem; margin-bottom: 25px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; color: #555; font-size: 0.9rem; font-weight: 500; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 14px 18px; background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; color: var(--text-light); font-family: 'Poppins', sans-serif; transition: 0.3s; outline: none; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); box-shadow: 0 0 15px rgba(196,147,94,0.1); }
+        .contact-info-box { padding: 40px; background: #fff; border: 1px solid rgba(0,0,0,0.05); border-radius: 10px; box-shadow: var(--shadow-box); }
+        .contact-info-box h3 { color: var(--gold); margin-bottom: 20px; }
+        .contact-info-box .info-row { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; }
+        .contact-info-box .info-row i { color: var(--gold); font-size: 1.4rem; width: 30px; margin-top: 3px; }
+        .contact-info-box .info-row p { font-size: 0.95rem; margin-bottom: 0; }
+        .contact-info-box .info-row p strong { color: var(--maroon); }
+        .map-container { width: 100%; border-radius: 8px; overflow: hidden; margin-top: 15px; border: 1px solid rgba(0,0,0,0.08); }
+
+        /* =========== 19. FOOTER =========== */
         .main-footer { background: var(--maroon-dark); color: #fff; padding: 60px 0 30px; border-top: 4px solid var(--gold); }
-        .main-footer h4 { color: var(--gold); }
-        .main-footer ul li a { color: rgba(255,255,255,0.7); }
-        .main-footer ul li a:hover { color: var(--gold); }
-        .back-to-top {
-            position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px;
-            background: var(--gold); color: #fff; border: none; border-radius: 50%;
-            font-size: 1.5rem; cursor: pointer; opacity: 0; visibility: hidden;
-            transition: var(--transition-fast); box-shadow: var(--shadow-gold); z-index: 998;
-        }
-        .back-to-top.visible { opacity: 1; visibility: visible; }
-        .back-to-top:hover { transform: scale(1.1); background: var(--gold-dark); }
+        .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .footer-grid h4 { color: var(--gold); font-size: 1.3rem; margin-bottom: 20px; }
+        .footer-grid p, .footer-grid ul li a { color: rgba(255,255,255,0.7); font-size: 0.9rem; }
+        .footer-grid ul li { margin-bottom: 10px; }
+        .footer-grid ul li a:hover { color: var(--gold); padding-left: 5px; }
+        .footer-social-icons { display: flex; gap: 15px; margin-top: 15px; }
+        .footer-social-icons a { display: inline-flex; width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; justify-content: center; align-items: center; color: #fff; transition: 0.3s; }
+        .footer-social-icons a:hover { background: var(--gold); color: #fff; transform: translateY(-3px); }
+        .footer-bottom { text-align: center; padding-top: 30px; color: rgba(255,255,255,0.6); font-size: 0.85rem; }
+        .footer-bottom span { color: var(--gold); }
 
-        /* Floating Action Buttons */
-        .action-fab { position: fixed; bottom: 30px; left: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 999; }
-        .fab-btn {
-            width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            color: #fff; font-size: 1.5rem; box-shadow: 0 6px 25px rgba(0,0,0,0.15); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .fab-call { background: #007bff; }
-        .fab-whatsapp { background: #25D366; }
-        .fab-book { background: var(--gold); }
+        /* =========== 20. FLOATING & CHAT =========== */
+        .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: var(--gold); color: #fff; border: none; border-radius: 50%; font-size: 1.5rem; cursor: pointer; opacity: 0; visibility: hidden; transition: 0.3s; box-shadow: var(--shadow-gold); z-index: 998; }
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+        .action-fab { position: fixed; bottom: 30px; left: 30px; display: flex; flex-direction: column; gap: 12px; z-index: 999; }
+        .fab-btn { width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 1.5rem; box-shadow: 0 6px 25px rgba(0,0,0,0.15); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .fab-btn:hover { transform: scale(1.1); }
+        .fab-call { background: #007bff; } .fab-whatsapp { background: #25D366; } .fab-book { background: var(--gold); }
 
         /* Chatbot */
         .chatbot-toggle { position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.5rem; cursor: pointer; box-shadow: var(--shadow-gold); z-index: 999; border: none; transition: 0.3s;}
-        .chatbot-toggle:hover { transform: scale(1.1); }
-        .chatbot-window { position: fixed; bottom: 100px; right: 30px; width: 350px; height: 450px; background: #fff; border-radius: 16px; box-shadow: var(--shadow-modal); border: 1px solid var(--border-gold); display: none; flex-direction: column; overflow: hidden; z-index: 9999; }
+        .chatbot-window { position: fixed; bottom: 100px; right: 30px; width: 350px; height: 450px; background: #fff; border-radius: 16px; box-shadow: var(--shadow-modal); border: 1px solid var(--gold); display: none; flex-direction: column; overflow: hidden; z-index: 9999; }
         .chatbot-window.active { display: flex; }
         .chat-header { background: var(--gold); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; color: #fff; }
         .chat-body { flex: 1; padding: 15px; overflow-y: auto; background: #fcf8f4; display: flex; flex-direction: column; gap: 10px; }
-        .chat-msg { max-width: 85%; padding: 10px 15px; border-radius: 12px; font-size: 0.9rem; line-height: 1.5; }
+        .chat-msg { max-width: 85%; padding: 10px 15px; border-radius: 12px; font-size: 0.9rem; }
         .chat-msg.bot { background: #e6cca8; align-self: flex-start; }
         .chat-msg.user { background: var(--maroon); color: #fff; align-self: flex-end; }
-        .chat-footer { padding: 10px; background: #fff; display: flex; gap: 10px; }
+        .chat-footer { padding: 10px; background: #fff; display: flex; gap: 10px; border-top: 1px solid #eee; }
+        .chat-footer input { flex: 1; border: 1px solid #eee; border-radius: 30px; padding: 10px 15px; outline: none; }
 
-        /* Responsive */
+        /* =========== 21. RESPONSIVE =========== */
         @media (max-width: 1024px) {
             .hero-content h1 { font-size: 4rem; }
             .pricing-grid { grid-template-columns: 1fr; gap: 20px; }
-            .stats-wrapper { grid-template-columns: repeat(2, 1fr); }
+            .choose-wrapper { grid-template-columns: repeat(2, 1fr); }
+            .contact-wrapper { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
         }
         @media (max-width: 768px) {
             .hamburger { display: block; }
-            .nav-links {
-                position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
-                background: #fff; flex-direction: column; justify-content: center;
-                align-items: center; transition: right 0.5s ease; border-left: 2px solid var(--gold);
-                gap: 20px; box-shadow: -5px 0 20px rgba(0,0,0,0.1);
-            }
+            .nav-links { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: #fff; flex-direction: column; justify-content: center; align-items: center; transition: right 0.5s ease; border-left: 2px solid var(--gold); gap: 20px; box-shadow: -5px 0 20px rgba(0,0,0,0.1); }
             .nav-links.active { right: 0; }
             .navbar { padding: 15px 20px; }
             .hero-content h1 { font-size: 2.8rem; }
-            .stats-wrapper { grid-template-columns: 1fr; }
+            .stats-wrapper { grid-template-columns: repeat(2, 1fr); }
+            .choose-wrapper { grid-template-columns: 1fr; }
+            .about-content .highlight-list { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .chatbot-window { width: 90%; right: 5%; bottom: 90px; }
         }
         @media (max-width: 480px) {
             .hero-content h1 { font-size: 2.2rem; }
+            .hero-content .cta-group { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Preloader -->
+    <!-- 1. PRELOADER -->
     <div id="preloader">
         <div class="loader-wrapper">
             <div class="loader-ring"></div>
             <div class="loader-text">The Wedding</div>
-            <div class="loader-progress">
-                <div class="loader-progress-bar" id="loaderBar"></div>
-            </div>
         </div>
     </div>
 
-    <!-- Navigation Bar with LOGO -->
+    <!-- 2. NAVBAR -->
     <nav class="navbar" id="navbar">
-        <!-- यहाँ अपना लोगो इमेज डालें: logo.png या logo.jpg -->
         <a href="#" class="logo">
-            <img src="logo.png" alt="The Wedding" class="nav-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-            <span style="display:none; font-family:'Playfair Display', serif; font-size:2rem; color:var(--maroon);">The <span style="color:var(--gold);">Wedding</span></span>
+            <!-- अपना लोगो यहाँ डालें -->
+            <img src="logo.png" alt="The Wedding" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <span style="display:none; font-family:'Playfair Display', serif; font-size:1.8rem; color:var(--maroon);">The <span style="color:var(--gold);">Wedding</span></span>
         </a>
-        
         <ul class="nav-links" id="navLinks">
             <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
             <li><a href="#portfolio">Portfolio</a></li>
             <li><a href="#pricing">Pricing</a></li>
             <li><a href="#contact">Contact</a></li>
-            <!-- Direct WhatsApp Book Now Button -->
-            <li><a href="https://wa.me/917654200109?text=Hi%20The%20Wedding%20Team!%20I%20want%20to%20book%20my%20date%20and%20know%20about%20packages." target="_blank" class="btn btn-primary btn-sm" style="padding: 10px 25px; color:#fff; border-radius:30px;">Book Now</a></li>
+            <li><a href="https://wa.me/917654200109?text=Hi%20The%20Wedding%20Team!%20I%20want%20to%20book%20my%20date." target="_blank" class="btn btn-primary btn-sm" style="color:#fff; border-radius:30px;">Book Now</a></li>
         </ul>
         <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- 3. HERO -->
     <section class="hero" id="home">
         <div class="hero-content">
             <span class="sub-title"><i class="fas fa-crown"></i> Premium Wedding Studio</span>
@@ -345,12 +374,12 @@
             <p>Luxury Wedding Photography & Films Crafted With Emotion, Elegance & Timeless Memories</p>
             <div class="cta-group">
                 <a href="#pricing" class="btn btn-gold">View Packages</a>
-                <a href="#portfolio" class="btn btn-dark" style="color:#fff; border-color:rgba(255,255,255,0.3);">View Portfolio</a>
+                <a href="#portfolio" class="btn btn-dark">View Portfolio</a>
             </div>
         </div>
     </section>
 
-    <!-- Stats -->
+    <!-- 4. STATS -->
     <section class="bg-section">
         <div class="container">
             <div class="stats-wrapper">
@@ -362,208 +391,332 @@
         </div>
     </section>
 
-    <!-- Portfolio with Book Now Button Under Every Project -->
-    <section id="portfolio">
+    <!-- 5. ABOUT -->
+    <section id="about">
+        <div class="container">
+            <div class="about-wrapper">
+                <div class="about-image reveal">
+                    <img src="https://images.pexels.com/photos/2781195/pexels-photo-2781195.jpeg?auto=compress&cs=tinysrgb&w=600" alt="About The Wedding Studio">
+                </div>
+                <div class="about-content reveal">
+                    <span class="text-gold text-uppercase" style="letter-spacing: 3px; font-weight: 600;">Our Philosophy</span>
+                    <h2>Where Every Wedding Becomes A Masterpiece</h2>
+                    <p>At The Wedding, we believe every frame is a canvas for emotions. Founded in 2004, we’ve grown into a full‑service creative powerhouse, delivering world‑class visual stories.</p>
+                    <ul class="highlight-list">
+                        <li><i class="fas fa-check-circle"></i> Cinematic Wedding Films</li>
+                        <li><i class="fas fa-check-circle"></i> Luxury Wedding Photography</li>
+                        <li><i class="fas fa-check-circle"></i> Drone Coverage</li>
+                        <li><i class="fas fa-check-circle"></i> Pre-Wedding Shoots</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Start Your Journey</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. SERVICES -->
+    <section id="services" class="bg-section">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>CINEMATIC <span class="light">STORY</span></h2>
+                <p>Luxury Wedding Photography & Films Crafted With Emotion, Elegance & Timeless Memories</p>
+                <span class="ornate-line"></span>
+            </div>
+            <div class="services-wrapper">
+                <div class="service-item reveal"><div class="icon"><i class="fas fa-film"></i></div><h4>Cinematic Wedding Films</h4><p>Immersive 4K storytelling with emotional soundtracks.</p></div>
+                <div class="service-item reveal"><div class="icon"><i class="fas fa-camera"></i></div><h4>Luxury Photography</h4><p>Fine art photography capturing candid moments.</p></div>
+                <div class="service-item reveal"><div class="icon"><i class="fas fa-plane"></i></div><h4>Drone Coverage</h4><p>Stunning aerial shots of your venue and grand setups.</p></div>
+                <div class="service-item reveal"><div class="icon"><i class="fas fa-heart"></i></div><h4>Pre-Wedding Shoots</h4><p>Destination concepts that tell your unique love story.</p></div>
+                <div class="service-item reveal"><div class="icon"><i class="fas fa-camera-retro"></i></div><h4>Candid Photography</h4><p>Unposed, raw moments capturing genuine emotions.</p></div>
+                <div class="service-item reveal"><div class="icon"><i class="fas fa-book-open"></i></div><h4>Premium Album Design</h4><p>Handcrafted luxury albums with premium leather binding.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. WHY CHOOSE US -->
+    <section id="why-choose-us">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>WHY <span class="light">CHOOSE US</span></h2>
+                <p>We don't just capture moments; we create cinematic masterpieces that last a lifetime.</p>
+                <span class="ornate-line"></span>
+            </div>
+            <div class="choose-wrapper">
+                <div class="choose-card reveal"><span class="num">01</span><i class="fas fa-crown"></i><h4>Cinematic Excellence</h4><p>High-end cinematography techniques ensure your film looks like a major motion picture.</p></div>
+                <div class="choose-card reveal"><span class="num">02</span><i class="fas fa-microphone-alt"></i><h4>Unobtrusive Presence</h4><p>We blend into the background to capture genuine, candid smiles without interrupting your flow.</p></div>
+                <div class="choose-card reveal"><span class="num">03</span><i class="fas fa-drone"></i><h4>Drone & Advanced Gear</h4><p>From 4K cinema cameras to high-end drones for breathtaking aerial perspectives.</p></div>
+                <div class="choose-card reveal"><span class="num">04</span><i class="fas fa-palette"></i><h4>Timeless Editing Style</h4><p>Warm, cinematic color grading ensures your memories look fresh and elegant forever.</p></div>
+                <div class="choose-card reveal"><span class="num">05</span><i class="fas fa-gem"></i><h4>Luxury Albums & Prints</h4><p>Partnering with world-class printing labs for leather-wrapped albums and fine-art prints.</p></div>
+                <div class="choose-card reveal"><span class="num">06</span><i class="fas fa-headset"></i><h4>Dedicated Client Support</h4><p>From the first inquiry to final delivery, a personal manager ensures a stress-free experience.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. PORTFOLIO -->
+    <section id="portfolio" class="bg-section">
         <div class="container">
             <div class="section-title reveal">
                 <h2>OUR <span class="light">PORTFOLIO</span></h2>
-                <p>Choose your favorite style. Click "Book This Project" to start a conversation about your big day.</p>
+                <p>Choose your favorite style. Click "Book This Project" to start a conversation.</p>
                 <span class="ornate-line"></span>
             </div>
-            
+            <div class="gallery-filter reveal">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="wedding">Wedding</button>
+                <button class="filter-btn" data-filter="portrait">Portrait</button>
+                <button class="filter-btn" data-filter="commercial">Commercial</button>
+            </div>
             <div class="gallery-grid" id="galleryGrid">
-                <!-- Each project has a specific WhatsApp book button -->
+                <!-- Sample 1 -->
                 <div class="gallery-item reveal" data-category="wedding">
                     <img src="https://images.pexels.com/photos/169193/pexels-photo-169193.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Elegant Wedding">
                     <div class="overlay"><h4>Elegant Wedding</h4><span>Wedding</span>
-                        <a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Elegant%20Wedding'%20project.%20I%20want%20to%20book%20a%20similar%20package." target="_blank" class="book-project-btn">Book This Project</a>
+                        <a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Elegant%20Wedding'%20project.%20I%20want%20to%20book%20this." target="_blank" class="book-project-btn">Book This Project</a>
                     </div>
                 </div>
+                <!-- Sample 2 -->
                 <div class="gallery-item reveal" data-category="portrait">
                     <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Natural Portrait">
                     <div class="overlay"><h4>Natural Portrait</h4><span>Portrait</span>
-                        <a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Natural%20Portrait'%20project.%20I%20want%20to%20book%20a%20similar%20package." target="_blank" class="book-project-btn">Book This Project</a>
+                        <a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Natural%20Portrait'%20project.%20I%20want%20to%20book%20this." target="_blank" class="book-project-btn">Book This Project</a>
                     </div>
                 </div>
+                <!-- Sample 3 -->
                 <div class="gallery-item reveal" data-category="commercial">
                     <img src="https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Product Shoot">
                     <div class="overlay"><h4>Product Shoot</h4><span>Commercial</span>
-                        <a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Product%20Shoot'%20project.%20I%20want%20to%20book%20a%20similar%20package." target="_blank" class="book-project-btn">Book This Project</a>
+                        <a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Product%20Shoot'%20project.%20I%20want%20to%20book%20this." target="_blank" class="book-project-btn">Book This Project</a>
                     </div>
                 </div>
+                <!-- Sample 4 -->
                 <div class="gallery-item reveal" data-category="wedding">
                     <img src="https://images.pexels.com/photos/2657227/pexels-photo-2657227.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Indian Wedding">
                     <div class="overlay"><h4>Indian Wedding</h4><span>Wedding</span>
-                        <a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Indian%20Wedding'%20project.%20I%20want%20to%20book%20a%20similar%20package." target="_blank" class="book-project-btn">Book This Project</a>
+                        <a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Indian%20Wedding'%20project.%20I%20want%20to%20book%20this." target="_blank" class="book-project-btn">Book This Project</a>
                     </div>
                 </div>
+                <!-- Sample 5 -->
                 <div class="gallery-item reveal" data-category="portrait">
                     <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Studio Portrait">
                     <div class="overlay"><h4>Studio Portrait</h4><span>Portrait</span>
-                        <a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Studio%20Portrait'%20project.%20I%20want%20to%20book%20a%20similar%20package." target="_blank" class="book-project-btn">Book This Project</a>
+                        <a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Studio%20Portrait'%20project.%20I%20want%20to%20book%20this." target="_blank" class="book-project-btn">Book This Project</a>
                     </div>
                 </div>
+                <!-- Sample 6 -->
                 <div class="gallery-item reveal" data-category="commercial">
                     <img src="https://images.pexels.com/photos/7441742/pexels-photo-7441742.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Brand Campaign">
                     <div class="overlay"><h4>Brand Campaign</h4><span>Commercial</span>
-                        <a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Brand%20Campaign'%20project.%20I%20want%20to%20book%20a%20similar%20package." target="_blank" class="book-project-btn">Book This Project</a>
+                        <a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Brand%20Campaign'%20project.%20I%20want%20to%20book%20this." target="_blank" class="book-project-btn">Book This Project</a>
                     </div>
                 </div>
-                <div class="gallery-item reveal" data-category="landscape">
-                    <img src="https://images.pexels.com/photos/1676997/pexels-photo-1676997.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Golden Horizon">
-                    <div class="overlay"><h4>Golden Horizon</h4><span>Landscape</span>
-                        <a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Golden%20Horizon'%20project.%20I%20want%20to%20book%20a%20similar%20package." target="_blank" class="book-project-btn">Book This Project</a>
-                    </div>
-                </div>
-                <div class="gallery-item reveal" data-category="landscape">
-                    <img src="https://images.pexels.com/photos/3408744/pexels-photo-3408744.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mountain Majesty">
-                    <div class="overlay"><h4>Mountain Majesty</h4><span>Landscape</span>
-                        <a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Mountain%20Majesty'%20project.%20I%20want%20to%20book%20a%20similar%20package." target="_blank" class="book-project-btn">Book This Project</a>
-                    </div>
-                </div>
+                <!-- Sample 7 -->
                 <div class="gallery-item reveal" data-category="wedding">
                     <img src="https://images.pexels.com/photos/3014856/pexels-photo-3014856.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mehendi Ceremony">
                     <div class="overlay"><h4>Mehendi Ceremony</h4><span>Wedding</span>
-                        <a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Mehendi%20Ceremony'%20project.%20I%20want%20to%20book%20a%20similar%20package." target="_blank" class="book-project-btn">Book This Project</a>
+                        <a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Mehendi%20Ceremony'%20project.%20I%20want%20to%20book%20this." target="_blank" class="book-project-btn">Book This Project</a>
                     </div>
                 </div>
+                <!-- Sample 8 -->
                 <div class="gallery-item reveal" data-category="portrait">
                     <img src="https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Casual Headshot">
                     <div class="overlay"><h4>Casual Headshot</h4><span>Portrait</span>
-                        <a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Casual%20Headshot'%20project.%20I%20want%20to%20book%20a%20similar%20package." target="_blank" class="book-project-btn">Book This Project</a>
+                        <a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Casual%20Headshot'%20project.%20I%20want%20to%20book%20this." target="_blank" class="book-project-btn">Book This Project</a>
                     </div>
                 </div>
+                <!-- Sample 9 -->
                 <div class="gallery-item reveal" data-category="commercial">
                     <img src="https://images.pexels.com/photos/1762851/pexels-photo-1762851.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Fashion Editorial">
                     <div class="overlay"><h4>Fashion Editorial</h4><span>Commercial</span>
-                        <a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Fashion%20Editorial'%20project.%20I%20want%20to%20book%20a%20similar%20package." target="_blank" class="book-project-btn">Book This Project</a>
+                        <a href="https://wa.me/917654200109?text=Hi!%20I%20loved%20the%20'Fashion%20Editorial'%20project.%20I%20want%20to%20book%20this." target="_blank" class="book-project-btn">Book This Project</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Lightbox (Keep existing) -->
-    <div class="lightbox-container" id="lightbox">
-        <span class="close-lb" id="closeLb">&times;</span>
-        <span class="prev-lb" id="prevLb"><i class="fas fa-chevron-left"></i></span>
-        <span class="next-lb" id="nextLb"><i class="fas fa-chevron-right"></i></span>
-        <img src="" alt="Lightbox Image" id="lbImg">
+    <!-- Lightbox -->
+    <div class="lightbox-container" id="lightbox" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:9999; justify-content:center; align-items:center;">
+        <span id="closeLb" style="position:absolute; top:20px; right:30px; font-size:3rem; color:#fff; cursor:pointer;">&times;</span>
+        <img id="lbImg" src="" alt="" style="max-width:90%; max-height:90%; border:3px solid var(--gold); border-radius:8px;">
     </div>
 
-    <!-- Pricing and Other Sections (Kept same structure) -->
-    <section id="pricing" class="bg-section">
+    <!-- 9. TEAM -->
+    <section id="team">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>THE CREATIVE <span class="light">FORCE</span></h2>
+                <p>Talented individuals who breathe life into every project.</p>
+                <span class="ornate-line"></span>
+            </div>
+            <div class="team-wrapper">
+                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt=""><h4>Nikhil Kapoor</h4><p>Lead Photographer</p></div>
+                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt=""><h4>Kriti Sharma</h4><p>Creative Director</p></div>
+                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/men/86.jpg" alt=""><h4>Arjun Mehta</h4><p>Senior Cinematographer</p></div>
+                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/women/63.jpg" alt=""><h4>Riya Patel</h4><p>Editor & Colorist</p></div>
+                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/men/12.jpg" alt=""><h4>Vikram Desai</h4><p>Drone Specialist</p></div>
+                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/women/28.jpg" alt=""><h4>Anjali Menon</h4><p>Client Relations</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. TESTIMONIALS -->
+    <section class="bg-section">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>WORDS OF <span class="light">LOVE</span></h2>
+                <p>Real stories from real people who trusted us with their memories.</p>
+                <span class="ornate-line"></span>
+            </div>
+            <div class="testimonial-wrapper reveal">
+                <div class="testimonial-track" id="testimonialTrack">
+                    <div class="testimonial-item"><p>"The Wedding transformed our wedding into a dreamy film. Every picture still makes us emotional."</p><h5>— Priya & Rahul</h5></div>
+                    <div class="testimonial-item"><p>"Their attention to detail and ability to make us comfortable was beyond compare. The album is a masterpiece."</p><h5>— Ananya Gupta</h5></div>
+                    <div class="testimonial-item"><p>"Absolutely world‑class commercial shoot. They understood our brand’s voice perfectly."</p><h5>— Vikram Singh</h5></div>
+                </div>
+                <div class="slider-dots" id="sliderDots"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. PRICING -->
+    <section id="pricing">
         <div class="container">
             <div class="section-title reveal">
                 <h2>INVESTMENT <span class="light">PLANS</span></h2>
-                <p>Transparent pricing. Directly book via WhatsApp below.</p>
+                <p>Transparent pricing with no hidden costs. Directly book via WhatsApp.</p>
                 <span class="ornate-line"></span>
             </div>
             <div class="pricing-wrapper reveal">
-                <div class="quotation-header text-center">
-                    <h2 style="font-size: 3.2rem; color: var(--gold);">THE WEDDING</h2>
-                    <h3>Wedding Photography & Cinematography</h3>
-                </div>
                 <div class="pricing-grid">
                     <div class="price-card reveal">
-                        <div class="card-title text-center" style="font-size:1.6rem; color:var(--gold);">SILVER</div>
-                        <ul style="margin:20px 0; padding:0;">
-                            <li style="padding:8px 0; border-bottom:1px dashed #eee;"><i class="fas fa-camera text-gold"></i> 1 Photographer</li>
-                            <li style="padding:8px 0; border-bottom:1px dashed #eee;"><i class="fas fa-video text-gold"></i> 1 Cinematographer</li>
-                            <li style="padding:8px 0; border-bottom:1px dashed #eee;"><i class="fas fa-images text-gold"></i> 200+ Edited Photos</li>
-                            <li style="padding:8px 0; border-bottom:1px dashed #eee;"><i class="fas fa-play-circle text-gold"></i> Highlight Video (3-5 Min)</li>
-                        </ul>
-                        <div class="price-tag text-center" style="background:#f5f0eb; padding:15px; border-radius:5px;"><span style="font-size:2rem; color:var(--gold);">₹80,000</span></div>
-                        <div class="text-center mt-20"><a href="https://wa.me/917654200109?text=Hi!%20I%20want%20to%20book%20the%20Silver%20package%20for%20my%20wedding." target="_blank" class="btn btn-primary" style="color:#fff; border-radius:30px;">Book Silver Package</a></div>
+                        <div class="card-title">Silver</div>
+                        <ul><li><i class="fas fa-camera"></i> 1 Photographer</li><li><i class="fas fa-video"></i> 1 Cinematographer</li><li><i class="fas fa-images"></i> 200+ Edited Photos</li></ul>
+                        <div class="price-tag">PRICE: <br><span>₹80,000</span></div>
+                        <div class="text-center mt-20"><a href="https://wa.me/917654200109?text=Hi!%20I%20want%20to%20book%20the%20Silver%20package." target="_blank" class="btn btn-primary" style="color:#fff; border-radius:30px;">Book Silver</a></div>
                     </div>
                     <div class="price-card featured reveal">
-                        <div class="card-title text-center" style="background:var(--gold); color:#fff; padding:10px; margin-top:-25px;">GOLD (Best Seller)</div>
-                        <ul style="margin:20px 0; padding:0;">
-                            <li style="padding:8px 0; border-bottom:1px dashed #eee;"><i class="fas fa-camera text-gold"></i> 1 Photographer</li>
-                            <li style="padding:8px 0; border-bottom:1px dashed #eee;"><i class="fas fa-plane text-gold"></i> Drone Coverage</li>
-                            <li style="padding:8px 0; border-bottom:1px dashed #eee;"><i class="fas fa-images text-gold"></i> 200+ Edited Photos</li>
-                            <li style="padding:8px 0; border-bottom:1px dashed #eee;"><i class="fas fa-play-circle text-gold"></i> Cinematic Highlight (5-8 Min)</li>
-                            <li style="padding:8px 0; border-bottom:1px dashed #eee;"><i class="fas fa-book text-gold"></i> Premium Album</li>
-                        </ul>
-                        <div class="price-tag text-center" style="border:2px solid var(--gold); padding:15px; border-radius:5px;"><span style="font-size:2rem; color:var(--gold);">₹1,20,000</span></div>
-                        <div class="text-center mt-20"><a href="https://wa.me/917654200109?text=Hi!%20I%20want%20to%20book%20the%20Gold%20package%20for%20my%20wedding." target="_blank" class="btn btn-primary" style="color:#fff; border-radius:30px;">Book Gold Package</a></div>
+                        <div class="card-title" style="background:var(--gold); color:#fff; padding:10px; margin-top:-25px;">Gold (Best Seller)</div>
+                        <ul><li><i class="fas fa-camera"></i> 1 Photographer</li><li><i class="fas fa-plane"></i> Drone Coverage</li><li><i class="fas fa-play-circle"></i> Cinematic Highlight</li><li><i class="fas fa-book"></i> Premium Album</li></ul>
+                        <div class="price-tag" style="border:2px solid var(--gold); background:#fff;">PRICE: <br><span>₹1,20,000</span></div>
+                        <div class="text-center mt-20"><a href="https://wa.me/917654200109?text=Hi!%20I%20want%20to%20book%20the%20Gold%20package." target="_blank" class="btn btn-primary" style="color:#fff; border-radius:30px;">Book Gold</a></div>
                     </div>
                     <div class="price-card reveal">
-                        <div class="card-title text-center" style="font-size:1.6rem; color:var(--gold);">LUXURY</div>
-                        <ul style="margin:20px 0; padding:0;">
-                            <li style="padding:8px 0; border-bottom:1px dashed #eee;"><i class="fas fa-camera text-gold"></i> 2 Photographers</li>
-                            <li style="padding:8px 0; border-bottom:1px dashed #eee;"><i class="fas fa-video text-gold"></i> 2 Cinematographers</li>
-                            <li style="padding:8px 0; border-bottom:1px dashed #eee;"><i class="fas fa-calendar-alt text-gold"></i> Haldi, Mehndi, Sangeet & Wedding</li>
-                            <li style="padding:8px 0; border-bottom:1px dashed #eee;"><i class="fas fa-images text-gold"></i> 400+ Edited Photos</li>
-                            <li style="padding:8px 0; border-bottom:1px dashed #eee;"><i class="fas fa-book text-gold"></i> Luxury Album (50 Sheets)</li>
-                        </ul>
-                        <div class="price-tag text-center" style="background:#f5f0eb; padding:15px; border-radius:5px;"><span style="font-size:2rem; color:var(--gold);">₹1,40,000</span></div>
-                        <div class="text-center mt-20"><a href="https://wa.me/917654200109?text=Hi!%20I%20want%20to%20book%20the%20Luxury%20package%20for%20my%20wedding." target="_blank" class="btn btn-primary" style="color:#fff; border-radius:30px;">Book Luxury Package</a></div>
+                        <div class="card-title">Luxury</div>
+                        <ul><li><i class="fas fa-camera"></i> 2 Photographers</li><li><i class="fas fa-video"></i> 2 Cinematographers</li><li><i class="fas fa-calendar-alt"></i> Haldi, Mehndi & Wedding</li><li><i class="fas fa-images"></i> 400+ Edited Photos</li></ul>
+                        <div class="price-tag">PRICE: <br><span>₹1,40,000</span></div>
+                        <div class="text-center mt-20"><a href="https://wa.me/917654200109?text=Hi!%20I%20want%20to%20book%20the%20Luxury%20package." target="_blank" class="btn btn-primary" style="color:#fff; border-radius:30px;">Book Luxury</a></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer and other features (Kept the same) -->
-    <footer class="main-footer">
-        <div class="container text-center">
-            <div class="footer-social-icons" style="margin-bottom: 20px;">
-                <a href="#" style="display:inline-block; padding:10px; color:var(--gold);"><i class="fab fa-instagram fa-2x"></i></a>
-                <a href="#" style="display:inline-block; padding:10px; color:var(--gold);"><i class="fab fa-facebook fa-2x"></i></a>
-                <a href="#" style="display:inline-block; padding:10px; color:var(--gold);"><i class="fab fa-youtube fa-2x"></i></a>
+    <!-- 12. BLOG -->
+    <section id="blog" class="bg-section">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>FROM OUR <span class="light">JOURNAL</span></h2>
+                <p>Tips, behind‑the‑scenes, and stories from the world of visual art.</p>
+                <span class="ornate-line"></span>
             </div>
-            <p>&copy; 2026 <span style="color:var(--gold); font-weight:700;">The Wedding</span>. All Rights Reserved.</p>
+            <div class="blog-wrapper">
+                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/3014856/pexels-photo-3014856.jpeg?auto=compress&cs=tinysrgb&w=400" alt=""></div><div class="blog-content"><div class="meta"><span>Jan 12, 2026</span></div><h4>10 Wedding Trends Defining 2026</h4><p>Candid moments, vintage filters, and drone shots are reshaping weddings.</p></div></div>
+                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=400" alt=""></div><div class="blog-content"><div class="meta"><span>Dec 28, 2025</span></div><h4>How to Pose Naturally</h4><p>Simple tricks to look effortless and relaxed in front of the camera.</p></div></div>
+                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/1762851/pexels-photo-1762851.jpeg?auto=compress&cs=tinysrgb&w=400" alt=""></div><div class="blog-content"><div class="meta"><span>Nov 15, 2025</span></div><h4>Behind the Lens</h4><p>See how we prepare for a high‑end commercial shoot.</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 13. FAQ -->
+    <section id="faq">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>FREQUENTLY ASKED <span class="light">QUESTIONS</span></h2>
+                <p>Everything you need to know before we start.</p>
+                <span class="ornate-line"></span>
+            </div>
+            <div class="faq-wrapper">
+                <div class="faq-item reveal"><div class="faq-question">How far in advance should we book? <span class="icon">+</span></div><div class="faq-answer">We recommend booking 6–12 months ahead, especially for peak season (November–February).</div></div>
+                <div class="faq-item reveal"><div class="faq-question">Do you provide drone footage? <span class="icon">+</span></div><div class="faq-answer">Absolutely. Drone coverage is standard in our Gold and Luxury packages.</div></div>
+                <div class="faq-item reveal"><div class="faq-question">How can I book my date? <span class="icon">+</span></div><div class="faq-answer">You can directly call us at <strong>7654200109</strong>, WhatsApp us, or use the Book Now button on our site.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 14. CONTACT & MAP -->
+    <section id="contact" class="bg-section">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>LET'S CREATE <span class="light">TOGETHER</span></h2>
+                <p>We’d love to hear about your project. Visit us or reach us directly.</p>
+                <span class="ornate-line"></span>
+            </div>
+            <div class="contact-wrapper">
+                <div class="contact-form reveal">
+                    <h2>Send a Message</h2>
+                    <form id="contactForm">
+                        <div class="form-group"><label>Your Full Name</label><input type="text" id="name" placeholder="e.g. Amit Sharma" required></div>
+                        <div class="form-group"><label>Phone Number</label><input type="tel" id="phone" placeholder="+91 98765 43210" required></div>
+                        <div class="form-group"><label>Event Type</label><select id="event"><option value="Wedding">Wedding</option><option value="Pre-Wedding">Pre-Wedding</option><option value="Commercial">Commercial</option></select></div>
+                        <div class="form-group"><label>Message</label><textarea id="message" rows="4" placeholder="Describe your dream shoot..." required></textarea></div>
+                        <button type="submit" class="btn btn-primary btn-block" style="width:100%;">Send Enquiry via WhatsApp</button>
+                    </form>
+                </div>
+                <div class="contact-info-box reveal">
+                    <h3>Contact Information</h3>
+                    <div class="info-row"><i class="fas fa-map-marker-alt"></i><div><p><strong>Address:</strong><br>mahadev sthan marchi road,<br>near by bypass thana,<br>patna city, pin-800009</p></div></div>
+                    <div class="info-row"><i class="fas fa-phone-alt"></i><div><p><strong>Call for Booking:</strong><br><a href="tel:7654200109" class="text-gold" style="font-weight:700; font-size:1.2rem;">7654200109</a></p></div></div>
+                    <div class="info-row"><i class="fab fa-whatsapp"></i><div><p><strong>WhatsApp:</strong><br><a href="https://wa.me/917654200109" target="_blank" class="text-gold" style="font-weight:700; font-size:1.2rem;">Chat on WhatsApp</a></p></div></div>
+                    <div class="info-row"><i class="fas fa-envelope"></i><div><p><strong>Email:</strong><br>hello@thewedding.in</p></div></div>
+                    
+                    <!-- GOOGLE MAP -->
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3598.665583716536!2d85.14019131501472!3d25.59422398372776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed57633da6c54b%3A0x34e5b18d59fd0b25!2sPatna%2C%20Bihar!5e0!3m2!1sen!2sin!4v1681234567890!5m2!1sen!2sin" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 15. FOOTER -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div><h4>The Wedding</h4><p style="margin-bottom:15px; color:rgba(255,255,255,0.7);">Luxury Wedding Photography & Cinematography since 2004.</p><div class="footer-social-icons"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-youtube"></i></a></div></div>
+                <div><h4>Quick Links</h4><ul><li><a href="#home">Home</a></li><li><a href="#about">About Us</a></li><li><a href="#services">Services</a></li><li><a href="#portfolio">Portfolio</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#contact">Contact</a></li></ul></div>
+                <div><h4>Services</h4><ul><li><a href="#">Cinematic Films</a></li><li><a href="#">Luxury Photography</a></li><li><a href="#">Drone Coverage</a></li><li><a href="#">Pre-Wedding Shoot</a></li><li><a href="#">Album Design</a></li></ul></div>
+                <div><h4>Contact Info</h4><ul><li style="color:rgba(255,255,255,0.7);"><i class="fas fa-map-marker-alt text-gold"></i> Patna City, pin-800009</li><li style="color:rgba(255,255,255,0.7);"><i class="fas fa-phone text-gold"></i> <a href="tel:7654200109" style="color:rgba(255,255,255,0.7);">7654200109</a></li><li style="color:rgba(255,255,255,0.7);"><i class="fab fa-whatsapp text-gold"></i> <a href="https://wa.me/917654200109" target="_blank" style="color:rgba(255,255,255,0.7);">WhatsApp</a></li><li style="color:rgba(255,255,255,0.7);"><i class="fas fa-envelope text-gold"></i> hello@thewedding.in</li></ul></div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2026 <span>The Wedding</span>. All Rights Reserved.</p></div>
         </div>
     </footer>
 
-    <!-- Back to Top -->
+    <!-- 16. FLOATING BUTTONS -->
     <button class="back-to-top" id="backToTop" title="Go to top"><i class="fas fa-arrow-up"></i></button>
-
-    <!-- Floating Action Buttons (Direct WhatsApp Redirect) -->
     <div class="action-fab">
         <a href="tel:7654200109" class="fab-btn fab-call" title="Call us"><i class="fas fa-phone-alt"></i></a>
         <a href="https://wa.me/917654200109?text=Hi%20The%20Wedding%20Team!%20I%20want%20to%20book%20my%20date." target="_blank" class="fab-btn fab-whatsapp" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         <a href="https://wa.me/917654200109?text=Hi%20The%20Wedding%20Team!%20I%20want%20to%20book%20my%20date." target="_blank" class="fab-btn fab-book" title="Book Now"><i class="fas fa-calendar-check"></i></a>
     </div>
 
-    <!-- Chatbot / Dashboard scripts (All existing JS features remain intact) -->
+    <!-- 17. CHATBOT -->
     <button class="chatbot-toggle" id="chatToggle"><i class="fas fa-comment-dots"></i></button>
     <div class="chatbot-window" id="chatWindow">
         <div class="chat-header"><span>The Wedding Support</span> <i class="fas fa-times" id="chatClose"></i></div>
         <div class="chat-body" id="chatBody"><div class="chat-msg bot">Hello! Welcome to The Wedding. How can I assist you today? 💍</div></div>
-        <div class="chat-footer">
-            <input type="text" id="chatInput" placeholder="Ask me anything...">
-            <button id="chatSend"><i class="fas fa-paper-plane" style="color:#fff;"></i></button>
-        </div>
+        <div class="chat-footer"><input type="text" id="chatInput" placeholder="Ask me anything..."><button id="chatSend" style="background:var(--gold); color:#fff; border:none; padding:0 20px; border-radius:30px;"><i class="fas fa-paper-plane"></i></button></div>
     </div>
 
+    <!-- 18. JAVASCRIPT -->
     <script>
-        // --- All existing JavaScript features fully maintained ---
-        
-        // 1. PRELOADER
-        window.addEventListener('load', function() {
-            var preloader = document.getElementById('preloader');
-            var loaderBar = document.getElementById('loaderBar');
-            var progress = 0;
-            var interval = setInterval(function() {
-                progress += Math.random() * 15;
-                if (progress > 100) progress = 100;
-                loaderBar.style.width = progress + '%';
-                if (progress === 100) {
-                    clearInterval(interval);
-                    preloader.classList.add('loaded');
-                    setTimeout(function() { preloader.style.display = 'none'; }, 600);
-                }
-            }, 100);
-        });
+        // Preloader
+        window.addEventListener('load', function() { document.getElementById('preloader').classList.add('loaded'); });
 
-        // 2. NAVBAR SCROLL & HAMBURGER
+        // Navbar & Back to Top
         var navbar = document.getElementById('navbar');
         var hamburger = document.getElementById('hamburger');
         var navLinks = document.getElementById('navLinks');
         var backToTop = document.getElementById('backToTop');
-
         window.addEventListener('scroll', function() {
             if (window.scrollY > 80) navbar.classList.add('scrolled'); else navbar.classList.remove('scrolled');
             if (window.scrollY > 400) backToTop.classList.add('visible'); else backToTop.classList.remove('visible');
@@ -574,61 +727,86 @@
         });
         backToTop.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
-        // 3. SCROLL REVEAL
-        var revealElements = document.querySelectorAll('.reveal');
+        // Scroll Reveal
         var revealObserver = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting) { entry.target.classList.add('active'); revealObserver.unobserve(entry.target); }
-            });
+            entries.forEach(function(entry) { if (entry.isIntersecting) { entry.target.classList.add('active'); } });
         }, { threshold: 0.15 });
-        revealElements.forEach(function(el) { revealObserver.observe(el); });
+        document.querySelectorAll('.reveal').forEach(function(el) { revealObserver.observe(el); });
 
-        // 4. COUNTER ANIMATION
+        // Counters
         var counters = document.querySelectorAll('.counter');
-        var counterSpeed = 200;
-        function startCounter(counter) {
-            var target = parseInt(counter.getAttribute('data-target'));
-            var current = 0;
-            var increment = target / counterSpeed;
-            var updateCount = function() {
-                current += increment;
-                if (current < target) { counter.innerText = Math.ceil(current); setTimeout(updateCount, 10); } 
-                else { counter.innerText = target; }
-            };
-            updateCount();
-        }
         var counterObserver = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
-                if (entry.isIntersecting) { startCounter(entry.target); counterObserver.unobserve(entry.target); }
+                if (entry.isIntersecting) {
+                    var target = parseInt(entry.target.getAttribute('data-target'));
+                    var current = 0; var increment = target / 200;
+                    var updateCount = function() {
+                        current += increment;
+                        if (current < target) { entry.target.innerText = Math.ceil(current); setTimeout(updateCount, 10); } 
+                        else { entry.target.innerText = target; }
+                    };
+                    updateCount();
+                }
             });
         }, { threshold: 0.5 });
         counters.forEach(function(counter) { counterObserver.observe(counter); });
 
-        // 5. LIGHTBOX
-        var lightbox = document.getElementById('lightbox');
+        // Lightbox
         var lbImg = document.getElementById('lbImg');
         var closeLb = document.getElementById('closeLb');
-        var prevLb = document.getElementById('prevLb');
-        var nextLb = document.getElementById('nextLb');
         var galleryItems = document.querySelectorAll('.gallery-item');
-        var currentImageIndex = 0;
-        var galleryImagesArray = [];
-        galleryItems.forEach(function(item, index) {
-            var imgSrc = item.querySelector('img').src;
-            galleryImagesArray.push(imgSrc);
+        var lightbox = document.getElementById('lightbox');
+        galleryItems.forEach(function(item) {
             item.addEventListener('click', function() {
-                currentImageIndex = index;
-                lbImg.src = imgSrc;
-                lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden';
+                lbImg.src = item.querySelector('img').src;
+                lightbox.style.display = 'flex';
             });
         });
-        closeLb.addEventListener('click', function() { lightbox.classList.remove('active'); document.body.style.overflow = 'auto'; });
-        lightbox.addEventListener('click', function(e) { if (e.target === lightbox) { lightbox.classList.remove('active'); document.body.style.overflow = 'auto'; } });
-        prevLb.addEventListener('click', function() { currentImageIndex = (currentImageIndex - 1 + galleryImagesArray.length) % galleryImagesArray.length; lbImg.src = galleryImagesArray[currentImageIndex]; });
-        nextLb.addEventListener('click', function() { currentImageIndex = (currentImageIndex + 1) % galleryImagesArray.length; lbImg.src = galleryImagesArray[currentImageIndex]; });
+        closeLb.addEventListener('click', function() { lightbox.style.display = 'none'; });
+        lightbox.addEventListener('click', function(e) { if (e.target === lightbox) lightbox.style.display = 'none'; });
 
-        // 6. CHATBOT
+        // Testimonial Slider
+        var track = document.getElementById('testimonialTrack');
+        var slides = track.querySelectorAll('.testimonial-item');
+        var dotsContainer = document.getElementById('sliderDots');
+        var currentSlide = 0;
+        slides.forEach(function(_, index) {
+            var dot = document.createElement('span');
+            dot.className = 'slider-dot' + (index === 0 ? ' active' : '');
+            dot.addEventListener('click', function() {
+                currentSlide = index;
+                track.style.transform = 'translateX(-' + (index * 100) + '%)';
+                document.querySelectorAll('.slider-dot').forEach(function(d) { d.classList.remove('active'); });
+                dot.classList.add('active');
+            });
+            dotsContainer.appendChild(dot);
+        });
+        setInterval(function() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            document.querySelectorAll('.slider-dot').forEach(function(d, i) { d.classList.toggle('active', i === currentSlide); });
+            track.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+        }, 5000);
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-item').forEach(function(item) {
+            item.querySelector('.faq-question').addEventListener('click', function() {
+                document.querySelectorAll('.faq-item').forEach(function(other) { if (other !== item) other.classList.remove('active'); });
+                item.classList.toggle('active');
+            });
+        });
+
+        // Contact Form -> WhatsApp
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var name = document.getElementById('name').value;
+            var phone = document.getElementById('phone').value;
+            var event = document.getElementById('event').value;
+            var msg = document.getElementById('message').value;
+            var whatsappMessage = "✨ *New Enquiry from Website*%0A%0A*Name:* " + name + "%0A*Phone:* " + phone + "%0A*Event:* " + event + "%0A*Message:* " + msg;
+            window.open("https://wa.me/917654200109?text=" + whatsappMessage, '_blank');
+        });
+
+        // Chatbot
         const chatToggle = document.getElementById('chatToggle');
         const chatWindow = document.getElementById('chatWindow');
         const chatClose = document.getElementById('chatClose');
@@ -638,21 +816,12 @@
         chatToggle.addEventListener('click', function() { chatWindow.classList.toggle('active'); });
         chatClose.addEventListener('click', function() { chatWindow.classList.remove('active'); });
         function addMessage(text, sender) { let msgDiv = document.createElement('div'); msgDiv.className = 'chat-msg ' + sender; msgDiv.innerText = text; chatBody.appendChild(msgDiv); chatBody.scrollTop = chatBody.scrollHeight; }
-        function getBotReply(input) {
-            let txt = input.toLowerCase();
-            if(txt.includes('hello') || txt.includes('hi')) return "Hi there! Welcome to The Wedding Studio. How can I assist you? 💍";
-            else if(txt.includes('price') || txt.includes('package')) return "Our packages start from ₹80,000. You can check the pricing section on our website. Want to book a package via WhatsApp?";
-            else return "Thank you! For instant help, please call us at 7654200109 or WhatsApp us. We'll get back to you! 🚀";
-        }
         chatSend.addEventListener('click', function() {
             let userMsg = chatInput.value.trim();
             if(userMsg !== "") {
                 addMessage(userMsg, 'user');
                 chatInput.value = '';
-                setTimeout(function() {
-                    let botReply = getBotReply(userMsg);
-                    addMessage(botReply, 'bot');
-                }, 800);
+                setTimeout(function() { addMessage("Thank you! For instant help, please call us at 7654200109 or WhatsApp us. 🚀", 'bot'); }, 800);
             }
         });
         chatInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') chatSend.click(); });
