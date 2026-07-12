@@ -27,6 +27,32 @@
     <!-- JSZip Library for Gallery Download -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
+    <!-- Google Analytics & Facebook Pixel Base Scripts (Replace IDs below) -->
+    <!-- Google Analytics (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        // REPLACE 'GA_MEASUREMENT_ID' WITH YOUR REAL GA ID
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+    <!-- Facebook Pixel Code (Mock) -->
+    <script>
+        // REPLACE 'FB_PIXEL_ID' WITH YOUR REAL FACEBOOK PIXEL ID
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', 'FB_PIXEL_ID');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=FB_PIXEL_ID&ev=PageView&noscript=1"/></noscript>
+
     <!-- JSON-LD SCHEMA -->
     <script type="application/ld+json">
     {
@@ -343,7 +369,66 @@
         .partner-logo { background: var(--bg-card); padding: 12px 25px; border-radius: 30px; border: 1px solid var(--border-color); font-weight: 600; color: var(--text-muted); font-size: 0.95rem; box-shadow: var(--shadow-box); transition: 0.3s ease; }
         .partner-logo:hover { border-color: var(--gold); color: var(--text-primary); transform: translateY(-4px); }
 
-        /* ------------------- 16. PORTFOLIO ------------------- */
+        /* ------------------- 16. OUR JOURNEY TIMELINE (NEW) ------------------- */
+        #journey {
+            background: var(--bg-section);
+        }
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: var(--gold);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 4px;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: var(--bg-card);
+            border: 4px solid var(--gold);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .timeline-item.left { left: 0; }
+        .timeline-item.right { left: 50%; }
+        .timeline-item.right::after { left: -10px; }
+        .timeline-content {
+            padding: 20px 30px;
+            background: var(--bg-card);
+            position: relative;
+            border-radius: 12px;
+            box-shadow: var(--shadow-box);
+            border: 1px solid var(--border-color);
+        }
+        .timeline-content h3 { color: var(--gold); font-size: 1.5rem; margin-bottom: 5px; }
+        .timeline-content p { margin-bottom: 0; font-size: 0.95rem; }
+        @media (max-width: 768px) {
+            .timeline::after { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-item.right { left: 0%; }
+            .timeline-item.left::after, .timeline-item.right::after { left: 21px; }
+        }
+
+        /* ------------------- 17. PORTFOLIO ------------------- */
         .gallery-filter { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 45px; }
         .filter-btn { background: transparent; border: 1px solid var(--border-color); padding: 12px 28px; color: var(--text-muted); font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s ease; border-radius: 4px; }
         .filter-btn:hover, .filter-btn.active { background: var(--gold); color: #fff; border-color: var(--gold); box-shadow: 0 4px 15px rgba(196, 147, 94, 0.3); }
@@ -365,7 +450,7 @@
         .lightbox-container .close-lb { position: absolute; top: 30px; right: 40px; font-size: 3.5rem; color: #fff; cursor: pointer; transition: 0.3s ease; }
         .lightbox-container .close-lb:hover { color: var(--gold); transform: rotate(90deg); }
 
-        /* ------------------- 17. TEAM ------------------- */
+        /* ------------------- 18. TEAM ------------------- */
         .team-wrapper { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 35px; text-align: center; }
         .team-member { background: var(--bg-card); padding: 35px 20px; border: 1px solid var(--border-color); border-radius: 12px; transition: 0.3s ease; box-shadow: var(--shadow-box); }
         .team-member:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: var(--shadow-gold); }
@@ -374,7 +459,7 @@
         .team-member h4 { color: var(--text-primary); font-size: 1.15rem; margin-bottom: 5px; }
         .team-member p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; }
 
-        /* ------------------- 18. TESTIMONIALS ------------------- */
+        /* ------------------- 19. TESTIMONIALS ------------------- */
         .testimonial-wrapper { max-width: 850px; margin: 0 auto; overflow: hidden; position: relative; border-radius: 12px; box-shadow: var(--shadow-box); }
         .testimonial-track { display: flex; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .testimonial-item { min-width: 100%; padding: 50px 40px; background: var(--bg-card); border-left: 6px solid var(--gold); border-radius: 12px; text-align: center; }
@@ -384,7 +469,7 @@
         .slider-dot { width: 14px; height: 14px; background: rgba(0, 0, 0, 0.08); border-radius: 50%; cursor: pointer; transition: 0.3s ease; border: 1px solid transparent; }
         .slider-dot.active { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 15px rgba(196, 147, 94, 0.3); }
 
-        /* ------------------- 19. PRICING & CALCULATOR ------------------- */
+        /* ------------------- 20. PRICING & CALCULATOR ------------------- */
         .pricing-wrapper { border: 2px solid var(--gold); padding: 50px; background: var(--bg-card); box-shadow: var(--shadow-gold); border-radius: 16px; }
         .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
         .price-card { background: var(--bg-section); border: 1px solid var(--border-color); padding: 30px 25px; border-radius: 12px; transition: 0.3s ease; }
@@ -417,7 +502,7 @@
         .calc-total-box { text-align: center; margin-top: 25px; padding: 20px; background: var(--maroon-dark); border-radius: 8px; color: #fff; }
         .calc-total-box .total-amount { font-size: 2.5rem; color: var(--gold); font-weight: 700; font-family: 'Poppins', sans-serif; }
 
-        /* ------------------- 20. BLOG ------------------- */
+        /* ------------------- 21. BLOG ------------------- */
         .blog-wrapper { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
         .blog-card { background: var(--bg-card); border-radius: 12px; overflow: hidden; transition: 0.3s ease; box-shadow: var(--shadow-box); border: 1px solid var(--border-color); }
         .blog-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: var(--shadow-gold); }
@@ -430,7 +515,7 @@
         .blog-card .blog-content h4 { font-size: 1.2rem; color: var(--text-primary); margin-bottom: 12px; }
         .blog-card .blog-content p { font-size: 0.95rem; margin-bottom: 20px; }
 
-        /* ------------------- 21. FAQ ------------------- */
+        /* ------------------- 22. FAQ ------------------- */
         .faq-wrapper { max-width: 850px; margin: 0 auto; }
         .faq-item { background: var(--bg-card); margin-bottom: 15px; border-radius: 10px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: var(--shadow-box); transition: 0.3s ease; }
         .faq-item:hover { border-color: var(--gold); }
@@ -440,13 +525,13 @@
         .faq-item .faq-answer { max-height: 0; padding: 0 30px; overflow: hidden; transition: max-height 0.5s ease, padding 0.4s ease; color: var(--text-muted); background: var(--bg-section); line-height: 1.6; }
         .faq-item.active .faq-answer { max-height: 300px; padding: 20px 30px; }
 
-        /* ------------------- 22. INSTAGRAM FEED ------------------- */
+        /* ------------------- 23. INSTAGRAM FEED ------------------- */
         .instagram-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; max-width: 900px; margin: 0 auto; }
         .insta-placeholder { background: var(--bg-card); border-radius: 12px; height: 180px; box-shadow: var(--shadow-box); display: flex; align-items: center; justify-content: center; color: var(--text-muted); border: 1px solid var(--border-color); transition: 0.3s ease; }
         .insta-placeholder:hover { transform: scale(1.03); border-color: var(--gold); }
         .insta-placeholder i { font-size: 3rem; color: var(--gold); }
 
-        /* ------------------- 23. 360° VIRTUAL TOUR (NEW) ------------------- */
+        /* ------------------- 24. 360° VIRTUAL TOUR ------------------- */
         #virtualtour {
             background: var(--bg-card);
             padding: 60px 0;
@@ -467,7 +552,7 @@
             border: none;
         }
 
-        /* ------------------- 24. CONTACT & MAP ------------------- */
+        /* ------------------- 25. CONTACT & MAP ------------------- */
         .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
         .contact-form h2 { color: var(--gold); font-size: 2.4rem; margin-bottom: 25px; }
         .form-group { margin-bottom: 22px; }
@@ -482,7 +567,7 @@
         .contact-info-box .info-row p { font-size: 0.95rem; margin-bottom: 0; }
         .map-container { width: 100%; border-radius: 12px; overflow: hidden; margin-top: 20px; border: 1px solid var(--border-color); }
 
-        /* ------------------- 25. FOOTER ------------------- */
+        /* ------------------- 26. FOOTER ------------------- */
         .main-footer { background: var(--maroon-dark); color: #fff; padding: 70px 0 30px; border-top: 6px solid var(--gold); }
         .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 45px; padding-bottom: 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
         .footer-grid h4 { color: var(--gold); font-size: 1.3rem; margin-bottom: 25px; }
@@ -496,7 +581,7 @@
         .footer-bottom { text-align: center; padding-top: 30px; color: rgba(255, 255, 255, 0.5); font-size: 0.85rem; }
         .footer-bottom span { color: var(--gold); font-weight: 600; }
 
-        /* ------------------- 26. BACK TO TOP & FLOATING BUTTONS ------------------- */
+        /* ------------------- 27. BACK TO TOP & FLOATING BUTTONS ------------------- */
         .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: var(--gold); color: #fff; border: none; border-radius: 50%; font-size: 1.4rem; cursor: pointer; opacity: 0; visibility: hidden; transition: 0.3s ease; box-shadow: var(--shadow-gold); z-index: 998; display: flex; justify-content: center; align-items: center; }
         .back-to-top.visible { opacity: 1; visibility: visible; }
         .back-to-top:hover { transform: scale(1.12) translateY(-4px); background: var(--gold-dark); }
@@ -505,7 +590,7 @@
         .fab-btn:hover { transform: scale(1.12) rotate(-4deg); }
         .fab-call { background: #007bff; } .fab-whatsapp { background: #25D366; } .fab-book { background: var(--gold); }
 
-        /* ------------------- 27. CHATBOT (Standard + AI) ------------------- */
+        /* ------------------- 28. CHATBOT WITH ADMIN FORWARDING ------------------- */
         .chatbot-toggle { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.6rem; cursor: pointer; box-shadow: var(--shadow-gold); z-index: 999; border: none; transition: 0.3s ease; }
         .chatbot-toggle:hover { transform: scale(1.1); background: var(--gold-dark); }
         .chatbot-window { position: fixed; bottom: 110px; right: 30px; width: 360px; height: 460px; background: var(--bg-card); border-radius: 18px; box-shadow: var(--shadow-modal); border: 1px solid var(--gold); display: none; flex-direction: column; overflow: hidden; z-index: 9999; transform-origin: bottom right; animation: slideUpChat 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
@@ -530,35 +615,53 @@
         .chat-footer .chat-input-row button { width: 44px; height: 44px; background: var(--gold); color: #fff; border: none; border-radius: 50%; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; font-size: 1.1rem; }
         .chat-footer .chat-input-row button:hover { background: var(--gold-dark); transform: scale(1.05); }
 
-        /* ------------------- 28. BOOKING & PAYMENT MODALS ------------------- */
-        #bookingDateModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(6px); z-index: 10001; justify-content: center; align-items: center; padding: 20px; }
-        #bookingDateModal.active { display: flex; }
-        .booking-modal-box { background: var(--bg-card); padding: 40px; border-radius: 16px; max-width: 450px; width: 100%; border: 2px solid var(--gold); box-shadow: var(--shadow-gold); position: relative; text-align: center; }
-        .booking-modal-box h2 { font-size: 1.8rem; color: var(--text-primary); margin-bottom: 5px; }
-        .booking-modal-box p { color: var(--text-muted); margin-bottom: 25px; font-size: 0.95rem; }
-        .booking-modal-box input[type="date"] { width: 100%; padding: 14px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 20px; font-family: 'Poppins', sans-serif; font-size: 1rem; outline: none; transition: 0.3s; color: var(--text-primary); background: var(--bg-body); }
-        .booking-modal-box input[type="date"]:focus { border-color: var(--gold); box-shadow: 0 0 10px rgba(196, 147, 94, 0.2); }
-        .booking-modal-box .btn-close-modal { background: transparent; border: none; color: var(--text-muted); cursor: pointer; margin-top: 15px; font-size: 0.9rem; transition: 0.3s; }
-        .booking-modal-box .btn-close-modal:hover { color: var(--text-primary); }
+        /* ------------------- 29. EXIT INTENT POPUP (NEW) ------------------- */
+        #exitPopup {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(6px);
+            z-index: 99999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        #exitPopup.show { display: flex; opacity: 1; }
+        .exit-popup-box {
+            background: var(--bg-card);
+            padding: 50px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            border: 2px solid var(--gold);
+            box-shadow: var(--shadow-gold);
+            text-align: center;
+            position: relative;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .exit-popup-box h2 { color: var(--gold); font-size: 2.5rem; margin-bottom: 10px; }
+        .exit-popup-box p { margin-bottom: 25px; font-size: 1.1rem; }
+        .exit-popup-box .btn-close-exit { position: absolute; top: 15px; right: 20px; font-size: 2rem; color: var(--text-muted); cursor: pointer; transition: 0.3s; background: transparent; border: none; }
+        .exit-popup-box .btn-close-exit:hover { color: var(--text-primary); transform: rotate(90deg); }
+        .exit-popup-box .exit-discount { font-size: 4rem; font-weight: 900; color: var(--gold); font-family: 'Poppins', sans-serif; }
 
-        /* Payment Modal (NEW) */
-        #paymentModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(6px); z-index: 10002; justify-content: center; align-items: center; padding: 20px; }
-        #paymentModal.active { display: flex; }
-        .payment-modal-box { background: var(--bg-card); padding: 40px; border-radius: 16px; max-width: 450px; width: 100%; border: 2px solid var(--gold); box-shadow: var(--shadow-gold); position: relative; text-align: center; }
-        .payment-modal-box h2 { font-size: 1.8rem; color: var(--gold); margin-bottom: 15px; }
-        .payment-modal-box .pay-amount { font-size: 3rem; font-weight: 700; color: var(--maroon); margin: 20px 0; font-family: 'Poppins', sans-serif; }
-        .payment-modal-box .btn-pay { background: #1a1a1a; color: #fff; border: none; padding: 15px 30px; border-radius: 50px; font-weight: 600; width: 100%; cursor: pointer; transition: 0.3s; font-size: 1rem; }
-        .payment-modal-box .btn-pay:hover { background: var(--gold); color: #fff; }
-
-        /* ------------------- 29. DASHBOARD (Client Gallery) ------------------- */
-        #loginModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px); z-index: 9998; justify-content: center; align-items: center; }
-        #loginModal.active { display: flex; }
-        .login-box { background: var(--bg-card); padding: 45px; border-radius: 18px; width: 420px; max-width: 90%; border: 1px solid var(--gold); box-shadow: var(--shadow-gold); text-align: center; }
-        .login-box h2 { color: var(--gold); margin-bottom: 5px; }
-        .login-box p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px; }
-        .login-box input { width: 100%; padding: 15px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 20px; font-family: 'Poppins', sans-serif; outline: none; transition: 0.3s; font-size: 1rem; color: var(--text-primary); background: var(--bg-body); }
-        .login-box input:focus { border-color: var(--gold); }
-        .login-box .btn { width: 100%; }
+        /* ------------------- 30. OTP & DASHBOARD (Client Gallery) ------------------- */
+        #otpLoginModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px); z-index: 9998; justify-content: center; align-items: center; }
+        #otpLoginModal.active { display: flex; }
+        .otp-login-box { background: var(--bg-card); padding: 45px; border-radius: 18px; width: 420px; max-width: 90%; border: 1px solid var(--gold); box-shadow: var(--shadow-gold); text-align: center; }
+        .otp-login-box h2 { color: var(--gold); margin-bottom: 5px; }
+        .otp-login-box p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px; }
+        .otp-login-box .otp-inputs { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; display: none; }
+        .otp-login-box .otp-inputs input { width: 40px; height: 40px; text-align: center; font-size: 1.2rem; border: 1px solid var(--border-color); border-radius: 8px; outline: none; background: var(--bg-body); color: var(--text-primary); }
+        .otp-login-box .otp-inputs input:focus { border-color: var(--gold); }
+        .otp-login-box .btn { width: 100%; }
         #dashboardPanel { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-body); z-index: 9997; overflow-y: auto; padding-top: 80px; }
         #dashboardPanel.active { display: block; }
         .dashboard-header { background: var(--bg-card); padding: 25px 40px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; box-shadow: var(--shadow-box); }
@@ -570,13 +673,19 @@
         .dash-card h4 { font-size: 1.2rem; margin-bottom: 10px; color: var(--text-primary); }
         .dash-progress { width: 100%; height: 8px; background: var(--bg-section); border-radius: 10px; margin: 12px 0; overflow: hidden; }
         .dash-progress span { display: block; height: 100%; background: var(--gold); border-radius: 10px; }
-        
-        /* Client Gallery Grid inside Dashboard */
+
+        /* Like & Comment on Gallery */
+        .gallery-interactions { display: flex; align-items: center; gap: 15px; margin-top: 10px; }
+        .gallery-interactions .like-btn { color: var(--text-muted); cursor: pointer; font-size: 1.2rem; transition: 0.3s; background: transparent; border: none; display: flex; align-items: center; gap: 5px; }
+        .gallery-interactions .like-btn.liked { color: #ff4757; }
+        .gallery-interactions .comment-input { flex: 1; border: 1px solid var(--border-color); border-radius: 20px; padding: 5px 12px; font-size: 0.8rem; outline: none; background: var(--bg-body); color: var(--text-primary); }
+        .gallery-interactions .comment-input:focus { border-color: var(--gold); }
         .client-gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; margin-top: 15px; }
+        .client-gallery-grid .gallery-img-wrap { position: relative; }
         .client-gallery-grid img { width: 100%; height: 100px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border-color); transition: 0.3s; }
         .client-gallery-grid img:hover { transform: scale(1.05); border-color: var(--gold); }
+        .client-gallery-grid .gallery-comment { font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; text-align: center; }
 
-        /* ------------------- 30. RESPONSIVE ------------------- */
         @media (max-width: 1024px) {
             .hero-content h1 { font-size: 4.2rem; }
             .pricing-grid, .process-wrapper, .choose-wrapper, .addons-table { grid-template-columns: 1fr 1fr; }
@@ -594,7 +703,7 @@
             .pricing-grid, .process-wrapper, .choose-wrapper, .addons-table { grid-template-columns: 1fr; }
             .footer-grid, .stats-wrapper { grid-template-columns: 1fr; }
             .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
-            .booking-modal-box, .payment-modal-box { padding: 30px 20px; }
+            .otp-login-box, .exit-popup-box { padding: 30px 20px; }
             #virtualtour iframe { height: 250px; }
         }
     </style>
@@ -635,10 +744,11 @@
             <li><a href="#about">About</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#process">Process</a></li>
+            <li><a href="#journey">Our Journey</a></li> <!-- Added Journey Link -->
             <li><a href="#portfolio">Portfolio</a></li>
             <li><a href="#team">Team</a></li>
             <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#virtualtour">360° Tour</a></li> <!-- New Link -->
+            <li><a href="#virtualtour">360° Tour</a></li>
             <li><a href="#blog">Blog</a></li>
             <li><a href="#faq">FAQ</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -799,7 +909,58 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 11. PORTFOLIO GALLERY                                             -->
+    <!-- 11. OUR JOURNEY TIMELINE (NEW)                                   -->
+    <!-- ============================================================== -->
+    <section id="journey">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>OUR <span class="text-light">JOURNEY</span></h2>
+                <p>Celebrating over two decades of love, art, and timeless cinema.</p>
+                <span class="ornate-line"></span>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item left reveal">
+                    <div class="timeline-content">
+                        <h3>2004 — The Beginning</h3>
+                        <p>The Wedding Studio was founded in Patna with a single camera and a big dream. Started capturing local weddings with a focus on raw emotion.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right reveal">
+                    <div class="timeline-content">
+                        <h3>2010 — First International Shoot</h3>
+                        <p>Expanded horizons and shot our first destination wedding in Thailand. Brought cinematic 4K storytelling to Indian weddings.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left reveal">
+                    <div class="timeline-content">
+                        <h3>2015 — 1,000 Weddings Milestone</h3>
+                        <p>Completed 1,000 wedding projects. Recognized as one of the top 10 wedding studios in Bihar by local media.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right reveal">
+                    <div class="timeline-content">
+                        <h3>2020 — International Award</h3>
+                        <p>Won the "WPJA Best of 2020" award for outstanding candid wedding photography. Became the go-to studio for luxury weddings.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left reveal">
+                    <div class="timeline-content">
+                        <h3>2022 — New State-of-the-Art Studio</h3>
+                        <p>Inaugurated a brand new 3000 sq ft studio in Patna City with modern editing suites, green screens, and premium lighting setups.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right reveal">
+                    <div class="timeline-content">
+                        <h3>2026 — 800+ Happy Clients & Counting</h3>
+                        <p>Continuing our legacy with 18 international awards, a dedicated team of 12 creatives, and a promise to make every wedding a cinematic masterpiece.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- 12. PORTFOLIO GALLERY                                             -->
     <!-- ============================================================== -->
     <section id="portfolio" class="bg-section">
         <div class="container">
@@ -819,6 +980,9 @@
                 <div class="gallery-item reveal" data-category="wedding"><img src="https://images.pexels.com/photos/169193/pexels-photo-169193.jpeg" alt="Elegant Wedding"><div class="overlay"><h4>Elegant Wedding</h4><span>Wedding</span><a href="javascript:void(0)" onclick="openBookingModal('Elegant Wedding Project')" class="book-project-btn">Book This Project</a></div></div>
                 <div class="gallery-item reveal" data-category="portrait"><img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg" alt="Natural Portrait"><div class="overlay"><h4>Natural Portrait</h4><span>Portrait</span><a href="javascript:void(0)" onclick="openBookingModal('Natural Portrait Project')" class="book-project-btn">Book This Project</a></div></div>
                 <div class="gallery-item reveal" data-category="commercial"><img src="https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg" alt="Product Shoot"><div class="overlay"><h4>Product Shoot</h4><span>Commercial</span><a href="javascript:void(0)" onclick="openBookingModal('Product Shoot Project')" class="book-project-btn">Book This Project</a></div></div>
+                <div class="gallery-item reveal" data-category="wedding"><img src="https://images.pexels.com/photos/2657227/pexels-photo-2657227.jpeg" alt="Indian Wedding"><div class="overlay"><h4>Indian Wedding</h4><span>Wedding</span><a href="javascript:void(0)" onclick="openBookingModal('Indian Wedding Project')" class="book-project-btn">Book This Project</a></div></div>
+                <div class="gallery-item reveal" data-category="portrait"><img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg" alt="Studio Portrait"><div class="overlay"><h4>Studio Portrait</h4><span>Portrait</span><a href="javascript:void(0)" onclick="openBookingModal('Studio Portrait Project')" class="book-project-btn">Book This Project</a></div></div>
+                <div class="gallery-item reveal" data-category="commercial"><img src="https://images.pexels.com/photos/7441742/pexels-photo-7441742.jpeg" alt="Brand Campaign"><div class="overlay"><h4>Brand Campaign</h4><span>Commercial</span><a href="javascript:void(0)" onclick="openBookingModal('Brand Campaign Project')" class="book-project-btn">Book This Project</a></div></div>
             </div>
         </div>
     </section>
@@ -830,7 +994,7 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 12. TEAM MEMBERS                                                 -->
+    <!-- 13. TEAM MEMBERS                                                 -->
     <!-- ============================================================== -->
     <section id="team">
         <div class="container">
@@ -849,7 +1013,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 13. TESTIMONIALS                                                  -->
+    <!-- 14. TESTIMONIALS                                                  -->
     <!-- ============================================================== -->
     <section class="bg-section">
         <div class="container">
@@ -869,7 +1033,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 14. PRICING & CALCULATOR (WITH PAYMENT BUTTON)                   -->
+    <!-- 15. PRICING & CALCULATOR (WITH PAYMENT & ADMIN NOTIFY)           -->
     <!-- ============================================================== -->
     <section id="pricing">
         <div class="container">
@@ -914,7 +1078,6 @@
                     <div class="calc-total-box">
                         <p style="color:#fff; margin:0; font-size:0.9rem;">Total Estimated Cost</p>
                         <div class="total-amount" id="calcTotal">₹80,000</div>
-                        <!-- NEW: Pay Advance Button -->
                         <button onclick="openPaymentModal('₹' + document.getElementById('calcTotal').innerText)" class="btn btn-gold" style="margin-top:15px; border-color:#fff; color:#fff; font-size:0.8rem;">Pay 30% Advance Now</button>
                         <br>
                         <button onclick="openBookingModal('Custom Add-on Package')" class="btn btn-gold" style="margin-top:10px; border-color:#fff; color:#fff; font-size:0.7rem;">Book This Custom Plan</button>
@@ -925,7 +1088,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 15. 360° VIRTUAL TOUR (NEW)                                     -->
+    <!-- 16. 360° VIRTUAL TOUR                                            -->
     <!-- ============================================================== -->
     <section id="virtualtour">
         <div class="container">
@@ -935,15 +1098,13 @@
                 <span class="ornate-line"></span>
             </div>
             <div class="tour-container reveal">
-                <!-- Replace src with your Kuula or Pannellum 360 image URL -->
                 <iframe src="https://www.360cities.net/embed_iframe/patna-india-2015" loading="lazy" allowfullscreen></iframe>
             </div>
-            <p class="mt-20" style="font-size:0.85rem;">*Drag to rotate the view. See our equipment and setup up close!</p>
         </div>
     </section>
 
     <!-- ============================================================== -->
-    <!-- 16. BLOG                                                            -->
+    <!-- 17. BLOG                                                            -->
     <!-- ============================================================== -->
     <section id="blog" class="bg-section">
         <div class="container">
@@ -959,7 +1120,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 17. FAQ ACCORDION                                                 -->
+    <!-- 18. FAQ ACCORDION                                                 -->
     <!-- ============================================================== -->
     <section id="faq">
         <div class="container">
@@ -975,7 +1136,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 18. INSTAGRAM FEED & CONTACT                                     -->
+    <!-- 19. INSTAGRAM FEED & CONTACT                                     -->
     <!-- ============================================================== -->
     <section id="instagram" class="bg-section">
         <div class="container text-center">
@@ -1019,7 +1180,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 19. FOOTER & COOKIE BANNER                                       -->
+    <!-- 20. FOOTER & COOKIE BANNER                                       -->
     <!-- ============================================================== -->
     <div id="cookieConsent">
         <p>We use cookies to enhance your experience. By continuing you agree.</p>
@@ -1039,7 +1200,7 @@
     </footer>
 
     <!-- ============================================================== -->
-    <!-- 20. BACK TO TOP & FLOATING BUTTONS                               -->
+    <!-- 21. BACK TO TOP & FLOATING BUTTONS                               -->
     <!-- ============================================================== -->
     <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
     <div class="action-fab">
@@ -1049,7 +1210,7 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 21. CHATBOT WITH STANDARD & AI MODE                             -->
+    <!-- 22. CHATBOT WITH ADMIN FORWARDING                               -->
     <!-- ============================================================== -->
     <button class="chatbot-toggle" id="chatToggle"><i class="fas fa-comment-dots"></i></button>
     <div class="chatbot-window" id="chatWindow">
@@ -1068,7 +1229,7 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 22. BOOKING DATE MODAL                                           -->
+    <!-- 23. BOOKING DATE MODAL (WITH ADMIN WHATSAPP NOTIFY)              -->
     <!-- ============================================================== -->
     <div id="bookingDateModal">
         <div class="booking-modal-box">
@@ -1082,7 +1243,7 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 23. PAYMENT MODAL (DUMMY RAZORPAY UI)                           -->
+    <!-- 24. PAYMENT MODAL (DUMMY RAZORPAY UI)                           -->
     <!-- ============================================================== -->
     <div id="paymentModal">
         <div class="payment-modal-box">
@@ -1096,15 +1257,46 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 24. DASHBOARD & COUNTDOWN (Client Gallery)                       -->
+    <!-- 25. EXIT INTENT POPUP (NEW)                                      -->
     <!-- ============================================================== -->
-    <div id="loginModal">
-        <div class="login-box">
+    <div id="exitPopup">
+        <div class="exit-popup-box">
+            <button class="btn-close-exit" onclick="closeExitPopup()"><i class="fas fa-times"></i></button>
+            <h2>Wait! Don't Leave Yet!</h2>
+            <p>We have a special surprise for you.</p>
+            <div class="exit-discount">10% OFF</div>
+            <p style="margin-top:20px;">On your first booking with us!<br>Just mention this code on WhatsApp: <strong style="color:var(--maroon);">WEDDING10</strong></p>
+            <button onclick="closeExitPopup(); window.open('https://wa.me/917654200109?text=Hi!%20I%20want%20to%20claim%20my%2010%25%20discount.%20Code%3A%20WEDDING10', '_blank');" class="btn btn-primary" style="margin-top:10px;">Claim Your Discount Now</button>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 26. OTP LOGIN & DASHBOARD (Client Gallery + Like/Comment)       -->
+    <!-- ============================================================== -->
+    <div id="otpLoginModal">
+        <div class="otp-login-box">
             <h2>Welcome Back!</h2>
-            <p>Enter password to access your exclusive dashboard.</p>
-            <input type="password" id="loginPass" placeholder="Enter password">
-            <button class="btn btn-primary" id="loginBtn" style="width:100%;">Unlock Dashboard</button>
-            <p style="margin-top:15px; font-size:0.8rem; color:var(--text-muted);"><i>Demo: <strong>wedding2026</strong></i></p>
+            <p id="otpLoginStep" style="font-size:0.9rem;">Enter your registered phone number to receive a secure OTP.</p>
+            
+            <div id="loginStepPhone">
+                <input type="tel" id="loginPhone" placeholder="+91 98765 43210" style="width:100%; padding:15px; border:1px solid var(--border-color); border-radius:8px; margin-bottom:20px; outline:none; background:var(--bg-body); color:var(--text-primary);">
+                <button class="btn btn-primary" onclick="sendOTP()" style="width:100%;">Send OTP</button>
+            </div>
+            
+            <div id="loginStepOTP" style="display:none;">
+                <div class="otp-inputs" id="otpInputContainer">
+                    <input type="text" maxlength="1" class="otp-field">
+                    <input type="text" maxlength="1" class="otp-field">
+                    <input type="text" maxlength="1" class="otp-field">
+                    <input type="text" maxlength="1" class="otp-field">
+                    <input type="text" maxlength="1" class="otp-field">
+                    <input type="text" maxlength="1" class="otp-field">
+                </div>
+                <button class="btn btn-primary" onclick="verifyOTP()" style="width:100%; margin-top:10px;">Verify OTP</button>
+                <p style="margin-top:15px; font-size:0.8rem; color:var(--text-muted);"><i>Demo: Use OTP <strong>123456</strong></i></p>
+            </div>
+            
+            <p style="margin-top:15px; font-size:0.8rem; color:var(--text-muted);">Don't have an account? <a href="#contact" class="text-gold" onclick="document.getElementById('otpLoginModal').classList.remove('active');">Contact us to register</a></p>
         </div>
     </div>
 
@@ -1114,14 +1306,46 @@
             <button class="btn btn-sm btn-dark" id="logoutBtn" style="background:var(--maroon); color:#fff;"><i class="fas fa-sign-out-alt"></i> Logout</button>
         </div>
         <div class="dash-grid">
-            <div class="dash-card"><div class="icon"><i class="fas fa-images"></i></div><h4>Photo Gallery</h4><p>Your high-resolution wedding photos are ready.</p><div class="dash-progress"><span style="width: 100%;"></span></div><div class="client-gallery-grid"><img src="https://images.pexels.com/photos/169193/pexels-photo-169193.jpeg"><img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg"><img src="https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg"><img src="https://images.pexels.com/photos/2657227/pexels-photo-2657227.jpeg"></div><button onclick="downloadGallery()" class="btn btn-sm btn-gold" style="margin-top:15px;">Download All (ZIP)</button></div>
+            <!-- Photo Gallery with Like & Comment -->
+            <div class="dash-card">
+                <div class="icon"><i class="fas fa-images"></i></div>
+                <h4>Photo Gallery</h4>
+                <p>Your high-resolution wedding photos are ready.</p>
+                <div class="dash-progress"><span style="width: 100%;"></span></div>
+                
+                <div class="client-gallery-grid">
+                    <div class="gallery-img-wrap">
+                        <img src="https://images.pexels.com/photos/169193/pexels-photo-169193.jpeg">
+                        <div class="gallery-interactions">
+                            <button class="like-btn" onclick="toggleLike(this)"><i class="fas fa-heart"></i> <span class="like-count">0</span></button>
+                        </div>
+                    </div>
+                    <div class="gallery-img-wrap">
+                        <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg">
+                        <div class="gallery-interactions">
+                            <button class="like-btn" onclick="toggleLike(this)"><i class="fas fa-heart"></i> <span class="like-count">0</span></button>
+                        </div>
+                    </div>
+                    <div class="gallery-img-wrap">
+                        <img src="https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg">
+                        <div class="gallery-interactions">
+                            <button class="like-btn" onclick="toggleLike(this)"><i class="fas fa-heart"></i> <span class="like-count">0</span></button>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:10px;">
+                    <input type="text" class="comment-input" placeholder="Write a comment..." style="width:100%; border:1px solid var(--border-color); border-radius:20px; padding:8px 15px; font-size:0.8rem; outline:none; background:var(--bg-body); color:var(--text-primary);" onkeypress="if(event.key==='Enter') addComment(this)">
+                </div>
+                <button onclick="downloadGallery()" class="btn btn-sm btn-gold" style="margin-top:15px;">Download All (ZIP)</button>
+            </div>
+
             <div class="dash-card"><div class="icon"><i class="fas fa-video"></i></div><h4>Cinematic Film</h4><p>Teaser and highlight ready.</p><div class="dash-progress"><span style="width: 75%;"></span></div></div>
             <div class="dash-card" style="grid-column: span 2;"><div class="icon"><i class="fas fa-hourglass-half"></i></div><h4>Wedding Countdown</h4><div style="display:flex; justify-content:space-between; font-family:'Poppins', sans-serif; font-weight:600; font-size:1.5rem; color:var(--gold); text-align:center; margin-top:10px;"><div><span id="cdDays" style="font-size:2.5rem; display:block;">00</span>Days</div><div><span id="cdHours" style="font-size:2.5rem; display:block;">00</span>Hrs</div><div><span id="cdMins" style="font-size:2.5rem; display:block;">00</span>Mins</div><div><span id="cdSecs" style="font-size:2.5rem; display:block;">00</span>Secs</div></div></div>
         </div>
     </div>
 
     <!-- ============================================================== -->
-    <!-- 25. JAVASCRIPT (ALL FEATURES INTEGRATED)                        -->
+    <!-- 27. JAVASCRIPT (ALL FEATURES INTEGRATED)                        -->
     <!-- ============================================================== -->
     <script>
         // 1. PRELOADER
@@ -1220,7 +1444,7 @@
         if (!localStorage.getItem('cookiesAccepted')) { document.getElementById('cookieConsent').style.display = 'flex'; }
         function acceptCookies() { localStorage.setItem('cookiesAccepted', 'true'); document.getElementById('cookieConsent').style.display = 'none'; }
 
-        // 8. CHATBOT (Standard + AI Mode)
+        // 8. CHATBOT (Standard + AI + Admin Forwarding)
         let chatMode = 'standard';
         document.getElementById('chatModeStandard').addEventListener('click', function() {
             chatMode = 'standard'; this.classList.add('active'); document.getElementById('chatModeAI').classList.remove('active');
@@ -1252,23 +1476,31 @@
                 addMessage(userMsg, 'user');
                 chatInput.value = '';
                 if(chatMode === 'ai') {
-                    // Simulate AI Call. Replace with actual fetch to OpenAI API.
-                    // Note: Use your own API Key. This is a mock response.
                     setTimeout(() => {
-                        addMessage("🤖 (AI Mock): I'm analyzing your request. For real AI integration, please replace this function with your OpenAI API key and fetch call.", 'bot');
+                        addMessage("🤖 (AI Mock): I'm analyzing your request. For real AI integration, please replace this function with your OpenAI API key.", 'bot');
                     }, 1000);
                 } else {
-                    let botReply = "Thank you! For instant support, please call us at 7654200109 or WhatsApp us.";
+                    // Simulate standard response + Admin Forwarding for complex queries
+                    let botReply = "Thank you for your message!";
+                    if(userMsg.toLowerCase().includes('date') || userMsg.toLowerCase().includes('change') || userMsg.toLowerCase().includes('custom')) {
+                        botReply = "This looks like a complex request. I have forwarded this to the Admin team. They will WhatsApp you shortly! 📲";
+                        // Simulate Admin forwarding (Mock)
+                        console.log("[SIMULATED] Admin WhatsApp Forward: Client asked: " + userMsg);
+                    } else {
+                        botReply = "Thank you! For instant support, please call us at 7654200109 or WhatsApp us.";
+                    }
                     setTimeout(() => { addMessage(botReply, 'bot'); }, 800);
                 }
             }
         });
         chatInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') chatSend.click(); });
 
-        // 9. BOOKING MODAL
+        // 9. BOOKING MODAL (WITH ADMIN WHATSAPP NOTIFICATION)
         const bookingModal = document.getElementById('bookingDateModal');
         const bookingContext = document.getElementById('bookingContext');
         const bookingDate = document.getElementById('bookingDate');
+        const adminNumber = "917654200109"; // Admin WhatsApp Number
+
         function openBookingModal(context) {
             bookingContext.value = context;
             bookingModal.classList.add('active');
@@ -1282,11 +1514,18 @@
             let date = bookingDate.value;
             if(!date) { alert("Please select a date!"); return; }
             let formattedDate = new Date(date + 'T00:00:00').toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-            window.open(`https://wa.me/917654200109?text=📅 *Booking Date:* ${formattedDate}%0A📦 *Package:* ${bookingContext.value}`, '_blank');
+            
+            // Client Message
+            window.open(`https://wa.me/${adminNumber}?text=📅 *Booking Date:* ${formattedDate}%0A📦 *Package:* ${bookingContext.value}`, '_blank');
+            
+            // Simulate Admin Notification (Mock)
+            console.log(`[ADMIN NOTIFICATION] Client booked: ${bookingContext.value} on ${formattedDate}`);
+            alert("✅ Your request has been sent! The Admin has also been notified on WhatsApp.");
+
             closeBookingModal();
         }
 
-        // 10. PAYMENT MODAL (Mock Razorpay)
+        // 10. PAYMENT MODAL
         const paymentModal = document.getElementById('paymentModal');
         const payAmountDisplay = document.getElementById('payAmount');
         function openPaymentModal(amount) {
@@ -1301,29 +1540,93 @@
             document.body.style.overflow = 'auto';
         }
         function processPayment() {
-            alert("✅ Mock Payment Successful! (30% Advance Confirmed). In a real implementation, this will integrate with Razorpay SDK and redirect you to the payment gateway.");
+            alert("✅ Mock Payment Successful! (30% Advance Confirmed). Admin has been notified.");
             closePaymentModal();
         }
 
-        // 11. DASHBOARD & GALLERY ZIP DOWNLOAD
+        // 11. EXIT INTENT POPUP
+        const exitPopup = document.getElementById('exitPopup');
+        document.addEventListener('mouseleave', function(e) {
+            if(e.clientY < 0 && !localStorage.getItem('exitIntentShown')) {
+                exitPopup.classList.add('show');
+                localStorage.setItem('exitIntentShown', 'true'); // Show only once per session
+            }
+        });
+        function closeExitPopup() { exitPopup.classList.remove('show'); }
+
+        // 12. OTP LOGIN, DASHBOARD & GALLERY (Like/Comment)
+        const otpLoginModal = document.getElementById('otpLoginModal');
         const dashboardLink = document.getElementById('dashboardLink');
-        const loginModal = document.getElementById('loginModal');
-        const loginBtn = document.getElementById('loginBtn');
-        const loginPass = document.getElementById('loginPass');
+        const loginStepPhone = document.getElementById('loginStepPhone');
+        const loginStepOTP = document.getElementById('loginStepOTP');
+        const loginPhone = document.getElementById('loginPhone');
+        const otpFields = document.querySelectorAll('.otp-field');
         const dashboardPanel = document.getElementById('dashboardPanel');
         const logoutBtn = document.getElementById('logoutBtn');
 
-        dashboardLink.addEventListener('click', function(e) { e.preventDefault(); loginModal.classList.add('active'); });
-        loginBtn.addEventListener('click', function() {
-            if(loginPass.value === 'wedding2026') { loginModal.classList.remove('active'); dashboardPanel.classList.add('active'); } 
-            else { alert('Incorrect Password. (Hint: wedding2026)'); }
+        dashboardLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            otpLoginModal.classList.add('active');
+            loginStepPhone.style.display = 'block';
+            loginStepOTP.style.display = 'none';
+            document.getElementById('otpLoginStep').innerText = "Enter your registered phone number to receive a secure OTP.";
         });
+
+        function sendOTP() {
+            let phone = loginPhone.value;
+            if(phone.trim() === "") { alert("Please enter a valid phone number!"); return; }
+            // Mock OTP generation
+            loginStepPhone.style.display = 'none';
+            loginStepOTP.style.display = 'block';
+            document.getElementById('otpLoginStep').innerText = "Enter the 6-digit OTP sent to " + phone;
+            alert("📱 Mock OTP Sent! Please check your phone (Demo OTP is 123456).");
+        }
+
+        function verifyOTP() {
+            let otp = "";
+            otpFields.forEach(f => otp += f.value);
+            if(otp === "123456") {
+                otpLoginModal.classList.remove('active');
+                dashboardPanel.classList.add('active');
+                // Reset OTP fields
+                otpFields.forEach(f => f.value = "");
+                loginStepPhone.style.display = 'block';
+                loginStepOTP.style.display = 'none';
+            } else {
+                alert("❌ Incorrect OTP. Please try again. (Hint: 123456)");
+            }
+        }
+
         logoutBtn.addEventListener('click', function() { dashboardPanel.classList.remove('active'); });
 
+        // Like / Comment functions
+        function toggleLike(btn) {
+            let countSpan = btn.querySelector('.like-count');
+            let count = parseInt(countSpan.innerText);
+            btn.classList.toggle('liked');
+            if(btn.classList.contains('liked')) {
+                count++;
+                btn.querySelector('i').style.color = '#ff4757';
+            } else {
+                count--;
+                btn.querySelector('i').style.color = 'var(--text-muted)';
+            }
+            countSpan.innerText = count;
+        }
+
+        function addComment(input) {
+            let comment = input.value.trim();
+            if(comment) {
+                alert("💬 Comment added: " + comment + " (Saved in local storage)");
+                // In a real app, this would save to a database.
+                input.value = "";
+            }
+        }
+
         function downloadGallery() {
-            alert("📥 Downloading Gallery... In a real backend, this would zip actual client images. Using JSZip library in the browser to create a dummy ZIP file.");
             var zip = new JSZip();
-            zip.file("hello.txt", "This is a placeholder for your wedding photos!");
+            zip.file("wedding-photo-1.jpg", "This is a placeholder for your wedding photo!");
+            zip.file("wedding-photo-2.jpg", "This is a placeholder for your wedding photo!");
             zip.generateAsync({type:"blob"}).then(function(content) {
                 var link = document.createElement('a');
                 link.href = URL.createObjectURL(content);
@@ -1332,7 +1635,7 @@
             });
         }
 
-        // 12. COUNTDOWN TIMER
+        // 13. COUNTDOWN TIMER
         let countDownDate = new Date("Dec 25, 2026 00:00:00").getTime();
         document.getElementById('bookingDate').addEventListener('change', function() {
             let selected = new Date(this.value + 'T00:00:00').getTime();
