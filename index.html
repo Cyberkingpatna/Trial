@@ -52,71 +52,105 @@
     </script>
 
     <!-- ================================================================================= -->
-    <!-- CSS STYLES (COMPLETE & FIXED)                                                      -->
+    <!-- CSS STYLES (COMPLETE & NEW FEATURES ADDED)                                        -->
     <!-- ================================================================================= -->
     <style>
         /* ------------------- 1. CSS VARIABLES & RESET ------------------- */
         :root {
+            /* Light Theme Colors (Default) */
             --bg-body: #fcf8f4;
             --bg-section: #f5f0eb;
             --bg-card: #ffffff;
+            --text-primary: #2a2a2a;
+            --text-muted: #666666;
+            --shadow-box: 0 10px 30px rgba(0, 0, 0, 0.06);
+            --shadow-gold: 0 15px 45px rgba(196, 147, 94, 0.3);
+            --border-color: rgba(0, 0, 0, 0.06);
+            --nav-bg: rgba(252, 248, 244, 0.92);
+            
+            /* Brand Colors (Same for both) */
             --gold: #c4935e;
             --gold-light: #e6cca8;
             --gold-dark: #a37548;
-            --gold-glow: rgba(196, 147, 94, 0.35);
             --maroon: #4a0e0e;
             --maroon-light: #6a2424;
             --maroon-dark: #2d0606;
-            --text-light: #2a2a2a;
-            --text-muted: #666666;
-            --text-white: #ffffff;
-            --shadow-gold: 0 15px 45px rgba(196, 147, 94, 0.3);
-            --shadow-box: 0 10px 30px rgba(0, 0, 0, 0.06);
-            --transition-fast: 0.3s ease;
-            --transition-smooth: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
+
+        /* Dark Mode Variables */
+        body.dark-mode {
+            --bg-body: #120808;
+            --bg-section: #1a0a0a;
+            --bg-card: #2d0606;
+            --text-primary: #fcf8f4;
+            --text-muted: #b0a0a0;
+            --shadow-box: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --nav-bg: rgba(18, 8, 8, 0.95);
+        }
+
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; scroll-padding-top: 90px; }
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-body);
-            color: var(--text-light);
+            color: var(--text-primary);
             overflow-x: hidden;
             line-height: 1.7;
             font-weight: 300;
-            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
         h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; line-height: 1.2; font-weight: 700; margin-bottom: 15px; }
         p { color: var(--text-muted); margin-bottom: 15px; font-size: 1rem; }
-        a { text-decoration: none; color: inherit; transition: var(--transition-fast); }
+        a { text-decoration: none; color: inherit; transition: 0.3s ease; }
         ul { list-style: none; padding: 0; margin: 0; }
         img { max-width: 100%; height: auto; display: block; }
         
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-body); }
         ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 5px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--gold-dark); }
         ::selection { background: var(--gold); color: #fff; }
 
         /* ------------------- 2. UTILITY CLASSES ------------------- */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-gold { color: var(--gold); }
         .text-muted { color: var(--text-muted); }
-        .text-white { color: var(--text-white); }
         .text-center { text-align: center; }
         .bg-section { background: var(--bg-section); }
+        .bg-card { background: var(--bg-card); }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
         .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
         .mt-20 { margin-top: 20px; } .mt-40 { margin-top: 40px; }
         .reveal { opacity: 0; transform: translateY(50px); transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        .reveal-left { opacity: 0; transform: translateX(-80px); transition: all 0.9s ease; }
-        .reveal-left.active { opacity: 1; transform: translateX(0); }
-        .reveal-right { opacity: 0; transform: translateX(80px); transition: all 0.9s ease; }
-        .reveal-right.active { opacity: 1; transform: translateX(0); }
 
-        /* ------------------- 3. PRELOADER ------------------- */
+        /* ------------------- 3. THEME TOGGLE BUTTON ------------------- */
+        .theme-toggle {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 999;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1px solid var(--gold);
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-box);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-gold);
+        }
+
+        /* ------------------- 4. PRELOADER ------------------- */
         #preloader {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: #1a0a0a; display: flex; justify-content: center; align-items: center;
@@ -134,64 +168,76 @@
         .loader-progress { width: 200px; height: 2px; background: rgba(255, 255, 255, 0.1); margin: 15px auto; border-radius: 10px; overflow: hidden; }
         .loader-progress-bar { width: 0%; height: 100%; background: var(--gold); transition: width 0.3s ease; }
 
-        /* ------------------- 4. BUTTONS ------------------- */
+        /* ------------------- 5. BUTTONS ------------------- */
         .btn {
             display: inline-flex; align-items: center; justify-content: center;
             padding: 16px 38px; font-family: 'Poppins', sans-serif; font-weight: 600;
             font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase;
             border: 2px solid transparent; cursor: pointer; border-radius: 50px;
-            transition: var(--transition-smooth); position: relative; overflow: hidden;
+            transition: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); position: relative; overflow: hidden;
         }
         .btn-primary {
             background: var(--gold); color: #fff; border-color: var(--gold); box-shadow: 0 4px 15px rgba(196, 147, 94, 0.3);
         }
-        .btn-primary:hover {
-            background: var(--gold-dark); border-color: var(--gold-dark); transform: translateY(-4px); box-shadow: var(--shadow-gold);
-        }
-        .btn-gold {
-            background: transparent; color: var(--gold); border-color: var(--gold); z-index: 1;
-        }
-        .btn-gold::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: var(--gold); transition: left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); z-index: -1;
-        }
+        .btn-primary:hover { background: var(--gold-dark); border-color: var(--gold-dark); transform: translateY(-4px); box-shadow: var(--shadow-gold); }
+        .btn-gold { background: transparent; color: var(--gold); border-color: var(--gold); z-index: 1; }
+        .btn-gold::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--gold); transition: left 0.5s; z-index: -1; }
         .btn-gold:hover { color: #fff; box-shadow: var(--shadow-gold); }
         .btn-gold:hover::before { left: 0; }
         .btn-dark { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.3); }
         .btn-dark:hover { background: #fff; color: var(--maroon); border-color: #fff; }
         .btn-sm { padding: 10px 25px; font-size: 0.7rem; letter-spacing: 1px; border-radius: 30px; }
 
-        /* ------------------- 5. NAVBAR ------------------- */
+        /* ------------------- 6. NAVBAR ------------------- */
         .navbar {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 18px 60px; background: rgba(252, 248, 244, 0.92); backdrop-filter: blur(16px);
+            padding: 18px 60px; background: var(--nav-bg); backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--gold); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-            transition: var(--transition-smooth);
+            transition: all 0.5s ease;
         }
-        .navbar.scrolled { padding: 12px 60px; background: rgba(252, 248, 244, 0.99); }
-        .navbar .logo img { height: 55px; width: auto; transition: var(--transition-smooth); }
+        .navbar.scrolled { padding: 12px 60px; background: var(--nav-bg); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); }
+        .navbar .logo img { height: 55px; width: auto; transition: 0.3s ease; }
         .navbar .logo img:hover { transform: scale(1.05); }
         .navbar .nav-links { display: flex; align-items: center; gap: 30px; }
         .navbar .nav-links li a { color: var(--text-muted); font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; position: relative; padding: 6px 0; }
         .navbar .nav-links li a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--gold); transition: width 0.3s ease; }
-        .navbar .nav-links li a:hover { color: var(--maroon); }
+        .navbar .nav-links li a:hover { color: var(--text-primary); }
         .navbar .nav-links li a:hover::after { width: 100%; }
-        .navbar .hamburger { display: none; font-size: 1.8rem; color: var(--text-light); cursor: pointer; background: transparent; border: none; }
+        .navbar .hamburger { display: none; font-size: 1.8rem; color: var(--text-primary); cursor: pointer; background: transparent; border: none; }
 
-        /* ------------------- 6. HERO SECTION ------------------- */
+        /* ------------------- 7. HERO SECTION WITH VIDEO ------------------- */
         .hero {
-            position: relative; height: 100vh; min-height: 720px;
-            display: flex; justify-content: center; align-items: center; text-align: center;
-            background: linear-gradient(rgba(74, 14, 14, 0.82), rgba(45, 6, 6, 0.94)), url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center center / cover no-repeat;
-            background-attachment: fixed; padding-top: 80px; border-bottom: 6px solid var(--gold);
+            position: relative;
+            height: 100vh;
+            min-height: 720px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            background: linear-gradient(rgba(74, 14, 14, 0.75), rgba(45, 6, 6, 0.95)), url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center center / cover no-repeat;
+            padding-top: 80px;
+            border-bottom: 6px solid var(--gold);
         }
-        .hero::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.6) 100%);
+        /* Video Background */
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
             pointer-events: none;
+            opacity: 0.6; /* Blend beautifully with the maroon overlay */
         }
-        .hero-content { position: relative; z-index: 10; max-width: 900px; padding: 0 20px; }
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            padding: 0 20px;
+        }
         .hero-content .sub-title {
             display: inline-block; color: var(--gold); font-weight: 600; letter-spacing: 4px;
             text-transform: uppercase; font-size: 0.85rem; margin-bottom: 20px;
@@ -203,25 +249,25 @@
         .hero-content p { font-size: 1.25rem; color: rgba(255, 255, 255, 0.85); max-width: 650px; margin: 0 auto 40px; font-weight: 300; }
         .hero-content .cta-group { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
 
-        /* ------------------- 7. SECTION TITLES ------------------- */
+        /* ------------------- 8. SECTION TITLES ------------------- */
         section { padding: 100px 0; position: relative; }
         .section-title { text-align: center; max-width: 700px; margin: 0 auto 60px; }
         .section-title h2 { font-size: 3.8rem; font-weight: 900; color: var(--maroon); margin-bottom: 10px; }
-        .section-title h2 .text-light { color: var(--text-light); font-weight: 600; }
-        .section-title p { font-size: 1.1rem; color: var(--text-muted); font-weight: 300; }
+        body.dark-mode .section-title h2 { color: var(--gold); }
+        .section-title h2 .text-light { color: var(--text-primary); font-weight: 600; }
+        .section-title p { font-size: 1.1rem; color: var(--text-muted); }
         .section-title .ornate-line { display: block; width: 90px; height: 2px; background: var(--gold); margin: 18px auto 0; position: relative; }
         .section-title .ornate-line::before, .section-title .ornate-line::after { content: ''; position: absolute; width: 10px; height: 10px; background: var(--gold); border-radius: 50%; top: -4px; }
-        .section-title .ornate-line::before { left: -18px; }
-        .section-title .ornate-line::after { right: -18px; }
+        .section-title .ornate-line::before { left: -18px; } .section-title .ornate-line::after { right: -18px; }
 
-        /* ------------------- 8. STATS ------------------- */
+        /* ------------------- 9. STATS ------------------- */
         .stats-wrapper { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center; }
-        .stat-item { background: #fff; padding: 35px 20px; border-radius: 12px; box-shadow: var(--shadow-box); border-top: 4px solid var(--gold); transition: var(--transition-smooth); }
+        .stat-item { background: var(--bg-card); padding: 35px 20px; border-radius: 12px; box-shadow: var(--shadow-box); border-top: 4px solid var(--gold); transition: 0.3s ease; }
         .stat-item:hover { transform: translateY(-8px); box-shadow: var(--shadow-gold); }
         .stat-item h3 { font-size: 3.2rem; color: var(--gold); font-weight: 900; margin-bottom: 5px; font-family: 'Poppins', sans-serif; }
         .stat-item p { color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; font-weight: 500; margin-bottom: 0; }
 
-        /* ------------------- 9. ABOUT ------------------- */
+        /* ------------------- 10. ABOUT ------------------- */
         .about-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
         .about-image { position: relative; border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-box); }
         .about-image img { width: 100%; border-radius: 14px; transition: transform 0.8s ease; }
@@ -229,111 +275,126 @@
         .about-image::after { content: ''; position: absolute; bottom: -12px; left: -12px; width: 100%; height: 100%; border: 2px solid var(--gold); border-radius: 14px; z-index: -1; }
         .about-content h2 { font-size: 3.2rem; color: var(--gold); margin-bottom: 20px; }
         .about-content .highlight-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 25px; margin-top: 25px; margin-bottom: 30px; }
-        .about-content .highlight-list li { display: flex; align-items: center; gap: 12px; color: #444; font-size: 0.95rem; font-weight: 400; }
+        .about-content .highlight-list li { display: flex; align-items: center; gap: 12px; color: var(--text-primary); font-size: 0.95rem; font-weight: 400; }
         .about-content .highlight-list li i { color: var(--gold); font-size: 1.1rem; }
 
-        /* ------------------- 10. SERVICES ------------------- */
+        /* ------------------- 11. SERVICES ------------------- */
         .services-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; }
-        .service-item { background: #fff; padding: 45px 25px; text-align: center; border: 1px solid rgba(0, 0, 0, 0.05); border-radius: 12px; transition: var(--transition-smooth); box-shadow: var(--shadow-box); position: relative; overflow: hidden; }
+        .service-item { background: var(--bg-card); padding: 45px 25px; text-align: center; border: 1px solid var(--border-color); border-radius: 12px; transition: 0.3s ease; box-shadow: var(--shadow-box); position: relative; overflow: hidden; }
         .service-item::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.5s ease; }
         .service-item:hover { transform: translateY(-12px); border-color: var(--gold); box-shadow: var(--shadow-gold); }
         .service-item:hover::before { transform: scaleX(1); }
-        .service-item .icon { display: inline-flex; width: 65px; height: 65px; background: rgba(196, 147, 94, 0.1); border-radius: 50%; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.8rem; color: var(--gold); transition: var(--transition-smooth); }
+        .service-item .icon { display: inline-flex; width: 65px; height: 65px; background: rgba(196, 147, 94, 0.1); border-radius: 50%; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.8rem; color: var(--gold); transition: 0.3s ease; }
         .service-item:hover .icon { background: var(--gold); color: #fff; transform: scale(1.1) rotate(10deg); }
-        .service-item h4 { font-size: 1.15rem; color: var(--maroon); margin-bottom: 12px; }
+        .service-item h4 { font-size: 1.15rem; color: var(--text-primary); margin-bottom: 12px; }
         .service-item p { font-size: 0.9rem; margin-bottom: 0; line-height: 1.6; }
 
-        /* ------------------- 11. PROCESS ------------------- */
+        /* ------------------- 12. PROCESS ------------------- */
         .process-wrapper { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
-        .process-step { background: #fff; padding: 35px 25px; border-radius: 12px; border-left: 5px solid var(--gold); box-shadow: var(--shadow-box); transition: var(--transition-smooth); position: relative; text-align: center; }
+        .process-step { background: var(--bg-card); padding: 35px 25px; border-radius: 12px; border-left: 5px solid var(--gold); box-shadow: var(--shadow-box); transition: 0.3s ease; position: relative; text-align: center; }
         .process-step:hover { transform: translateY(-10px); box-shadow: var(--shadow-gold); }
         .process-step .step-number { font-family: 'Playfair Display', serif; font-size: 4.5rem; font-weight: 900; color: rgba(196, 147, 94, 0.15); position: absolute; top: 5px; right: 15px; line-height: 1; }
         .process-step .icon { width: 55px; height: 55px; background: rgba(196, 147, 94, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 1.5rem; color: var(--gold); }
-        .process-step h4 { color: var(--maroon); font-size: 1.1rem; margin-bottom: 10px; }
+        .process-step h4 { color: var(--text-primary); font-size: 1.1rem; margin-bottom: 10px; }
         .process-step p { font-size: 0.9rem; margin-bottom: 0; }
 
-        /* ------------------- 12. WHY CHOOSE US ------------------- */
+        /* ------------------- 13. WHY CHOOSE US ------------------- */
         .choose-wrapper { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .choose-card { background: #fff; padding: 45px 30px; text-align: center; border: 1px solid rgba(0, 0, 0, 0.05); border-radius: 12px; transition: var(--transition-smooth); position: relative; box-shadow: var(--shadow-box); }
+        .choose-card { background: var(--bg-card); padding: 45px 30px; text-align: center; border: 1px solid var(--border-color); border-radius: 12px; transition: 0.3s ease; position: relative; box-shadow: var(--shadow-box); }
         .choose-card:hover { transform: translateY(-12px); border-color: var(--gold); box-shadow: var(--shadow-gold); }
         .choose-card .num { font-family: 'Playfair Display', serif; font-size: 5rem; font-weight: 900; color: rgba(196, 147, 94, 0.12); position: absolute; top: 10px; right: 20px; line-height: 1; }
         .choose-card i { font-size: 2.8rem; color: var(--gold); margin-bottom: 25px; display: block; }
-        .choose-card h4 { color: var(--maroon); font-size: 1.3rem; margin-bottom: 12px; }
+        .choose-card h4 { color: var(--text-primary); font-size: 1.3rem; margin-bottom: 12px; }
         .choose-card p { font-size: 0.95rem; margin-bottom: 0; }
 
-        /* ------------------- 13. PARTNERS & AWARDS ------------------- */
+        /* ------------------- 14. PARTNERS & AWARDS ------------------- */
         .partners-wrapper { text-align: center; }
         .awards-badge { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; margin-bottom: 40px; }
         .badge-item { text-align: center; color: var(--gold); }
         .badge-item i { font-size: 3.5rem; margin-bottom: 10px; }
         .badge-item span { display: block; color: var(--maroon); font-weight: 700; font-size: 1rem; }
+        body.dark-mode .badge-item span { color: var(--gold-light); }
         .partners-grid { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin-top: 25px; }
-        .partner-logo { background: #fff; padding: 12px 25px; border-radius: 30px; border: 1px solid rgba(0, 0, 0, 0.06); font-weight: 600; color: var(--text-muted); font-size: 0.95rem; box-shadow: var(--shadow-box); transition: var(--transition-smooth); }
-        .partner-logo:hover { border-color: var(--gold); color: var(--maroon); transform: translateY(-4px); }
+        .partner-logo { background: var(--bg-card); padding: 12px 25px; border-radius: 30px; border: 1px solid var(--border-color); font-weight: 600; color: var(--text-muted); font-size: 0.95rem; box-shadow: var(--shadow-box); transition: 0.3s ease; }
+        .partner-logo:hover { border-color: var(--gold); color: var(--text-primary); transform: translateY(-4px); }
 
-        /* ------------------- 14. PORTFOLIO ------------------- */
+        /* ------------------- 15. PORTFOLIO ------------------- */
         .gallery-filter { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 45px; }
-        .filter-btn { background: transparent; border: 1px solid rgba(0, 0, 0, 0.08); padding: 12px 28px; color: var(--text-muted); font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: var(--transition-fast); border-radius: 4px; }
+        .filter-btn { background: transparent; border: 1px solid var(--border-color); padding: 12px 28px; color: var(--text-muted); font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s ease; border-radius: 4px; }
         .filter-btn:hover, .filter-btn.active { background: var(--gold); color: #fff; border-color: var(--gold); box-shadow: 0 4px 15px rgba(196, 147, 94, 0.3); }
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
-        .gallery-item { position: relative; overflow: hidden; border-radius: 12px; cursor: pointer; height: 360px; box-shadow: var(--shadow-box); border: 1px solid rgba(0, 0, 0, 0.03); }
+        .gallery-item { position: relative; overflow: hidden; border-radius: 12px; cursor: pointer; height: 360px; box-shadow: var(--shadow-box); border: 1px solid var(--border-color); }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
         .gallery-item:hover img { transform: scale(1.12); }
         .gallery-item .overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px; background: linear-gradient(to top, rgba(0, 0, 0, 0.92), transparent); transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); height: 100%; display: flex; flex-direction: column; justify-content: flex-end; box-sizing: border-box; }
         .gallery-item:hover .overlay { transform: translateY(0); }
         .gallery-item .overlay h4 { color: #fff; font-size: 1.3rem; margin-bottom: 5px; }
         .gallery-item .overlay span { color: var(--gold); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-        .book-project-btn { display: inline-block; padding: 10px 22px; background: var(--gold); color: #fff; border-radius: 30px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; box-shadow: 0 4px 15px rgba(196, 147, 94, 0.5); transition: var(--transition-smooth); align-self: flex-start; cursor: pointer; }
+        .book-project-btn { display: inline-block; padding: 10px 22px; background: var(--gold); color: #fff; border-radius: 30px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; box-shadow: 0 4px 15px rgba(196, 147, 94, 0.5); transition: 0.3s ease; align-self: flex-start; cursor: pointer; }
         .book-project-btn:hover { background: #fff; color: var(--gold); transform: scale(1.06); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); }
 
         /* Lightbox */
         .lightbox-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.92); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 9999; padding: 20px; }
         .lightbox-container.active { display: flex; }
         .lightbox-container img { max-width: 90%; max-height: 90%; border: 4px solid var(--gold); box-shadow: 0 0 60px rgba(0, 0, 0, 0.5); border-radius: 8px; object-fit: contain; }
-        .lightbox-container .close-lb { position: absolute; top: 30px; right: 40px; font-size: 3.5rem; color: #fff; cursor: pointer; transition: var(--transition-fast); }
+        .lightbox-container .close-lb { position: absolute; top: 30px; right: 40px; font-size: 3.5rem; color: #fff; cursor: pointer; transition: 0.3s ease; }
         .lightbox-container .close-lb:hover { color: var(--gold); transform: rotate(90deg); }
 
-        /* ------------------- 15. TEAM ------------------- */
+        /* ------------------- 16. TEAM ------------------- */
         .team-wrapper { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 35px; text-align: center; }
-        .team-member { background: #fff; padding: 35px 20px; border: 1px solid rgba(0, 0, 0, 0.05); border-radius: 12px; transition: var(--transition-smooth); box-shadow: var(--shadow-box); }
+        .team-member { background: var(--bg-card); padding: 35px 20px; border: 1px solid var(--border-color); border-radius: 12px; transition: 0.3s ease; box-shadow: var(--shadow-box); }
         .team-member:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: var(--shadow-gold); }
-        .team-member img { width: 110px; height: 110px; object-fit: cover; border-radius: 50%; margin: 0 auto 20px; border: 4px solid rgba(196, 147, 94, 0.25); transition: var(--transition-smooth); }
+        .team-member img { width: 110px; height: 110px; object-fit: cover; border-radius: 50%; margin: 0 auto 20px; border: 4px solid rgba(196, 147, 94, 0.25); transition: 0.3s ease; }
         .team-member:hover img { border-color: var(--gold); transform: scale(1.05); }
-        .team-member h4 { color: var(--maroon); font-size: 1.15rem; margin-bottom: 5px; }
+        .team-member h4 { color: var(--text-primary); font-size: 1.15rem; margin-bottom: 5px; }
         .team-member p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; }
-        .team-member .social-links a { color: var(--text-muted); margin: 0 8px; font-size: 1.1rem; transition: var(--transition-fast); }
-        .team-member .social-links a:hover { color: var(--gold); transform: translateY(-3px); display: inline-block; }
 
-        /* ------------------- 16. TESTIMONIALS ------------------- */
+        /* ------------------- 17. TESTIMONIALS ------------------- */
         .testimonial-wrapper { max-width: 850px; margin: 0 auto; overflow: hidden; position: relative; border-radius: 12px; box-shadow: var(--shadow-box); }
         .testimonial-track { display: flex; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-        .testimonial-item { min-width: 100%; padding: 50px 40px; background: #fff; border-left: 6px solid var(--gold); border-radius: 12px; text-align: center; }
-        .testimonial-item p { font-size: 1.2rem; font-style: italic; color: #444; line-height: 1.8; margin-bottom: 20px; }
+        .testimonial-item { min-width: 100%; padding: 50px 40px; background: var(--bg-card); border-left: 6px solid var(--gold); border-radius: 12px; text-align: center; }
+        .testimonial-item p { font-size: 1.2rem; font-style: italic; color: var(--text-primary); line-height: 1.8; margin-bottom: 20px; }
         .testimonial-item h5 { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 5px; }
-        .testimonial-item .role { color: var(--text-muted); font-size: 0.9rem; }
         .slider-dots { display: flex; justify-content: center; gap: 12px; margin-top: 30px; }
-        .slider-dot { width: 14px; height: 14px; background: rgba(0, 0, 0, 0.08); border-radius: 50%; cursor: pointer; transition: var(--transition-fast); border: 1px solid transparent; }
+        .slider-dot { width: 14px; height: 14px; background: rgba(0, 0, 0, 0.08); border-radius: 50%; cursor: pointer; transition: 0.3s ease; border: 1px solid transparent; }
         .slider-dot.active { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 15px rgba(196, 147, 94, 0.3); }
-        .slider-dot:hover { background: var(--gold-dark); }
 
-        /* ------------------- 17. PRICING ------------------- */
-        .pricing-wrapper { border: 2px solid var(--gold); padding: 50px; background: #fff; box-shadow: var(--shadow-gold); border-radius: 16px; }
+        /* ------------------- 18. PRICING & CALCULATOR ------------------- */
+        .pricing-wrapper { border: 2px solid var(--gold); padding: 50px; background: var(--bg-card); box-shadow: var(--shadow-gold); border-radius: 16px; }
         .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .price-card { background: var(--bg-body); border: 1px solid rgba(0, 0, 0, 0.04); padding: 30px 25px; border-radius: 12px; transition: var(--transition-smooth); }
-        .price-card.featured { border: 2px solid var(--gold); background: #fff; box-shadow: var(--shadow-gold); transform: scale(1.02); }
+        .price-card { background: var(--bg-section); border: 1px solid var(--border-color); padding: 30px 25px; border-radius: 12px; transition: 0.3s ease; }
+        .price-card.featured { border: 2px solid var(--gold); background: var(--bg-card); box-shadow: var(--shadow-gold); transform: scale(1.02); }
         .price-card:hover { transform: translateY(-8px); border-color: var(--gold); }
         .price-card.featured:hover { transform: scale(1.02) translateY(-8px); }
         .price-card .card-title { font-size: 1.6rem; color: var(--gold); text-transform: uppercase; text-align: center; margin-bottom: 20px; font-weight: 700; font-family: 'Playfair Display', serif; }
         .price-card.featured .card-title { background: var(--gold); color: #fff; padding: 12px; margin-top: -30px; margin-bottom: 25px; border-radius: 8px 8px 0 0; }
-        .price-card ul li { padding: 10px 0; border-bottom: 1px dashed rgba(0, 0, 0, 0.05); display: flex; gap: 12px; font-size: 0.95rem; color: #555; align-items: flex-start; }
+        .price-card ul li { padding: 10px 0; border-bottom: 1px dashed var(--border-color); display: flex; gap: 12px; font-size: 0.95rem; color: var(--text-muted); align-items: flex-start; }
         .price-card ul li i { color: var(--gold); margin-top: 3px; }
-        .price-card .price-tag { text-align: center; margin-top: 25px; padding: 18px; background: #f5f0eb; border-radius: 8px; border: 1px solid rgba(0, 0, 0, 0.04); }
+        .price-card .price-tag { text-align: center; margin-top: 25px; padding: 18px; background: var(--bg-section); border-radius: 8px; border: 1px solid var(--border-color); }
         .price-card .price-tag span { font-size: 2.2rem; font-weight: 700; color: var(--gold); display: block; }
-        .price-card.featured .price-tag { border: 2px solid var(--gold); background: #fff; }
+        .price-card.featured .price-tag { border: 2px solid var(--gold); background: var(--bg-card); }
 
-        /* ------------------- 18. BLOG ------------------- */
+        /* Add-ons Table & Dynamic Calculator */
+        .addons-wrapper {
+            margin-top: 40px;
+            padding: 30px;
+            background: var(--bg-section);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        .addons-wrapper h3 { color: var(--gold); text-align: center; margin-bottom: 20px; font-size: 2rem; }
+        .addons-table { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 800px; margin: 0 auto; }
+        .addon-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 15px; background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border-color); transition: 0.3s; }
+        .addon-item:hover { border-color: var(--gold); }
+        .addon-item input { width: 18px; height: 18px; accent-color: var(--gold); cursor: pointer; }
+        .addon-item label { flex: 1; margin-left: 12px; cursor: pointer; font-weight: 500; color: var(--text-primary); }
+        .addon-item .addon-price { color: var(--gold); font-weight: 600; }
+        .calc-total-box { text-align: center; margin-top: 25px; padding: 20px; background: var(--maroon-dark); border-radius: 8px; color: #fff; }
+        .calc-total-box .total-amount { font-size: 2.5rem; color: var(--gold); font-weight: 700; font-family: 'Poppins', sans-serif; }
+
+        /* ------------------- 19. BLOG ------------------- */
         .blog-wrapper { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
-        .blog-card { background: #fff; border-radius: 12px; overflow: hidden; transition: var(--transition-smooth); box-shadow: var(--shadow-box); border: 1px solid rgba(0, 0, 0, 0.03); }
+        .blog-card { background: var(--bg-card); border-radius: 12px; overflow: hidden; transition: 0.3s ease; box-shadow: var(--shadow-box); border: 1px solid var(--border-color); }
         .blog-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: var(--shadow-gold); }
         .blog-card .blog-img { height: 220px; overflow: hidden; }
         .blog-card .blog-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
@@ -341,212 +402,184 @@
         .blog-card .blog-content { padding: 30px; }
         .blog-card .blog-content .meta { display: flex; gap: 20px; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px; font-weight: 400; }
         .blog-card .blog-content .meta span { display: flex; align-items: center; gap: 6px; }
-        .blog-card .blog-content h4 { font-size: 1.2rem; color: var(--maroon); margin-bottom: 12px; }
+        .blog-card .blog-content h4 { font-size: 1.2rem; color: var(--text-primary); margin-bottom: 12px; }
         .blog-card .blog-content p { font-size: 0.95rem; margin-bottom: 20px; }
 
-        /* ------------------- 19. FAQ ------------------- */
+        /* ------------------- 20. FAQ ------------------- */
         .faq-wrapper { max-width: 850px; margin: 0 auto; }
-        .faq-item { background: #fff; margin-bottom: 15px; border-radius: 10px; border: 1px solid rgba(0, 0, 0, 0.04); overflow: hidden; box-shadow: var(--shadow-box); transition: var(--transition-fast); }
+        .faq-item { background: var(--bg-card); margin-bottom: 15px; border-radius: 10px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: var(--shadow-box); transition: 0.3s ease; }
         .faq-item:hover { border-color: var(--gold); }
-        .faq-item .faq-question { padding: 22px 30px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 500; color: var(--maroon); transition: background 0.3s; font-size: 1rem; }
-        .faq-item .faq-question:hover { background: rgba(0, 0, 0, 0.01); }
+        .faq-item .faq-question { padding: 22px 30px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 500; color: var(--text-primary); transition: background 0.3s; font-size: 1rem; }
         .faq-item .faq-question .icon { font-size: 1.8rem; transition: transform 0.4s ease; color: var(--gold); font-weight: 300; }
         .faq-item.active .faq-question .icon { transform: rotate(45deg); }
-        .faq-item .faq-answer { max-height: 0; padding: 0 30px; overflow: hidden; transition: max-height 0.5s ease, padding 0.4s ease; color: var(--text-muted); background: #faf8f6; line-height: 1.6; }
+        .faq-item .faq-answer { max-height: 0; padding: 0 30px; overflow: hidden; transition: max-height 0.5s ease, padding 0.4s ease; color: var(--text-muted); background: var(--bg-section); line-height: 1.6; }
         .faq-item.active .faq-answer { max-height: 300px; padding: 20px 30px; }
 
-        /* ------------------- 20. INSTAGRAM FEED ------------------- */
+        /* ------------------- 21. INSTAGRAM FEED ------------------- */
         .instagram-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; max-width: 900px; margin: 0 auto; }
-        .insta-placeholder { background: #fff; border-radius: 12px; height: 180px; box-shadow: var(--shadow-box); display: flex; align-items: center; justify-content: center; color: var(--text-muted); border: 1px solid rgba(0, 0, 0, 0.03); transition: var(--transition-smooth); }
+        .insta-placeholder { background: var(--bg-card); border-radius: 12px; height: 180px; box-shadow: var(--shadow-box); display: flex; align-items: center; justify-content: center; color: var(--text-muted); border: 1px solid var(--border-color); transition: 0.3s ease; }
         .insta-placeholder:hover { transform: scale(1.03); border-color: var(--gold); }
         .insta-placeholder i { font-size: 3rem; color: var(--gold); }
 
-        /* ------------------- 21. CONTACT & MAP ------------------- */
+        /* ------------------- 22. CONTACT & MAP ------------------- */
         .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
         .contact-form h2 { color: var(--gold); font-size: 2.4rem; margin-bottom: 25px; }
         .form-group { margin-bottom: 22px; }
-        .form-group label { display: block; margin-bottom: 8px; color: #555; font-size: 0.9rem; font-weight: 500; }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 15px 20px; background: #fff; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 8px; color: var(--text-light); font-family: 'Poppins', sans-serif; font-size: 0.95rem; transition: var(--transition-fast); outline: none; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 0.9rem; font-weight: 500; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 15px 20px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-family: 'Poppins', sans-serif; font-size: 0.95rem; transition: 0.3s ease; outline: none; }
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); box-shadow: 0 0 15px rgba(196, 147, 94, 0.1); }
         .form-group textarea { resize: vertical; min-height: 130px; }
-        .contact-info-box { padding: 40px; background: #fff; border: 1px solid rgba(0, 0, 0, 0.04); border-radius: 14px; box-shadow: var(--shadow-box); }
+        .contact-info-box { padding: 40px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; box-shadow: var(--shadow-box); }
         .contact-info-box h3 { color: var(--gold); margin-bottom: 25px; font-size: 1.8rem; }
         .contact-info-box .info-row { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 22px; }
         .contact-info-box .info-row i { color: var(--gold); font-size: 1.5rem; width: 30px; margin-top: 4px; }
         .contact-info-box .info-row p { font-size: 0.95rem; margin-bottom: 0; }
-        .contact-info-box .info-row p strong { color: var(--maroon); font-weight: 600; }
-        .map-container { width: 100%; border-radius: 12px; overflow: hidden; margin-top: 20px; border: 1px solid rgba(0, 0, 0, 0.06); }
+        .map-container { width: 100%; border-radius: 12px; overflow: hidden; margin-top: 20px; border: 1px solid var(--border-color); }
 
-        /* ------------------- 22. FOOTER ------------------- */
+        /* ------------------- 23. FOOTER ------------------- */
         .main-footer { background: var(--maroon-dark); color: #fff; padding: 70px 0 30px; border-top: 6px solid var(--gold); }
         .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 45px; padding-bottom: 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
         .footer-grid h4 { color: var(--gold); font-size: 1.3rem; margin-bottom: 25px; }
         .footer-grid p { color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; }
         .footer-grid ul li { margin-bottom: 12px; }
-        .footer-grid ul li a { color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; transition: var(--transition-fast); }
+        .footer-grid ul li a { color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; transition: 0.3s ease; }
         .footer-grid ul li a:hover { color: var(--gold); padding-left: 6px; }
         .footer-social-icons { display: flex; gap: 15px; margin-top: 20px; }
-        .footer-social-icons a { display: inline-flex; width: 42px; height: 42px; background: rgba(255, 255, 255, 0.08); border-radius: 50%; justify-content: center; align-items: center; color: #fff; transition: var(--transition-smooth); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .footer-social-icons a { display: inline-flex; width: 42px; height: 42px; background: rgba(255, 255, 255, 0.08); border-radius: 50%; justify-content: center; align-items: center; color: #fff; transition: 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.05); }
         .footer-social-icons a:hover { background: var(--gold); color: #fff; border-color: var(--gold); transform: translateY(-4px); }
         .footer-bottom { text-align: center; padding-top: 30px; color: rgba(255, 255, 255, 0.5); font-size: 0.85rem; }
         .footer-bottom span { color: var(--gold); font-weight: 600; }
 
-        /* ------------------- 23. BACK TO TOP & FLOATING BUTTONS ------------------- */
-        .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: var(--gold); color: #fff; border: none; border-radius: 50%; font-size: 1.4rem; cursor: pointer; opacity: 0; visibility: hidden; transition: var(--transition-fast); box-shadow: var(--shadow-gold); z-index: 998; display: flex; justify-content: center; align-items: center; }
+        /* ------------------- 24. BACK TO TOP & FLOATING BUTTONS ------------------- */
+        .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: var(--gold); color: #fff; border: none; border-radius: 50%; font-size: 1.4rem; cursor: pointer; opacity: 0; visibility: hidden; transition: 0.3s ease; box-shadow: var(--shadow-gold); z-index: 998; display: flex; justify-content: center; align-items: center; }
         .back-to-top.visible { opacity: 1; visibility: visible; }
         .back-to-top:hover { transform: scale(1.12) translateY(-4px); background: var(--gold-dark); }
-        
         .action-fab { position: fixed; bottom: 30px; left: 30px; display: flex; flex-direction: column; gap: 12px; z-index: 999; }
-        .fab-btn { width: 56px; height: 56px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 1.6rem; box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; cursor: pointer; }
+        .fab-btn { width: 56px; height: 56px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 1.6rem; box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; }
         .fab-btn:hover { transform: scale(1.12) rotate(-4deg); }
-        .fab-call { background: #007bff; } .fab-call:hover { background: #0056b3; }
-        .fab-whatsapp { background: #25D366; } .fab-whatsapp:hover { background: #1ebd5a; }
-        .fab-book { background: var(--gold); } .fab-book:hover { background: var(--gold-dark); }
+        .fab-call { background: #007bff; } .fab-whatsapp { background: #25D366; } .fab-book { background: var(--gold); }
 
-        /* ------------------- 24. CHATBOT ------------------- */
-        .chatbot-toggle { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.6rem; cursor: pointer; box-shadow: var(--shadow-gold); z-index: 999; border: none; transition: var(--transition-smooth); }
+        /* ------------------- 25. CHATBOT ------------------- */
+        .chatbot-toggle { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.6rem; cursor: pointer; box-shadow: var(--shadow-gold); z-index: 999; border: none; transition: 0.3s ease; }
         .chatbot-toggle:hover { transform: scale(1.1); background: var(--gold-dark); }
-        .chatbot-window { position: fixed; bottom: 110px; right: 30px; width: 360px; height: 460px; background: #fff; border-radius: 18px; box-shadow: var(--shadow-modal); border: 1px solid var(--gold); display: none; flex-direction: column; overflow: hidden; z-index: 9999; transform-origin: bottom right; animation: slideUpChat 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .chatbot-window { position: fixed; bottom: 110px; right: 30px; width: 360px; height: 460px; background: var(--bg-card); border-radius: 18px; box-shadow: var(--shadow-modal); border: 1px solid var(--gold); display: none; flex-direction: column; overflow: hidden; z-index: 9999; transform-origin: bottom right; animation: slideUpChat 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .chatbot-window.active { display: flex; }
         @keyframes slideUpChat { from { opacity: 0; transform: scale(0.8) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
         .chat-header { background: var(--gold); padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; color: #fff; font-weight: 600; border-bottom: 1px solid var(--gold-dark); }
         .chat-header i { cursor: pointer; transition: 0.3s; }
         .chat-header i:hover { transform: rotate(90deg); }
-        .chat-body { flex: 1; padding: 20px; overflow-y: auto; background: #fcf8f4; display: flex; flex-direction: column; gap: 12px; }
+        .chat-body { flex: 1; padding: 20px; overflow-y: auto; background: var(--bg-section); display: flex; flex-direction: column; gap: 12px; }
         .chat-body::-webkit-scrollbar { width: 5px; }
         .chat-body::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 5px; }
-        .chat-msg { max-width: 85%; padding: 12px 18px; border-radius: 14px; font-size: 0.9rem; line-height: 1.5; word-wrap: break-word; }
-        .chat-msg.bot { background: #e6cca8; align-self: flex-start; border-bottom-left-radius: 2px; }
+        .chat-msg { max-width: 85%; padding: 12px 18px; border-radius: 14px; font-size: 0.9rem; line-height: 1.5; }
+        .chat-msg.bot { background: #e6cca8; align-self: flex-start; border-bottom-left-radius: 2px; color: #1a1a1a; }
         .chat-msg.user { background: var(--maroon); color: #fff; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .chat-footer { padding: 12px; background: #fff; border-top: 1px solid rgba(0, 0, 0, 0.04); display: flex; gap: 12px; }
-        .chat-footer input { flex: 1; border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 30px; padding: 12px 18px; outline: none; font-family: 'Poppins', sans-serif; font-size: 0.9rem; transition: 0.3s; }
+        .chat-footer { padding: 12px; background: var(--bg-card); border-top: 1px solid var(--border-color); display: flex; gap: 12px; }
+        .chat-footer input { flex: 1; border: 1px solid var(--border-color); border-radius: 30px; padding: 12px 18px; outline: none; font-family: 'Poppins', sans-serif; font-size: 0.9rem; transition: 0.3s; color: var(--text-primary); }
         .chat-footer input:focus { border-color: var(--gold); }
         .chat-footer button { width: 44px; height: 44px; background: var(--gold); color: #fff; border: none; border-radius: 50%; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; font-size: 1.1rem; }
         .chat-footer button:hover { background: var(--gold-dark); transform: scale(1.05); }
 
-        /* ------------------- 25. DASHBOARD ------------------- */
-        #loginModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); z-index: 9998; justify-content: center; align-items: center; }
+        /* ------------------- 26. COOKIE CONSENT BANNER ------------------- */
+        #cookieConsent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--bg-card);
+            border-top: 2px solid var(--gold);
+            padding: 20px 40px;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            z-index: 999;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+        }
+        #cookieConsent p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        #cookieConsent .btn-cookie {
+            background: var(--gold);
+            color: #fff;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        #cookieConsent .btn-cookie:hover {
+            background: var(--gold-dark);
+        }
+
+        /* ------------------- 27. DASHBOARD ------------------- */
+        #loginModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px); z-index: 9998; justify-content: center; align-items: center; }
         #loginModal.active { display: flex; }
-        .login-box { background: #fff; padding: 45px; border-radius: 18px; width: 420px; max-width: 90%; border: 1px solid var(--gold); box-shadow: var(--shadow-gold); text-align: center; }
+        .login-box { background: var(--bg-card); padding: 45px; border-radius: 18px; width: 420px; max-width: 90%; border: 1px solid var(--gold); box-shadow: var(--shadow-gold); text-align: center; }
         .login-box h2 { color: var(--gold); margin-bottom: 5px; }
         .login-box p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px; }
-        .login-box input { width: 100%; padding: 15px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 8px; margin-bottom: 20px; font-family: 'Poppins', sans-serif; outline: none; transition: 0.3s; font-size: 1rem; }
+        .login-box input { width: 100%; padding: 15px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 20px; font-family: 'Poppins', sans-serif; outline: none; transition: 0.3s; font-size: 1rem; color: var(--text-primary); background: var(--bg-body); }
         .login-box input:focus { border-color: var(--gold); }
         .login-box .btn { width: 100%; }
-        #dashboardPanel { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-section); z-index: 9997; overflow-y: auto; padding-top: 80px; }
+        #dashboardPanel { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-body); z-index: 9997; overflow-y: auto; padding-top: 80px; }
         #dashboardPanel.active { display: block; }
-        .dashboard-header { background: #fff; padding: 25px 40px; border-bottom: 1px solid rgba(0, 0, 0, 0.04); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; box-shadow: var(--shadow-box); }
+        .dashboard-header { background: var(--bg-card); padding: 25px 40px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; box-shadow: var(--shadow-box); }
         .dashboard-header h3 { color: var(--gold); font-size: 1.8rem; }
         .dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; padding: 40px; max-width: 1200px; margin: 0 auto; }
-        .dash-card { background: #fff; padding: 28px; border-radius: 14px; box-shadow: var(--shadow-box); border: 1px solid rgba(0, 0, 0, 0.04); transition: 0.3s; }
+        .dash-card { background: var(--bg-card); padding: 28px; border-radius: 14px; box-shadow: var(--shadow-box); border: 1px solid var(--border-color); transition: 0.3s; }
         .dash-card:hover { border-color: var(--gold); transform: translateY(-6px); box-shadow: var(--shadow-gold); }
         .dash-card .icon { font-size: 2.8rem; color: var(--gold); margin-bottom: 15px; }
-        .dash-card h4 { font-size: 1.2rem; margin-bottom: 10px; color: var(--maroon); }
-        .dash-progress { width: 100%; height: 8px; background: #eee; border-radius: 10px; margin: 12px 0; overflow: hidden; }
+        .dash-card h4 { font-size: 1.2rem; margin-bottom: 10px; color: var(--text-primary); }
+        .dash-progress { width: 100%; height: 8px; background: var(--bg-section); border-radius: 10px; margin: 12px 0; overflow: hidden; }
         .dash-progress span { display: block; height: 100%; background: var(--gold); border-radius: 10px; }
 
-        /* ------------------- 26. BOOKING DATE MODAL (NEW) ------------------- */
-        #bookingDateModal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(6px);
-            z-index: 10001;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+        /* ------------------- 28. BOOKING DATE MODAL ------------------- */
+        #bookingDateModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(6px); z-index: 10001; justify-content: center; align-items: center; padding: 20px; }
         #bookingDateModal.active { display: flex; }
-        .booking-modal-box {
-            background: #fff;
-            padding: 40px;
-            border-radius: 16px;
-            max-width: 450px;
-            width: 100%;
-            border: 2px solid var(--gold);
-            box-shadow: var(--shadow-gold);
-            position: relative;
-            text-align: center;
-        }
-        .booking-modal-box h2 {
-            font-size: 1.8rem;
-            color: var(--maroon);
-            margin-bottom: 5px;
-        }
-        .booking-modal-box p {
-            color: var(--text-muted);
-            margin-bottom: 25px;
-            font-size: 0.95rem;
-        }
-        .booking-modal-box input[type="date"] {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
-            outline: none;
-            transition: 0.3s;
-            color: var(--text-light);
-        }
-        .booking-modal-box input[type="date"]:focus {
-            border-color: var(--gold);
-            box-shadow: 0 0 10px rgba(196, 147, 94, 0.2);
-        }
-        .booking-modal-box .btn-close-modal {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            transition: 0.3s;
-        }
-        .booking-modal-box .btn-close-modal:hover {
-            color: var(--maroon);
-        }
+        .booking-modal-box { background: var(--bg-card); padding: 40px; border-radius: 16px; max-width: 450px; width: 100%; border: 2px solid var(--gold); box-shadow: var(--shadow-gold); position: relative; text-align: center; }
+        .booking-modal-box h2 { font-size: 1.8rem; color: var(--text-primary); margin-bottom: 5px; }
+        .booking-modal-box p { color: var(--text-muted); margin-bottom: 25px; font-size: 0.95rem; }
+        .booking-modal-box input[type="date"] { width: 100%; padding: 14px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 20px; font-family: 'Poppins', sans-serif; font-size: 1rem; outline: none; transition: 0.3s; color: var(--text-primary); background: var(--bg-body); }
+        .booking-modal-box input[type="date"]:focus { border-color: var(--gold); box-shadow: 0 0 10px rgba(196, 147, 94, 0.2); }
+        .booking-modal-box .btn-close-modal { background: transparent; border: none; color: var(--text-muted); cursor: pointer; margin-top: 15px; font-size: 0.9rem; transition: 0.3s; }
+        .booking-modal-box .btn-close-modal:hover { color: var(--text-primary); }
 
-        /* ------------------- 27. RESPONSIVE ------------------- */
+        /* ------------------- 29. RESPONSIVE ------------------- */
         @media (max-width: 1024px) {
             .hero-content h1 { font-size: 4.2rem; }
-            .pricing-grid, .process-wrapper, .choose-wrapper { grid-template-columns: 1fr 1fr; }
+            .pricing-grid, .process-wrapper, .choose-wrapper, .addons-table { grid-template-columns: 1fr 1fr; }
             .footer-grid { grid-template-columns: repeat(2, 1fr); }
             .contact-wrapper, .about-wrapper { grid-template-columns: 1fr; }
-            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
             .stats-wrapper { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {
             .hamburger { display: block; }
-            .nav-links { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: rgba(255, 255, 255, 0.99); flex-direction: column; justify-content: center; align-items: center; transition: right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); border-left: 2px solid var(--gold); gap: 20px; box-shadow: -5px 0 25px rgba(0, 0, 0, 0.06); }
+            .nav-links { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: var(--bg-card); flex-direction: column; justify-content: center; align-items: center; transition: right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); border-left: 2px solid var(--gold); gap: 20px; box-shadow: -5px 0 25px rgba(0, 0, 0, 0.06); }
             .nav-links.active { right: 0; }
             .navbar { padding: 15px 20px; }
             .hero-content h1 { font-size: 2.8rem; }
-            .hero-content p { font-size: 1rem; }
-            .section-title h2 { font-size: 2.5rem; }
-            .stats-wrapper, .pricing-grid, .process-wrapper, .choose-wrapper, .footer-grid { grid-template-columns: 1fr; }
+            .pricing-grid, .process-wrapper, .choose-wrapper, .addons-table { grid-template-columns: 1fr; }
+            .footer-grid, .stats-wrapper { grid-template-columns: 1fr; }
             .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
-            .lightbox-container .close-lb { top: 15px; right: 25px; font-size: 2.5rem; }
-            .action-fab { left: 15px; bottom: 20px; gap: 10px; }
-            .fab-btn { width: 48px; height: 48px; font-size: 1.3rem; }
-            .chatbot-window { width: 90%; right: 5%; bottom: 90px; }
-            .chatbot-toggle { right: 15px; width: 52px; height: 52px; font-size: 1.3rem; }
             .booking-modal-box { padding: 30px 20px; }
-        }
-        @media (max-width: 480px) {
-            .hero-content h1 { font-size: 2.2rem; letter-spacing: 1px; }
-            .btn { padding: 12px 25px; font-size: 0.8rem; }
-            .hero-content .cta-group { flex-direction: column; align-items: center; }
-            .stats-wrapper .stat-item h3 { font-size: 2.2rem; }
-            .section-title h2 { font-size: 2rem; }
+            #cookieConsent { flex-direction: column; text-align: center; gap: 15px; padding: 20px; }
         }
     </style>
 </head>
 <body>
 
     <!-- ============================================================== -->
-    <!-- 1. PRELOADER                                                     -->
+    <!-- 1. THEME TOGGLE BUTTON                                           -->
+    <!-- ============================================================== -->
+    <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- ============================================================== -->
+    <!-- 2. PRELOADER                                                     -->
     <!-- ============================================================== -->
     <div id="preloader">
         <div class="loader-wrapper">
@@ -559,7 +592,7 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 2. NAVIGATION BAR                                                -->
+    <!-- 3. NAVIGATION BAR                                                -->
     <!-- ============================================================== -->
     <nav class="navbar" id="navbar">
         <a href="#" class="logo">
@@ -577,22 +610,26 @@
             <li><a href="#blog">Blog</a></li>
             <li><a href="#faq">FAQ</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><a href="#" id="dashboardLink">Client Dashboard</a></li>
+            <li><a href="#" id="dashboardLink">Dashboard</a></li>
             <li><a href="javascript:void(0)" onclick="openBookingModal('General Enquiry')" class="btn btn-primary btn-sm" style="border-radius:30px;">Book Now</a></li>
         </ul>
         <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
     </nav>
 
     <!-- ============================================================== -->
-    <!-- 3. HERO SECTION                                                   -->
+    <!-- 4. HERO SECTION WITH VIDEO BACKGROUND                           -->
     <!-- ============================================================== -->
     <section class="hero" id="home">
+        <!-- Replace 'wedding-video.mp4' with your actual video file path -->
+        <video class="hero-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80">
+            <source src="wedding-video.mp4" type="video/mp4">
+        </video>
+        
         <div class="hero-content">
             <span class="sub-title"><i class="fas fa-crown"></i> Premium Wedding Studio</span>
             <h1>YOUR DREAM <br> <span class="highlight">WEDDING</span> <br> DESERVES A <br> CINEMATIC STORY</h1>
             <p>Luxury Wedding Photography & Films Crafted With Emotion, Elegance & Timeless Memories. Trusted by 800+ couples across India.</p>
             <div class="cta-group">
-                <!-- NEW: Added a prominent Book Your Date Now button at the top -->
                 <a href="javascript:void(0)" onclick="openBookingModal('General Enquiry')" class="btn btn-primary">Book Your Date Now</a>
                 <a href="#pricing" class="btn btn-gold">View Packages</a>
                 <a href="#portfolio" class="btn btn-dark">View Portfolio</a>
@@ -601,7 +638,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 4. STATS COUNTER                                                 -->
+    <!-- 5. STATS COUNTER                                                 -->
     <!-- ============================================================== -->
     <section class="bg-section">
         <div class="container">
@@ -615,7 +652,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 5. ABOUT US                                                        -->
+    <!-- 6. ABOUT US                                                        -->
     <!-- ============================================================== -->
     <section id="about">
         <div class="container">
@@ -643,7 +680,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 6. SERVICES                                                        -->
+    <!-- 7. SERVICES                                                        -->
     <!-- ============================================================== -->
     <section id="services" class="bg-section">
         <div class="container">
@@ -664,7 +701,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 7. OUR PROCESS (NEW)                                            -->
+    <!-- 8. OUR PROCESS                                                   -->
     <!-- ============================================================== -->
     <section id="process">
         <div class="container">
@@ -683,7 +720,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 8. WHY CHOOSE US                                                   -->
+    <!-- 9. WHY CHOOSE US                                                   -->
     <!-- ============================================================== -->
     <section id="why-choose-us" class="bg-section">
         <div class="container">
@@ -704,7 +741,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 9. PARTNERS & AWARDS (NEW)                                     -->
+    <!-- 10. PARTNERS & AWARDS                                            -->
     <!-- ============================================================== -->
     <section id="partners">
         <div class="container">
@@ -732,7 +769,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 10. PORTFOLIO GALLERY                                             -->
+    <!-- 11. PORTFOLIO GALLERY                                             -->
     <!-- ============================================================== -->
     <section id="portfolio" class="bg-section">
         <div class="container">
@@ -751,7 +788,6 @@
             </div>
 
             <div class="gallery-grid" id="galleryGrid">
-                <!-- UPDATED: All Portfolio books now trigger the Date Picker Modal -->
                 <div class="gallery-item reveal" data-category="wedding">
                     <img src="https://images.pexels.com/photos/169193/pexels-photo-169193.jpeg" alt="Elegant Wedding">
                     <div class="overlay"><h4>Elegant Wedding</h4><span>Wedding</span><a href="javascript:void(0)" onclick="openBookingModal('Elegant Wedding Project')" class="book-project-btn">Book This Project</a></div>
@@ -852,9 +888,7 @@
         </div>
     </section>
 
-    <!-- ============================================================== -->
-    <!-- 11. LIGHTBOX MODAL                                               -->
-    <!-- ============================================================== -->
+    <!-- Lightbox -->
     <div class="lightbox-container" id="lightbox">
         <span class="close-lb" id="closeLb">&times;</span>
         <img id="lbImg" src="" alt="Lightbox Image">
@@ -871,18 +905,15 @@
                 <span class="ornate-line"></span>
             </div>
             <div class="team-wrapper">
-                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Nikhil Kapoor"><h4>Nikhil Kapoor</h4><p>Founder & Lead Photographer</p><div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div></div>
-                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Kriti Sharma"><h4>Kriti Sharma</h4><p>Creative Director</p><div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div></div>
-                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/men/86.jpg" alt="Arjun Mehta"><h4>Arjun Mehta</h4><p>Senior Cinematographer</p><div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div></div>
-                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Riya Patel"><h4>Riya Patel</h4><p>Editor & Colorist</p><div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div></div>
-                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/men/12.jpg" alt="Vikram Desai"><h4>Vikram Desai</h4><p>Drone Specialist</p><div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div></div>
-                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Anjali Menon"><h4>Anjali Menon</h4><p>Client Relations Manager</p><div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div></div>
-                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/men/55.jpg" alt="Rohit Bansal"><h4>Rohit Bansal</h4><p>Album Designer</p><div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div></div>
-                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/women/72.jpg" alt="Simran Kaur"><h4>Simran Kaur</h4><p>Marketing Head</p><div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div></div>
-                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/men/90.jpg" alt="Amit Verma"><h4>Amit Verma</h4><p>Lighting Expert</p><div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div></div>
-                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/women/91.jpg" alt="Priya Singh"><h4>Priya Singh</h4><p>Backstage Coordinator</p><div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div></div>
-                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Deepak Raj"><h4>Deepak Raj</h4><p>Post Production Lead</p><div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div></div>
-                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/women/56.jpg" alt="Sneha Pillai"><h4>Sneha Pillai</h4><p>Video Editor</p><div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div></div>
+                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Nikhil Kapoor"><h4>Nikhil Kapoor</h4><p>Founder & Lead Photographer</p></div>
+                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Kriti Sharma"><h4>Kriti Sharma</h4><p>Creative Director</p></div>
+                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/men/86.jpg" alt="Arjun Mehta"><h4>Arjun Mehta</h4><p>Senior Cinematographer</p></div>
+                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Riya Patel"><h4>Riya Patel</h4><p>Editor & Colorist</p></div>
+                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/men/12.jpg" alt="Vikram Desai"><h4>Vikram Desai</h4><p>Drone Specialist</p></div>
+                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Anjali Menon"><h4>Anjali Menon</h4><p>Client Relations Manager</p></div>
+                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/men/55.jpg" alt="Rohit Bansal"><h4>Rohit Bansal</h4><p>Album Designer</p></div>
+                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/women/72.jpg" alt="Simran Kaur"><h4>Simran Kaur</h4><p>Marketing Head</p></div>
+                <div class="team-member reveal"><img src="https://randomuser.me/api/portraits/men/90.jpg" alt="Amit Verma"><h4>Amit Verma</h4><p>Lighting Expert</p></div>
             </div>
         </div>
     </section>
@@ -899,16 +930,11 @@
             </div>
             <div class="testimonial-wrapper reveal">
                 <div class="testimonial-track" id="testimonialTrack">
-                    <div class="testimonial-item"><p>"The Wedding transformed our wedding into a dreamy film. Every picture still makes us emotional. The drone shots were breathtaking!"</p><h5>— Priya & Rahul Mehta</h5><span class="role">Wedding 2025</span></div>
-                    <div class="testimonial-item"><p>"Their attention to detail and ability to make us comfortable was beyond compare. The album is a masterpiece. We will cherish it forever."</p><h5>— Ananya Gupta</h5><span class="role">Commercial Client</span></div>
-                    <div class="testimonial-item"><p>"Absolutely world‑class commercial shoot. They understood our brand’s voice perfectly and delivered stunning visuals within tight deadlines."</p><h5>— Vikram Singh</h5><span class="role">Marketing Head</span></div>
-                    <div class="testimonial-item"><p>"From candid moments to grand portraits, they captured the soul of our family like no one else. A truly lifetime experience."</p><h5>— The Kapoor Family</h5><span class="role">Wedding 2026</span></div>
-                    <div class="testimonial-item"><p>"Professional, punctual, and incredibly talented. The pre-wedding shoot was so much fun, and the results were simply magical."</p><h5>— Shreya Joshi</h5><span class="role">Pre-Wedding Shoot</span></div>
-                    <div class="testimonial-item"><p>"I've worked with many photographers, but The Wedding stands out for their warmth and creativity. They treat every story with utmost respect."</p><h5>— Rohan Khanna</h5><span class="role">International Project</span></div>
-                    <div class="testimonial-item"><p>"Our sangeet and reception highlights were edited with such cinematic precision. Our guests thought it was a bollywood movie!"</p><h5>— Neha & Arvind</h5><span class="role">Wedding 2024</span></div>
-                    <div class="testimonial-item"><p>"The team was incredibly patient during our large family group shots. The album design is elegant, minimalist, and highly premium."</p><h5>— The Singh Family</h5><span class="role">Wedding 2025</span></div>
-                    <div class="testimonial-item"><p>"Their cinematic storytelling is unmatched. Our highlight video goes viral every time we share it with family and friends."</p><h5>— Anjali & Manish</h5><span class="role">Wedding 2025</span></div>
-                    <div class="testimonial-item"><p>"Thank you for capturing the beautiful moments of our daughter's wedding with such elegance. You truly are artists, not just photographers."</p><h5>— Mrs. Sharma</h5><span class="role">Bride's Mother</span></div>
+                    <div class="testimonial-item"><p>"The Wedding transformed our wedding into a dreamy film. Every picture still makes us emotional. The drone shots were breathtaking!"</p><h5>— Priya & Rahul Mehta</h5></div>
+                    <div class="testimonial-item"><p>"Their attention to detail and ability to make us comfortable was beyond compare. The album is a masterpiece. We will cherish it forever."</p><h5>— Ananya Gupta</h5></div>
+                    <div class="testimonial-item"><p>"Absolutely world‑class commercial shoot. They understood our brand’s voice perfectly and delivered stunning visuals within tight deadlines."</p><h5>— Vikram Singh</h5></div>
+                    <div class="testimonial-item"><p>"From candid moments to grand portraits, they captured the soul of our family like no one else. A truly lifetime experience."</p><h5>— The Kapoor Family</h5></div>
+                    <div class="testimonial-item"><p>"Professional, punctual, and incredibly talented. The pre-wedding shoot was so much fun, and the results were simply magical."</p><h5>— Shreya Joshi</h5></div>
                 </div>
                 <div class="slider-dots" id="sliderDots"></div>
             </div>
@@ -916,7 +942,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 14. PRICING & QUOTATION                                          -->
+    <!-- 14. PRICING & NEW CALCULATOR (INTERACTIVE ADD-ONS)               -->
     <!-- ============================================================== -->
     <section id="pricing">
         <div class="container">
@@ -938,7 +964,7 @@
                     <div class="price-card featured reveal">
                         <div class="card-title" style="background:var(--gold); color:#fff; padding:12px; margin-top:-30px; margin-bottom:25px; border-radius:8px 8px 0 0;">Gold (Best Seller)</div>
                         <ul><li><i class="fas fa-camera"></i> 1 Photographer</li><li><i class="fas fa-video"></i> 2 Cinematographers</li><li><i class="fas fa-plane"></i> Drone coverage</li><li><i class="fas fa-calendar-check"></i> Full Wedding Coverage</li><li><i class="fas fa-images"></i> 200+ Edited Photos</li><li><i class="fas fa-play-circle"></i> Cinematic Highlight Film (5-8 Min)</li><li><i class="fas fa-play-circle"></i> Wedding Teaser (1 min)</li><li><i class="fas fa-book"></i> Premium Album (12x36 40 sheets)</li><li><i class="fas fa-usb"></i> All row data in pendrive</li></ul>
-                        <div class="price-tag" style="border:2px solid var(--gold); background:#fff;">PRICE: <br> <span style="color:var(--gold);">₹1,20,000</span></div>
+                        <div class="price-tag" style="border:2px solid var(--gold); background:var(--bg-card);">PRICE: <br> <span style="color:var(--gold);">₹1,20,000</span></div>
                         <div class="text-center mt-20"><a href="javascript:void(0)" onclick="openBookingModal('Gold Package')" class="btn btn-primary" style="border-radius:30px;">Book Gold</a></div>
                     </div>
 
@@ -950,8 +976,27 @@
                     </div>
                 </div>
 
+                <!-- NEW: Interactive Add-ons Calculator -->
+                <div class="addons-wrapper">
+                    <h3><i class="fas fa-cogs"></i> Customize Your Package</h3>
+                    <p class="text-center text-muted" style="margin-bottom:20px;">Select any add-ons below to see the updated total price instantly.</p>
+                    <div class="addons-table">
+                        <div class="addon-item"><input type="checkbox" class="addon-check" data-price="5000"> <label>Drone Shoot</label> <span class="addon-price">+₹5,000</span></div>
+                        <div class="addon-item"><input type="checkbox" class="addon-check" data-price="12000"> <label>LED Screen Coverage</label> <span class="addon-price">+₹12,000</span></div>
+                        <div class="addon-item"><input type="checkbox" class="addon-check" data-price="8000"> <label>Crane Camera Coverage</label> <span class="addon-price">+₹8,000</span></div>
+                        <div class="addon-item"><input type="checkbox" class="addon-check" data-price="10000"> <label>Same Day Edit (SDE)</label> <span class="addon-price">+₹10,000</span></div>
+                        <div class="addon-item"><input type="checkbox" class="addon-check" data-price="8000"> <label>Extra Album (Duplicate)</label> <span class="addon-price">+₹8,000</span></div>
+                        <div class="addon-item"><input type="checkbox" class="addon-check" data-price="15000"> <label>Extended Coverage (Extra 4 hrs)</label> <span class="addon-price">+₹15,000</span></div>
+                    </div>
+                    <div class="calc-total-box">
+                        <p style="color:#fff; margin:0; font-size:0.9rem;">Total Estimated Cost (Base + Add-ons)</p>
+                        <div class="total-amount" id="calcTotal">₹80,000</div>
+                        <button onclick="openBookingModal('Custom Add-on Package')" class="btn btn-gold" style="margin-top:15px; border-color:#fff; color:#fff;">Book This Custom Plan</button>
+                    </div>
+                </div>
+
                 <!-- PDF DOWNLOAD -->
-                <div class="text-center mt-40" style="background:var(--maroon); padding:35px; border-radius:12px; color:#fff;">
+                <div class="text-center mt-40" style="background:var(--maroon-dark); padding:35px; border-radius:12px; color:#fff;">
                     <h3 style="color:var(--gold); font-size:2.2rem;">Want a Detailed Price Card?</h3>
                     <p style="color:rgba(255,255,255,0.8); margin-bottom:25px; font-size:1rem;">Download our complete PDF brochure with all packages, add-ons, and booking terms.</p>
                     <a href="wedding-packages.pdf" download class="btn btn-gold" style="border-color:#fff; color:#fff;">Download PDF Brochure <i class="fas fa-download ml-10" style="margin-left:10px;"></i></a>
@@ -971,18 +1016,9 @@
                 <span class="ornate-line"></span>
             </div>
             <div class="blog-wrapper">
-                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/3014856/pexels-photo-3014856.jpeg" alt="Blog 1"></div><div class="blog-content"><div class="meta"><span><i class="far fa-calendar"></i> Jan 12, 2026</span> <span><i class="far fa-comment"></i> 4 Comments</span></div><h4>10 Wedding Trends Defining 2026</h4><p>Candid moments, vintage filters, and drone shots are reshaping Indian weddings. Discover the top trends this year.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
-                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg" alt="Blog 2"></div><div class="blog-content"><div class="meta"><span><i class="far fa-calendar"></i> Dec 28, 2025</span> <span><i class="far fa-comment"></i> 8 Comments</span></div><h4>How to Pose Naturally</h4><p>Simple tricks to look effortless and relaxed in front of the camera. Our expert guide to natural posing.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
-                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/1762851/pexels-photo-1762851.jpeg" alt="Blog 3"></div><div class="blog-content"><div class="meta"><span><i class="far fa-calendar"></i> Nov 15, 2025</span> <span><i class="far fa-comment"></i> 12 Comments</span></div><h4>Behind the Lens: A Day in Our Studio</h4><p>See how we prepare for a high‑end commercial shoot — from lighting setups to post-production magic.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
-                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/2123725/pexels-photo-2123725.jpeg" alt="Blog 4"></div><div class="blog-content"><div class="meta"><span><i class="far fa-calendar"></i> Oct 10, 2025</span> <span><i class="far fa-comment"></i> 6 Comments</span></div><h4>Choosing the Right Photographer</h4><p>Important questions to ask before booking your wedding photographer. Ensure you make the perfect choice.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
-                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg" alt="Blog 5"></div><div class="blog-content"><div class="meta"><span><i class="far fa-calendar"></i> Sep 22, 2025</span> <span><i class="far fa-comment"></i> 15 Comments</span></div><h4>Mastering Drone Cinematography</h4><p>Learn how aerial footage and sweeping drone shots transform wedding films into cinematic masterpieces.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
-                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/247600/pexels-photo-247600.jpeg" alt="Blog 6"></div><div class="blog-content"><div class="meta"><span><i class="far fa-calendar"></i> Aug 05, 2025</span> <span><i class="far fa-comment"></i> 9 Comments</span></div><h4>Color Grading for Emotional Impact</h4><p>How we use color and contrast to evoke nostalgia, romance, and joy in every frame of your wedding film.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
-                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/2738832/pexels-photo-2738832.jpeg" alt="Blog 7"></div><div class="blog-content"><div class="meta"><span><i class="far fa-calendar"></i> Jul 18, 2025</span> <span><i class="far fa-comment"></i> 3 Comments</span></div><h4>Building a Luxury Album</h4><p>Step-by-step guide on designing premium handcrafted leather albums for your treasured wedding memories.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
-                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg" alt="Blog 8"></div><div class="blog-content"><div class="meta"><span><i class="far fa-calendar"></i> Jun 12, 2025</span> <span><i class="far fa-comment"></i> 21 Comments</span></div><h4>Why Pre-Wedding Shoots are Essential</h4><p>Build comfort, explore locations, and create stunning content for your big day with a dedicated pre-wedding session.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
-                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/874103/pexels-photo-874103.jpeg" alt="Blog 9"></div><div class="blog-content"><div class="meta"><span><i class="far fa-calendar"></i> May 29, 2025</span> <span><i class="far fa-comment"></i> 5 Comments</span></div><h4>Lighting Techniques for Portraits</h4><p>Master natural, studio, and mixed lighting to elevate your portrait photography with our expert tips.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
-                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/1581558/pexels-photo-1581558.jpeg" alt="Blog 10"></div><div class="blog-content"><div class="meta"><span><i class="far fa-calendar"></i> Apr 15, 2025</span> <span><i class="far fa-comment"></i> 13 Comments</span></div><h4>Top 5 Cinematic Lens Choices</h4><p>What lenses we use to achieve that stunning bokeh, sharpness, and cinematic look in our films.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
-                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/2422288/pexels-photo-2422288.jpeg" alt="Blog 11"></div><div class="blog-content"><div class="meta"><span><i class="far fa-calendar"></i> Mar 02, 2025</span> <span><i class="far fa-comment"></i> 10 Comments</span></div><h4>Managing a Multi-Day Wedding</h4><p>How we handle Haldi, Mehndi, Sangeet, and Main Wedding seamlessly with professional coordination.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
-                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/1669231/pexels-photo-1669231.jpeg" alt="Blog 12"></div><div class="blog-content"><div class="meta"><span><i class="far fa-calendar"></i> Feb 20, 2025</span> <span><i class="far fa-comment"></i> 7 Comments</span></div><h4>Color Theory in Wedding Films</h4><p>How we pair the mood of the wedding with color palettes to tell a powerful visual story.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
+                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/3014856/pexels-photo-3014856.jpeg" alt="Blog 1"></div><div class="blog-content"><div class="meta"><span><i class="far fa-calendar"></i> Jan 12, 2026</span></div><h4>10 Wedding Trends Defining 2026</h4><p>Candid moments, vintage filters, and drone shots are reshaping Indian weddings.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
+                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg" alt="Blog 2"></div><div class="blog-content"><div class="meta"><span><i class="far fa-calendar"></i> Dec 28, 2025</span></div><h4>How to Pose Naturally</h4><p>Simple tricks to look effortless and relaxed in front of the camera.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
+                <div class="blog-card reveal"><div class="blog-img"><img src="https://images.pexels.com/photos/1762851/pexels-photo-1762851.jpeg" alt="Blog 3"></div><div class="blog-content"><div class="meta"><span><i class="far fa-calendar"></i> Nov 15, 2025</span></div><h4>Behind the Lens: A Day in Our Studio</h4><p>See how we prepare for a high‑end commercial shoot.</p><a href="#" class="btn btn-sm btn-gold">Read More</a></div></div>
             </div>
         </div>
     </section>
@@ -994,50 +1030,25 @@
         <div class="container">
             <div class="section-title reveal">
                 <h2>FREQUENTLY ASKED <span class="text-light">QUESTIONS</span></h2>
-                <p>Everything you need to know before we start your journey together.</p>
                 <span class="ornate-line"></span>
             </div>
-            
-            <div style="max-width:600px; margin:0 auto 30px; text-align:center;">
-                <input type="text" id="faqSearch" placeholder="Search FAQ (e.g., Drone, Advance, Album)..." style="width:100%; padding:14px 18px; background:#fff; border:1px solid rgba(0,0,0,0.06); border-radius:8px; color:var(--text-light); outline:none; transition:0.3s; font-family:'Poppins', sans-serif; font-size:0.95rem;">
-            </div>
-
             <div class="faq-wrapper">
-                <div class="faq-item reveal"><div class="faq-question">How far in advance should we book? <span class="icon">+</span></div><div class="faq-answer">We recommend booking 6–12 months ahead, especially for wedding dates during peak season (November–February). However, we do accommodate last‑minute inquiries based on availability.</div></div>
-                <div class="faq-item reveal"><div class="faq-question">Do you travel for destination shoots? <span class="icon">+</span></div><div class="faq-answer">Absolutely! We’ve shot across India, Europe, and Southeast Asia. Travel and accommodation costs are added to the package, and we handle all logistics.</div></div>
-                <div class="faq-item reveal"><div class="faq-question">How many photos will we receive? <span class="icon">+</span></div><div class="faq-answer">Depending on the package, you’ll receive between 200 to 400+ high‑resolution edited images. We believe in quality over quantity — every delivered photo is meticulously edited and color graded.</div></div>
-                <div class="faq-item reveal"><div class="faq-question">What is your editing style? <span class="icon">+</span></div><div class="faq-answer">Our signature style is timeless, warm, and cinematic with true‑to‑life colors. We avoid heavy filters that date quickly, ensuring your memories look fresh forever.</div></div>
-                <div class="faq-item reveal"><div class="faq-question">Can we get raw files? <span class="icon">+</span></div><div class="faq-answer">Raw files are not included in standard packages as they are unfinished work. But we can discuss providing them under a special agreement.</div></div>
-                <div class="faq-item reveal"><div class="faq-question">Do you offer Haldi, Mehndi, and Sangeet coverage? <span class="icon">+</span></div><div class="faq-answer">Yes, our Premium Luxury package fully covers Haldi, Mehndi, Sangeet, and the Main Wedding event. For other packages, we can customize based on your requirements.</div></div>
-                <div class="faq-item reveal"><div class="faq-question">What happens if the weather is bad? <span class="icon">+</span></div><div class="faq-answer">We always have backup indoor locations and lighting arrangements. We shoot in all weather conditions to ensure you get the perfect shots.</div></div>
-                <div class="faq-item reveal"><div class="faq-question">How do we pay the advance? <span class="icon">+</span></div><div class="faq-answer">We accept bank transfers, UPI, or cash. A 30% advance is required to confirm your booking, and the remaining amount is paid as per the schedule mentioned in the terms.</div></div>
-                <div class="faq-item reveal"><div class="faq-question">Do you provide drone footage? <span class="icon">+</span></div><div class="faq-answer">Absolutely. Drone coverage is standard in our Gold and Premium Luxury packages, but can also be added as an additional service to the Silver package for ₹5,000.</div></div>
-                <div class="faq-item reveal"><div class="faq-question">How can I book my date? <span class="icon">+</span></div><div class="faq-answer">You can click the "Book Now" button anywhere on our website, select your preferred date from the popup calendar, and it will automatically send a WhatsApp message to us with your chosen date!</div></div>
-                <div class="faq-item reveal"><div class="faq-question">Do you offer pre-wedding shoots? <span class="icon">+</span></div><div class="faq-answer">Yes, pre-wedding shoots are part of our Gold and Luxury packages. We also offer standalone pre-wedding packages for couples who want to capture their story before the big day.</div></div>
-                <div class="faq-item reveal"><div class="faq-question">How many photographers will be on my wedding day? <span class="icon">+</span></div><div class="faq-answer">We provide a team of 2 to 4 photographers and cinematographers depending on your chosen package, ensuring every angle is perfectly covered.</div></div>
-                <div class="faq-item reveal"><div class="faq-question">What is your turnaround time for delivery? <span class="icon">+</span></div><div class="faq-answer">Our standard delivery time is 15 to 30 days from the date of your wedding. For special requests like Same Day Edit, we can do that at an additional cost.</div></div>
-                <div class="faq-item reveal"><div class="faq-question">Can we customize a package? <span class="icon">+</span></div><div class="faq-answer">Yes! We love creating custom packages. Just tell us your requirements, budget, and dates, and we will tailor a special plan just for you.</div></div>
-                <div class="faq-item reveal"><div class="faq-question">Do you have a studio in Patna? <span class="icon">+</span></div><div class="faq-answer">Yes, we are based in Patna City, Bihar. You can visit our office at Mahadev Sthan, Marchi Road, near Bypass Thana, Patna City - 800009.</div></div>
-                <div class="faq-item reveal"><div class="faq-question">How do I get a quote quickly? <span class="icon">+</span></div><div class="faq-answer">Simply click the "Book Now" button on our website. It will open a date picker. Select your date and we'll give you a quote immediately on WhatsApp!</div></div>
-                <div class="faq-item reveal"><div class="faq-question">What is included in the album design? <span class="icon">+</span></div><div class="faq-answer">Our albums are premium leather-bound, 12x36 inches, with 40-50 sheets. The design is custom-made based on your wedding theme. Additional albums are available at extra cost.</div></div>
-                <div class="faq-item reveal"><div class="faq-question">Do you offer cinematic editing for short reels? <span class="icon">+</span></div><div class="faq-answer">Yes! We create Instagram-friendly reels, teasers (1 minute), and highlight videos (5-10 minutes) that are perfect for social media sharing.</div></div>
-                <div class="faq-item reveal"><div class="faq-question">Are you available for out-of-station shoots? <span class="icon">+</span></div><div class="faq-answer">Yes, we are available for out-of-station and international shoots. Travel and accommodation expenses will be handled as per actuals.</div></div>
-                <div class="faq-item reveal"><div class="faq-question">Do you charge extra for overtime? <span class="icon">+</span></div><div class="faq-answer">Our packages cover the full day of the event. However, if the timeline extends significantly beyond the standard schedule, an additional hourly charge may apply.</div></div>
+                <div class="faq-item reveal"><div class="faq-question">How far in advance should we book? <span class="icon">+</span></div><div class="faq-answer">We recommend booking 6–12 months ahead, especially for wedding dates during peak season (November–February).</div></div>
+                <div class="faq-item reveal"><div class="faq-question">Do you travel for destination shoots? <span class="icon">+</span></div><div class="faq-answer">Absolutely! We’ve shot across India, Europe, and Southeast Asia.</div></div>
+                <div class="faq-item reveal"><div class="faq-question">How can I book my date? <span class="icon">+</span></div><div class="faq-answer">You can click the "Book Now" button anywhere on our website, select your preferred date from the popup calendar, and it will automatically send a WhatsApp message to us!</div></div>
             </div>
         </div>
     </section>
 
     <!-- ============================================================== -->
-    <!-- 17. INSTAGRAM FEED (NEW)                                         -->
+    <!-- 17. INSTAGRAM FEED                                               -->
     <!-- ============================================================== -->
     <section id="instagram" class="bg-section">
         <div class="container text-center">
             <div class="section-title reveal">
                 <h2>FOLLOW OUR <span class="text-light">JOURNEY</span></h2>
-                <p>Stay updated with our latest behind-the-scenes, real wedding stories, and cinematic clips on Instagram.</p>
                 <span class="ornate-line"></span>
             </div>
-            
             <div class="instagram-grid reveal">
                 <div class="insta-placeholder"><i class="fab fa-instagram"></i></div>
                 <div class="insta-placeholder"><i class="fab fa-instagram"></i></div>
@@ -1046,7 +1057,7 @@
                 <div class="insta-placeholder"><i class="fab fa-instagram"></i></div>
                 <div class="insta-placeholder"><i class="fab fa-instagram"></i></div>
             </div>
-            <p class="mt-20"><a href="https://instagram.com/yourusername" target="_blank" class="text-gold" style="font-weight:600; font-size:1.1rem;">@TheWeddingStudio <i class="fas fa-arrow-right" style="margin-left:8px;"></i></a></p>
+            <p class="mt-20"><a href="https://instagram.com/yourusername" target="_blank" class="text-gold" style="font-weight:600;">@TheWeddingStudio</a></p>
         </div>
     </section>
 
@@ -1057,7 +1068,6 @@
         <div class="container">
             <div class="section-title reveal">
                 <h2>LET'S CREATE <span class="text-light">TOGETHER</span></h2>
-                <p>We’d love to hear about your project. Fill out the form, visit our studio, or reach us directly.</p>
                 <span class="ornate-line"></span>
             </div>
             <div class="contact-wrapper">
@@ -1065,23 +1075,20 @@
                     <h2>Send a Message</h2>
                     <form id="contactForm">
                         <div class="form-group"><label>Your Full Name</label><input type="text" id="name" placeholder="e.g. Amit Sharma" required></div>
-                        <div class="form-group"><label>Email Address</label><input type="email" id="email" placeholder="e.g. amit@example.com" required></div>
                         <div class="form-group"><label>Phone Number</label><input type="tel" id="phone" placeholder="+91 98765 43210" required></div>
-                        <div class="form-group"><label>Event Type</label><select id="event"><option value="">Select Event Type</option><option value="Wedding">Wedding</option><option value="Pre-Wedding">Pre-Wedding</option><option value="Commercial">Commercial / Brand</option><option value="Portrait">Portrait / Personal</option></select></div>
-                        <div class="form-group"><label>Tell us about your vision...</label><textarea id="message" rows="5" placeholder="Describe your dream shoot, location, dates, and any special requirements..." required></textarea></div>
-                        <button type="submit" class="btn btn-primary btn-block" id="submitBtn">Send Enquiry via WhatsApp</button>
+                        <div class="form-group"><label>Event Type</label><select id="event"><option value="Wedding">Wedding</option><option value="Pre-Wedding">Pre-Wedding</option><option value="Commercial">Commercial</option></select></div>
+                        <div class="form-group"><label>Message</label><textarea id="message" rows="4" required></textarea></div>
+                        <button type="submit" class="btn btn-primary btn-block" style="width:100%;">Send via WhatsApp</button>
                     </form>
                 </div>
                 <div class="contact-info-box reveal-right">
-                    <h3>Contact Information</h3>
-                    <div class="info-row"><i class="fas fa-map-marker-alt"></i><div><p><strong>Studio Address:</strong><br>mahadev sthan marchi road,<br>near by bypass thana,<br>patna city, pin-800009</p></div></div>
-                    <div class="info-row"><i class="fas fa-phone-alt"></i><div><p><strong>Call for Booking:</strong><br><a href="tel:7654200109" class="text-gold" style="font-weight: 700; font-size: 1.3rem;">7654200109</a></p></div></div>
-                    <div class="info-row"><i class="fab fa-whatsapp"></i><div><p><strong>WhatsApp:</strong><br><a href="https://wa.me/917654200109" target="_blank" class="text-gold" style="font-weight: 700; font-size: 1.2rem;">Chat on WhatsApp</a></p></div></div>
-                    <div class="info-row"><i class="fas fa-envelope"></i><div><p><strong>Email / Direct:</strong><br>hello@thewedding.in</p></div></div>
-                    <div class="info-row"><i class="fas fa-clock"></i><div><p><strong>Working Hours:</strong><br>Mon – Sat: 10 AM – 7 PM</p></div></div>
+                    <h3>Contact Info</h3>
+                    <div class="info-row"><i class="fas fa-map-marker-alt"></i><div><p><strong>Address:</strong><br>mahadev sthan marchi road,<br>near by bypass thana,<br>patna city, pin-800009</p></div></div>
+                    <div class="info-row"><i class="fas fa-phone-alt"></i><div><p><strong>Call for Booking:</strong><br><a href="tel:7654200109" class="text-gold" style="font-weight:700; font-size:1.2rem;">7654200109</a></p></div></div>
+                    <div class="info-row"><i class="fab fa-whatsapp"></i><div><p><strong>WhatsApp:</strong><br><a href="https://wa.me/917654200109" target="_blank" class="text-gold">Chat on WhatsApp</a></p></div></div>
                     
                     <div class="map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3598.665583716536!2d85.14019131501472!3d25.59422398372776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed57633da6c54b%3A0x34e5b18d59fd0b25!2sPatna%2C%20Bihar!5e0!3m2!1sen!2sin!4v1681234567890!5m2!1sen!2sin" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3598.665583716536!2d85.14019131501472!3d25.59422398372776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed57633da6c54b%3A0x34e5b18d59fd0b25!2sPatna%2C%20Bihar!5e0!3m2!1sen!2sin!4v1681234567890!5m2!1sen!2sin" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                 </div>
             </div>
@@ -1089,64 +1096,67 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 19. FOOTER                                                         -->
+    <!-- 19. COOKIE CONSENT BANNER                                        -->
+    <!-- ============================================================== -->
+    <div id="cookieConsent">
+        <p>We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.</p>
+        <button class="btn-cookie" onclick="acceptCookies()">Accept</button>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 20. FOOTER                                                         -->
     <!-- ============================================================== -->
     <footer class="main-footer">
         <div class="container">
             <div class="footer-grid">
-                <div><h4>The Wedding</h4><p style="margin-bottom:15px;">Luxury Wedding Photography & Cinematography. Crafting timeless cinematic memories since 2004.</p><div class="footer-social-icons"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-pinterest"></i></a></div></div>
-                <div><h4>Quick Links</h4><ul><li><a href="#home">Home</a></li><li><a href="#about">About Us</a></li><li><a href="#services">Services</a></li><li><a href="#process">Our Process</a></li><li><a href="#portfolio">Portfolio</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#blog">Blog</a></li><li><a href="#faq">FAQ</a></li><li><a href="#contact">Contact</a></li></ul></div>
-                <div><h4>Services</h4><ul><li><a href="#">Cinematic Wedding Films</a></li><li><a href="#">Luxury Photography</a></li><li><a href="#">Drone Coverage</a></li><li><a href="#">Pre-Wedding Shoot</a></li><li><a href="#">Album Design</a></li><li><a href="#">Same Day Edit</a></li></ul></div>
-                <div><h4>Contact Info</h4><ul><li style="color:rgba(255,255,255,0.7);"><i class="fas fa-map-marker-alt text-gold"></i> Patna City, pin-800009</li><li style="color:rgba(255,255,255,0.7);"><i class="fas fa-phone text-gold"></i> <a href="tel:7654200109" style="color:rgba(255,255,255,0.7);">7654200109</a></li><li style="color:rgba(255,255,255,0.7);"><i class="fab fa-whatsapp text-gold"></i> <a href="https://wa.me/917654200109" target="_blank" style="color:rgba(255,255,255,0.7);">WhatsApp</a></li><li style="color:rgba(255,255,255,0.7);"><i class="fas fa-envelope text-gold"></i> hello@thewedding.in</li><li style="color:rgba(255,255,255,0.7);"><i class="fas fa-clock text-gold"></i> 10 AM - 7 PM</li></ul></div>
+                <div><h4>The Wedding</h4><p style="color:rgba(255,255,255,0.7);">Luxury Wedding Photography & Cinematography since 2004.</p><div class="footer-social-icons"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-youtube"></i></a></div></div>
+                <div><h4>Quick Links</h4><ul><li><a href="#home">Home</a></li><li><a href="#about">About</a></li><li><a href="#portfolio">Portfolio</a></li><li><a href="#pricing">Pricing</a></li></ul></div>
+                <div><h4>Services</h4><ul><li><a href="#">Wedding Films</a></li><li><a href="#">Photography</a></li><li><a href="#">Drone Coverage</a></li></ul></div>
+                <div><h4>Contact</h4><ul><li><i class="fas fa-map-marker-alt text-gold"></i> Patna City</li><li><i class="fas fa-phone text-gold"></i> <a href="tel:7654200109">7654200109</a></li><li><i class="fab fa-whatsapp text-gold"></i> <a href="https://wa.me/917654200109">WhatsApp</a></li></ul></div>
             </div>
-            <div class="footer-bottom"><p>&copy; 2026 <span>The Wedding</span>. All Rights Reserved. | Crafted with <i class="fas fa-heart" style="color: var(--gold);"></i> in India</p></div>
+            <div class="footer-bottom"><p>&copy; 2026 <span class="text-gold">The Wedding</span>. All Rights Reserved.</p></div>
         </div>
     </footer>
 
     <!-- ============================================================== -->
-    <!-- 20. BACK TO TOP & FLOATING BUTTONS                               -->
+    <!-- 21. BACK TO TOP & FLOATING BUTTONS                               -->
     <!-- ============================================================== -->
-    <button class="back-to-top" id="backToTop" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+    <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
     <div class="action-fab">
-        <a href="tel:7654200109" class="fab-btn fab-call" title="Call us directly"><i class="fas fa-phone-alt"></i></a>
-        <a href="https://wa.me/917654200109" target="_blank" class="fab-btn fab-whatsapp" title="Chat with us on WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        <!-- UPDATED: Floating Book triggers Date Picker Modal -->
-        <a href="javascript:void(0)" onclick="openBookingModal('General Enquiry')" class="fab-btn fab-book" title="Book Your Date Now"><i class="fas fa-calendar-check"></i></a>
+        <a href="tel:7654200109" class="fab-btn fab-call"><i class="fas fa-phone-alt"></i></a>
+        <a href="https://wa.me/917654200109" target="_blank" class="fab-btn fab-whatsapp"><i class="fab fa-whatsapp"></i></a>
+        <a href="javascript:void(0)" onclick="openBookingModal('General Enquiry')" class="fab-btn fab-book"><i class="fas fa-calendar-check"></i></a>
     </div>
 
     <!-- ============================================================== -->
-    <!-- 21. CHATBOT                                                        -->
+    <!-- 22. CHATBOT                                                        -->
     <!-- ============================================================== -->
-    <button class="chatbot-toggle" id="chatToggle" title="Chat with us"><i class="fas fa-comment-dots"></i></button>
+    <button class="chatbot-toggle" id="chatToggle"><i class="fas fa-comment-dots"></i></button>
     <div class="chatbot-window" id="chatWindow">
-        <div class="chat-header"><span><i class="fas fa-robot"></i> The Wedding Support</span><i class="fas fa-times" id="chatClose"></i></div>
+        <div class="chat-header"><span>The Wedding Support</span><i class="fas fa-times" id="chatClose"></i></div>
         <div class="chat-body" id="chatBody"><div class="chat-msg bot">Hello! Welcome to The Wedding. How can I assist you today? 💍</div></div>
         <div class="chat-footer"><input type="text" id="chatInput" placeholder="Ask me anything..."><button id="chatSend"><i class="fas fa-paper-plane"></i></button></div>
     </div>
 
     <!-- ============================================================== -->
-    <!-- 22. NEW: BOOKING DATE PICKER MODAL                               -->
+    <!-- 23. BOOKING DATE MODAL & DASHBOARD                               -->
     <!-- ============================================================== -->
     <div id="bookingDateModal">
         <div class="booking-modal-box">
             <h2>Select Your Date</h2>
-            <p>Please pick your preferred date to send a booking request.</p>
-            <!-- Hidden input to store which package/project is being booked -->
+            <p>Pick your preferred date and send a request to the Admin.</p>
             <input type="hidden" id="bookingContext" value="General Enquiry">
             <input type="date" id="bookingDate" min="2026-07-12">
-            <button onclick="confirmBooking()" class="btn btn-primary" style="width:100%;">Send Booking Request via WhatsApp</button>
+            <button onclick="confirmBooking()" class="btn btn-primary" style="width:100%;">Send Request to Admin</button>
             <button onclick="closeBookingModal()" class="btn-close-modal">Cancel</button>
         </div>
     </div>
 
-    <!-- ============================================================== -->
-    <!-- 23. CLIENT DASHBOARD                                             -->
-    <!-- ============================================================== -->
     <div id="loginModal">
         <div class="login-box">
             <h2>Welcome Back!</h2>
             <p>Enter your secure password to access your exclusive client dashboard.</p>
-            <div class="form-group"><label style="text-align:left; color:#555;">Password</label><input type="password" id="loginPass" placeholder="Enter the given password"></div>
+            <input type="password" id="loginPass" placeholder="Enter password">
             <button class="btn btn-primary" id="loginBtn" style="width:100%;">Unlock Dashboard</button>
             <p style="margin-top:15px; font-size:0.8rem; color:var(--text-muted);"><i>Demo Password: <strong>wedding2026</strong></i></p>
         </div>
@@ -1154,21 +1164,34 @@
 
     <div id="dashboardPanel">
         <div class="dashboard-header">
-            <div><h3><i class="fas fa-user-circle" style="color:var(--gold);"></i> Client Portal</h3><p style="margin:0; font-size:0.9rem;">Welcome to your exclusive wedding management dashboard.</p></div>
+            <div><h3><i class="fas fa-user-circle" style="color:var(--gold);"></i> Client Portal</h3></div>
             <button class="btn btn-sm btn-dark" id="logoutBtn" style="background:var(--maroon); color:#fff;"><i class="fas fa-sign-out-alt"></i> Logout</button>
         </div>
         <div class="dash-grid">
-            <div class="dash-card"><div class="icon"><i class="fas fa-images"></i></div><h4>Photo Gallery</h4><p>Your high-resolution wedding photos are ready.</p><div class="dash-progress"><span style="width: 100%;"></span></div><small style="color:var(--text-muted);">100% Processed</small><a href="#" class="btn btn-sm btn-gold" style="margin-top:15px;">Download Gallery</a></div>
-            <div class="dash-card"><div class="icon"><i class="fas fa-video"></i></div><h4>Cinematic Film</h4><p>Your teaser and highlight film are ready for review.</p><div class="dash-progress"><span style="width: 75%;"></span></div><small style="color:var(--text-muted);">75% Final Cut</small><a href="#" class="btn btn-sm btn-gold" style="margin-top:15px;">Watch Preview</a></div>
-            <div class="dash-card" style="grid-column: span 2;"><div class="icon"><i class="fas fa-calendar-day"></i></div><h4>Wedding Day Timeline</h4><p>Your exact schedule for the big day is finalized below:</p><ul style="margin-top:15px; font-size:0.9rem; color:#444; border-top:1px dashed #eee; padding-top:15px;"><li style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed #eee;"><span><i class="fas fa-clock text-gold"></i> 09:00 AM</span> <span>Haldi Ceremony</span></li><li style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed #eee;"><span><i class="fas fa-clock text-gold"></i> 02:00 PM</span> <span>Mehndi & Sangeet</span></li><li style="display:flex; justify-content:space-between; padding:8px 0;"><span><i class="fas fa-clock text-gold"></i> 08:00 PM</span> <span>Main Wedding & Reception</span></li></ul><a href="#" class="btn btn-sm btn-gold" style="margin-top:15px;">Download Itinerary</a></div>
+            <div class="dash-card"><div class="icon"><i class="fas fa-images"></i></div><h4>Photo Gallery</h4><p>High-resolution photos ready.</p><div class="dash-progress"><span style="width:100%;"></span></div></div>
+            <div class="dash-card"><div class="icon"><i class="fas fa-video"></i></div><h4>Cinematic Film</h4><p>Teaser and highlight ready.</p><div class="dash-progress"><span style="width:75%;"></span></div></div>
+            <!-- NEW: Wedding Countdown -->
+            <div class="dash-card" style="grid-column: span 2;">
+                <div class="icon"><i class="fas fa-hourglass-half"></i></div>
+                <h4>Wedding Countdown</h4>
+                <div style="display:flex; justify-content:space-between; font-family:'Poppins', sans-serif; font-weight:600; font-size:1.5rem; color:var(--gold); text-align:center; margin-top:10px;">
+                    <div><span id="cdDays" style="font-size:2.5rem; display:block;">00</span>Days</div>
+                    <div><span id="cdHours" style="font-size:2.5rem; display:block;">00</span>Hrs</div>
+                    <div><span id="cdMins" style="font-size:2.5rem; display:block;">00</span>Mins</div>
+                    <div><span id="cdSecs" style="font-size:2.5rem; display:block;">00</span>Secs</div>
+                </div>
+                <p style="font-size:0.8rem; margin-top:10px;">Based on your selected booking date</p>
+            </div>
         </div>
     </div>
 
     <!-- ============================================================== -->
-    <!-- 24. JAVASCRIPT (FIXED & DEBUGGED)                                -->
+    <!-- 24. JAVASCRIPT (FIXED & NEW FEATURES ADDED)                     -->
     <!-- ============================================================== -->
     <script>
-        // 1. PRELOADER WITH LOADING BAR
+        // =============================================================
+        // 1. PRELOADER
+        // =============================================================
         window.addEventListener('load', function() {
             var preloader = document.getElementById('preloader');
             var loaderBar = document.getElementById('loaderBar');
@@ -1185,7 +1208,9 @@
             }, 100);
         });
 
-        // 2. NAVBAR SCROLL & HAMBURGER
+        // =============================================================
+        // 2. NAVBAR, HAMBURGER, BACK TO TOP
+        // =============================================================
         var navbar = document.getElementById('navbar');
         var hamburger = document.getElementById('hamburger');
         var navLinks = document.getElementById('navLinks');
@@ -1197,15 +1222,39 @@
             if (window.scrollY > 400) backToTop.classList.add('visible');
             else backToTop.classList.remove('visible');
         });
-
         hamburger.addEventListener('click', function() { navLinks.classList.toggle('active'); });
         document.querySelectorAll('.nav-links a').forEach(function(link) {
             link.addEventListener('click', function() { navLinks.classList.remove('active'); });
         });
         backToTop.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
-        // 3. SCROLL REVEAL
-        var revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+        // =============================================================
+        // 3. THEME TOGGLE (DARK/LIGHT MODE)
+        // =============================================================
+        const themeToggle = document.getElementById('themeToggle');
+        const icon = themeToggle.querySelector('i');
+        
+        // Check local storage for theme
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            icon.className = 'fas fa-sun';
+        }
+
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // =============================================================
+        // 4. SCROLL REVEAL
+        // =============================================================
+        var revealElements = document.querySelectorAll('.reveal');
         var revealObserver = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
                 if (entry.isIntersecting) { entry.target.classList.add('active'); revealObserver.unobserve(entry.target); }
@@ -1213,7 +1262,9 @@
         }, { threshold: 0.15 });
         revealElements.forEach(function(el) { revealObserver.observe(el); });
 
-        // 4. COUNTER ANIMATION
+        // =============================================================
+        // 5. COUNTER ANIMATION
+        // =============================================================
         var counters = document.querySelectorAll('.counter');
         var counterSpeed = 200;
         function startCounter(counter) {
@@ -1233,7 +1284,10 @@
         }, { threshold: 0.5 });
         counters.forEach(function(counter) { counterObserver.observe(counter); });
 
-        // 5. PORTFOLIO LIGHTBOX
+        // =============================================================
+        // 6. LIGHTBOX, GALLERY FILTER, TESTIMONIALS
+        // =============================================================
+        // Lightbox
         var lightbox = document.getElementById('lightbox');
         var lbImg = document.getElementById('lbImg');
         var closeLb = document.getElementById('closeLb');
@@ -1247,9 +1301,8 @@
         });
         closeLb.addEventListener('click', function() { lightbox.classList.remove('active'); document.body.style.overflow = 'auto'; });
         lightbox.addEventListener('click', function(e) { if (e.target === lightbox) { lightbox.classList.remove('active'); document.body.style.overflow = 'auto'; } });
-        document.addEventListener('keydown', function(e) { if (lightbox.classList.contains('active') && e.key === 'Escape') { lightbox.classList.remove('active'); document.body.style.overflow = 'auto'; } });
 
-        // 6. PORTFOLIO FILTER
+        // Filter
         var filterBtns = document.querySelectorAll('.filter-btn');
         var galleryGrid = document.getElementById('galleryGrid');
         filterBtns.forEach(function(btn) {
@@ -1260,24 +1313,16 @@
                 var items = galleryGrid.querySelectorAll('.gallery-item');
                 items.forEach(function(item) {
                     var category = item.getAttribute('data-category');
-                    if (filterValue === 'all' || category === filterValue) {
-                        item.style.display = 'block';
-                        setTimeout(function() { item.classList.add('reveal', 'active'); }, 50);
-                    } else {
-                        item.style.display = 'none';
-                        item.classList.remove('reveal', 'active');
-                    }
+                    item.style.display = (filterValue === 'all' || category === filterValue) ? 'block' : 'none';
                 });
             });
         });
 
-        // 7. TESTIMONIAL SLIDER
+        // Testimonials Slider
         var track = document.getElementById('testimonialTrack');
         var slides = track.querySelectorAll('.testimonial-item');
         var dotsContainer = document.getElementById('sliderDots');
-        var currentSlide = 0;
-        var slideInterval;
-
+        var currentSlide = 0, slideInterval;
         slides.forEach(function(_, index) {
             var dot = document.createElement('span');
             dot.className = 'slider-dot' + (index === 0 ? ' active' : '');
@@ -1289,7 +1334,6 @@
             dotsContainer.appendChild(dot);
         });
         var dots = document.querySelectorAll('.slider-dot');
-
         function goToSlide(index) {
             currentSlide = index;
             track.style.transform = 'translateX(-' + (index * 100) + '%)';
@@ -1304,43 +1348,23 @@
         }
         startAutoSlide();
 
-        // 8. FAQ ACCORDION & SEARCH
-        var faqItems = document.querySelectorAll('.faq-item');
-        faqItems.forEach(function(item) {
-            var question = item.querySelector('.faq-question');
-            question.addEventListener('click', function() {
-                faqItems.forEach(function(other) { if (other !== item) other.classList.remove('active'); });
+        // =============================================================
+        // 7. FAQ & CHATBOT & CONTACT
+        // =============================================================
+        document.querySelectorAll('.faq-item').forEach(function(item) {
+            item.querySelector('.faq-question').addEventListener('click', function() {
+                document.querySelectorAll('.faq-item').forEach(function(other) { if (other !== item) other.classList.remove('active'); });
                 item.classList.toggle('active');
             });
         });
-        document.getElementById('faqSearch').addEventListener('keyup', function() {
-            let searchValue = this.value.toLowerCase();
-            faqItems.forEach(function(item) {
-                item.style.display = item.innerText.toLowerCase().includes(searchValue) ? 'block' : 'none';
-            });
-        });
 
-        // 9. CONTACT FORM
-        var contactForm = document.getElementById('contactForm');
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            var name = document.getElementById('name').value;
-            var email = document.getElementById('email').value;
-            var phone = document.getElementById('phone').value;
-            var eventType = document.getElementById('event').value || "Not Specified";
-            var message = document.getElementById('message').value;
-            var whatsappMessage = "✨ *New Enquiry from The Wedding Website*%0A%0A*Name:* " + name + "%0A*Phone:* " + phone + "%0A*Email:* " + email + "%0A*Event Type:* " + eventType + "%0A*Message:* " + message;
-            window.open("https://wa.me/917654200109?text=" + whatsappMessage, '_blank');
-        });
-
-        // 10. CHATBOT
+        // Chatbot
         const chatToggle = document.getElementById('chatToggle');
         const chatWindow = document.getElementById('chatWindow');
         const chatClose = document.getElementById('chatClose');
         const chatBody = document.getElementById('chatBody');
         const chatInput = document.getElementById('chatInput');
         const chatSend = document.getElementById('chatSend');
-
         chatToggle.addEventListener('click', function() { chatWindow.classList.toggle('active'); });
         chatClose.addEventListener('click', function() { chatWindow.classList.remove('active'); });
         function addMessage(text, sender) {
@@ -1350,26 +1374,104 @@
             chatBody.appendChild(msgDiv);
             chatBody.scrollTop = chatBody.scrollHeight;
         }
-        function getBotReply(input) {
-            let txt = input.toLowerCase();
-            if(txt.includes('hello') || txt.includes('hi') || txt.includes('hey')) return "Hi there! Welcome to The Wedding Studio. How can I assist you today? 💍";
-            else if(txt.includes('price') || txt.includes('cost') || txt.includes('package')) return "Our wedding packages start from ₹80,000. We offer Silver, Gold, and Premium Luxury plans. Visit our Pricing section for full breakdowns! ✨";
-            else if(txt.includes('drone') || txt.includes('video') || txt.includes('film')) return "We specialize in high-end cinematic drone coverage and highlight films. Both Gold and Luxury packages include stunning aerial shots! 🚁";
-            else if(txt.includes('book') || txt.includes('date')) return "To confirm your date, click the 'Book Now' button in the top menu, or tap the golden calendar button on the left side of the screen! 📅";
-            else if(txt.includes('contact') || txt.includes('phone') || txt.includes('call')) return "You can reach our team directly at 7654200109 or send us a WhatsApp message. We usually reply within 1 hour! 📞";
-            else return "Thank you for your message! For instant priority support, please call us at 7654200109 or drop us a WhatsApp text. We'll get back to you swiftly! 🚀";
-        }
         chatSend.addEventListener('click', function() {
             let userMsg = chatInput.value.trim();
             if(userMsg !== "") {
                 addMessage(userMsg, 'user');
                 chatInput.value = '';
-                setTimeout(function() { addMessage(getBotReply(userMsg), 'bot'); }, 800);
+                setTimeout(function() { addMessage("Thank you! Please call 7654200109 for instant support!", 'bot'); }, 800);
             }
         });
         chatInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') chatSend.click(); });
 
-        // 11. CLIENT DASHBOARD LOGIC
+        // Contact Form
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var name = document.getElementById('name').value;
+            var phone = document.getElementById('phone').value;
+            var msg = document.getElementById('message').value;
+            var whatsappMessage = "✨ *New Enquiry*%0A%0A*Name:* " + name + "%0A*Phone:* " + phone + "%0A*Message:* " + msg;
+            window.open("https://wa.me/917654200109?text=" + whatsappMessage, '_blank');
+        });
+
+        // =============================================================
+        // 8. NEW: INTERACTIVE PRICING CALCULATOR
+        // =============================================================
+        const checkboxes = document.querySelectorAll('.addon-check');
+        const totalDisplay = document.getElementById('calcTotal');
+        let basePrice = 80000; // Base price for Silver package
+
+        function updateCalculator() {
+            let total = basePrice;
+            checkboxes.forEach(cb => {
+                if(cb.checked) {
+                    total += parseInt(cb.getAttribute('data-price'));
+                }
+            });
+            totalDisplay.textContent = '₹' + total.toLocaleString('en-IN');
+        }
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', updateCalculator);
+        });
+
+        // =============================================================
+        // 9. NEW: COOKIE CONSENT
+        // =============================================================
+        const cookieBanner = document.getElementById('cookieConsent');
+        if (!localStorage.getItem('cookiesAccepted')) {
+            cookieBanner.style.display = 'flex';
+        }
+        function acceptCookies() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            cookieBanner.style.display = 'none';
+        }
+
+        // =============================================================
+        // 10. NEW: BOOKING DATE PICKER & ADMIN/CLIENT NOTIFICATION
+        // =============================================================
+        const bookingModal = document.getElementById('bookingDateModal');
+        const bookingContext = document.getElementById('bookingContext');
+        const bookingDate = document.getElementById('bookingDate');
+        const adminPhone = "917654200109"; // Admin number
+
+        function openBookingModal(context) {
+            bookingContext.value = context;
+            bookingModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeBookingModal() {
+            bookingModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        function confirmBooking() {
+            let context = bookingContext.value;
+            let date = bookingDate.value;
+            if(!date) { alert("Please select a preferred date!"); return; }
+            
+            let dateObj = new Date(date + 'T00:00:00');
+            let formattedDate = dateObj.toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+            // 1. Message for Admin
+            let adminMsg = `📋 *Admin: New Booking Request*%0A%0A📅 *Date:* ${formattedDate}%0A📦 *Package/Project:* ${context}%0A👤 *Client Action:* Please call this client immediately to confirm.`;
+            window.open(`https://wa.me/${adminPhone}?text=${adminMsg}`, '_blank');
+
+            // 2. Message for Client (Auto-reply simulation)
+            setTimeout(() => {
+                alert("✅ Your booking request has been sent to the Admin! You will receive a call/WhatsApp reply shortly. Thank you!");
+            }, 500);
+
+            closeBookingModal();
+        }
+        bookingModal.addEventListener('click', function(e) { if (e.target === bookingModal) closeBookingModal(); });
+        document.addEventListener('DOMContentLoaded', function() {
+            let today = new Date().toISOString().split('T')[0];
+            bookingDate.setAttribute('min', today);
+        });
+
+        // =============================================================
+        // 11. DASHBOARD & COUNTDOWN
+        // =============================================================
         const dashboardLink = document.getElementById('dashboardLink');
         const loginModal = document.getElementById('loginModal');
         const loginBtn = document.getElementById('loginBtn');
@@ -1381,78 +1483,43 @@
             e.preventDefault();
             loginModal.classList.add('active');
         });
-
         loginBtn.addEventListener('click', function() {
             if(loginPass.value === 'wedding2026') {
                 loginModal.classList.remove('active');
                 dashboardPanel.classList.add('active');
                 loginPass.value = '';
             } else {
-                alert('Incorrect Password. Please try again. (Hint: wedding2026)');
+                alert('Incorrect Password. (Hint: wedding2026)');
             }
         });
         logoutBtn.addEventListener('click', function() { dashboardPanel.classList.remove('active'); });
         window.addEventListener('click', function(e) { if(e.target == loginModal) loginModal.classList.remove('active'); });
 
-        // 12. NEW: BOOKING DATE PICKER MODAL FUNCTIONS
-        const bookingModal = document.getElementById('bookingDateModal');
-        const bookingContext = document.getElementById('bookingContext');
-        const bookingDate = document.getElementById('bookingDate');
+        // Countdown Timer (Uses the date selected in the booking modal, or default fallback)
+        let countDownDate = new Date("Dec 25, 2026 00:00:00").getTime(); // Default fallback
+        document.getElementById('bookingDate').addEventListener('change', function() {
+            let selected = new Date(this.value + 'T00:00:00').getTime();
+            if(selected > new Date().getTime()) {
+                countDownDate = selected;
+            }
+        });
 
-        function openBookingModal(context) {
-            bookingContext.value = context; // Set the context (e.g., "Gold Package" or "Elegant Wedding Project")
-            bookingModal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling behind modal
-        }
-
-        function closeBookingModal() {
-            bookingModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        function confirmBooking() {
-            let context = bookingContext.value;
-            let date = bookingDate.value;
-
-            if(!date) {
-                alert("Please select a preferred date from the calendar!");
+        let cdInterval = setInterval(function() {
+            let now = new Date().getTime();
+            let distance = countDownDate - now;
+            if (distance < 0) {
+                clearInterval(cdInterval);
+                document.getElementById('cdDays').innerText = "00";
+                document.getElementById('cdHours').innerText = "00";
+                document.getElementById('cdMins').innerText = "00";
+                document.getElementById('cdSecs').innerText = "00";
                 return;
             }
-
-            // Format date to a readable string (e.g., "Monday, 12 July 2026")
-            let dateObj = new Date(date + 'T00:00:00');
-            let formattedDate = dateObj.toLocaleDateString('en-IN', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
-
-            // Construct the WhatsApp message
-            let msg = `✨ *New Booking Request from The Wedding Website*%0A%0A`;
-            msg += `📅 *Selected Date:* ${formattedDate}%0A`;
-            msg += `📦 *Event / Package:* ${context}%0A%0A`;
-            msg += `Please confirm availability and share the package details. Thank you! 🙏`;
-
-            // Redirect to WhatsApp
-            window.open(`https://wa.me/917654200109?text=${msg}`, '_blank');
-            
-            // Close the modal
-            closeBookingModal();
-        }
-
-        // Close modal if user clicks outside the box
-        bookingModal.addEventListener('click', function(e) {
-            if (e.target === bookingModal) {
-                closeBookingModal();
-            }
-        });
-
-        // Set minimum date to today
-        document.addEventListener('DOMContentLoaded', function() {
-            let today = new Date().toISOString().split('T')[0];
-            bookingDate.setAttribute('min', today);
-        });
+            document.getElementById('cdDays').innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+            document.getElementById('cdHours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById('cdMins').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById('cdSecs').innerText = Math.floor((distance % (1000 * 60)) / 1000);
+        }, 1000);
     </script>
 </body>
 </html>
