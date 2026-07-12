@@ -28,18 +28,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
     <!-- Google Analytics & Facebook Pixel Base Scripts (Replace IDs below) -->
-    <!-- Google Analytics (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        // REPLACE 'GA_MEASUREMENT_ID' WITH YOUR REAL GA ID
         gtag('config', 'GA_MEASUREMENT_ID');
     </script>
-    <!-- Facebook Pixel Code (Mock) -->
     <script>
-        // REPLACE 'FB_PIXEL_ID' WITH YOUR REAL FACEBOOK PIXEL ID
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
         n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -152,12 +148,17 @@
         .reveal { opacity: 0; transform: translateY(50px); transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* ------------------- 3. THEME TOGGLE BUTTON ------------------- */
-        .theme-toggle {
+        /* ------------------- 3. THEME TOGGLE & CUSTOM LANGUAGE TOGGLE (NEW) ------------------- */
+        .toggle-wrapper {
             position: fixed;
             top: 100px;
             right: 20px;
             z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .theme-toggle, .lang-toggle {
             width: 45px;
             height: 45px;
             border-radius: 50%;
@@ -172,37 +173,29 @@
             align-items: center;
             justify-content: center;
         }
-        .theme-toggle:hover {
+        .theme-toggle:hover, .lang-toggle:hover {
             transform: scale(1.1);
             box-shadow: var(--shadow-gold);
         }
-
-        /* ------------------- 4. GOOGLE TRANSLATE WIDGET ------------------- */
-        #google_translate_element {
-            position: fixed;
-            top: 10px;
-            right: 80px;
-            z-index: 1002;
-            background: var(--bg-card);
-            padding: 5px 10px;
-            border-radius: 30px;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-box);
-        }
-        #google_translate_element select {
-            background: transparent;
-            border: none;
+        .lang-toggle {
+            font-size: 0.75rem;
+            font-weight: 700;
             font-family: 'Poppins', sans-serif;
-            font-size: 0.8rem;
-            color: var(--text-primary);
-            outline: none;
-            cursor: pointer;
+            letter-spacing: 0.5px;
         }
-        @media (max-width: 768px) {
-            #google_translate_element { top: 60px; right: 20px; }
+        .lang-toggle.active-lang {
+            background: var(--gold);
+            color: #fff;
+            border-color: var(--gold);
         }
 
-        /* ------------------- 5. PRELOADER ------------------- */
+        @media (max-width: 768px) {
+            .toggle-wrapper { top: 80px; right: 15px; }
+            .theme-toggle, .lang-toggle { width: 40px; height: 40px; font-size: 1rem; }
+            .lang-toggle { font-size: 0.6rem; }
+        }
+
+        /* ------------------- 4. PRELOADER ------------------- */
         #preloader {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: #1a0a0a; display: flex; justify-content: center; align-items: center;
@@ -220,7 +213,7 @@
         .loader-progress { width: 200px; height: 2px; background: rgba(255, 255, 255, 0.1); margin: 15px auto; border-radius: 10px; overflow: hidden; }
         .loader-progress-bar { width: 0%; height: 100%; background: var(--gold); transition: width 0.3s ease; }
 
-        /* ------------------- 6. BUTTONS ------------------- */
+        /* ------------------- 5. BUTTONS ------------------- */
         .btn {
             display: inline-flex; align-items: center; justify-content: center;
             padding: 16px 38px; font-family: 'Poppins', sans-serif; font-weight: 600;
@@ -240,7 +233,7 @@
         .btn-dark:hover { background: #fff; color: var(--maroon); border-color: #fff; }
         .btn-sm { padding: 10px 25px; font-size: 0.7rem; letter-spacing: 1px; border-radius: 30px; }
 
-        /* ------------------- 7. NAVBAR ------------------- */
+        /* ------------------- 6. NAVBAR ------------------- */
         .navbar {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
             display: flex; justify-content: space-between; align-items: center;
@@ -258,7 +251,7 @@
         .navbar .nav-links li a:hover::after { width: 100%; }
         .navbar .hamburger { display: none; font-size: 1.8rem; color: var(--text-primary); cursor: pointer; background: transparent; border: none; }
 
-        /* ------------------- 8. HERO SECTION WITH VIDEO ------------------- */
+        /* ------------------- 7. HERO SECTION WITH VIDEO ------------------- */
         .hero {
             position: relative;
             height: 100vh;
@@ -300,7 +293,7 @@
         .hero-content p { font-size: 1.25rem; color: rgba(255, 255, 255, 0.85); max-width: 650px; margin: 0 auto 40px; font-weight: 300; }
         .hero-content .cta-group { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
 
-        /* ------------------- 9. SECTION TITLES ------------------- */
+        /* ------------------- 8. SECTION TITLES ------------------- */
         section { padding: 100px 0; position: relative; }
         .section-title { text-align: center; max-width: 700px; margin: 0 auto 60px; }
         .section-title h2 { font-size: 3.8rem; font-weight: 900; color: var(--maroon); margin-bottom: 10px; }
@@ -311,14 +304,14 @@
         .section-title .ornate-line::before, .section-title .ornate-line::after { content: ''; position: absolute; width: 10px; height: 10px; background: var(--gold); border-radius: 50%; top: -4px; }
         .section-title .ornate-line::before { left: -18px; } .section-title .ornate-line::after { right: -18px; }
 
-        /* ------------------- 10. STATS ------------------- */
+        /* ------------------- 9. STATS ------------------- */
         .stats-wrapper { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center; }
         .stat-item { background: var(--bg-card); padding: 35px 20px; border-radius: 12px; box-shadow: var(--shadow-box); border-top: 4px solid var(--gold); transition: 0.3s ease; }
         .stat-item:hover { transform: translateY(-8px); box-shadow: var(--shadow-gold); }
         .stat-item h3 { font-size: 3.2rem; color: var(--gold); font-weight: 900; margin-bottom: 5px; font-family: 'Poppins', sans-serif; }
         .stat-item p { color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; font-weight: 500; margin-bottom: 0; }
 
-        /* ------------------- 11. ABOUT ------------------- */
+        /* ------------------- 10. ABOUT ------------------- */
         .about-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
         .about-image { position: relative; border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-box); }
         .about-image img { width: 100%; border-radius: 14px; transition: transform 0.8s ease; }
@@ -329,7 +322,7 @@
         .about-content .highlight-list li { display: flex; align-items: center; gap: 12px; color: var(--text-primary); font-size: 0.95rem; font-weight: 400; }
         .about-content .highlight-list li i { color: var(--gold); font-size: 1.1rem; }
 
-        /* ------------------- 12. SERVICES ------------------- */
+        /* ------------------- 11. SERVICES ------------------- */
         .services-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; }
         .service-item { background: var(--bg-card); padding: 45px 25px; text-align: center; border: 1px solid var(--border-color); border-radius: 12px; transition: 0.3s ease; box-shadow: var(--shadow-box); position: relative; overflow: hidden; }
         .service-item::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.5s ease; }
@@ -340,7 +333,7 @@
         .service-item h4 { font-size: 1.15rem; color: var(--text-primary); margin-bottom: 12px; }
         .service-item p { font-size: 0.9rem; margin-bottom: 0; line-height: 1.6; }
 
-        /* ------------------- 13. PROCESS ------------------- */
+        /* ------------------- 12. PROCESS ------------------- */
         .process-wrapper { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
         .process-step { background: var(--bg-card); padding: 35px 25px; border-radius: 12px; border-left: 5px solid var(--gold); box-shadow: var(--shadow-box); transition: 0.3s ease; position: relative; text-align: center; }
         .process-step:hover { transform: translateY(-10px); box-shadow: var(--shadow-gold); }
@@ -349,7 +342,7 @@
         .process-step h4 { color: var(--text-primary); font-size: 1.1rem; margin-bottom: 10px; }
         .process-step p { font-size: 0.9rem; margin-bottom: 0; }
 
-        /* ------------------- 14. WHY CHOOSE US ------------------- */
+        /* ------------------- 13. WHY CHOOSE US ------------------- */
         .choose-wrapper { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
         .choose-card { background: var(--bg-card); padding: 45px 30px; text-align: center; border: 1px solid var(--border-color); border-radius: 12px; transition: 0.3s ease; position: relative; box-shadow: var(--shadow-box); }
         .choose-card:hover { transform: translateY(-12px); border-color: var(--gold); box-shadow: var(--shadow-gold); }
@@ -358,7 +351,7 @@
         .choose-card h4 { color: var(--text-primary); font-size: 1.3rem; margin-bottom: 12px; }
         .choose-card p { font-size: 0.95rem; margin-bottom: 0; }
 
-        /* ------------------- 15. PARTNERS & AWARDS ------------------- */
+        /* ------------------- 14. PARTNERS & AWARDS ------------------- */
         .partners-wrapper { text-align: center; }
         .awards-badge { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; margin-bottom: 40px; }
         .badge-item { text-align: center; color: var(--gold); }
@@ -369,7 +362,7 @@
         .partner-logo { background: var(--bg-card); padding: 12px 25px; border-radius: 30px; border: 1px solid var(--border-color); font-weight: 600; color: var(--text-muted); font-size: 0.95rem; box-shadow: var(--shadow-box); transition: 0.3s ease; }
         .partner-logo:hover { border-color: var(--gold); color: var(--text-primary); transform: translateY(-4px); }
 
-        /* ------------------- 16. OUR JOURNEY TIMELINE (NEW) ------------------- */
+        /* ------------------- 15. OUR JOURNEY TIMELINE (NEW) ------------------- */
         #journey {
             background: var(--bg-section);
         }
@@ -428,7 +421,7 @@
             .timeline-item.left::after, .timeline-item.right::after { left: 21px; }
         }
 
-        /* ------------------- 17. PORTFOLIO ------------------- */
+        /* ------------------- 16. PORTFOLIO ------------------- */
         .gallery-filter { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 45px; }
         .filter-btn { background: transparent; border: 1px solid var(--border-color); padding: 12px 28px; color: var(--text-muted); font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s ease; border-radius: 4px; }
         .filter-btn:hover, .filter-btn.active { background: var(--gold); color: #fff; border-color: var(--gold); box-shadow: 0 4px 15px rgba(196, 147, 94, 0.3); }
@@ -450,7 +443,7 @@
         .lightbox-container .close-lb { position: absolute; top: 30px; right: 40px; font-size: 3.5rem; color: #fff; cursor: pointer; transition: 0.3s ease; }
         .lightbox-container .close-lb:hover { color: var(--gold); transform: rotate(90deg); }
 
-        /* ------------------- 18. TEAM ------------------- */
+        /* ------------------- 17. TEAM ------------------- */
         .team-wrapper { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 35px; text-align: center; }
         .team-member { background: var(--bg-card); padding: 35px 20px; border: 1px solid var(--border-color); border-radius: 12px; transition: 0.3s ease; box-shadow: var(--shadow-box); }
         .team-member:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: var(--shadow-gold); }
@@ -459,7 +452,7 @@
         .team-member h4 { color: var(--text-primary); font-size: 1.15rem; margin-bottom: 5px; }
         .team-member p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; }
 
-        /* ------------------- 19. TESTIMONIALS ------------------- */
+        /* ------------------- 18. TESTIMONIALS ------------------- */
         .testimonial-wrapper { max-width: 850px; margin: 0 auto; overflow: hidden; position: relative; border-radius: 12px; box-shadow: var(--shadow-box); }
         .testimonial-track { display: flex; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .testimonial-item { min-width: 100%; padding: 50px 40px; background: var(--bg-card); border-left: 6px solid var(--gold); border-radius: 12px; text-align: center; }
@@ -469,7 +462,7 @@
         .slider-dot { width: 14px; height: 14px; background: rgba(0, 0, 0, 0.08); border-radius: 50%; cursor: pointer; transition: 0.3s ease; border: 1px solid transparent; }
         .slider-dot.active { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 15px rgba(196, 147, 94, 0.3); }
 
-        /* ------------------- 20. PRICING & CALCULATOR ------------------- */
+        /* ------------------- 19. PRICING & CALCULATOR ------------------- */
         .pricing-wrapper { border: 2px solid var(--gold); padding: 50px; background: var(--bg-card); box-shadow: var(--shadow-gold); border-radius: 16px; }
         .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
         .price-card { background: var(--bg-section); border: 1px solid var(--border-color); padding: 30px 25px; border-radius: 12px; transition: 0.3s ease; }
@@ -502,7 +495,7 @@
         .calc-total-box { text-align: center; margin-top: 25px; padding: 20px; background: var(--maroon-dark); border-radius: 8px; color: #fff; }
         .calc-total-box .total-amount { font-size: 2.5rem; color: var(--gold); font-weight: 700; font-family: 'Poppins', sans-serif; }
 
-        /* ------------------- 21. BLOG ------------------- */
+        /* ------------------- 20. BLOG ------------------- */
         .blog-wrapper { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
         .blog-card { background: var(--bg-card); border-radius: 12px; overflow: hidden; transition: 0.3s ease; box-shadow: var(--shadow-box); border: 1px solid var(--border-color); }
         .blog-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: var(--shadow-gold); }
@@ -515,7 +508,7 @@
         .blog-card .blog-content h4 { font-size: 1.2rem; color: var(--text-primary); margin-bottom: 12px; }
         .blog-card .blog-content p { font-size: 0.95rem; margin-bottom: 20px; }
 
-        /* ------------------- 22. FAQ ------------------- */
+        /* ------------------- 21. FAQ ------------------- */
         .faq-wrapper { max-width: 850px; margin: 0 auto; }
         .faq-item { background: var(--bg-card); margin-bottom: 15px; border-radius: 10px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: var(--shadow-box); transition: 0.3s ease; }
         .faq-item:hover { border-color: var(--gold); }
@@ -525,13 +518,13 @@
         .faq-item .faq-answer { max-height: 0; padding: 0 30px; overflow: hidden; transition: max-height 0.5s ease, padding 0.4s ease; color: var(--text-muted); background: var(--bg-section); line-height: 1.6; }
         .faq-item.active .faq-answer { max-height: 300px; padding: 20px 30px; }
 
-        /* ------------------- 23. INSTAGRAM FEED ------------------- */
+        /* ------------------- 22. INSTAGRAM FEED ------------------- */
         .instagram-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; max-width: 900px; margin: 0 auto; }
         .insta-placeholder { background: var(--bg-card); border-radius: 12px; height: 180px; box-shadow: var(--shadow-box); display: flex; align-items: center; justify-content: center; color: var(--text-muted); border: 1px solid var(--border-color); transition: 0.3s ease; }
         .insta-placeholder:hover { transform: scale(1.03); border-color: var(--gold); }
         .insta-placeholder i { font-size: 3rem; color: var(--gold); }
 
-        /* ------------------- 24. 360° VIRTUAL TOUR ------------------- */
+        /* ------------------- 23. 360° VIRTUAL TOUR ------------------- */
         #virtualtour {
             background: var(--bg-card);
             padding: 60px 0;
@@ -552,7 +545,7 @@
             border: none;
         }
 
-        /* ------------------- 25. CONTACT & MAP ------------------- */
+        /* ------------------- 24. CONTACT & MAP ------------------- */
         .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
         .contact-form h2 { color: var(--gold); font-size: 2.4rem; margin-bottom: 25px; }
         .form-group { margin-bottom: 22px; }
@@ -567,7 +560,7 @@
         .contact-info-box .info-row p { font-size: 0.95rem; margin-bottom: 0; }
         .map-container { width: 100%; border-radius: 12px; overflow: hidden; margin-top: 20px; border: 1px solid var(--border-color); }
 
-        /* ------------------- 26. FOOTER ------------------- */
+        /* ------------------- 25. FOOTER ------------------- */
         .main-footer { background: var(--maroon-dark); color: #fff; padding: 70px 0 30px; border-top: 6px solid var(--gold); }
         .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 45px; padding-bottom: 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
         .footer-grid h4 { color: var(--gold); font-size: 1.3rem; margin-bottom: 25px; }
@@ -581,7 +574,7 @@
         .footer-bottom { text-align: center; padding-top: 30px; color: rgba(255, 255, 255, 0.5); font-size: 0.85rem; }
         .footer-bottom span { color: var(--gold); font-weight: 600; }
 
-        /* ------------------- 27. BACK TO TOP & FLOATING BUTTONS ------------------- */
+        /* ------------------- 26. BACK TO TOP & FLOATING BUTTONS ------------------- */
         .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: var(--gold); color: #fff; border: none; border-radius: 50%; font-size: 1.4rem; cursor: pointer; opacity: 0; visibility: hidden; transition: 0.3s ease; box-shadow: var(--shadow-gold); z-index: 998; display: flex; justify-content: center; align-items: center; }
         .back-to-top.visible { opacity: 1; visibility: visible; }
         .back-to-top:hover { transform: scale(1.12) translateY(-4px); background: var(--gold-dark); }
@@ -590,32 +583,18 @@
         .fab-btn:hover { transform: scale(1.12) rotate(-4deg); }
         .fab-call { background: #007bff; } .fab-whatsapp { background: #25D366; } .fab-book { background: var(--gold); }
 
-        /* ------------------- 28. CHATBOT WITH ADMIN FORWARDING ------------------- */
-        .chatbot-toggle { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.6rem; cursor: pointer; box-shadow: var(--shadow-gold); z-index: 999; border: none; transition: 0.3s ease; }
-        .chatbot-toggle:hover { transform: scale(1.1); background: var(--gold-dark); }
-        .chatbot-window { position: fixed; bottom: 110px; right: 30px; width: 360px; height: 460px; background: var(--bg-card); border-radius: 18px; box-shadow: var(--shadow-modal); border: 1px solid var(--gold); display: none; flex-direction: column; overflow: hidden; z-index: 9999; transform-origin: bottom right; animation: slideUpChat 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .chatbot-window.active { display: flex; }
-        @keyframes slideUpChat { from { opacity: 0; transform: scale(0.8) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-        .chat-header { background: var(--gold); padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; color: #fff; font-weight: 600; border-bottom: 1px solid var(--gold-dark); }
-        .chat-header i { cursor: pointer; transition: 0.3s; }
-        .chat-header i:hover { transform: rotate(90deg); }
-        .chat-body { flex: 1; padding: 20px; overflow-y: auto; background: var(--bg-section); display: flex; flex-direction: column; gap: 12px; }
-        .chat-body::-webkit-scrollbar { width: 5px; }
-        .chat-body::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 5px; }
-        .chat-msg { max-width: 85%; padding: 12px 18px; border-radius: 14px; font-size: 0.9rem; line-height: 1.5; }
-        .chat-msg.bot { background: #e6cca8; align-self: flex-start; border-bottom-left-radius: 2px; color: #1a1a1a; }
-        .chat-msg.user { background: var(--maroon); color: #fff; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .chat-footer { padding: 12px; background: var(--bg-card); border-top: 1px solid var(--border-color); display: flex; gap: 12px; flex-direction: column; }
-        .chat-footer .chat-options { display: flex; gap: 10px; width: 100%; }
-        .chat-footer .chat-options button { flex: 1; background: var(--bg-section); border: 1px solid var(--border-color); border-radius: 20px; padding: 6px 12px; font-size: 0.7rem; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: 0.3s; }
-        .chat-footer .chat-options button.active { border-color: var(--gold); color: var(--gold); background: var(--bg-card); }
-        .chat-footer .chat-input-row { display: flex; width: 100%; gap: 10px; }
-        .chat-footer .chat-input-row input { flex: 1; border: 1px solid var(--border-color); border-radius: 30px; padding: 12px 18px; outline: none; font-family: 'Poppins', sans-serif; font-size: 0.9rem; transition: 0.3s; color: var(--text-primary); background: var(--bg-body); }
-        .chat-footer .chat-input-row input:focus { border-color: var(--gold); }
-        .chat-footer .chat-input-row button { width: 44px; height: 44px; background: var(--gold); color: #fff; border: none; border-radius: 50%; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; font-size: 1.1rem; }
-        .chat-footer .chat-input-row button:hover { background: var(--gold-dark); transform: scale(1.05); }
+        /* ------------------- 27. BOOKING DATE MODAL ------------------- */
+        #bookingDateModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(6px); z-index: 10001; justify-content: center; align-items: center; padding: 20px; }
+        #bookingDateModal.active { display: flex; }
+        .booking-modal-box { background: var(--bg-card); padding: 40px; border-radius: 16px; max-width: 450px; width: 100%; border: 2px solid var(--gold); box-shadow: var(--shadow-gold); position: relative; text-align: center; }
+        .booking-modal-box h2 { font-size: 1.8rem; color: var(--text-primary); margin-bottom: 5px; }
+        .booking-modal-box p { color: var(--text-muted); margin-bottom: 25px; font-size: 0.95rem; }
+        .booking-modal-box input[type="date"] { width: 100%; padding: 14px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 20px; font-family: 'Poppins', sans-serif; font-size: 1rem; outline: none; transition: 0.3s; color: var(--text-primary); background: var(--bg-body); }
+        .booking-modal-box input[type="date"]:focus { border-color: var(--gold); box-shadow: 0 0 10px rgba(196, 147, 94, 0.2); }
+        .booking-modal-box .btn-close-modal { background: transparent; border: none; color: var(--text-muted); cursor: pointer; margin-top: 15px; font-size: 0.9rem; transition: 0.3s; }
+        .booking-modal-box .btn-close-modal:hover { color: var(--text-primary); }
 
-        /* ------------------- 29. EXIT INTENT POPUP (NEW) ------------------- */
+        /* ------------------- 28. EXIT INTENT POPUP ------------------- */
         #exitPopup {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -652,7 +631,7 @@
         .exit-popup-box .btn-close-exit:hover { color: var(--text-primary); transform: rotate(90deg); }
         .exit-popup-box .exit-discount { font-size: 4rem; font-weight: 900; color: var(--gold); font-family: 'Poppins', sans-serif; }
 
-        /* ------------------- 30. OTP & DASHBOARD (Client Gallery) ------------------- */
+        /* ------------------- 29. OTP DASHBOARD (Client Gallery + Like/Comment) ------------------- */
         #otpLoginModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px); z-index: 9998; justify-content: center; align-items: center; }
         #otpLoginModal.active { display: flex; }
         .otp-login-box { background: var(--bg-card); padding: 45px; border-radius: 18px; width: 420px; max-width: 90%; border: 1px solid var(--gold); box-shadow: var(--shadow-gold); text-align: center; }
@@ -711,12 +690,14 @@
 <body>
 
     <!-- ============================================================== -->
-    <!-- 1. THEME TOGGLE & GOOGLE TRANSLATE                              -->
+    <!-- 1. THEME TOGGLE & CUSTOM LANGUAGE TOGGLE (NEW)                  -->
     <!-- ============================================================== -->
-    <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
-        <i class="fas fa-moon"></i>
-    </button>
-    <div id="google_translate_element"></div>
+    <div class="toggle-wrapper">
+        <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button class="lang-toggle active-lang" id="langToggle" title="Change Language">EN</button>
+    </div>
 
     <!-- ============================================================== -->
     <!-- 2. PRELOADER                                                     -->
@@ -744,7 +725,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#process">Process</a></li>
-            <li><a href="#journey">Our Journey</a></li> <!-- Added Journey Link -->
+            <li><a href="#journey">Our Journey</a></li>
             <li><a href="#portfolio">Portfolio</a></li>
             <li><a href="#team">Team</a></li>
             <li><a href="#pricing">Pricing</a></li>
@@ -980,9 +961,6 @@
                 <div class="gallery-item reveal" data-category="wedding"><img src="https://images.pexels.com/photos/169193/pexels-photo-169193.jpeg" alt="Elegant Wedding"><div class="overlay"><h4>Elegant Wedding</h4><span>Wedding</span><a href="javascript:void(0)" onclick="openBookingModal('Elegant Wedding Project')" class="book-project-btn">Book This Project</a></div></div>
                 <div class="gallery-item reveal" data-category="portrait"><img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg" alt="Natural Portrait"><div class="overlay"><h4>Natural Portrait</h4><span>Portrait</span><a href="javascript:void(0)" onclick="openBookingModal('Natural Portrait Project')" class="book-project-btn">Book This Project</a></div></div>
                 <div class="gallery-item reveal" data-category="commercial"><img src="https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg" alt="Product Shoot"><div class="overlay"><h4>Product Shoot</h4><span>Commercial</span><a href="javascript:void(0)" onclick="openBookingModal('Product Shoot Project')" class="book-project-btn">Book This Project</a></div></div>
-                <div class="gallery-item reveal" data-category="wedding"><img src="https://images.pexels.com/photos/2657227/pexels-photo-2657227.jpeg" alt="Indian Wedding"><div class="overlay"><h4>Indian Wedding</h4><span>Wedding</span><a href="javascript:void(0)" onclick="openBookingModal('Indian Wedding Project')" class="book-project-btn">Book This Project</a></div></div>
-                <div class="gallery-item reveal" data-category="portrait"><img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg" alt="Studio Portrait"><div class="overlay"><h4>Studio Portrait</h4><span>Portrait</span><a href="javascript:void(0)" onclick="openBookingModal('Studio Portrait Project')" class="book-project-btn">Book This Project</a></div></div>
-                <div class="gallery-item reveal" data-category="commercial"><img src="https://images.pexels.com/photos/7441742/pexels-photo-7441742.jpeg" alt="Brand Campaign"><div class="overlay"><h4>Brand Campaign</h4><span>Commercial</span><a href="javascript:void(0)" onclick="openBookingModal('Brand Campaign Project')" class="book-project-btn">Book This Project</a></div></div>
             </div>
         </div>
     </section>
@@ -1033,7 +1011,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 15. PRICING & CALCULATOR (WITH PAYMENT & ADMIN NOTIFY)           -->
+    <!-- 15. PRICING & CALCULATOR                                          -->
     <!-- ============================================================== -->
     <section id="pricing">
         <div class="container">
@@ -1078,9 +1056,7 @@
                     <div class="calc-total-box">
                         <p style="color:#fff; margin:0; font-size:0.9rem;">Total Estimated Cost</p>
                         <div class="total-amount" id="calcTotal">₹80,000</div>
-                        <button onclick="openPaymentModal('₹' + document.getElementById('calcTotal').innerText)" class="btn btn-gold" style="margin-top:15px; border-color:#fff; color:#fff; font-size:0.8rem;">Pay 30% Advance Now</button>
-                        <br>
-                        <button onclick="openBookingModal('Custom Add-on Package')" class="btn btn-gold" style="margin-top:10px; border-color:#fff; color:#fff; font-size:0.7rem;">Book This Custom Plan</button>
+                        <button onclick="openBookingModal('Custom Add-on Package')" class="btn btn-gold" style="margin-top:15px; border-color:#fff; color:#fff; font-size:0.8rem;">Book This Custom Plan</button>
                     </div>
                 </div>
             </div>
@@ -1210,26 +1186,7 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 22. CHATBOT WITH ADMIN FORWARDING                               -->
-    <!-- ============================================================== -->
-    <button class="chatbot-toggle" id="chatToggle"><i class="fas fa-comment-dots"></i></button>
-    <div class="chatbot-window" id="chatWindow">
-        <div class="chat-header"><span>The Wedding Support</span><i class="fas fa-times" id="chatClose"></i></div>
-        <div class="chat-body" id="chatBody"><div class="chat-msg bot">Hello! Welcome to The Wedding. How can I assist you today?</div></div>
-        <div class="chat-footer">
-            <div class="chat-options">
-                <button id="chatModeStandard" class="active">Standard</button>
-                <button id="chatModeAI">AI (ChatGPT)</button>
-            </div>
-            <div class="chat-input-row">
-                <input type="text" id="chatInput" placeholder="Ask me anything...">
-                <button id="chatSend"><i class="fas fa-paper-plane"></i></button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================================== -->
-    <!-- 23. BOOKING DATE MODAL (WITH ADMIN WHATSAPP NOTIFY)              -->
+    <!-- 22. BOOKING DATE MODAL                                           -->
     <!-- ============================================================== -->
     <div id="bookingDateModal">
         <div class="booking-modal-box">
@@ -1243,21 +1200,7 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 24. PAYMENT MODAL (DUMMY RAZORPAY UI)                           -->
-    <!-- ============================================================== -->
-    <div id="paymentModal">
-        <div class="payment-modal-box">
-            <h2><i class="fas fa-lock"></i> Secure Payment</h2>
-            <p style="margin:0;">Pay your 30% advance to confirm your booking securely.</p>
-            <div class="pay-amount" id="payAmount">₹24,000</div>
-            <p style="font-size:0.8rem;">(30% of total estimated cost)</p>
-            <button class="btn-pay" onclick="processPayment()">Pay with Razorpay (Mock)</button>
-            <button onclick="closePaymentModal()" class="btn-close-modal" style="background:transparent; border:none; cursor:pointer; margin-top:15px; color:var(--text-muted);">Cancel</button>
-        </div>
-    </div>
-
-    <!-- ============================================================== -->
-    <!-- 25. EXIT INTENT POPUP (NEW)                                      -->
+    <!-- 23. EXIT INTENT POPUP                                            -->
     <!-- ============================================================== -->
     <div id="exitPopup">
         <div class="exit-popup-box">
@@ -1271,7 +1214,7 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 26. OTP LOGIN & DASHBOARD (Client Gallery + Like/Comment)       -->
+    <!-- 24. OTP LOGIN & DASHBOARD (Client Gallery + Like/Comment)       -->
     <!-- ============================================================== -->
     <div id="otpLoginModal">
         <div class="otp-login-box">
@@ -1306,7 +1249,6 @@
             <button class="btn btn-sm btn-dark" id="logoutBtn" style="background:var(--maroon); color:#fff;"><i class="fas fa-sign-out-alt"></i> Logout</button>
         </div>
         <div class="dash-grid">
-            <!-- Photo Gallery with Like & Comment -->
             <div class="dash-card">
                 <div class="icon"><i class="fas fa-images"></i></div>
                 <h4>Photo Gallery</h4>
@@ -1345,7 +1287,7 @@
     </div>
 
     <!-- ============================================================== -->
-    <!-- 27. JAVASCRIPT (ALL FEATURES INTEGRATED)                        -->
+    <!-- 25. JAVASCRIPT (ALL FEATURES INTEGRATED)                        -->
     <!-- ============================================================== -->
     <script>
         // 1. PRELOADER
@@ -1389,12 +1331,7 @@
             else { icon.className = 'fas fa-moon'; localStorage.setItem('theme', 'light'); }
         });
 
-        // 3. GOOGLE TRANSLATE
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,hi'}, 'google_translate_element');
-        }
-
-        // 4. SCROLL REVEAL & COUNTERS
+        // 3. SCROLL REVEAL & COUNTERS
         var revealObserver = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) { if (entry.isIntersecting) { entry.target.classList.add('active'); } });
         }, { threshold: 0.15 });
@@ -1417,7 +1354,7 @@
         }, { threshold: 0.5 });
         counters.forEach(function(counter) { counterObserver.observe(counter); });
 
-        // 5. LIGHTBOX & FILTER
+        // 4. LIGHTBOX & FILTER
         var lightbox = document.getElementById('lightbox');
         var lbImg = document.getElementById('lbImg');
         var closeLb = document.getElementById('closeLb');
@@ -1430,7 +1367,7 @@
         });
         closeLb.addEventListener('click', function() { lightbox.classList.remove('active'); document.body.style.overflow = 'auto'; });
 
-        // 6. PRICING CALCULATOR
+        // 5. PRICING CALCULATOR
         const checkboxes = document.querySelectorAll('.addon-check');
         const totalDisplay = document.getElementById('calcTotal');
         let basePrice = 80000;
@@ -1440,66 +1377,14 @@
             totalDisplay.textContent = '₹' + total.toLocaleString('en-IN');
         }); });
 
-        // 7. COOKIE CONSENT
+        // 6. COOKIE CONSENT
         if (!localStorage.getItem('cookiesAccepted')) { document.getElementById('cookieConsent').style.display = 'flex'; }
         function acceptCookies() { localStorage.setItem('cookiesAccepted', 'true'); document.getElementById('cookieConsent').style.display = 'none'; }
 
-        // 8. CHATBOT (Standard + AI + Admin Forwarding)
-        let chatMode = 'standard';
-        document.getElementById('chatModeStandard').addEventListener('click', function() {
-            chatMode = 'standard'; this.classList.add('active'); document.getElementById('chatModeAI').classList.remove('active');
-        });
-        document.getElementById('chatModeAI').addEventListener('click', function() {
-            chatMode = 'ai'; this.classList.add('active'); document.getElementById('chatModeStandard').classList.remove('active');
-        });
-
-        const chatToggle = document.getElementById('chatToggle');
-        const chatWindow = document.getElementById('chatWindow');
-        const chatClose = document.getElementById('chatClose');
-        const chatBody = document.getElementById('chatBody');
-        const chatInput = document.getElementById('chatInput');
-        const chatSend = document.getElementById('chatSend');
-        chatToggle.addEventListener('click', function() { chatWindow.classList.toggle('active'); });
-        chatClose.addEventListener('click', function() { chatWindow.classList.remove('active'); });
-
-        function addMessage(text, sender) {
-            let msgDiv = document.createElement('div');
-            msgDiv.className = 'chat-msg ' + sender;
-            msgDiv.innerText = text;
-            chatBody.appendChild(msgDiv);
-            chatBody.scrollTop = chatBody.scrollHeight;
-        }
-
-        chatSend.addEventListener('click', function() {
-            let userMsg = chatInput.value.trim();
-            if(userMsg !== "") {
-                addMessage(userMsg, 'user');
-                chatInput.value = '';
-                if(chatMode === 'ai') {
-                    setTimeout(() => {
-                        addMessage("🤖 (AI Mock): I'm analyzing your request. For real AI integration, please replace this function with your OpenAI API key.", 'bot');
-                    }, 1000);
-                } else {
-                    // Simulate standard response + Admin Forwarding for complex queries
-                    let botReply = "Thank you for your message!";
-                    if(userMsg.toLowerCase().includes('date') || userMsg.toLowerCase().includes('change') || userMsg.toLowerCase().includes('custom')) {
-                        botReply = "This looks like a complex request. I have forwarded this to the Admin team. They will WhatsApp you shortly! 📲";
-                        // Simulate Admin forwarding (Mock)
-                        console.log("[SIMULATED] Admin WhatsApp Forward: Client asked: " + userMsg);
-                    } else {
-                        botReply = "Thank you! For instant support, please call us at 7654200109 or WhatsApp us.";
-                    }
-                    setTimeout(() => { addMessage(botReply, 'bot'); }, 800);
-                }
-            }
-        });
-        chatInput.addEventListener('keypress', function(e) { if (e.key === 'Enter') chatSend.click(); });
-
-        // 9. BOOKING MODAL (WITH ADMIN WHATSAPP NOTIFICATION)
+        // 7. BOOKING MODAL
         const bookingModal = document.getElementById('bookingDateModal');
         const bookingContext = document.getElementById('bookingContext');
         const bookingDate = document.getElementById('bookingDate');
-        const adminNumber = "917654200109"; // Admin WhatsApp Number
 
         function openBookingModal(context) {
             bookingContext.value = context;
@@ -1514,47 +1399,21 @@
             let date = bookingDate.value;
             if(!date) { alert("Please select a date!"); return; }
             let formattedDate = new Date(date + 'T00:00:00').toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-            
-            // Client Message
-            window.open(`https://wa.me/${adminNumber}?text=📅 *Booking Date:* ${formattedDate}%0A📦 *Package:* ${bookingContext.value}`, '_blank');
-            
-            // Simulate Admin Notification (Mock)
-            console.log(`[ADMIN NOTIFICATION] Client booked: ${bookingContext.value} on ${formattedDate}`);
-            alert("✅ Your request has been sent! The Admin has also been notified on WhatsApp.");
-
+            window.open(`https://wa.me/917654200109?text=📅 *Booking Date:* ${formattedDate}%0A📦 *Package:* ${bookingContext.value}`, '_blank');
             closeBookingModal();
         }
 
-        // 10. PAYMENT MODAL
-        const paymentModal = document.getElementById('paymentModal');
-        const payAmountDisplay = document.getElementById('payAmount');
-        function openPaymentModal(amount) {
-            let total = parseInt(amount.replace(/[^0-9]/g, ''));
-            let advance = Math.round(total * 0.3);
-            payAmountDisplay.innerText = '₹' + advance.toLocaleString('en-IN');
-            paymentModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closePaymentModal() {
-            paymentModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-        function processPayment() {
-            alert("✅ Mock Payment Successful! (30% Advance Confirmed). Admin has been notified.");
-            closePaymentModal();
-        }
-
-        // 11. EXIT INTENT POPUP
+        // 8. EXIT INTENT POPUP
         const exitPopup = document.getElementById('exitPopup');
         document.addEventListener('mouseleave', function(e) {
             if(e.clientY < 0 && !localStorage.getItem('exitIntentShown')) {
                 exitPopup.classList.add('show');
-                localStorage.setItem('exitIntentShown', 'true'); // Show only once per session
+                localStorage.setItem('exitIntentShown', 'true');
             }
         });
         function closeExitPopup() { exitPopup.classList.remove('show'); }
 
-        // 12. OTP LOGIN, DASHBOARD & GALLERY (Like/Comment)
+        // 9. OTP LOGIN, DASHBOARD & GALLERY
         const otpLoginModal = document.getElementById('otpLoginModal');
         const dashboardLink = document.getElementById('dashboardLink');
         const loginStepPhone = document.getElementById('loginStepPhone');
@@ -1575,7 +1434,6 @@
         function sendOTP() {
             let phone = loginPhone.value;
             if(phone.trim() === "") { alert("Please enter a valid phone number!"); return; }
-            // Mock OTP generation
             loginStepPhone.style.display = 'none';
             loginStepOTP.style.display = 'block';
             document.getElementById('otpLoginStep').innerText = "Enter the 6-digit OTP sent to " + phone;
@@ -1588,7 +1446,6 @@
             if(otp === "123456") {
                 otpLoginModal.classList.remove('active');
                 dashboardPanel.classList.add('active');
-                // Reset OTP fields
                 otpFields.forEach(f => f.value = "");
                 loginStepPhone.style.display = 'block';
                 loginStepOTP.style.display = 'none';
@@ -1599,7 +1456,6 @@
 
         logoutBtn.addEventListener('click', function() { dashboardPanel.classList.remove('active'); });
 
-        // Like / Comment functions
         function toggleLike(btn) {
             let countSpan = btn.querySelector('.like-count');
             let count = parseInt(countSpan.innerText);
@@ -1618,7 +1474,6 @@
             let comment = input.value.trim();
             if(comment) {
                 alert("💬 Comment added: " + comment + " (Saved in local storage)");
-                // In a real app, this would save to a database.
                 input.value = "";
             }
         }
@@ -1635,7 +1490,7 @@
             });
         }
 
-        // 13. COUNTDOWN TIMER
+        // 10. COUNTDOWN TIMER
         let countDownDate = new Date("Dec 25, 2026 00:00:00").getTime();
         document.getElementById('bookingDate').addEventListener('change', function() {
             let selected = new Date(this.value + 'T00:00:00').getTime();
@@ -1649,8 +1504,71 @@
             document.getElementById('cdMins').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             document.getElementById('cdSecs').innerText = Math.floor((distance % (1000 * 60)) / 1000);
         }, 1000);
+
+        // 11. CUSTOM LANGUAGE TRANSLATION TOGGLE (CLEAN ALTERNATIVE TO GOOGLE TRANSLATE)
+        const langToggle = document.getElementById('langToggle');
+        let currentLang = 'en';
+
+        // You can add or modify translations here
+        const translations = {
+            'en': {
+                // Hero
+                'heroSub': 'Premium Wedding Studio',
+                'heroTitle': 'YOUR DREAM <br> <span class="highlight">WEDDING</span> <br> DESERVES A <br> CINEMATIC STORY',
+                'heroP': 'Luxury Wedding Photography & Films Crafted With Emotion, Elegance & Timeless Memories. Trusted by 800+ couples across India.',
+                // About
+                'aboutTitle': 'Where Every Wedding Becomes A Masterpiece',
+                'aboutP1': 'At The Wedding, we believe every frame is a canvas for emotions. Founded in 2004...',
+                // Services Titles (demo)
+                'service1': 'Cinematic Wedding Films',
+                'service2': 'Luxury Photography',
+                'service3': 'Drone Coverage',
+                // Add more as needed
+            },
+            'hi': {
+                // Hero
+                'heroSub': 'प्रीमियम वेडिंग स्टूडियो',
+                'heroTitle': 'आपका सपना <br> <span class="highlight">शादी</span> <br> एक <br> सिनेमैटिक कहानी का हकदार है',
+                'heroP': 'भावना, लालित्य और कालातीत यादों के साथ निर्मित लक्ज़री वेडिंग फोटोग्राफी और फिल्में। पूरे भारत में 800+ जोड़ों द्वारा विश्वसनीय।',
+                // About
+                'aboutTitle': 'जहाँ हर शादी एक उत्कृष्ट कृति बन जाती है',
+                'aboutP1': 'The Wedding में, हम मानते हैं कि हर फ्रेम भावनाओं का एक कैनवास है। 2004 में स्थापित...',
+                // Services Titles (demo)
+                'service1': 'सिनेमैटिक वेडिंग फिल्में',
+                'service2': 'लक्ज़री फोटोग्राफी',
+                'service3': 'ड्रोन कवरेज'
+            }
+        };
+
+        langToggle.addEventListener('click', function() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            this.innerText = currentLang.toUpperCase();
+            if(currentLang === 'hi') {
+                this.classList.add('active-lang');
+            } else {
+                this.classList.remove('active-lang');
+            }
+            applyTranslations(currentLang);
+        });
+
+        function applyTranslations(lang) {
+            // You can add more dynamic translation logic here for IDs or specific classes
+            // For simplicity, this example replaces the main static texts.
+            // NOTE: For a full translation, you would populate the complete dictionary.
+            document.querySelector('.hero-content .sub-title').innerHTML = translations[lang].heroSub;
+            document.querySelector('.hero-content h1').innerHTML = translations[lang].heroTitle;
+            document.querySelector('.hero-content p').innerHTML = translations[lang].heroP;
+            document.querySelector('#about .about-content h2').innerHTML = translations[lang].aboutTitle;
+            document.querySelector('#about .about-content p').innerHTML = translations[lang].aboutP1;
+            
+            // For demonstration, we'll update the first 3 services
+            let serviceItems = document.querySelectorAll('#services .service-item h4');
+            if(serviceItems.length >= 3) {
+                serviceItems[0].innerHTML = translations[lang].service1;
+                serviceItems[1].innerHTML = translations[lang].service2;
+                serviceItems[2].innerHTML = translations[lang].service3;
+            }
+        }
     </script>
-    <!-- Load Google Translate -->
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
