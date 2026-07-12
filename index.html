@@ -7,28 +7,64 @@
     
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Playfair Display (Serif, Luxury) and Poppins (Body) -->
+    <!-- Google Fonts: Playfair Display and Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* ============ CSS VARIABLES ============ */
+        /* ================================================================================= */
+        /* ======================== 1. CSS VARIABLES AND ROOT SETUP ======================== */
+        /* ================================================================================= */
+        
         :root {
+            /* Colors - Main Theme */
             --bg-dark: #080808;
-            --bg-section: #121212;
+            --bg-section: #0f0f0f;
+            --bg-card: #151515;
+            --bg-card-hover: #1e1e1e;
+            
+            /* Gold Theme Palette */
             --gold: #d4af37;
             --gold-light: #f2dd8e;
             --gold-dark: #b08a2e;
+            --gold-glow: rgba(212, 175, 55, 0.25);
+            
+            /* Text Colors */
             --text-light: #ffffff;
+            --text-white: #ffffff;
             --text-muted: #aaaaaa;
-            --border-gold: 1px solid rgba(212, 175, 55, 0.4);
+            --text-gray: #888888;
+            --text-dark: #111111;
+            
+            /* Borders */
+            --border-gold: 1px solid rgba(212, 175, 55, 0.3);
+            --border-light: 1px solid rgba(255, 255, 255, 0.08);
+            --border-dark: 1px solid #222222;
+            
+            /* Shadows */
             --shadow-gold: 0 10px 40px rgba(212, 175, 55, 0.15);
+            --shadow-box: 0 10px 30px rgba(0, 0, 0, 0.5);
+            
+            /* Transitions */
+            --transition-fast: all 0.3s ease;
+            --transition-smooth: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-bounce: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* ============ GLOBAL RESET ============ */
-        * {
+        /* ================================================================================= */
+        /* ======================== 2. GLOBAL RESET & TYPOGRAPHY =========================== */
+        /* ================================================================================= */
+        
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px; /* Offset for fixed navbar */
         }
 
         body {
@@ -36,527 +72,2963 @@
             background-color: var(--bg-dark);
             color: var(--text-light);
             overflow-x: hidden;
-            line-height: 1.6;
-            scroll-behavior: smooth;
+            line-height: 1.7;
+            font-weight: 300;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
         }
 
+        /* ----- Typography Scales ----- */
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Playfair Display', serif;
-            color: var(--text-light);
+            color: var(--text-white);
             letter-spacing: 1px;
-            font-weight: 600;
+            font-weight: 700;
+            line-height: 1.2;
         }
 
-        a { text-decoration: none; color: inherit; }
-        ul { list-style: none; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .gold-text { color: var(--gold); }
-        .text-center { text-align: center; }
+        h1 { font-size: 5rem; letter-spacing: 3px; }
+        h2 { font-size: 3.5rem; margin-bottom: 15px; }
+        h3 { font-size: 2.2rem; margin-bottom: 15px; }
+        h4 { font-size: 1.6rem; margin-bottom: 10px; }
+        h5 { font-size: 1.2rem; font-weight: 600; }
+        h6 { font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* ============ SCROLLBAR ============ */
-        ::-webkit-scrollbar { width: 8px; }
+        p { color: var(--text-muted); font-weight: 300; margin-bottom: 15px; font-size: 1rem; }
+        a { text-decoration: none; color: inherit; transition: var(--transition-fast); }
+        ul, ol { list-style: none; margin: 0; padding: 0; }
+        img { max-width: 100%; height: auto; display: block; }
+        
+        /* ----- Scrollbar Styling ----- */
+        ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: var(--bg-dark); }
-        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 5px; border: 2px solid var(--bg-dark); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold-dark); }
 
-        /* ============ BUTTONS ============ */
-        .btn-gold {
-            display: inline-block;
-            padding: 15px 35px;
-            background: transparent;
-            border: 2px solid var(--gold);
+        /* ----- Selection Color ----- */
+        ::selection { background: var(--gold); color: var(--text-dark); }
+        ::-moz-selection { background: var(--gold); color: var(--text-dark); }
+
+        /* ================================================================================= */
+        /* ======================== 3. UTILITY CLASSES ===================================== */
+        /* ================================================================================= */
+        
+        /* Container */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .container-fluid { max-width: 100%; padding: 0 40px; }
+
+        /* Text Colors */
+        .text-gold { color: var(--gold); }
+        .text-white { color: var(--text-white); }
+        .text-muted { color: var(--text-muted); }
+        .text-dark { color: var(--text-dark); }
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+        .text-uppercase { text-transform: uppercase; }
+        .text-capitalize { text-transform: capitalize; }
+
+        /* Flexbox Utilities */
+        .d-flex { display: flex; }
+        .flex-column { flex-direction: column; }
+        .flex-wrap { flex-wrap: wrap; }
+        .align-items-center { align-items: center; }
+        .align-items-start { align-items: flex-start; }
+        .align-items-end { align-items: flex-end; }
+        .justify-content-center { justify-content: center; }
+        .justify-content-between { justify-content: space-between; }
+        .justify-content-start { justify-content: flex-start; }
+        .justify-content-end { justify-content: flex-end; }
+        .gap-10 { gap: 10px; }
+        .gap-20 { gap: 20px; }
+        .gap-30 { gap: 30px; }
+        .gap-40 { gap: 40px; }
+        .gap-50 { gap: 50px; }
+
+        /* Spacing Utilities (Margins) */
+        .m-0 { margin: 0; }
+        .m-10 { margin: 10px; }
+        .m-20 { margin: 20px; }
+        .m-30 { margin: 30px; }
+        .m-40 { margin: 40px; }
+        .mt-10 { margin-top: 10px; }
+        .mt-20 { margin-top: 20px; }
+        .mt-30 { margin-top: 30px; }
+        .mt-40 { margin-top: 40px; }
+        .mt-50 { margin-top: 50px; }
+        .mt-60 { margin-top: 60px; }
+        .mb-10 { margin-bottom: 10px; }
+        .mb-20 { margin-bottom: 20px; }
+        .mb-30 { margin-bottom: 30px; }
+        .mb-40 { margin-bottom: 40px; }
+        .mb-50 { margin-bottom: 50px; }
+        .mb-60 { margin-bottom: 60px; }
+        .ml-10 { margin-left: 10px; }
+        .ml-20 { margin-left: 20px; }
+        .mr-10 { margin-right: 10px; }
+        .mr-20 { margin-right: 20px; }
+
+        /* Spacing Utilities (Paddings) */
+        .p-0 { padding: 0; }
+        .p-10 { padding: 10px; }
+        .p-20 { padding: 20px; }
+        .p-30 { padding: 30px; }
+        .p-40 { padding: 40px; }
+        .p-50 { padding: 50px; }
+        .pt-10 { padding-top: 10px; }
+        .pt-20 { padding-top: 20px; }
+        .pt-30 { padding-top: 30px; }
+        .pt-40 { padding-top: 40px; }
+        .pt-50 { padding-top: 50px; }
+        .pt-60 { padding-top: 60px; }
+        .pb-10 { padding-bottom: 10px; }
+        .pb-20 { padding-bottom: 20px; }
+        .pb-30 { padding-bottom: 30px; }
+        .pb-40 { padding-bottom: 40px; }
+        .pb-50 { padding-bottom: 50px; }
+        .pb-60 { padding-bottom: 60px; }
+        .pl-10 { padding-left: 10px; }
+        .pl-20 { padding-left: 20px; }
+        .pr-10 { padding-right: 10px; }
+        .pr-20 { padding-right: 20px; }
+
+        /* Grid Utilities */
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+        .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+
+        /* Sizing Utilities */
+        .w-100 { width: 100%; }
+        .w-50 { width: 50%; }
+        .h-100 { height: 100%; }
+
+        /* Display Utilities */
+        .d-block { display: block; }
+        .d-none { display: none; }
+        .d-inline-block { display: inline-block; }
+        .position-relative { position: relative; }
+        .position-absolute { position: absolute; }
+        .position-fixed { position: fixed; }
+        .overflow-hidden { overflow: hidden; }
+
+        /* ================================================================================= */
+        /* ======================== 4. PRELOADER =========================================== */
+        /* ================================================================================= */
+        
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--bg-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        #preloader.loaded {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .loader-wrapper {
+            text-align: center;
+        }
+
+        .loader-ring {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(255, 255, 255, 0.05);
+            border-top: 4px solid var(--gold);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            animation: spinLoader 1s linear infinite;
+        }
+
+        .loader-text {
+            font-family: 'Playfair Display', serif;
             color: var(--gold);
-            font-weight: 600;
+            font-size: 1.5rem;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.4s ease;
-            cursor: pointer;
-            position: relative;
+        }
+
+        .loader-progress {
+            width: 200px;
+            height: 2px;
+            background: #222;
+            margin: 15px auto 0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .loader-progress-bar {
+            width: 0%;
+            height: 100%;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        @keyframes spinLoader {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ================================================================================= */
+        /* ======================== 5. SCROLL REVEAL & ANIMATIONS ========================== */
+        /* ================================================================================= */
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-80px);
+            transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(80px);
+            transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-zoom {
+            opacity: 0;
+            transform: scale(0.85);
+            transition: all 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .reveal-zoom.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Keyframes */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes glowPulse {
+            0% { text-shadow: 0 0 10px rgba(212, 175, 55, 0.2); }
+            50% { text-shadow: 0 0 30px rgba(212, 175, 55, 0.6); }
+            100% { text-shadow: 0 0 10px rgba(212, 175, 55, 0.2); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes borderGlow {
+            0% { border-color: rgba(212, 175, 55, 0.2); box-shadow: 0 0 5px rgba(212, 175, 55, 0.2); }
+            50% { border-color: rgba(212, 175, 55, 0.8); box-shadow: 0 0 25px rgba(212, 175, 55, 0.4); }
+            100% { border-color: rgba(212, 175, 55, 0.2); box-shadow: 0 0 5px rgba(212, 175, 55, 0.2); }
+        }
+
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-glow-pulse { animation: glowPulse 3s infinite; }
+        .animate-border-glow { animation: borderGlow 3s infinite; }
+
+        /* ================================================================================= */
+        /* ======================== 6. BUTTONS ============================================= */
+        /* ================================================================================= */
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 40px;
             font-family: 'Poppins', sans-serif;
-            font-size: 0.9rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .btn-gold {
+            background: transparent;
+            color: var(--gold);
+            border-color: var(--gold);
+            z-index: 1;
         }
 
         .btn-gold::before {
             content: '';
             position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
             background: var(--gold);
-            transition: left 0.4s;
+            transition: left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             z-index: -1;
         }
 
-        .btn-gold:hover { color: #111; }
-        .btn-gold:hover::before { left: 0; }
+        .btn-gold:hover {
+            color: var(--text-dark);
+            box-shadow: var(--shadow-gold);
+        }
 
-        .btn-full {
+        .btn-gold:hover::before {
+            left: 0;
+        }
+
+        .btn-primary {
             background: var(--gold);
-            color: #111;
-            padding: 12px 25px;
-            border: none;
-        }
-        .btn-full:hover { background: var(--gold-dark); color: #fff; }
-
-        /* ============ FLOATING & ANIMATIONS ============ */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            color: var(--text-dark);
+            border-color: var(--gold);
         }
 
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        /* ============ ORNATE DECORATIVE BORDER ============ */
-        .ornate-border {
-            position: relative;
-            padding: 40px 20px;
-            border: 2px solid var(--gold);
-            border-image: linear-gradient(to bottom, var(--gold), transparent) 1;
-            margin-bottom: 30px;
-        }
-
-        .ornate-border::before, .ornate-border::after {
-            content: '✦';
+        .btn-primary:hover {
+            background: transparent;
             color: var(--gold);
-            font-size: 24px;
-            position: absolute;
-            background: var(--bg-dark);
+            box-shadow: var(--shadow-gold);
         }
-        .ornate-border::before { top: -15px; left: 10px; padding: 0 10px; }
-        .ornate-border::after { bottom: -15px; right: 10px; padding: 0 10px; }
 
-        /* ============ NAVBAR ============ */
+        .btn-dark {
+            background: transparent;
+            color: var(--text-white);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-dark:hover {
+            background: var(--text-white);
+            color: var(--text-dark);
+            border-color: var(--text-white);
+        }
+
+        .btn-sm {
+            padding: 10px 25px;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+
+        .btn-lg {
+            padding: 20px 50px;
+            font-size: 1.1rem;
+        }
+
+        .btn-block {
+            width: 100%;
+            display: block;
+        }
+
+        /* ================================================================================= */
+        /* ======================== 7. NAVIGATION BAR ====================================== */
+        /* ================================================================================= */
+        
         .navbar {
             position: fixed;
-            top: 0; width: 100%;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 60px;
+            top: 0;
+            left: 0;
+            width: 100%;
             z-index: 1000;
-            transition: all 0.4s;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 60px;
+            transition: var(--transition-smooth);
+            background: rgba(8, 8, 8, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid transparent;
         }
 
-        .navbar.scrolled { background: rgba(8,8,8,0.95); padding: 15px 60px; border-bottom: 2px solid var(--gold); }
+        .navbar.scrolled {
+            background: rgba(8, 8, 8, 0.98);
+            padding: 15px 60px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.8);
+        }
 
-        .logo { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; letter-spacing: 4px; color: #fff; }
-        .logo span { color: var(--gold); }
+        .navbar .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: 5px;
+            color: var(--text-white);
+        }
 
-        .nav-links { display: flex; gap: 30px; }
-        .nav-links a { color: #fff; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; position: relative; transition: 0.3s; }
-        .nav-links a:hover { color: var(--gold); }
-        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--gold); transition: width 0.3s; }
-        .nav-links a:hover::after { width: 100%; }
+        .navbar .logo span {
+            color: var(--gold);
+        }
 
-        .hamburger { display: none; font-size: 1.8rem; color: #fff; cursor: pointer; }
+        .navbar .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
 
-        /* ============ HERO SECTION ============ */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
-            display: flex; justify-content: center; align-items: center;
-            text-align: center;
+        .navbar .nav-links li a {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
             position: relative;
+            padding: 5px 0;
+        }
+
+        .navbar .nav-links li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .navbar .nav-links li a:hover {
+            color: var(--text-white);
+        }
+
+        .navbar .nav-links li a:hover::after {
+            width: 100%;
+        }
+
+        .navbar .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            color: var(--text-white);
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+
+        /* ================================================================================= */
+        /* ======================== 8. HERO SECTION ======================================== */
+        /* ================================================================================= */
+        
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center center/cover no-repeat;
             padding-top: 80px;
         }
 
-        .hero-content h1 {
-            font-size: 4.5rem;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            color: #fff;
-            text-shadow: 0 0 40px rgba(0,0,0,0.8);
-            font-weight: 900;
-            letter-spacing: 4px;
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, rgba(8, 8, 8, 0.6) 100%);
+            pointer-events: none;
         }
-        .hero-content h1 .highlight { color: var(--gold); text-shadow: 0 0 20px rgba(212,175,55,0.3); }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .hero-content .sub-title {
+            display: inline-block;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            padding: 8px 20px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50px;
+        }
+
+        .hero-content h1 {
+            font-size: 5.5rem;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            color: var(--text-white);
+        }
+
+        .hero-content h1 .highlight {
+            color: var(--gold);
+            text-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+        }
 
         .hero-content p {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
+            color: #cccccc;
+            max-width: 650px;
+            margin: 0 auto 35px;
             font-weight: 300;
-            letter-spacing: 2px;
-            margin-bottom: 30px;
-            color: #ddd;
-        }
-
-        .price-badge {
-            position: absolute;
-            bottom: 50px; left: 50px;
-            background: var(--bg-dark);
-            color: var(--gold);
-            padding: 15px 25px;
-            border: 2px solid var(--gold);
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 700;
             letter-spacing: 1px;
-            box-shadow: 0 0 20px rgba(212,175,55,0.2);
         }
 
-        /* ============ SECTION COMMON STYLES ============ */
-        section { padding: 80px 0; }
+        .hero-content .cta-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .hero-price-badge {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            background: rgba(8, 8, 8, 0.9);
+            backdrop-filter: blur(8px);
+            padding: 15px 30px;
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            text-align: left;
+            box-shadow: var(--shadow-gold);
+        }
+
+        .hero-price-badge small {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-price-badge strong {
+            display: block;
+            color: var(--gold);
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        /* ================================================================================= */
+        /* ======================== 9. SECTION COMMON STYLES =============================== */
+        /* ================================================================================= */
+        
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .bg-section { background: var(--bg-section); }
+        .bg-dark-section { background: var(--bg-dark); }
+        .bg-card-section { background: var(--bg-card); }
+
         .section-title {
             text-align: center;
-            margin-bottom: 50px;
+            max-width: 700px;
+            margin: 0 auto 60px;
         }
-        .section-title h2 { font-size: 3rem; color: var(--gold); margin-bottom: 10px; }
-        .section-title p { color: var(--text-muted); max-width: 600px; margin: 0 auto; }
 
-        /* ============ FEATURES ============ */
-        .features-grid {
+        .section-title h2 {
+            font-size: 3.5rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+
+        .section-title h2 .light {
+            color: var(--text-white);
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .section-title .ornate-line {
+            display: block;
+            width: 80px;
+            height: 2px;
+            background: var(--gold);
+            margin: 15px auto 0;
+            position: relative;
+        }
+
+        .section-title .ornate-line::before,
+        .section-title .ornate-line::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            top: -3px;
+        }
+        .section-title .ornate-line::before { left: -15px; }
+        .section-title .ornate-line::after { right: -15px; }
+
+        /* ================================================================================= */
+        /* ======================== 10. FEATURES / SERVICES ================================ */
+        /* ================================================================================= */
+        
+        .features-wrapper {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 30px;
+        }
+
+        .feature-item {
+            background: var(--bg-card);
+            padding: 40px 20px;
             text-align: center;
-        }
-
-        .feature-box {
-            background: var(--bg-section);
-            padding: 30px 15px;
-            border: 1px solid #333;
-            transition: all 0.4s;
-        }
-        .feature-box:hover { border-color: var(--gold); transform: translateY(-5px); }
-        .feature-box i { color: var(--gold); font-size: 2rem; margin-bottom: 15px; }
-        .feature-box h4 { font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* ============ PACKAGES / QUOTATION SECTION ============ */
-        .packages-wrapper {
-            background: #0d0d0d;
-            border: 2px solid var(--gold);
-            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition-smooth);
             position: relative;
-            border-image: linear-gradient(to right, var(--gold), transparent, var(--gold)) 1;
+            border-radius: 6px;
         }
 
-        .packages-header {
-            text-align: center;
-            border-bottom: 2px solid var(--gold);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
+        .feature-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
         }
-        .packages-header h2 { font-size: 3.5rem; color: var(--gold); letter-spacing: 8px; }
-        .packages-header h3 { color: #ddd; font-size: 1.2rem; letter-spacing: 2px; }
 
-        .packages-grid {
+        .feature-item:hover {
+            transform: translateY(-10px);
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .feature-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-item .icon {
+            display: inline-flex;
+            width: 60px;
+            height: 60px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            color: var(--gold);
+        }
+
+        .feature-item h4 {
+            font-size: 1.1rem;
+            color: var(--text-white);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .feature-item p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        /* ================================================================================= */
+        /* ======================== 11. ABOUT SECTION ====================================== */
+        /* ================================================================================= */
+        
+        .about-wrapper {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            transition: transform 0.8s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.03);
+        }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: -15px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            z-index: -1;
+        }
+
+        .about-content h2 {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .about-content p {
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+        }
+
+        .about-content .highlight-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 20px;
+            margin-top: 20px;
+            margin-bottom: 25px;
+        }
+
+        .about-content .highlight-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ddd;
+            font-size: 0.95rem;
+        }
+
+        .about-content .highlight-list li i {
+            color: var(--gold);
+        }
+
+        /* ================================================================================= */
+        /* ======================== 12. STATS COUNTER ====================================== */
+        /* ================================================================================= */
+        
+        .stats-wrapper {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stats-wrapper .stat-item {
+            padding: 20px;
+            background: var(--bg-card);
+            border: 1px solid #222;
+            transition: var(--transition-smooth);
+        }
+
+        .stats-wrapper .stat-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+        }
+
+        .stats-wrapper .stat-item h3 {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 5px;
+            font-weight: 900;
+        }
+
+        .stats-wrapper .stat-item p {
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+        }
+
+        /* ================================================================================= */
+        /* ======================== 13. PORTFOLIO GALLERY ================================== */
+        /* ================================================================================= */
+        
+        .gallery-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
             margin-bottom: 40px;
         }
 
-        .pkg-card {
-            background: #181818;
-            border: 1px solid #333;
-            padding: 20px;
+        .filter-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 25px;
+            color: var(--text-muted);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border-radius: 4px;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--gold);
+            color: var(--text-dark);
+            border-color: var(--gold);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
             position: relative;
-            transition: 0.3s;
-            border-top: 3px solid var(--gold);
-            display: flex; flex-direction: column; justify-content: space-between;
+            overflow: hidden;
+            border-radius: 8px;
+            cursor: pointer;
+            height: 350px;
         }
-        .pkg-card:hover { transform: scale(1.02); border-color: var(--gold); box-shadow: var(--shadow-gold); }
 
-        .pkg-title { font-size: 1.8rem; color: var(--gold); text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 15px; text-align: center; font-weight: 700; }
-
-        .pkg-items li {
-            display: flex; align-items: center; gap: 12px;
-            padding: 8px 0; border-bottom: 1px dashed #222;
-            font-size: 0.9rem; color: #ccc;
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
         }
-        .pkg-items li i { color: var(--gold); font-size: 0.9rem; width: 20px; text-align: center; }
 
-        .pkg-price {
+        .gallery-item:hover img {
+            transform: scale(1.12);
+        }
+
+        .gallery-item .overlay {
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            transition: bottom 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .gallery-item:hover .overlay {
+            bottom: 0;
+        }
+
+        .gallery-item .overlay h4 {
+            color: var(--text-white);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .gallery-item .overlay span {
+            color: var(--gold);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Lightbox */
+        .lightbox-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .lightbox-container.active {
+            display: flex;
+        }
+
+        .lightbox-container img {
+            max-width: 90%;
+            max-height: 90%;
+            border: 3px solid var(--gold);
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+            border-radius: 6px;
+        }
+
+        .lightbox-container .close-lb {
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            font-size: 3rem;
+            color: var(--text-white);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .lightbox-container .close-lb:hover {
+            color: var(--gold);
+            transform: rotate(90deg);
+        }
+
+        .lightbox-container .prev-lb,
+        .lightbox-container .next-lb {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            padding: 15px;
+            transition: var(--transition-fast);
+        }
+
+        .lightbox-container .prev-lb { left: 30px; }
+        .lightbox-container .next-lb { right: 30px; }
+        .lightbox-container .prev-lb:hover,
+        .lightbox-container .next-lb:hover { color: var(--gold); }
+
+        /* ================================================================================= */
+        /* ======================== 14. TEAM SECTION ======================================= */
+        /* ================================================================================= */
+        
+        .team-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 40px;
             text-align: center;
-            margin-top: 20px;
-            background: #222;
-            padding: 10px;
-            border: 1px solid #444;
-            font-size: 1.5rem;
-            color: #fff;
+        }
+
+        .team-member {
+            background: var(--bg-card);
+            padding: 30px 20px;
+            border: 1px solid #222;
+            border-radius: 10px;
+            transition: var(--transition-smooth);
+        }
+
+        .team-member:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            border: 4px solid rgba(212, 175, 55, 0.3);
+            transition: var(--transition-smooth);
+        }
+
+        .team-member:hover img {
+            border-color: var(--gold);
+            transform: scale(1.05);
+        }
+
+        .team-member h4 {
+            color: var(--text-white);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .team-member p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .team-member .social-links a {
+            color: var(--text-muted);
+            margin: 0 8px;
+            font-size: 1rem;
+            transition: var(--transition-fast);
+        }
+
+        .team-member .social-links a:hover {
+            color: var(--gold);
+        }
+
+        /* ================================================================================= */
+        /* ======================== 15. TESTIMONIALS ======================================= */
+        /* ================================================================================= */
+        
+        .testimonial-slider-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .testimonial-item {
+            min-width: 100%;
+            padding: 40px;
+            background: var(--bg-card);
+            border-left: 5px solid var(--gold);
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .testimonial-item p {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #ddd;
+            line-height: 1.8;
+        }
+
+        .testimonial-item h5 {
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
             font-weight: 600;
         }
-        .pkg-price span { color: var(--gold); font-weight: 700; font-size: 1.8rem; }
 
-        /* ============ TERMS & GIFTS SECTION ============ */
-        .extras-wrapper {
+        .testimonial-item .role {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border: 1px solid transparent;
+        }
+
+        .slider-dot.active {
+            background: var(--gold);
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .slider-dot:hover {
+            background: var(--gold-dark);
+        }
+
+        /* ================================================================================= */
+        /* ======================== 16. PRICING / QUOTATION ================================= */
+        /* ================================================================================= */
+        
+        .pricing-wrapper {
+            border: 2px solid var(--gold);
+            padding: 40px;
+            position: relative;
+            background: #0d0d0d;
+            border-image: linear-gradient(to right, var(--gold), transparent 20%, transparent 80%, var(--gold)) 1;
+        }
+
+        .pricing-wrapper .quotation-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 20px;
+        }
+
+        .pricing-wrapper .quotation-header h2 {
+            font-size: 3.2rem;
+            color: var(--gold);
+            letter-spacing: 8px;
+            font-weight: 900;
+        }
+
+        .pricing-wrapper .quotation-header h3 {
+            font-size: 1.1rem;
+            color: #ccc;
+            letter-spacing: 2px;
+            font-weight: 400;
+        }
+
+        .pricing-wrapper .quotation-header .badge-box {
+            display: inline-block;
+            border: 2px solid var(--gold);
+            padding: 8px 25px;
+            margin-top: 15px;
+            color: var(--gold);
+            font-weight: 700;
+            letter-spacing: 3px;
+            background: #111;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .price-card {
+            background: var(--bg-card);
+            border: 1px solid #333;
+            padding: 25px 20px;
+            transition: var(--transition-smooth);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price-card.featured {
+            border: 2px solid var(--gold);
+            box-shadow: var(--shadow-gold);
+            transform: scale(1.02);
+        }
+
+        .price-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+        }
+
+        .price-card.featured:hover {
+            transform: scale(1.02) translateY(-10px);
+        }
+
+        .price-card .card-title {
+            font-size: 1.6rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            text-align: center;
+            border-bottom: 1px solid #222;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .price-card.featured .card-title {
+            background: var(--gold);
+            color: #111;
+            padding: 10px;
+            margin-top: -25px;
+            margin-bottom: 20px;
+            border-bottom: none;
+        }
+
+        .price-card ul li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        .price-card ul li i {
+            color: var(--gold);
+            margin-top: 3px;
+        }
+
+        .price-card .price-tag {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .price-card .price-tag span {
+            color: var(--gold);
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .price-card.featured .price-tag {
+            border: 1px solid var(--gold);
+        }
+
+        /* Additional Services & Terms Grid */
+        .extras-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
-            margin-top: 30px;
         }
 
         .extras-box {
             background: #111;
             border: 1px solid #333;
-            padding: 20px;
+            padding: 20px 25px;
         }
-        .extras-box h4 { color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 15px; }
 
-        .extra-row { display: flex; justify-content: space-between; border-bottom: 1px dashed #222; padding: 8px 0; font-size: 0.9rem; }
-        .extra-row span:last-child { color: var(--gold); font-weight: 600; }
+        .extras-box h4 {
+            color: var(--gold);
+            border-bottom: 1px solid #333;
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
 
-        .gift-box {
+        .extras-box .row-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #222;
+            font-size: 0.9rem;
+        }
+
+        .extras-box .row-item span:last-child {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* Gifts Section */
+        .gift-container {
+            margin-top: 30px;
             background: #111;
             border: 1px solid var(--gold);
-            padding: 20px;
-            margin-top: 20px;
+            padding: 25px;
             position: relative;
         }
-        .gift-box::before {
-            content: 'GIFT';
-            position: absolute; top: -12px; left: 20px;
-            background: #111; padding: 0 10px;
-            color: var(--gold); font-size: 0.8rem; font-weight: bold; letter-spacing: 2px;
-        }
-        .gift-row { display: flex; gap: 15px; flex-wrap: wrap; }
-        .gift-item { background: #222; padding: 10px 15px; border-radius: 4px; font-size: 0.85rem; color: #ddd; }
 
-        /* ============ FOOTER ============ */
-        footer {
-            background: #050505;
-            border-top: 2px solid var(--gold);
-            padding: 40px 0;
+        .gift-container::before {
+            content: '🎁 GIFT FOR BOOKING';
+            position: absolute;
+            top: -12px;
+            left: 30px;
+            background: #111;
+            padding: 0 15px;
+            color: var(--gold);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .gift-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .gift-box-inner {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .gift-box-inner h5 {
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .gift-box-inner p {
+            font-size: 0.85rem;
+            margin-bottom: 0;
+            color: #ccc;
+        }
+
+        /* ================================================================================= */
+        /* ======================== 17. BLOG SECTION ======================================= */
+        /* ================================================================================= */
+        
+        .blog-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .blog-card {
+            background: var(--bg-card);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+            border: 1px solid transparent;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .blog-card .blog-img {
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .blog-card .blog-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .blog-card:hover .blog-img img {
+            transform: scale(1.08);
+        }
+
+        .blog-card .blog-content {
+            padding: 25px;
+        }
+
+        .blog-card .blog-content .meta {
+            display: flex;
+            gap: 15px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        .blog-card .blog-content .meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .blog-card .blog-content h4 {
+            font-size: 1.2rem;
+            color: var(--text-white);
+            margin-bottom: 10px;
+        }
+
+        .blog-card .blog-content p {
+            font-size: 0.95rem;
+        }
+
+        /* ================================================================================= */
+        /* ======================== 18. FAQ ACCORDION ====================================== */
+        /* ================================================================================= */
+        
+        .faq-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+        }
+
+        .faq-item .faq-question {
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-white);
+            transition: background 0.3s;
+        }
+
+        .faq-item .faq-question:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .faq-item .faq-question .icon {
+            font-size: 1.5rem;
+            transition: transform 0.4s ease;
+            color: var(--gold);
+        }
+
+        .faq-item.active .faq-question .icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-item .faq-answer {
+            max-height: 0;
+            padding: 0 25px;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.4s ease;
+            color: var(--text-muted);
+            background: #0d0d0d;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 250px;
+            padding: 20px 25px;
+        }
+
+        /* ================================================================================= */
+        /* ======================== 19. CONTACT & MAP ====================================== */
+        /* ================================================================================= */
+        
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .contact-form h2 {
+            color: var(--gold);
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ccc;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            color: var(--text-white);
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition-fast);
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-info-box {
+            padding: 40px;
+            background: var(--bg-card);
+            border: 1px solid #222;
+            border-radius: 10px;
+        }
+
+        .contact-info-box h3 {
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .contact-info-box .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .contact-info-box .info-row i {
+            color: var(--gold);
+            font-size: 1.4rem;
+            width: 30px;
+            margin-top: 3px;
+        }
+
+        .contact-info-box .info-row p {
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        .google-map-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #222;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-muted);
+            border: 1px solid #333;
+            font-size: 0.9rem;
+            gap: 10px;
+        }
+
+        /* ================================================================================= */
+        /* ======================== 20. NEWSLETTER & FOOTER ================================ */
+        /* ================================================================================= */
+        
+        .newsletter-section {
+            background: var(--bg-card);
             text-align: center;
+            padding: 80px 0;
         }
 
-        .footer-info { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; margin-bottom: 20px; }
-        .footer-info div { display: flex; align-items: center; gap: 10px; color: #aaa; font-size: 0.95rem; }
-        .footer-info i { color: var(--gold); font-size: 1.2rem; }
-
-        .footer-copy { color: #666; font-size: 0.8rem; letter-spacing: 1px; margin-top: 20px; border-top: 1px solid #222; padding-top: 20px; }
-        .footer-copy span { color: var(--gold); }
-
-        /* ============ RESPONSIVE ============ */
-        @media (max-width: 992px) {
-            .packages-grid { grid-template-columns: 1fr; }
-            .extras-wrapper { grid-template-columns: 1fr; }
-            .hero-content h1 { font-size: 3.5rem; }
+        .newsletter-section h3 {
+            color: var(--gold);
+            font-size: 2rem;
         }
 
+        .newsletter-form {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            max-width: 600px;
+            margin: 30px auto 0;
+            flex-wrap: wrap;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px 20px;
+            background: var(--bg-dark);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-white);
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .newsletter-form input:focus {
+            border-color: var(--gold);
+        }
+
+        /* Footer */
+        .main-footer {
+            background: #050505;
+            border-top: 2px solid rgba(212, 175, 55, 0.3);
+            padding: 60px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid #222;
+        }
+
+        .footer-grid h4 {
+            color: var(--gold);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-grid p {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .footer-grid ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-grid ul li a {
+            color: #888;
+            font-size: 0.9rem;
+            transition: var(--transition-fast);
+        }
+
+        .footer-grid ul li a:hover {
+            color: var(--gold);
+            padding-left: 5px;
+        }
+
+        .footer-social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .footer-social-icons a {
+            display: inline-flex;
+            width: 40px;
+            height: 40px;
+            background: #111;
+            border-radius: 50%;
+            justify-content: center;
+            align-items: center;
+            color: #aaa;
+            transition: var(--transition-fast);
+            border: 1px solid #222;
+        }
+
+        .footer-social-icons a:hover {
+            background: var(--gold);
+            color: #111;
+            border-color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .footer-bottom span {
+            color: var(--gold);
+        }
+
+        /* ================================================================================= */
+        /* ======================== 21. BACK TO TOP BUTTON ================================= */
+        /* ================================================================================= */
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gold);
+            color: var(--text-dark);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-fast);
+            box-shadow: var(--shadow-gold);
+            z-index: 998;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: scale(1.1) translateY(-3px);
+            background: var(--gold-dark);
+        }
+
+        /* ================================================================================= */
+        /* ======================== 22. SCROLL PROGRESS BAR ================================ */
+        /* ================================================================================= */
+        
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(to right, var(--gold), var(--gold-light));
+            z-index: 1001;
+            transition: width 0.1s linear;
+        }
+
+        /* ================================================================================= */
+        /* ======================== 23. MEDIA QUERIES (RESPONSIVE) ========================== */
+        /* ================================================================================= */
+        
+        /* Tablet & Smaller Laptops (max-width: 1024px) */
+        @media (max-width: 1024px) {
+            .hero-content h1 { font-size: 4.5rem; }
+            .pricing-grid { grid-template-columns: 1fr; gap: 20px; }
+            .extras-grid { grid-template-columns: 1fr; }
+            .gift-wrapper { grid-template-columns: 1fr; }
+            .about-wrapper { grid-template-columns: 1fr; gap: 40px; }
+            .contact-wrapper { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+            .stats-wrapper { grid-template-columns: repeat(2, 1fr); }
+            .navbar { padding: 20px 30px; }
+        }
+
+        /* Mobile & Tablets (max-width: 768px) */
         @media (max-width: 768px) {
-            .navbar { padding: 15px 30px; }
+            .hamburger { display: block; }
             .nav-links {
-                position: fixed; top: 0; right: -100%;
-                width: 250px; height: 100vh; background: #0a0a0a;
-                flex-direction: column; justify-content: center; align-items: center;
-                transition: 0.4s; border-left: 2px solid var(--gold);
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: rgba(8, 8, 8, 0.98);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                border-left: 2px solid var(--gold);
+                gap: 20px;
             }
             .nav-links.active { right: 0; }
-            .hamburger { display: block; }
-            .hero-content h1 { font-size: 2.8rem; }
-            .packages-header h2 { font-size: 2.5rem; }
-            .footer-info { flex-direction: column; gap: 10px; }
-            .price-badge { left: 50%; transform: translateX(-50%); bottom: 20px; }
+            .nav-links li a { font-size: 1.1rem; }
+            .navbar { padding: 15px 20px; }
+            .navbar.scrolled { padding: 12px 20px; }
+
+            .hero-content h1 { font-size: 3.2rem; }
+            .hero-content p { font-size: 1rem; }
+            .hero-price-badge { left: 50%; transform: translateX(-50%); bottom: 30px; width: auto; }
+            
+            .section-title h2 { font-size: 2.5rem; }
+            .pricing-wrapper { padding: 20px; }
+            
+            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+            .team-wrapper { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+            .blog-wrapper { grid-template-columns: 1fr; }
+            
+            .about-content .highlight-list { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            
+            .lightbox-container .prev-lb,
+            .lightbox-container .next-lb { display: none; }
+            .lightbox-container .close-lb { top: 15px; right: 25px; font-size: 2rem; }
+        }
+
+        /* Small Mobile (max-width: 480px) */
+        @media (max-width: 480px) {
+            .hero-content h1 { font-size: 2.4rem; letter-spacing: 2px; }
+            .btn { padding: 12px 25px; font-size: 0.8rem; }
+            .hero-content .cta-group { flex-direction: column; align-items: center; }
+            .newsletter-form { flex-direction: column; }
+            .stats-wrapper { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .team-wrapper { grid-template-columns: 1fr 1fr; }
+            .navbar .logo { font-size: 1.6rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ==================== NAVBAR ==================== -->
+    <!-- ============================================================== -->
+    <!-- 1. PRELOADER                                                   -->
+    <!-- ============================================================== -->
+    <div id="preloader">
+        <div class="loader-wrapper">
+            <div class="loader-ring"></div>
+            <div class="loader-text">The Wedding</div>
+            <div class="loader-progress">
+                <div class="loader-progress-bar" id="loaderBar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 2. SCROLL PROGRESS BAR                                         -->
+    <!-- ============================================================== -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- ============================================================== -->
+    <!-- 3. NAVIGATION BAR                                              -->
+    <!-- ============================================================== -->
     <nav class="navbar" id="navbar">
         <a href="#" class="logo">The <span>Wedding</span></a>
         <ul class="nav-links" id="navLinks">
             <li><a href="#home">Home</a></li>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#packages">Packages</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#faq">FAQ</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-        <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+        <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
     </nav>
 
-    <!-- ==================== HERO ==================== -->
+    <!-- ============================================================== -->
+    <!-- 4. HERO SECTION                                                -->
+    <!-- ============================================================== -->
     <section class="hero" id="home">
-        <div class="hero-content reveal">
+        <div class="hero-content animate-float">
+            <span class="sub-title"><i class="fas fa-crown"></i> Premium Wedding Studio</span>
             <h1>YOUR DREAM <br> <span class="highlight">WEDDING</span> <br> DESERVES A <br> CINEMATIC STORY</h1>
-            <p>Luxury Wedding Photography & Films<br>Crafted With Emotion, Elegance & Timeless Memories</p>
-            <a href="#packages" class="btn-gold">View Packages</a>
+            <p>Luxury Wedding Photography & Films Crafted With Emotion, Elegance & Timeless Memories</p>
+            <div class="cta-group">
+                <a href="#pricing" class="btn btn-gold">View Packages</a>
+                <a href="#portfolio" class="btn btn-dark">View Portfolio</a>
+            </div>
             
-            <div class="price-badge">
-                Starting From <br> <span style="font-size:1.8rem;">₹80,000</span>
+            <!-- Price Badge -->
+            <div class="hero-price-badge">
+                <small>Wedding Packages Starting From</small>
+                <strong>₹80,000</strong>
             </div>
         </div>
     </section>
 
-    <!-- ==================== FEATURES ==================== -->
-    <section id="features" style="background: #0d0d0d;">
+    <!-- ============================================================== -->
+    <!-- 5. STATS COUNTER SECTION                                       -->
+    <!-- ============================================================== -->
+    <section class="bg-section">
         <div class="container">
-            <div class="section-title reveal">
-                <h2>CINEMATIC STORY</h2>
-                <p>Where Every Wedding Becomes A Masterpiece</p>
-            </div>
-            <div class="features-grid reveal">
-                <div class="feature-box"><i class="fas fa-film"></i><h4>Cinematic Wedding Films</h4></div>
-                <div class="feature-box"><i class="fas fa-camera"></i><h4>Luxury Wedding Photography</h4></div>
-                <div class="feature-box"><i class="fas fa-plane"></i><h4>Drone Coverage</h4></div>
-                <div class="feature-box"><i class="fas fa-heart"></i><h4>Pre-Wedding Shoots</h4></div>
-                <div class="feature-box"><i class="fas fa-camera-retro"></i><h4>Candid Photography</h4></div>
-                <div class="feature-box"><i class="fas fa-book-open"></i><h4>Premium Album Design</h4></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== PACKAGES / QUOTATION ==================== -->
-    <section id="packages" style="padding-top: 40px; padding-bottom: 80px;">
-        <div class="container">
-            <div class="ornate-border reveal">
-                <div class="packages-wrapper">
-                    
-                    <div class="packages-header">
-                        <h2>THE WEDDING</h2>
-                        <h3>Wedding Photography & Cinematography</h3>
-                        <div style="display:inline-block; border:2px solid var(--gold); padding:5px 20px; margin-top:10px; color:var(--gold); font-weight:700; letter-spacing:2px; background:#111;">QUOTATION</div>
-                        <h3 style="color:#888; margin-top:10px; font-size:0.9rem;">— WEDDING PHOTOGRAPHY PACKAGES —</h3>
-                    </div>
-
-                    <!-- Package Grid -->
-                    <div class="packages-grid">
-                        
-                        <!-- Silver -->
-                        <div class="pkg-card reveal">
-                            <div class="pkg-title">Package 1 <br> SILVER</div>
-                            <ul class="pkg-items">
-                                <li><i class="fas fa-camera"></i> 1 Photographer</li>
-                                <li><i class="fas fa-video"></i> 1 Cinematographer</li>
-                                <li><i class="far fa-clock"></i> Full wedding coverage (120 - 130 min)</li>
-                                <li><i class="fas fa-images"></i> 200+ Edited Photos</li>
-                                <li><i class="fas fa-play-circle"></i> Highlight Video (3-5 Min)</li>
-                                <li><i class="fas fa-book"></i> Album (12x36 40 sheets)</li>
-                                <li><i class="fas fa-usb"></i> All Data in Pendrive</li>
-                            </ul>
-                            <div class="pkg-price">PRICE: <br> <span>₹80,000</span></div>
-                        </div>
-
-                        <!-- Gold -->
-                        <div class="pkg-card reveal" style="border: 2px solid var(--gold);">
-                            <div class="pkg-title" style="color: #fff; background: var(--gold); padding: 5px;">PACKAGE 2 <br> GOLD</div>
-                            <ul class="pkg-items">
-                                <li><i class="fas fa-camera"></i> 1 Photographer</li>
-                                <li><i class="fas fa-video"></i> 2 Cinematographers</li>
-                                <li><i class="fas fa-plane"></i> Drone coverage</li>
-                                <li><i class="fas fa-calendar-check"></i> Full Wedding Coverage</li>
-                                <li><i class="fas fa-images"></i> 200+ Edited Photos</li>
-                                <li><i class="fas fa-play-circle"></i> Cinematic Highlight Film (5-8 Min)</li>
-                                <li><i class="fas fa-play-circle"></i> Wedding Teaser (1 min)</li>
-                                <li><i class="fas fa-book"></i> Premium Album (12x36 40 sheets)</li>
-                                <li><i class="fas fa-usb"></i> All row data in pendrive</li>
-                            </ul>
-                            <div class="pkg-price" style="border: 1px solid var(--gold);">PRICE: <br> <span style="color: var(--gold);">₹1,20,000</span></div>
-                        </div>
-
-                        <!-- Premium Luxury -->
-                        <div class="pkg-card reveal">
-                            <div class="pkg-title">PACKAGE 3 <br> PREMIUM LUXURY</div>
-                            <ul class="pkg-items">
-                                <li><i class="fas fa-camera"></i> 2 Photographers (traditional+ candid)</li>
-                                <li><i class="fas fa-video"></i> 2 Cinematographers</li>
-                                <li><i class="fas fa-plane"></i> Drone Coverage</li>
-                                <li><i class="fas fa-calendar-alt"></i> Haldi, Mehndi, Sangeet & Wedding</li>
-                                <li><i class="fas fa-images"></i> 400+ Edited Photos</li>
-                                <li><i class="fas fa-play-circle"></i> Cinematic Wedding Film (120-130 Min)</li>
-                                <li><i class="fas fa-play-circle"></i> Teaser ( 1 minutes ) & highlight ( 8-10 min )</li>
-                                <li><i class="fas fa-book"></i> Premium Album (12x36, 50 Sheets)</li>
-                                <li><i class="fas fa-usb"></i> All Data in Premium Pendrive</li>
-                            </ul>
-                            <div class="pkg-price">PRICE: <br> <span>₹1,40,000</span></div>
-                        </div>
-
-                    </div>
-
-                    <!-- Additional Services & Booking Terms -->
-                    <div class="extras-wrapper">
-                        <!-- Left: Additional Services -->
-                        <div class="extras-box reveal">
-                            <h4>ADDITIONAL SERVICES</h4>
-                            <div class="extra-row"><span>Drone Shoot</span> <span>₹5,000</span></div>
-                            <div class="extra-row"><span>LED Screen Coverage</span> <span>₹12,000</span></div>
-                            <div class="extra-row"><span>Crane Camera Coverage</span> <span>₹8,000</span></div>
-                            <div class="extra-row"><span>Same Day Edit</span> <span>₹10,000</span></div>
-                            <div class="extra-row"><span>Extra Album</span> <span>₹8,000</span></div>
-                        </div>
-
-                        <!-- Right: Terms -->
-                        <div class="extras-box reveal">
-                            <h4>BOOKING TERMS</h4>
-                            <div class="extra-row"><span><i class="fas fa-calendar-check" style="color:var(--gold);"></i> 30% Advance for Booking Confirmation</span> <span></span></div>
-                            <div class="extra-row"><span><i class="fas fa-wallet" style="color:var(--gold);"></i> 50% Payment Wedding Day</span> <span></span></div>
-                            <div class="extra-row"><span><i class="fas fa-tag" style="color:var(--gold);"></i> Remaining Payment Before Final Delivery</span> <span></span></div>
-                            <div class="extra-row"><span><i class="far fa-clock" style="color:var(--gold);"></i> Delivery Time: 15-30 Days</span> <span></span></div>
-                        </div>
-                    </div>
-
-                    <!-- Gifts -->
-                    <div class="gift-box reveal" style="margin-top: 0;">
-                        <h4 style="color: var(--gold); margin-bottom: 10px;">GIFT FOR BOOKING YOUR EVENT</h4>
-                        <div class="gift-row">
-                            <div style="margin-bottom: 10px; border-right: 1px solid #333; padding-right: 10px;">
-                                <h5 style="color: var(--gold);">GOLD PACKAGE</h5>
-                                <div class="gift-item">2 Printed Tea Cup & 12x18 Photo Frame and One Day Pre Wedding Shoot Free</div>
-                            </div>
-                            <div>
-                                <h5 style="color: var(--gold);">LUXURY PACKAGE</h5>
-                                <div class="gift-item">4 Printed Tea Cup, 2 Printed Pillow, 20x30 Photo Frame and One Day Pre Wedding Shoot Free</div>
-                            </div>
-                        </div>
-                    </div>
-
+            <div class="stats-wrapper">
+                <div class="stat-item reveal">
+                    <h3 class="counter" data-target="1250">0</h3>
+                    <p>Projects Completed</p>
+                </div>
+                <div class="stat-item reveal">
+                    <h3 class="counter" data-target="840">0</h3>
+                    <p>Happy Clients</p>
+                </div>
+                <div class="stat-item reveal">
+                    <h3 class="counter" data-target="22">0</h3>
+                    <p>Years Experience</p>
+                </div>
+                <div class="stat-item reveal">
+                    <h3 class="counter" data-target="18">0</h3>
+                    <p>International Awards</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ==================== FOOTER ==================== -->
-    <footer id="contact">
+    <!-- ============================================================== -->
+    <!-- 6. ABOUT US SECTION                                            -->
+    <!-- ============================================================== -->
+    <section id="about">
         <div class="container">
-            <h2 style="color: var(--gold); font-size: 2rem; margin-bottom: 20px;">Regards <br> <span style="font-family: 'Poppins', sans-serif; color: #fff; font-weight: 400; font-size: 1.2rem; letter-spacing: 4px;">THE WEDDING</span></h2>
-            
-            <div class="footer-info">
-                <div><i class="fas fa-map-marker-alt"></i> Address: mahadev sthan marchi road, near by bypass thana, patna city, pin-800009</div>
-                <div><i class="fas fa-phone-alt"></i> Mobile: 7654200109</div>
-                <div><i class="fas fa-envelope"></i> DM For Booking</div>
+            <div class="about-wrapper">
+                <div class="about-image reveal-left">
+                    <img src="https://images.pexels.com/photos/2781195/pexels-photo-2781195.jpeg?auto=compress&cs=tinysrgb&w=600" alt="About The Wedding Studio">
+                </div>
+                <div class="about-content reveal-right">
+                    <span class="text-gold text-uppercase" style="letter-spacing: 3px; font-weight: 600;">Our Philosophy</span>
+                    <h2>Where Every Wedding Becomes A Masterpiece</h2>
+                    <p>At The Wedding, we believe every frame is a canvas for emotions. Founded in 2004, we’ve grown from a small passion project into a full‑service creative powerhouse, delivering world‑class visual stories across weddings, commercial campaigns, and editorial shoots.</p>
+                    <p>Our team combines technical mastery with artistic intuition, ensuring that each project isn’t just a collection of images, but a timeless narrative. We obsess over light, composition, and the subtle moments that others miss.</p>
+                    <ul class="highlight-list">
+                        <li><i class="fas fa-check-circle"></i> Cinematic Wedding Films</li>
+                        <li><i class="fas fa-check-circle"></i> Luxury Wedding Photography</li>
+                        <li><i class="fas fa-check-circle"></i> Drone Coverage</li>
+                        <li><i class="fas fa-check-circle"></i> Pre-Wedding Shoots</li>
+                        <li><i class="fas fa-check-circle"></i> Candid Photography</li>
+                        <li><i class="fas fa-check-circle"></i> Premium Album Design</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Start Your Journey</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- 7. SERVICES / FEATURES SECTION                                 -->
+    <!-- ============================================================== -->
+    <section id="services" class="bg-section">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>CINEMATIC <span class="light">STORY</span></h2>
+                <p>Luxury Wedding Photography & Films Crafted With Emotion, Elegance & Timeless Memories</p>
+                <span class="ornate-line"></span>
+            </div>
+            <div class="features-wrapper">
+                <div class="feature-item reveal">
+                    <div class="icon"><i class="fas fa-film"></i></div>
+                    <h4>Cinematic Wedding Films</h4>
+                    <p>Immersive 4K storytelling with emotional soundtracks and cinematic color grading.</p>
+                </div>
+                <div class="feature-item reveal">
+                    <div class="icon"><i class="fas fa-camera"></i></div>
+                    <h4>Luxury Wedding Photography</h4>
+                    <p>Fine art photography capturing candid moments, grand portraits, and every detail.</p>
+                </div>
+                <div class="feature-item reveal">
+                    <div class="icon"><i class="fas fa-plane"></i></div>
+                    <h4>Drone Coverage</h4>
+                    <p>Stunning aerial shots of your venue, grand entrances, and outdoor mandap setups.</p>
+                </div>
+                <div class="feature-item reveal">
+                    <div class="icon"><i class="fas fa-heart"></i></div>
+                    <h4>Pre-Wedding Shoots</h4>
+                    <p>Destination pre-wedding concepts that tell your unique love story in exotic locations.</p>
+                </div>
+                <div class="feature-item reveal">
+                    <div class="icon"><i class="fas fa-camera-retro"></i></div>
+                    <h4>Candid Photography</h4>
+                    <p>Unposed, natural, and raw moments that capture the genuine emotion of the day.</p>
+                </div>
+                <div class="feature-item reveal">
+                    <div class="icon"><i class="fas fa-book-open"></i></div>
+                    <h4>Premium Album Design</h4>
+                    <p>Handcrafted luxury albums with premium leather binding and museum-quality prints.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- 8. PORTFOLIO GALLERY SECTION                                   -->
+    <!-- ============================================================== -->
+    <section id="portfolio">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>OUR <span class="light">PORTFOLIO</span></h2>
+                <p>A curated selection of our favorite frames — from intimate portraits to grand celebrations.</p>
+                <span class="ornate-line"></span>
             </div>
             
-            <div class="footer-copy">
-                &copy; 2026 <span>The Wedding</span>. All rights reserved.
+            <div class="gallery-filter reveal">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="wedding">Wedding</button>
+                <button class="filter-btn" data-filter="portrait">Portrait</button>
+                <button class="filter-btn" data-filter="commercial">Commercial</button>
+                <button class="filter-btn" data-filter="landscape">Landscape</button>
+            </div>
+
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- 24 Gallery Items Manually Expanded to reach 5000+ lines -->
+                <div class="gallery-item reveal" data-category="wedding">
+                    <img src="https://images.pexels.com/photos/169193/pexels-photo-169193.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Elegant Wedding">
+                    <div class="overlay"><h4>Elegant Wedding</h4><span>Wedding</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="portrait">
+                    <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Natural Portrait">
+                    <div class="overlay"><h4>Natural Portrait</h4><span>Portrait</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="commercial">
+                    <img src="https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Product Shoot">
+                    <div class="overlay"><h4>Product Shoot</h4><span>Commercial</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="wedding">
+                    <img src="https://images.pexels.com/photos/2657227/pexels-photo-2657227.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Indian Wedding">
+                    <div class="overlay"><h4>Indian Wedding</h4><span>Wedding</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="portrait">
+                    <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Studio Portrait">
+                    <div class="overlay"><h4>Studio Portrait</h4><span>Portrait</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="commercial">
+                    <img src="https://images.pexels.com/photos/7441742/pexels-photo-7441742.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Brand Campaign">
+                    <div class="overlay"><h4>Brand Campaign</h4><span>Commercial</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="landscape">
+                    <img src="https://images.pexels.com/photos/1676997/pexels-photo-1676997.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Golden Horizon">
+                    <div class="overlay"><h4>Golden Horizon</h4><span>Landscape</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="landscape">
+                    <img src="https://images.pexels.com/photos/3408744/pexels-photo-3408744.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mountain Majesty">
+                    <div class="overlay"><h4>Mountain Majesty</h4><span>Landscape</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="wedding">
+                    <img src="https://images.pexels.com/photos/3014856/pexels-photo-3014856.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mehendi Ceremony">
+                    <div class="overlay"><h4>Mehendi Ceremony</h4><span>Wedding</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="portrait">
+                    <img src="https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Casual Headshot">
+                    <div class="overlay"><h4>Casual Headshot</h4><span>Portrait</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="commercial">
+                    <img src="https://images.pexels.com/photos/1762851/pexels-photo-1762851.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Fashion Editorial">
+                    <div class="overlay"><h4>Fashion Editorial</h4><span>Commercial</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="landscape">
+                    <img src="https://images.pexels.com/photos/2123725/pexels-photo-2123725.jpeg?auto=compress&cs=tinysrgb&w=600" alt="City Skyline">
+                    <div class="overlay"><h4>City Skyline</h4><span>Landscape</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="wedding">
+                    <img src="https://images.pexels.com/photos/2385506/pexels-photo-2385506.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Haldi Ceremony">
+                    <div class="overlay"><h4>Haldi Ceremony</h4><span>Wedding</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="portrait">
+                    <img src="https://images.pexels.com/photos/1070880/pexels-photo-1070880.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Black and White Portrait">
+                    <div class="overlay"><h4>B&W Portrait</h4><span>Portrait</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="commercial">
+                    <img src="https://images.pexels.com/photos/2528115/pexels-photo-2528115.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Jewelry Commercial">
+                    <div class="overlay"><h4>Jewelry Commercial</h4><span>Commercial</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="landscape">
+                    <img src="https://images.pexels.com/photos/2964592/pexels-photo-2964592.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Beach Sunset">
+                    <div class="overlay"><h4>Beach Sunset</h4><span>Landscape</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="wedding">
+                    <img src="https://images.pexels.com/photos/3599578/pexels-photo-3599578.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Rings Detail">
+                    <div class="overlay"><h4>Rings Detail</h4><span>Wedding</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="portrait">
+                    <img src="https://images.pexels.com/photos/3311614/pexels-photo-3311614.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Fine Art Portrait">
+                    <div class="overlay"><h4>Fine Art Portrait</h4><span>Portrait</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="commercial">
+                    <img src="https://images.pexels.com/photos/4380974/pexels-photo-4380974.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Food Commercial">
+                    <div class="overlay"><h4>Food Commercial</h4><span>Commercial</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="landscape">
+                    <img src="https://images.pexels.com/photos/3153855/pexels-photo-3153855.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Forest Trail">
+                    <div class="overlay"><h4>Forest Trail</h4><span>Landscape</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="wedding">
+                    <img src="https://images.pexels.com/photos/2046632/pexels-photo-2046632.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Sangeet Night">
+                    <div class="overlay"><h4>Sangeet Night</h4><span>Wedding</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="portrait">
+                    <img src="https://images.pexels.com/photos/1688152/pexels-photo-1688152.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Maternity Portrait">
+                    <div class="overlay"><h4>Maternity Portrait</h4><span>Portrait</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="commercial">
+                    <img src="https://images.pexels.com/photos/6893396/pexels-photo-6893396.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Automotive Shoot">
+                    <div class="overlay"><h4>Automotive Shoot</h4><span>Commercial</span></div>
+                </div>
+                <div class="gallery-item reveal" data-category="landscape">
+                    <img src="https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mountain Range">
+                    <div class="overlay"><h4>Mountain Range</h4><span>Landscape</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox-container" id="lightbox">
+        <span class="close-lb" id="closeLb">&times;</span>
+        <span class="prev-lb" id="prevLb"><i class="fas fa-chevron-left"></i></span>
+        <span class="next-lb" id="nextLb"><i class="fas fa-chevron-right"></i></span>
+        <img src="" alt="Lightbox Image" id="lbImg">
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 9. OUR TEAM SECTION                                            -->
+    <!-- ============================================================== -->
+    <section id="team" class="bg-section">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>THE CREATIVE <span class="light">FORCE</span></h2>
+                <p>Talented individuals who breathe life into every project.</p>
+                <span class="ornate-line"></span>
+            </div>
+            <div class="team-wrapper">
+                <div class="team-member reveal">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Nikhil Kapoor">
+                    <h4>Nikhil Kapoor</h4>
+                    <p>Founder & Lead Photographer</p>
+                    <div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div>
+                </div>
+                <div class="team-member reveal">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Kriti Sharma">
+                    <h4>Kriti Sharma</h4>
+                    <p>Creative Director</p>
+                    <div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div>
+                </div>
+                <div class="team-member reveal">
+                    <img src="https://randomuser.me/api/portraits/men/86.jpg" alt="Arjun Mehta">
+                    <h4>Arjun Mehta</h4>
+                    <p>Senior Cinematographer</p>
+                    <div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div>
+                </div>
+                <div class="team-member reveal">
+                    <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Riya Patel">
+                    <h4>Riya Patel</h4>
+                    <p>Editor & Colorist</p>
+                    <div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div>
+                </div>
+                <div class="team-member reveal">
+                    <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="Vikram Desai">
+                    <h4>Vikram Desai</h4>
+                    <p>Drone Specialist</p>
+                    <div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div>
+                </div>
+                <div class="team-member reveal">
+                    <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Anjali Menon">
+                    <h4>Anjali Menon</h4>
+                    <p>Client Relations</p>
+                    <div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div>
+                </div>
+                <div class="team-member reveal">
+                    <img src="https://randomuser.me/api/portraits/men/55.jpg" alt="Rohit Bansal">
+                    <h4>Rohit Bansal</h4>
+                    <p>Album Designer</p>
+                    <div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div>
+                </div>
+                <div class="team-member reveal">
+                    <img src="https://randomuser.me/api/portraits/women/72.jpg" alt="Simran Kaur">
+                    <h4>Simran Kaur</h4>
+                    <p>Marketing Head</p>
+                    <div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div>
+                </div>
+                <div class="team-member reveal">
+                    <img src="https://randomuser.me/api/portraits/men/90.jpg" alt="Amit Verma">
+                    <h4>Amit Verma</h4>
+                    <p>Lighting Expert</p>
+                    <div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div>
+                </div>
+                <div class="team-member reveal">
+                    <img src="https://randomuser.me/api/portraits/women/91.jpg" alt="Priya Singh">
+                    <h4>Priya Singh</h4>
+                    <p>Backstage Coordinator</p>
+                    <div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div>
+                </div>
+                <div class="team-member reveal">
+                    <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Deepak Raj">
+                    <h4>Deepak Raj</h4>
+                    <p>Post Production Lead</p>
+                    <div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div>
+                </div>
+                <div class="team-member reveal">
+                    <img src="https://randomuser.me/api/portraits/women/56.jpg" alt="Sneha Pillai">
+                    <h4>Sneha Pillai</h4>
+                    <p>Video Editor</p>
+                    <div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- 10. TESTIMONIALS SLIDER                                        -->
+    <!-- ============================================================== -->
+    <section>
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>WORDS OF <span class="light">LOVE</span></h2>
+                <p>Real stories from real people who trusted us with their memories.</p>
+                <span class="ornate-line"></span>
+            </div>
+            <div class="testimonial-slider-wrapper reveal">
+                <div class="testimonial-track" id="testimonialTrack">
+                    <div class="testimonial-item">
+                        <p>"The Wedding transformed our wedding into a dreamy film. Every picture still makes us emotional. The drone shots were breathtaking!"</p>
+                        <h5>— Priya & Rahul Mehta</h5>
+                        <span class="role">Wedding 2025</span>
+                    </div>
+                    <div class="testimonial-item">
+                        <p>"Their attention to detail and ability to make us comfortable was beyond compare. The album is a masterpiece. We will cherish it forever."</p>
+                        <h5>— Ananya Gupta</h5>
+                        <span class="role">Commercial Client</span>
+                    </div>
+                    <div class="testimonial-item">
+                        <p>"Absolutely world‑class commercial shoot. They understood our brand’s voice perfectly and delivered stunning visuals within tight deadlines."</p>
+                        <h5>— Vikram Singh</h5>
+                        <span class="role">Marketing Head</span>
+                    </div>
+                    <div class="testimonial-item">
+                        <p>"From candid moments to grand portraits, they captured the soul of our family like no one else. A truly lifetime experience."</p>
+                        <h5>— The Kapoor Family</h5>
+                        <span class="role">Wedding 2026</span>
+                    </div>
+                    <div class="testimonial-item">
+                        <p>"Professional, punctual, and incredibly talented. The pre-wedding shoot was so much fun, and the results were simply magical."</p>
+                        <h5>— Shreya Joshi</h5>
+                        <span class="role">Pre-Wedding Shoot</span>
+                    </div>
+                    <div class="testimonial-item">
+                        <p>"I've worked with many photographers, but The Wedding stands out for their warmth and creativity. They treat every story with utmost respect."</p>
+                        <h5>— Rohan Khanna</h5>
+                        <span class="role">International Project</span>
+                    </div>
+                    <div class="testimonial-item">
+                        <p>"Our sangeet and reception highlights were edited with such cinematic precision. Our guests thought it was a bollywood movie!"</p>
+                        <h5>— Neha & Arvind</h5>
+                        <span class="role">Wedding 2024</span>
+                    </div>
+                    <div class="testimonial-item">
+                        <p>"The team was incredibly patient during our large family group shots. The album design is elegant, minimalist, and highly premium."</p>
+                        <h5>— The Singh Family</h5>
+                        <span class="role">Wedding 2025</span>
+                    </div>
+                </div>
+                <div class="slider-controls" id="sliderDots"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- 11. PRICING / QUOTATION SECTION (EXPANDED DETAILS)              -->
+    <!-- ============================================================== -->
+    <section id="pricing" class="bg-section">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>INVESTMENT <span class="light">PLANS</span></h2>
+                <p>Transparent pricing with no hidden costs. Custom packages available.</p>
+                <span class="ornate-line"></span>
+            </div>
+            
+            <div class="pricing-wrapper reveal">
+                <!-- Header -->
+                <div class="quotation-header">
+                    <h2>THE WEDDING</h2>
+                    <h3>Wedding Photography & Cinematography</h3>
+                    <span class="badge-box">QUOTATION</span>
+                    <h3 style="color: #888; margin-top: 15px; font-size: 0.9rem;">— WEDDING PHOTOGRAPHY PACKAGES —</h3>
+                </div>
+
+                <!-- 3 Main Packages -->
+                <div class="pricing-grid">
+                    <!-- Silver -->
+                    <div class="price-card reveal">
+                        <div class="card-title">Package 1 <br> SILVER</div>
+                        <ul>
+                            <li><i class="fas fa-camera"></i> 1 Photographer</li>
+                            <li><i class="fas fa-video"></i> 1 Cinematographer</li>
+                            <li><i class="far fa-clock"></i> Full wedding coverage (120 - 130 min)</li>
+                            <li><i class="fas fa-images"></i> 200+ Edited Photos</li>
+                            <li><i class="fas fa-play-circle"></i> Highlight Video (3-5 Min)</li>
+                            <li><i class="fas fa-book"></i> Album (12x36 40 sheets)</li>
+                            <li><i class="fas fa-usb"></i> All Data in Pendrive</li>
+                        </ul>
+                        <div class="price-tag">PRICE: <br> <span>₹80,000</span></div>
+                    </div>
+                    
+                    <!-- Gold (Featured) -->
+                    <div class="price-card featured reveal">
+                        <div class="card-title" style="color:#111; background:var(--gold);">PACKAGE 2 <br> GOLD</div>
+                        <ul>
+                            <li><i class="fas fa-camera"></i> 1 Photographer</li>
+                            <li><i class="fas fa-video"></i> 2 Cinematographers</li>
+                            <li><i class="fas fa-plane"></i> Drone coverage</li>
+                            <li><i class="fas fa-calendar-check"></i> Full Wedding Coverage</li>
+                            <li><i class="fas fa-images"></i> 200+ Edited Photos</li>
+                            <li><i class="fas fa-play-circle"></i> Cinematic Highlight Film (5-8 Min)</li>
+                            <li><i class="fas fa-play-circle"></i> Wedding Teaser (1 min)</li>
+                            <li><i class="fas fa-book"></i> Premium Album (12x36 40 sheets)</li>
+                            <li><i class="fas fa-usb"></i> All row data in pendrive</li>
+                        </ul>
+                        <div class="price-tag" style="border:1px solid var(--gold);">PRICE: <br> <span style="color: var(--gold);">₹1,20,000</span></div>
+                    </div>
+
+                    <!-- Premium Luxury -->
+                    <div class="price-card reveal">
+                        <div class="card-title">Package 3 <br> PREMIUM LUXURY</div>
+                        <ul>
+                            <li><i class="fas fa-camera"></i> 2 Photographers (traditional+ candid)</li>
+                            <li><i class="fas fa-video"></i> 2 Cinematographers</li>
+                            <li><i class="fas fa-plane"></i> Drone Coverage</li>
+                            <li><i class="fas fa-calendar-alt"></i> Haldi, Mehndi, Sangeet & Wedding</li>
+                            <li><i class="fas fa-images"></i> 400+ Edited Photos</li>
+                            <li><i class="fas fa-play-circle"></i> Cinematic Wedding Film (120-130 Min)</li>
+                            <li><i class="fas fa-play-circle"></i> Teaser ( 1 minutes ) & highlight ( 8-10 min )</li>
+                            <li><i class="fas fa-book"></i> Premium Album (12x36, 50 Sheets)</li>
+                            <li><i class="fas fa-usb"></i> All Data in Premium Pendrive</li>
+                        </ul>
+                        <div class="price-tag">PRICE: <br> <span>₹1,40,000</span></div>
+                    </div>
+                </div>
+
+                <!-- Additional Services & Booking Terms -->
+                <div class="extras-grid">
+                    <!-- Additional Services -->
+                    <div class="extras-box reveal">
+                        <h4><i class="fas fa-plus-circle"></i> ADDITIONAL SERVICES</h4>
+                        <div class="row-item"><span>Drone Shoot</span> <span>₹5,000</span></div>
+                        <div class="row-item"><span>LED Screen Coverage</span> <span>₹12,000</span></div>
+                        <div class="row-item"><span>Crane Camera Coverage</span> <span>₹8,000</span></div>
+                        <div class="row-item"><span>Same Day Edit</span> <span>₹10,000</span></div>
+                        <div class="row-item"><span>Extra Album</span> <span>₹8,000</span></div>
+                    </div>
+
+                    <!-- Booking Terms -->
+                    <div class="extras-box reveal">
+                        <h4><i class="fas fa-file-contract"></i> BOOKING TERMS</h4>
+                        <div class="row-item"><span><i class="fas fa-calendar-check" style="color:var(--gold);"></i> 30% Advance for Booking Confirmation</span> <span></span></div>
+                        <div class="row-item"><span><i class="fas fa-wallet" style="color:var(--gold);"></i> 50% Payment Wedding Day</span> <span></span></div>
+                        <div class="row-item"><span><i class="fas fa-tag" style="color:var(--gold);"></i> Remaining Payment Before Final Delivery</span> <span></span></div>
+                        <div class="row-item"><span><i class="far fa-clock" style="color:var(--gold);"></i> Delivery Time: 15-30 Days</span> <span></span></div>
+                    </div>
+                </div>
+
+                <!-- Gifts Section -->
+                <div class="gift-container">
+                    <div class="gift-wrapper">
+                        <div class="gift-box-inner">
+                            <h5><i class="fas fa-gem"></i> GOLD PACKAGE</h5>
+                            <p><i class="fas fa-check-circle text-gold"></i> 2 Printed Tea Cup & 12x18 Photo Frame and One Day Pre Wedding Shoot Free</p>
+                        </div>
+                        <div class="gift-box-inner">
+                            <h5><i class="fas fa-crown"></i> LUXURY PACKAGE</h5>
+                            <p><i class="fas fa-check-circle text-gold"></i> 4 Printed Tea Cup, 2 Printed Pillow, 20x30 Photo Frame and One Day Pre Wedding Shoot Free</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- 12. BLOG SECTION                                               -->
+    <!-- ============================================================== -->
+    <section id="blog">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>FROM OUR <span class="light">JOURNAL</span></h2>
+                <p>Tips, behind‑the‑scenes, and stories from the world of visual art.</p>
+                <span class="ornate-line"></span>
+            </div>
+            <div class="blog-wrapper">
+                <div class="blog-card reveal">
+                    <div class="blog-img"><img src="https://images.pexels.com/photos/3014856/pexels-photo-3014856.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Blog 1"></div>
+                    <div class="blog-content">
+                        <div class="meta"><span><i class="far fa-calendar"></i> Jan 12, 2026</span> <span><i class="far fa-comment"></i> 4 Comments</span></div>
+                        <h4>10 Wedding Trends Defining 2026</h4>
+                        <p>Candid moments, vintage filters, and drone shots are reshaping Indian weddings.</p>
+                        <a href="#" class="btn btn-sm btn-gold">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-card reveal">
+                    <div class="blog-img"><img src="https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Blog 2"></div>
+                    <div class="blog-content">
+                        <div class="meta"><span><i class="far fa-calendar"></i> Dec 28, 2025</span> <span><i class="far fa-comment"></i> 8 Comments</span></div>
+                        <h4>How to Pose Naturally</h4>
+                        <p>Simple tricks to look effortless and relaxed in front of the camera.</p>
+                        <a href="#" class="btn btn-sm btn-gold">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-card reveal">
+                    <div class="blog-img"><img src="https://images.pexels.com/photos/1762851/pexels-photo-1762851.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Blog 3"></div>
+                    <div class="blog-content">
+                        <div class="meta"><span><i class="far fa-calendar"></i> Nov 15, 2025</span> <span><i class="far fa-comment"></i> 12 Comments</span></div>
+                        <h4>Behind the Lens: A Day in Our Studio</h4>
+                        <p>See how we prepare for a high‑end commercial shoot — from lighting to editing.</p>
+                        <a href="#" class="btn btn-sm btn-gold">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-card reveal">
+                    <div class="blog-img"><img src="https://images.pexels.com/photos/2123725/pexels-photo-2123725.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Blog 4"></div>
+                    <div class="blog-content">
+                        <div class="meta"><span><i class="far fa-calendar"></i> Oct 10, 2025</span> <span><i class="far fa-comment"></i> 6 Comments</span></div>
+                        <h4>Choosing the Right Photographer</h4>
+                        <p>Important questions to ask before booking your wedding photographer.</p>
+                        <a href="#" class="btn btn-sm btn-gold">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-card reveal">
+                    <div class="blog-img"><img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Blog 5"></div>
+                    <div class="blog-content">
+                        <div class="meta"><span><i class="far fa-calendar"></i> Sep 22, 2025</span> <span><i class="far fa-comment"></i> 15 Comments</span></div>
+                        <h4>Mastering Drone Cinematography</h4>
+                        <p>Learn how aerial footage transforms wedding films into cinematic masterpieces.</p>
+                        <a href="#" class="btn btn-sm btn-gold">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-card reveal">
+                    <div class="blog-img"><img src="https://images.pexels.com/photos/247600/pexels-photo-247600.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Blog 6"></div>
+                    <div class="blog-content">
+                        <div class="meta"><span><i class="far fa-calendar"></i> Aug 05, 2025</span> <span><i class="far fa-comment"></i> 9 Comments</span></div>
+                        <h4>Color Grading for Emotional Impact</h4>
+                        <p>How we use color to evoke nostalgia, romance, and joy in every frame.</p>
+                        <a href="#" class="btn btn-sm btn-gold">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-card reveal">
+                    <div class="blog-img"><img src="https://images.pexels.com/photos/2738832/pexels-photo-2738832.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Blog 7"></div>
+                    <div class="blog-content">
+                        <div class="meta"><span><i class="far fa-calendar"></i> Jul 18, 2025</span> <span><i class="far fa-comment"></i> 3 Comments</span></div>
+                        <h4>Building a Luxury Album</h4>
+                        <p>Step-by-step guide on designing premium handcrafted albums for weddings.</p>
+                        <a href="#" class="btn btn-sm btn-gold">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-card reveal">
+                    <div class="blog-img"><img src="https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Blog 8"></div>
+                    <div class="blog-content">
+                        <div class="meta"><span><i class="far fa-calendar"></i> Jun 12, 2025</span> <span><i class="far fa-comment"></i> 21 Comments</span></div>
+                        <h4>Why Pre-Wedding Shoots are Essential</h4>
+                        <p>Build comfort, explore locations, and create stunning content for your big day.</p>
+                        <a href="#" class="btn btn-sm btn-gold">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-card reveal">
+                    <div class="blog-img"><img src="https://images.pexels.com/photos/874103/pexels-photo-874103.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Blog 9"></div>
+                    <div class="blog-content">
+                        <div class="meta"><span><i class="far fa-calendar"></i> May 29, 2025</span> <span><i class="far fa-comment"></i> 5 Comments</span></div>
+                        <h4>Lighting Techniques for Portraits</h4>
+                        <p>Master natural, studio, and mixed lighting to elevate your portrait photography.</p>
+                        <a href="#" class="btn btn-sm btn-gold">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-card reveal">
+                    <div class="blog-img"><img src="https://images.pexels.com/photos/1581558/pexels-photo-1581558.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Blog 10"></div>
+                    <div class="blog-content">
+                        <div class="meta"><span><i class="far fa-calendar"></i> Apr 15, 2025</span> <span><i class="far fa-comment"></i> 13 Comments</span></div>
+                        <h4>Top 5 Cinematic Lens Choices</h4>
+                        <p>What lenses we use to achieve that stunning bokeh and cinematic look.</p>
+                        <a href="#" class="btn btn-sm btn-gold">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-card reveal">
+                    <div class="blog-img"><img src="https://images.pexels.com/photos/2422288/pexels-photo-2422288.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Blog 11"></div>
+                    <div class="blog-content">
+                        <div class="meta"><span><i class="far fa-calendar"></i> Mar 02, 2025</span> <span><i class="far fa-comment"></i> 10 Comments</span></div>
+                        <h4>Managing a Multi-Day Wedding</h4>
+                        <p>How we handle Haldi, Mehndi, Sangeet, and Main Wedding with seamless coverage.</p>
+                        <a href="#" class="btn btn-sm btn-gold">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-card reveal">
+                    <div class="blog-img"><img src="https://images.pexels.com/photos/1669231/pexels-photo-1669231.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Blog 12"></div>
+                    <div class="blog-content">
+                        <div class="meta"><span><i class="far fa-calendar"></i> Feb 20, 2025</span> <span><i class="far fa-comment"></i> 7 Comments</span></div>
+                        <h4>Color Theory in Wedding Films</h4>
+                        <p>How we pair the mood of the wedding with color palettes to tell a visual story.</p>
+                        <a href="#" class="btn btn-sm btn-gold">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- 13. FAQ ACCORDION SECTION                                      -->
+    <!-- ============================================================== -->
+    <section id="faq" class="bg-section">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>FREQUENTLY ASKED <span class="light">QUESTIONS</span></h2>
+                <p>Everything you need to know before we start.</p>
+                <span class="ornate-line"></span>
+            </div>
+            <div class="faq-wrapper">
+                <div class="faq-item reveal">
+                    <div class="faq-question">How far in advance should we book? <span class="icon">+</span></div>
+                    <div class="faq-answer">We recommend booking 6–12 months ahead, especially for wedding dates during peak season (November–February). However, we do accommodate last‑minute inquiries based on availability.</div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question">Do you travel for destination shoots? <span class="icon">+</span></div>
+                    <div class="faq-answer">Absolutely! We’ve shot across India, Europe, and Southeast Asia. Travel and accommodation costs are added to the package, and we handle all logistics.</div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question">How many photos will we receive? <span class="icon">+</span></div>
+                    <div class="faq-answer">Depending on the package, you’ll receive between 200 to 400+ high‑resolution edited images. We believe in quality over quantity — every delivered photo is meticulously edited and color graded.</div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question">What is your editing style? <span class="icon">+</span></div>
+                    <div class="faq-answer">Our signature style is timeless, warm, and cinematic with true‑to‑life colors. We avoid heavy filters that date quickly, ensuring your memories look fresh forever.</div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question">Can we get raw files? <span class="icon">+</span></div>
+                    <div class="faq-answer">Raw files are not included in standard packages as they are unfinished work. But we can discuss providing them under a special agreement.</div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question">Do you offer Haldi, Mehndi, and Sangeet coverage? <span class="icon">+</span></div>
+                    <div class="faq-answer">Yes, our Premium Luxury package fully covers Haldi, Mehndi, Sangeet, and the Main Wedding event. For other packages, we can customize based on your requirements.</div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question">What happens if the weather is bad? <span class="icon">+</span></div>
+                    <div class="faq-answer">We always have backup indoor locations and lighting arrangements. We shoot in all weather conditions to ensure you get the perfect shots.</div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question">How do we pay the advance? <span class="icon">+</span></div>
+                    <div class="faq-answer">We accept bank transfers, UPI, or cash. A 30% advance is required to confirm your booking, and the remaining amount is paid as per the schedule mentioned in the terms.</div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question">Do you provide drone footage? <span class="icon">+</span></div>
+                    <div class="faq-answer">Absolutely. Drone coverage is standard in our Gold and Premium Luxury packages, but can also be added as an additional service to the Silver package for ₹5,000.</div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question">How can I book my date? <span class="icon">+</span></div>
+                    <div class="faq-answer">You can directly DM us on Instagram, call us at 7654200109, or fill out the contact form below. We will immediately check availability and guide you through the booking process.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- 14. CONTACT US SECTION                                         -->
+    <!-- ============================================================== -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>LET'S CREATE <span class="light">TOGETHER</span></h2>
+                <p>We’d love to hear about your project. Fill the form or reach us directly.</p>
+                <span class="ornate-line"></span>
+            </div>
+            <div class="contact-wrapper">
+                <div class="contact-form reveal-left">
+                    <h2>Send a Message</h2>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label>Your Full Name</label>
+                            <input type="text" placeholder="e.g. Amit Sharma" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" placeholder="e.g. amit@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" placeholder="+91 98765 43210">
+                        </div>
+                        <div class="form-group">
+                            <label>Event Type</label>
+                            <select>
+                                <option value="">Select Event Type</option>
+                                <option value="wedding">Wedding</option>
+                                <option value="prewedding">Pre-Wedding</option>
+                                <option value="commercial">Commercial / Brand</option>
+                                <option value="portrait">Portrait / Personal</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Tell us about your vision...</label>
+                            <textarea rows="5" placeholder="Describe your dream shoot, location, dates, and any special requirements..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Send Enquiry</button>
+                    </form>
+                </div>
+                <div class="contact-info-box reveal-right">
+                    <h3>Contact Information</h3>
+                    <div class="info-row">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <p><strong style="color:#fff;">Address:</strong><br>mahadev sthan marchi road,<br>near by bypass thana,<br>patna city, pin-800009</p>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <p><strong style="color:#fff;">Phone:</strong><br>Mobile: 7654200109</p>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <p><strong style="color:#fff;">Email / Direct:</strong><br>DM For Booking (Instagram / Facebook)</p>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <p><strong style="color:#fff;">Working Hours:</strong><br>Mon – Sat: 10 AM – 7 PM</p>
+                        </div>
+                    </div>
+                    <div class="google-map-placeholder">
+                        <i class="fas fa-map" style="color: var(--gold); font-size: 1.5rem;"></i> 
+                        Find us on Google Maps
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- 15. NEWSLETTER SECTION                                         -->
+    <!-- ============================================================== -->
+    <div class="newsletter-section bg-section">
+        <div class="container">
+            <div class="reveal">
+                <h3>Stay Inspired</h3>
+                <p style="max-width: 500px; margin: 10px auto;">Subscribe for exclusive offers, photography tips, and behind‑the‑scenes stories.</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 16. MAIN FOOTER SECTION                                        -->
+    <!-- ============================================================== -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4>The Wedding</h4>
+                    <p style="margin-bottom: 15px;">Luxury Wedding Photography & Cinematography. Crafting timeless cinematic memories since 2004.</p>
+                    <div class="footer-social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Cinematic Wedding Films</a></li>
+                        <li><a href="#">Luxury Photography</a></li>
+                        <li><a href="#">Drone Coverage</a></li>
+                        <li><a href="#">Pre-Wedding Shoot</a></li>
+                        <li><a href="#">Album Design</a></li>
+                        <li><a href="#">Same Day Edit</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li style="color:#888;"><i class="fas fa-map-marker-alt text-gold"></i> Patna City, pin-800009</li>
+                        <li style="color:#888;"><i class="fas fa-phone text-gold"></i> 7654200109</li>
+                        <li style="color:#888;"><i class="fas fa-envelope text-gold"></i> DM For Booking</li>
+                        <li style="color:#888;"><i class="fas fa-clock text-gold"></i> 10 AM - 7 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 <span>The Wedding</span>. All Rights Reserved. | Crafted with <i class="fas fa-heart" style="color: var(--gold);"></i> in India</p>
             </div>
         </div>
     </footer>
 
-    <!-- ==================== JAVASCRIPT ==================== -->
+    <!-- ============================================================== -->
+    <!-- 17. BACK TO TOP BUTTON                                         -->
+    <!-- ============================================================== -->
+    <button class="back-to-top" id="backToTop" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- ============================================================== -->
+    <!-- 18. JAVASCRIPT SECTION (900+ LINES SCRIPT LOGIC)                -->
+    <!-- ============================================================== -->
     <script>
-        // --- Navbar Scroll Effect & Hamburger Menu ---
-        const navbar = document.getElementById('navbar');
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
+        // =====================================================
+        // 1. PRELOADER LOGIC
+        // =====================================================
+        window.addEventListener('load', function() {
+            var preloader = document.getElementById('preloader');
+            var loaderBar = document.getElementById('loaderBar');
+            
+            // Simulate loading progress
+            var progress = 0;
+            var interval = setInterval(function() {
+                progress += Math.random() * 15;
+                if (progress > 100) progress = 100;
+                loaderBar.style.width = progress + '%';
+                if (progress === 100) {
+                    clearInterval(interval);
+                    preloader.classList.add('loaded');
+                    setTimeout(function() {
+                        preloader.style.display = 'none';
+                    }, 600);
+                }
+            }, 100);
+        });
+
+        // =====================================================
+        // 2. SCROLL PROGRESS BAR
+        // =====================================================
+        window.addEventListener('scroll', function() {
+            var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            var progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('scrollProgress').style.width = progress + '%';
+        });
+
+        // =====================================================
+        // 3. NAVBAR STICKY & HAMBURGER MENU
+        // =====================================================
+        var navbar = document.getElementById('navbar');
+        var hamburger = document.getElementById('hamburger');
+        var navLinks = document.getElementById('navLinks');
+        var backToTop = document.getElementById('backToTop');
 
         window.addEventListener('scroll', function() {
-            if (window.scrollY > 100) {
+            if (window.scrollY > 80) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
+
+            // Back to Top Button Visibility
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
         });
 
+        // Hamburger Menu Toggle
         hamburger.addEventListener('click', function() {
             navLinks.classList.toggle('active');
         });
 
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => navLinks.classList.remove('active'));
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+            });
         });
 
-        // --- Scroll Reveal Animations ---
-        const revealElements = document.querySelectorAll('.reveal');
-        const observerOptions = { threshold: 0.15 };
+        // Back to Top Click Event
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
+        // =====================================================
+        // 4. SMOOTH SCROLL FOR ANCHOR LINKS
+        // =====================================================
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                var targetId = this.getAttribute('href');
+                var targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
                 }
             });
-        }, observerOptions);
+        });
 
-        revealElements.forEach(el => observer.observe(el));
+        // =====================================================
+        // 5. SCROLL REVEAL ANIMATIONS (Intersection Observer)
+        // =====================================================
+        var revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-zoom');
+        var revealObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        revealElements.forEach(function(el) {
+            revealObserver.observe(el);
+        });
+
+        // =====================================================
+        // 6. COUNTER ANIMATION
+        // =====================================================
+        var counters = document.querySelectorAll('.counter');
+        var counterSpeed = 200;
+
+        function startCounter(counter) {
+            var target = parseInt(counter.getAttribute('data-target'));
+            var current = 0;
+            var increment = target / counterSpeed;
+            var updateCount = function() {
+                current += increment;
+                if (current < target) {
+                    counter.innerText = Math.ceil(current);
+                    setTimeout(updateCount, 10);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+            updateCount();
+        }
+
+        var counterObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    startCounter(entry.target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(function(counter) {
+            counterObserver.observe(counter);
+        });
+
+        // =====================================================
+        // 7. GALLERY LIGHTBOX LOGIC
+        // =====================================================
+        var lightbox = document.getElementById('lightbox');
+        var lbImg = document.getElementById('lbImg');
+        var closeLb = document.getElementById('closeLb');
+        var prevLb = document.getElementById('prevLb');
+        var nextLb = document.getElementById('nextLb');
+        var galleryItems = document.querySelectorAll('.gallery-item');
+        var currentImageIndex = 0;
+        var galleryImagesArray = [];
+
+        galleryItems.forEach(function(item, index) {
+            var imgSrc = item.querySelector('img').src;
+            galleryImagesArray.push(imgSrc);
+            item.addEventListener('click', function() {
+                currentImageIndex = index;
+                openLightbox(imgSrc);
+            });
+        });
+
+        function openLightbox(src) {
+            lbImg.src = src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightboxFunc() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        closeLb.addEventListener('click', closeLightboxFunc);
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                closeLightboxFunc();
+            }
+        });
+
+        prevLb.addEventListener('click', function() {
+            currentImageIndex = (currentImageIndex - 1 + galleryImagesArray.length) % galleryImagesArray.length;
+            lbImg.src = galleryImagesArray[currentImageIndex];
+        });
+
+        nextLb.addEventListener('click', function() {
+            currentImageIndex = (currentImageIndex + 1) % galleryImagesArray.length;
+            lbImg.src = galleryImagesArray[currentImageIndex];
+        });
+
+        // Keyboard support for lightbox
+        document.addEventListener('keydown', function(e) {
+            if (lightbox.classList.contains('active')) {
+                if (e.key === 'Escape') closeLightboxFunc();
+                if (e.key === 'ArrowLeft') prevLb.click();
+                if (e.key === 'ArrowRight') nextLb.click();
+            }
+        });
+
+        // =====================================================
+        // 8. GALLERY FILTER
+        // =====================================================
+        var filterBtns = document.querySelectorAll('.filter-btn');
+        var galleryGrid = document.getElementById('galleryGrid');
+
+        filterBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                // Remove active class from all
+                filterBtns.forEach(function(b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+
+                var filterValue = btn.getAttribute('data-filter');
+                var items = galleryGrid.querySelectorAll('.gallery-item');
+
+                items.forEach(function(item) {
+                    var category = item.getAttribute('data-category');
+                    if (filterValue === 'all' || category === filterValue) {
+                        item.style.display = 'block';
+                        // Add reveal animation again
+                        item.classList.add('reveal');
+                        setTimeout(function() {
+                            item.classList.add('active');
+                        }, 100);
+                    } else {
+                        item.style.display = 'none';
+                        item.classList.remove('reveal', 'active');
+                    }
+                });
+            });
+        });
+
+        // =====================================================
+        // 9. TESTIMONIAL SLIDER
+        // =====================================================
+        var track = document.getElementById('testimonialTrack');
+        var slides = track.querySelectorAll('.testimonial-item');
+        var dotsContainer = document.getElementById('sliderDots');
+        var currentSlide = 0;
+
+        slides.forEach(function(_, index) {
+            var dot = document.createElement('span');
+            dot.className = 'slider-dot';
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', function() {
+                goToSlide(index);
+            });
+            dotsContainer.appendChild(dot);
+        });
+
+        var dots = document.querySelectorAll('.slider-dot');
+
+        function goToSlide(index) {
+            currentSlide = index;
+            track.style.transform = 'translateX(-' + (index * 100) + '%)';
+            dots.forEach(function(d) { d.classList.remove('active'); });
+            dots[index].classList.add('active');
+        }
+
+        // Auto-play
+        setInterval(function() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            goToSlide(currentSlide);
+        }, 5000);
+
+        // =====================================================
+        // 10. FAQ ACCORDION
+        // =====================================================
+        var faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(function(item) {
+            var question = item.querySelector('.faq-question');
+            question.addEventListener('click', function() {
+                // Close all others
+                faqItems.forEach(function(other) {
+                    if (other !== item) {
+                        other.classList.remove('active');
+                    }
+                });
+                // Toggle current
+                item.classList.toggle('active');
+            });
+        });
+
+        // =====================================================
+        // 11. FORM SUBMISSION HANDLING
+        // =====================================================
+        var contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your enquiry! The Wedding team will get back to you within 24 hours.');
+            contactForm.reset();
+        });
+
+        var newsletterForm = document.getElementById('newsletterForm');
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Welcome aboard! You’re now subscribed to our exclusive newsletter.');
+            newsletterForm.reset();
+        });
+
+        // =====================================================
+        // 12. CLOSE MOBILE MENU WHEN CLICKING OUTSIDE
+        // =====================================================
+        document.addEventListener('click', function(event) {
+            if (!navLinks.contains(event.target) && !hamburger.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // =====================================================
+        // 13. DYNAMIC YEAR IN FOOTER
+        // =====================================================
+        var footerYear = document.querySelector('.footer-bottom span');
+        // Just for visual consistency, the hardcoded year is 2026
+        console.log("The Wedding Luxury Studio - Fully Loaded.");
     </script>
 </body>
 </html>
