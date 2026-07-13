@@ -161,12 +161,13 @@
         .btn-dark:hover { background: #fff; color: var(--maroon); border-color: #fff; }
         .btn-sm { padding: 10px 25px; font-size: 0.7rem; letter-spacing: 1px; border-radius: 30px; }
 
-        /* Navbar Styles with New Logo & Text */
+        /* Navbar Styles */
         .navbar { 
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; 
             display: flex; justify-content: space-between; align-items: center; 
             padding: 18px 60px; background: var(--nav-bg); backdrop-filter: blur(16px); 
             border-bottom: 1px solid var(--gold); transition: 0.5s ease; 
+            flex-wrap: wrap; overflow: visible; /* Ensure items don't get hidden */
         }
         .navbar.scrolled { padding: 12px 60px; }
         
@@ -177,15 +178,9 @@
             text-decoration: none;
             transition: 0.3s ease;
         }
-        .navbar .logo:hover {
-            transform: scale(1.02);
-        }
-        .navbar .logo img {
-            height: 55px;
-            width: auto;
-            transition: 0.3s ease;
-            border-radius: 4px;
-        }
+        .navbar .logo:hover { transform: scale(1.02); }
+        .navbar .logo img { height: 55px; width: auto; transition: 0.3s ease; border-radius: 4px; }
+        
         /* NEW BOLD & STACKED LOGO DESIGN */
         .navbar .logo .brand-text {
             display: flex;
@@ -220,10 +215,21 @@
         }
 
         /* DROPDOWN MENU STYLES */
-        .navbar .nav-links { display: flex; align-items: center; gap: 25px; }
+        .navbar .nav-links { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; /* Reduced gap to fit better */
+            flex-wrap: wrap; 
+        }
         .navbar .nav-links li { position: relative; }
-        .navbar .nav-links li a { color: var(--text-muted); font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; position: relative; padding: 6px 0; }
-        .navbar .nav-links li a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--gold); transition: width 0.3s ease; }
+        .navbar .nav-links li a { 
+            color: var(--text-muted); font-size: 0.85rem; font-weight: 500; 
+            text-transform: uppercase; letter-spacing: 1.5px; position: relative; padding: 6px 0; 
+        }
+        .navbar .nav-links li a::after { 
+            content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; 
+            background: var(--gold); transition: width 0.3s ease; 
+        }
         .navbar .nav-links li a:hover { color: var(--text-primary); }
         .navbar .nav-links li a:hover::after { width: 100%; }
         
@@ -675,6 +681,12 @@
             .footer-grid { grid-template-columns: repeat(2, 1fr); }
             .contact-wrapper, .about-wrapper { grid-template-columns: 1fr; }
             .stats-wrapper { grid-template-columns: repeat(2, 1fr); }
+            /* Adjust navbar for medium screens to prevent overflow */
+            .navbar { padding: 15px 30px; }
+            .navbar .nav-links { gap: 10px; }
+            .navbar .nav-links li a { font-size: 0.75rem; letter-spacing: 1px; }
+            .navbar .logo .brand-text .brand-mid { font-size: 1.4rem; }
+            .navbar .logo img { height: 45px; }
         }
         @media (max-width: 768px) {
             body { padding-bottom: 90px; }
