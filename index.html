@@ -267,7 +267,7 @@
         .navbar .nav-links .dropdown:hover .dropdown-content { display: block; }
         .navbar .nav-links .dropbtn i { font-size: 0.7rem; margin-left: 5px; }
 
-        .navbar .hamburger { display: none; font-size: 1.8rem; color: var(--text-primary); cursor: pointer; background: transparent; border: none; }
+        .navbar .hamburger { display: none; font-size: 1.8rem; color: var(--text-primary); cursor: pointer; background: transparent; border: none; z-index: 1002; }
 
         /* ENQUIRY MODAL STYLES */
         #enquiryModal {
@@ -693,26 +693,44 @@
             .action-fab { bottom: 80px; }
             .toggle-wrapper { top: auto; bottom: 140px; right: 15px; flex-direction: row; gap: 8px; }
             .hamburger { display: block; }
+            
+            /* Mobile Menu Overlay & Slide-in Fix */
+            #mobileMenuOverlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.6);
+                z-index: 998;
+                cursor: pointer;
+            }
+            #mobileMenuOverlay.active { display: block; }
+
             .nav-links {
                 position: fixed;
                 top: 0;
                 right: -100%;
-                width: 280px;
+                width: 320px;
+                max-width: 85%;
                 height: 100vh;
                 background: var(--bg-card);
                 flex-direction: column;
                 justify-content: flex-start;
                 align-items: flex-start;
-                padding: 100px 30px 40px;
-                transition: right 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+                padding: 110px 30px 40px 30px;
+                transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                 border-left: 2px solid var(--gold);
-                gap: 12px;
-                box-shadow: -5px 0 25px rgba(0,0,0,0.06);
+                gap: 15px;
+                box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
                 overflow-y: auto;
+                z-index: 1001;
             }
             .nav-links.active { right: 0; }
+            
             .navbar { padding: 15px 20px; }
-            .navbar .nav-links li a { font-size: 0.9rem; }
+            .navbar .nav-links li a { font-size: 0.95rem; text-transform: uppercase; font-weight: 600; }
             
             /* Mobile Logo - Improved Size & Spacing */
             .navbar .logo img { height: 40px; }
@@ -721,6 +739,7 @@
             .brand-mid { font-size: 1.6rem; letter-spacing: 0.5px; }
             .brand-bot { font-size: 0.7rem; letter-spacing: 2px; margin-top: -2px; }
             
+            /* Flatten dropdown for mobile – clean list style */
             .navbar .nav-links .dropdown-content {
                 position: static;
                 display: block;
@@ -812,6 +831,9 @@
             <div class="loader-progress"><div class="loader-progress-bar" id="loaderBar"></div></div>
         </div>
     </div>
+
+    <!-- MOBILE OVERLAY (FIXED FOR MENU) -->
+    <div id="mobileMenuOverlay" onclick="closeMobileMenu()"></div>
 
     <!-- NAVBAR -->
     <nav class="navbar" id="navbar">
@@ -1448,6 +1470,36 @@
             document.body.style.overflow = 'auto';
         }
 
+        // --- MOBILE MENU JS (FIXED) ---
+        var hamburger = document.getElementById('hamburger');
+        var navLinks = document.getElementById('navLinks');
+        var overlay = document.getElementById('mobileMenuOverlay');
+
+        function openMobileMenu() {
+            navLinks.classList.add('active');
+            if(overlay) overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileMenu() {
+            navLinks.classList.remove('active');
+            if(overlay) overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        hamburger.addEventListener('click', function(e) {
+            e.preventDefault();
+            if(navLinks.classList.contains('active')) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+        });
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                closeMobileMenu();
+            });
+        });
+
         // --- PRELOADER ---
         window.addEventListener('load', function() {
             var preloader = document.getElementById('preloader');
@@ -1467,16 +1519,10 @@
 
         // --- NAVBAR & THEME ---
         var navbar = document.getElementById('navbar');
-        var hamburger = document.getElementById('hamburger');
-        var navLinks = document.getElementById('navLinks');
         var backToTop = document.getElementById('backToTop');
         window.addEventListener('scroll', function() {
             if (window.scrollY > 80) navbar.classList.add('scrolled'); else navbar.classList.remove('scrolled');
             if (window.scrollY > 400) backToTop.classList.add('visible'); else backToTop.classList.remove('visible');
-        });
-        hamburger.addEventListener('click', function() { navLinks.classList.toggle('active'); });
-        document.querySelectorAll('.nav-links a').forEach(function(link) {
-            link.addEventListener('click', function() { navLinks.classList.remove('active'); });
         });
         backToTop.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
@@ -1901,7 +1947,7 @@
                 'proc_title': 'हमारी <span class="text-light">प्रक्रिया</span>', 'proc_p': 'पहली हैलो से लेकर अंतिम मास्टरपीस तक, हम आपकी यात्रा को सहज, पेशेवर और यादगार बनाते हैं।',
                 'proc_1_title': 'पूछताछ और बुकिंग', 'proc_1_p': 'व्हाट्सएप, इंस्टाग्राम या कॉल के ज़रिए हमसे संपर्क करें। हम आपके विज़न पर चर्चा करते हैं, उपलब्धता जांचते हैं, और 30% एडवांस के साथ आपकी तारीख को जल्दी लॉक कर देते हैं।',
                 'proc_2_title': 'प्लानिंग और प्री-वेडिंग', 'proc_2_p': 'हम एक कस्टम स्टोरीबोर्ड तैयार करते हैं। हम थीम, लोकेशन, आउटफिट और शेड्यूल की प्लानिंग करते हैं। हम आपके खूबसूरत प्री-वेडिंग सेशन की शूटिंग भी करते हैं।',
-                'proc_3_title': 'द सिनेमैटिक शूट', 'proc_3_p': 'बिग डे पर, हमारे 4K सिनेमा कैमरे, जिम्बल्स और ड्रोन जल्दी पहुंच जाते हैं। हम इवेंट के दौरान हर कैंडिड स्माइल, भव्य प्रवेश द्वार और इमोशनल आंसू को कैप्चर करते हैं।',
+                'proc_3_title': 'द सिनेमैटिक शूट', 'proc_3_p': 'बिग डे पर, हमारे 4K सिनेमा कैमरे, जिम्बल्स और ड्रोन जल्दी पहुंच जाते हैं। हम इवेंट के दौरान हर कैंडिफ स्माइल, भव्य प्रवेश द्वार और इमोशनल आंसू को कैप्चर करते हैं।',
                 'proc_4_title': 'एडिट और फाइनल डिलीवरी', 'proc_4_p': 'हमारे एक्सपर्ट एडिटर सिनेमैटिक कलर ग्रेडिंग करते हैं। हम प्रीमियम लेदर एल्बम डिजाइन करते हैं और आपकी हाई-रेजोल्यूशन फोटो और फिल्में 30 दिनों के भीतर डिलीवर करते हैं।',
                 'choose_title': 'हमें क्यों <span class="text-light">चुनें</span>', 'choose_p': 'हम सिर्फ पलों को कैप्चर नहीं करते; हम सिनेमैटिक मास्टरपीस बनाते हैं जो आपके परिवार के लिए जीवन भर रहती हैं।',
                 'choose_1_title': 'सिनेमैटिक उत्कृष्टता', 'choose_1_p': 'हमारी स्टोरीटेलिंग एप्रोच हाई-एंड सिनेमैटोग्राफी तकनीकों को इमोशनल डायरेक्शन के साथ जोड़ती है, जिससे आपकी फिल्म एक ब्लॉकबस्टर जैसी दिखती है।',
