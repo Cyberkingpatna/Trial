@@ -167,7 +167,7 @@
             display: flex; justify-content: space-between; align-items: center; 
             padding: 18px 60px; background: var(--nav-bg); backdrop-filter: blur(16px); 
             border-bottom: 1px solid var(--gold); transition: 0.5s ease; 
-            flex-wrap: wrap; overflow: visible;
+            overflow: visible;
         }
         .navbar.scrolled { padding: 12px 60px; }
         
@@ -219,7 +219,6 @@
             display: flex; 
             align-items: center; 
             gap: 15px; 
-            flex-wrap: wrap; 
         }
         .navbar .nav-links li { position: relative; }
         .navbar .nav-links li a { 
@@ -267,7 +266,17 @@
         .navbar .nav-links .dropdown:hover .dropdown-content { display: block; }
         .navbar .nav-links .dropbtn i { font-size: 0.7rem; margin-left: 5px; }
 
-        .navbar .hamburger { display: none; font-size: 1.8rem; color: var(--text-primary); cursor: pointer; background: transparent; border: none; z-index: 1002; }
+        /* HAMBURGER STYLES - MOBILE FIX */
+        .navbar .hamburger { 
+            display: none; 
+            font-size: 1.8rem; 
+            color: var(--text-primary); 
+            cursor: pointer; 
+            background: transparent; 
+            border: none; 
+            z-index: 1005; 
+            padding: 5px;
+        }
 
         /* ENQUIRY MODAL STYLES */
         #enquiryModal {
@@ -692,7 +701,30 @@
             #mobileBottomBar { display: flex; }
             .action-fab { bottom: 80px; }
             .toggle-wrapper { top: auto; bottom: 140px; right: 15px; flex-direction: row; gap: 8px; }
-            .hamburger { display: block; }
+            
+            /* HAMBURGER FIX - FORCED TO BE VISIBLE */
+            .hamburger {
+                display: block !important;
+                position: relative;
+                z-index: 1005;
+                flex-shrink: 0;
+                width: 44px;
+                height: 44px;
+                padding: 0;
+                border: none;
+                background: transparent;
+                font-size: 1.8rem;
+                color: var(--text-primary);
+                cursor: pointer;
+            }
+            /* Prevent navbar items from wrapping and hiding the button */
+            .navbar {
+                padding: 15px 20px;
+                flex-wrap: nowrap !important; 
+            }
+            .navbar .logo {
+                flex-shrink: 0;
+            }
             
             /* Mobile Menu Overlay & Slide-in Fix */
             #mobileMenuOverlay {
@@ -729,7 +761,6 @@
             }
             .nav-links.active { right: 0; }
             
-            .navbar { padding: 15px 20px; }
             .navbar .nav-links li a { font-size: 0.95rem; text-transform: uppercase; font-weight: 600; }
             
             /* Mobile Logo - Improved Size & Spacing */
@@ -1942,7 +1973,7 @@
                 'serv_2_title': 'लक्ज़री फोटोग्राफी', 'serv_2_p': 'फाइन आर्ट फोटोग्राफी जो कैंडिड मोमेंट्स, भव्य पोर्ट्रेट, जटिल आभूषण विवरण और आपके विशेष दिन के हर भावनात्मक आंसू को कैप्चर करती है।',
                 'serv_3_title': 'ड्रोन कवरेज', 'serv_3_p': 'आपके स्थल, भव्य प्रवेश द्वार, आउटडोर मंडप सेटअप और व्यापक लैंडस्केप दृश्यों के शानदार एरियल शॉट्स जो आपकी फिल्म में एक भव्य परिप्रेक्ष्य जोड़ते हैं।',
                 'serv_4_title': 'प्री-वेडिंग शूट्स', 'serv_4_p': 'डेस्टिनेशन प्री-वेडिंग कॉन्सेप्ट्स जो आपकी अनोकी लव स्टोरी बताते हैं। हम आपके लिए जादुई सिनेमैटिक सेशन बनाने के लिए पूरे भारत और उससे आगे यात्रा करते हैं।',
-                'serv_5_title': 'कैंडिड फोटोग्राफी', 'serv_5_p': 'दिन की वास्तविक भावना को कैप्चर करने वाले अनपोज्ड, प्राकृतिक और कच्चे पल। हम असली मुस्कान और हंसी को कैप्चर करने के लिए बैकग्राउंड में घुल जाते हैं।',
+                'serv_5_title': 'कैंडिफ फोटोग्राफी', 'serv_5_p': 'दिन की वास्तविक भावना को कैप्चर करने वाले अनपोज्ड, प्राकृतिक और कच्चे पल। हम असली मुस्कान और हंसी को कैप्चर करने के लिए बैकग्राउंड में घुल जाते हैं।',
                 'serv_6_title': 'प्रीमियम एल्बम डिजाइन', 'serv_6_p': 'प्रीमियम लेदर बाइंडिंग, म्यूज़ियम-क्वालिटी प्रिंट्स और शानदार लेआउट डिज़ाइन वाले हैंडक्राफ्टेड लक्ज़री एल्बम जो आपकी कहानी को पेज दर पेज बताते हैं।',
                 'proc_title': 'हमारी <span class="text-light">प्रक्रिया</span>', 'proc_p': 'पहली हैलो से लेकर अंतिम मास्टरपीस तक, हम आपकी यात्रा को सहज, पेशेवर और यादगार बनाते हैं।',
                 'proc_1_title': 'पूछताछ और बुकिंग', 'proc_1_p': 'व्हाट्सएप, इंस्टाग्राम या कॉल के ज़रिए हमसे संपर्क करें। हम आपके विज़न पर चर्चा करते हैं, उपलब्धता जांचते हैं, और 30% एडवांस के साथ आपकी तारीख को जल्दी लॉक कर देते हैं।',
