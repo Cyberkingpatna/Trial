@@ -1363,12 +1363,27 @@
             alert(`✅ ${formType} data successfully sent to your Admin Email! \n(Replace 'YOUR_SERVICE_ID' & 'YOUR_TEMPLATE_ID' in code to enable real email sending.)`);
         }
 
-        // --- QUOTE MODAL ---
+        // --- QUOTE MODAL (NOW TRIGGERS ON EVERY REFRESH) ---
         const quoteModal = document.getElementById('onLoadQuoteModal');
         let isCaptchaChecked = false;
-        setTimeout(() => { if (!localStorage.getItem('quoteClosed')) { quoteModal.classList.add('active'); document.body.style.overflow = 'hidden'; } }, 1500);
-        function closeQuoteModal() { quoteModal.classList.remove('active'); document.body.style.overflow = 'auto'; localStorage.setItem('quoteClosed', 'true'); }
-        function toggleCaptcha() { let box = document.getElementById('captchaBox'); isCaptchaChecked = !isCaptchaChecked; box.classList.toggle('checked', isCaptchaChecked); }
+        
+        // Opens automatically after 1.5 seconds on every page load/refresh
+        setTimeout(() => {
+            quoteModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }, 1500);
+
+        function closeQuoteModal() {
+            quoteModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            // Removed any storage setting so it opens on every refresh.
+        }
+
+        function toggleCaptcha() {
+            let box = document.getElementById('captchaBox');
+            isCaptchaChecked = !isCaptchaChecked;
+            box.classList.toggle('checked', isCaptchaChecked);
+        }
         function submitQuoteForm(e) {
             e.preventDefault();
             if(!isCaptchaChecked) { alert("Please verify by clicking the 'I'm not a robot' checkbox."); return; }
