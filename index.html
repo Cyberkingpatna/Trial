@@ -421,7 +421,7 @@
         #video-portfolio { background: var(--bg-card); padding: 60px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; max-width: 1000px; margin: 0 auto; }
         .video-item { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: var(--shadow-gold); border: 1px solid var(--gold); }
-        .video-item iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .video-item video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; object-fit: cover; }
 
         .team-wrapper { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 35px; text-align: center; }
         .team-member { background: var(--bg-card); padding: 35px 20px; border: 1px solid var(--border-color); border-radius: 12px; transition: 0.3s ease; box-shadow: var(--shadow-box); }
@@ -1088,7 +1088,7 @@
     </section>
     <div class="lightbox-container" id="lightbox"><span class="close-lb" id="closeLb">&times;</span><img id="lbImg" src=""></div>
 
-    <!-- VIDEO PORTFOLIO -->
+    <!-- VIDEO PORTFOLIO (UPDATED: YOUTUBE REMOVED, LOCAL VIDEO ADDED) -->
     <section id="video-portfolio">
         <div class="container">
             <div class="section-title reveal">
@@ -1097,9 +1097,9 @@
                 <span class="ornate-line"></span>
             </div>
             <div class="video-grid reveal">
-                <div class="video-item"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0" allowfullscreen></iframe></div>
-                <div class="video-item"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0" allowfullscreen></iframe></div>
-                <div class="video-item"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0" allowfullscreen></iframe></div>
+                <div class="video-item">
+                    <video src="wedding.mp4" autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"></video>
+                </div>
             </div>
         </div>
     </section>
