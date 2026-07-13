@@ -541,6 +541,7 @@
         .lead-modal-box .btn-close-lead { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; background: transparent; border: none; transition: 0.3s; }
         .lead-modal-box .btn-close-lead:hover { color: var(--text-primary); }
 
+        /* ------------------- RESPONSIVE (Mobile Padding Fix) ------------------- */
         @media (max-width: 1024px) {
             .hero-content h1 { font-size: 4.2rem; }
             .pricing-grid, .process-wrapper, .choose-wrapper, .addons-table { grid-template-columns: 1fr 1fr; }
@@ -549,6 +550,7 @@
             .stats-wrapper { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {
+            body { padding-bottom: 90px; } /* FIX: Make room for sticky bottom bar and footer */
             #mobileBottomBar { display: flex; }
             .action-fab { bottom: 80px; }
             .toggle-wrapper { top: auto; bottom: 140px; right: 15px; flex-direction: row; gap: 8px; }
@@ -584,6 +586,7 @@
             .wizard-nav .btn { width: 100%; }
         }
         @media (max-width: 480px) {
+            body { padding-bottom: 80px; } /* FIX: Ensure padding for tiny screens */
             .hero-content h1 { font-size: 2.2rem; letter-spacing: 1px; }
             .btn { padding: 12px 25px; font-size: 0.8rem; }
             .section-title h2 { font-size: 1.8rem; }
@@ -1011,7 +1014,11 @@
                 <div><h4 data-translate="f_serv_title">Services</h4><ul><li><a href="#" data-translate="f_films">Wedding Films</a></li><li><a href="#" data-translate="f_drone">Drone Coverage</a></li></ul></div>
                 <div><h4 data-translate="f_contact_title">Contact</h4><ul><li><i class="fas fa-map-marker-alt text-gold"></i> Patna City</li><li><i class="fas fa-phone text-gold"></i> <a href="tel:7654200109">7654200109</a></li></ul></div>
             </div>
-            <div class="footer-bottom"><p>&copy; 2026 <span class="text-gold">The Wedding</span>. <span data-translate="f_copy">All Rights Reserved.</span></p></div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 <span class="text-gold">The Wedding</span>. <span data-translate="f_copy">All Rights Reserved.</span></p>
+                <!-- Added Design by Aman Kumar -->
+                <p style="margin-top:8px; font-size:0.85rem; color:rgba(255,255,255,0.4); letter-spacing:0.5px;">Design By Aman Kumar</p>
+            </div>
         </div>
     </footer>
 
@@ -1636,7 +1643,7 @@
                 'serv_1_title': 'सिनेमैटिक वेडिंग फिल्में', 'serv_1_p': 'इमोशनल साउंडट्रैक, सिनेमैटिक कलर ग्रेडिंग और सीमलेस एडिटिंग के साथ इमर्सिव 4K स्टोरीटेलिंग जो एक बड़ी मोशन पिक्चर जैसी लगती है।',
                 'serv_2_title': 'लक्ज़री फोटोग्राफी', 'serv_2_p': 'फाइन आर्ट फोटोग्राफी जो कैंडिड मोमेंट्स, भव्य पोर्ट्रेट, जटिल आभूषण विवरण और आपके विशेष दिन के हर भावनात्मक आंसू को कैप्चर करती है।',
                 'serv_3_title': 'ड्रोन कवरेज', 'serv_3_p': 'आपके स्थल, भव्य प्रवेश द्वार, आउटडोर मंडप सेटअप और व्यापक लैंडस्केप दृश्यों के शानदार एरियल शॉट्स जो आपकी फिल्म में एक भव्य परिप्रेक्ष्य जोड़ते हैं।',
-                'serv_4_title': 'प्री-वेडिंग शूट्स', 'serv_4_p': 'डेस्टिनेशन प्री-वेडिंग कॉन्सेप्ट्स जो आपकी अनोखी लव स्टोरी बताते हैं। हम आपके लिए जादुई सिनेमैटिक सेशन बनाने के लिए पूरे भारत और उससे आगे यात्रा करते हैं।',
+                'serv_4_title': 'प्री-वेडिंग शूट्स', 'serv_4_p': 'डेस्टिनेशन प्री-वेडिंग कॉन्सेप्ट्स जो आपकी अनोकी लव स्टोरी बताते हैं। हम आपके लिए जादुई सिनेमैटिक सेशन बनाने के लिए पूरे भारत और उससे आगे यात्रा करते हैं।',
                 'serv_5_title': 'कैंडिड फोटोग्राफी', 'serv_5_p': 'दिन की वास्तविक भावना को कैप्चर करने वाले अनपोज्ड, प्राकृतिक और कच्चे पल। हम असली मुस्कान और हंसी को कैप्चर करने के लिए बैकग्राउंड में घुल जाते हैं।',
                 'serv_6_title': 'प्रीमियम एल्बम डिजाइन', 'serv_6_p': 'प्रीमियम लेदर बाइंडिंग, म्यूज़ियम-क्वालिटी प्रिंट्स और शानदार लेआउट डिज़ाइन वाले हैंडक्राफ्टेड लक्ज़री एल्बम जो आपकी कहानी को पेज दर पेज बताते हैं।',
                 'proc_title': 'हमारी <span class="text-light">प्रक्रिया</span>', 'proc_p': 'पहली हैलो से लेकर अंतिम मास्टरपीस तक, हम आपकी यात्रा को सहज, पेशेवर और यादगार बनाते हैं।',
@@ -1719,6 +1726,15 @@
             else recTextKey = "budget_luxury";
             budgetRec.innerText = keys[recTextKey] || keys['budget_silver'];
         }
+
+        // --- FIX: DATE PICKER MIN DATE (Prevent Past Dates) ---
+        document.addEventListener('DOMContentLoaded', function() {
+            let today = new Date().toISOString().split('T')[0];
+            // Set min for all date inputs on the page
+            document.querySelectorAll('input[type="date"]').forEach(input => {
+                input.setAttribute('min', today);
+            });
+        });
     </script>
 </body>
 </html>
