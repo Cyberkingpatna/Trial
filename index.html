@@ -161,10 +161,48 @@
         .btn-dark:hover { background: #fff; color: var(--maroon); border-color: #fff; }
         .btn-sm { padding: 10px 25px; font-size: 0.7rem; letter-spacing: 1px; border-radius: 30px; }
 
-        .navbar { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 18px 60px; background: var(--nav-bg); backdrop-filter: blur(16px); border-bottom: 1px solid var(--gold); transition: 0.5s ease; }
+        /* Navbar Styles with New Logo & Text */
+        .navbar { 
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 18px 60px; background: var(--nav-bg); backdrop-filter: blur(16px); 
+            border-bottom: 1px solid var(--gold); transition: 0.5s ease; 
+        }
         .navbar.scrolled { padding: 12px 60px; }
-        .navbar .logo img { height: 55px; width: auto; transition: 0.3s ease; }
-        .navbar .logo img:hover { transform: scale(1.05); }
+        
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+        .navbar .logo:hover {
+            transform: scale(1.02);
+        }
+        .navbar .logo img {
+            height: 55px;
+            width: auto;
+            transition: 0.3s ease;
+            border-radius: 4px;
+        }
+        .navbar .logo .brand-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .navbar .logo .brand-text .highlight {
+            color: var(--gold);
+        }
+        body.dark-mode .navbar .logo .brand-text {
+            color: #fcf8f4;
+        }
+
         .navbar .nav-links { display: flex; align-items: center; gap: 30px; }
         .navbar .nav-links li a { color: var(--text-muted); font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; position: relative; padding: 6px 0; }
         .navbar .nav-links li a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--gold); transition: width 0.3s ease; }
@@ -550,7 +588,7 @@
             .stats-wrapper { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {
-            body { padding-bottom: 90px; } /* FIX: Make room for sticky bottom bar and footer */
+            body { padding-bottom: 90px; }
             #mobileBottomBar { display: flex; }
             .action-fab { bottom: 80px; }
             .toggle-wrapper { top: auto; bottom: 140px; right: 15px; flex-direction: row; gap: 8px; }
@@ -558,6 +596,10 @@
             .nav-links { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: var(--bg-card); flex-direction: column; justify-content: center; align-items: center; transition: right 0.5s cubic-bezier(0.25,0.46,0.45,0.94); border-left: 2px solid var(--gold); gap: 20px; box-shadow: -5px 0 25px rgba(0,0,0,0.06); }
             .nav-links.active { right: 0; }
             .navbar { padding: 15px 20px; }
+            /* Responsive Logo & Text */
+            .navbar .logo img { height: 45px; }
+            .navbar .logo .brand-text { font-size: 1.4rem; }
+            
             .hero-content h1 { font-size: 2.6rem; }
             .hero-content p { font-size: 1rem; }
             .hero-content .cta-group { flex-direction: column; align-items: center; width: 100%; }
@@ -586,13 +628,15 @@
             .wizard-nav .btn { width: 100%; }
         }
         @media (max-width: 480px) {
-            body { padding-bottom: 80px; } /* FIX: Ensure padding for tiny screens */
+            body { padding-bottom: 80px; }
             .hero-content h1 { font-size: 2.2rem; letter-spacing: 1px; }
             .btn { padding: 12px 25px; font-size: 0.8rem; }
             .section-title h2 { font-size: 1.8rem; }
             .stat-item h3 { font-size: 2.2rem; }
             .otp-login-box .otp-inputs input { width: 30px; height: 30px; font-size: 1rem; }
             .pricing-wrapper { padding: 15px; }
+            .navbar .logo img { height: 35px; }
+            .navbar .logo .brand-text { font-size: 1.1rem; gap: 3px; }
         }
     </style>
 </head>
@@ -613,11 +657,11 @@
         </div>
     </div>
 
-    <!-- NAVBAR -->
+    <!-- NAVBAR (UPDATED LOGO AREA) -->
     <nav class="navbar" id="navbar">
         <a href="#" class="logo">
-            <img src="logo.png" alt="The Wedding" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-            <span style="display:none; font-family:'Playfair Display', serif; font-size:1.8rem; color:var(--maroon);">The <span style="color:var(--gold);">Wedding</span></span>
+            <img src="logo.png" alt="The Wedding">
+            <span class="brand-text">The <span class="highlight">Wedding</span> Studio</span>
         </a>
         <ul class="nav-links" id="navLinks">
             <li><a href="#home" data-translate="nav_home">Home</a></li>
