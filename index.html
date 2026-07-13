@@ -185,7 +185,7 @@
         .navbar .logo .brand-text {
             display: flex;
             flex-direction: column;
-            line-height: 1;
+            line-height: 1.1;
             font-family: 'Playfair Display', serif;
             font-weight: 900;
             text-align: left;
@@ -195,8 +195,8 @@
             font-size: 0.75rem;
             color: var(--text-primary);
             letter-spacing: 3px;
-            margin-bottom: -2px;
             font-weight: 700;
+            margin-bottom: -1px;
         }
         body.dark-mode .brand-top { color: #fcf8f4; }
         .brand-mid {
@@ -210,7 +210,7 @@
             color: var(--text-muted);
             letter-spacing: 4px;
             text-transform: uppercase;
-            margin-top: -4px;
+            margin-top: -2px;
             font-weight: 600;
         }
 
@@ -713,11 +713,13 @@
             .nav-links.active { right: 0; }
             .navbar { padding: 15px 20px; }
             .navbar .nav-links li a { font-size: 0.9rem; }
+            
+            /* Mobile Logo - Improved Size & Spacing */
             .navbar .logo img { height: 40px; }
-            .navbar .logo .brand-text { margin-left: 0; }
-            .brand-top { font-size: 0.6rem; letter-spacing: 2px; }
-            .brand-mid { font-size: 1.3rem; }
-            .brand-bot { font-size: 0.55rem; letter-spacing: 3px; }
+            .navbar .logo .brand-text { margin-left: 0; gap: 0; }
+            .brand-top { font-size: 0.8rem; letter-spacing: 2px; margin-bottom: -2px; }
+            .brand-mid { font-size: 1.6rem; letter-spacing: 0.5px; }
+            .brand-bot { font-size: 0.7rem; letter-spacing: 2px; margin-top: -2px; }
             
             .navbar .nav-links .dropdown-content {
                 position: static;
@@ -783,10 +785,13 @@
             .stat-item h3 { font-size: 2.2rem; }
             .otp-login-box .otp-inputs input { width: 30px; height: 30px; font-size: 1rem; }
             .pricing-wrapper { padding: 15px; }
+            
+            /* Mobile Logo - Extra Small Screens */
             .navbar .logo img { height: 32px; }
-            .brand-mid { font-size: 1.1rem; }
-            .brand-top { font-size: 0.5rem; }
-            .brand-bot { font-size: 0.5rem; }
+            .brand-mid { font-size: 1.5rem; letter-spacing: 0px; }
+            .brand-top { font-size: 0.75rem; letter-spacing: 1px; margin-bottom: -2px; }
+            .brand-bot { font-size: 0.65rem; letter-spacing: 1px; margin-top: -2px; }
+            
             .nav-links { width: 100%; right: -110%; padding: 80px 20px 30px; }
         }
     </style>
