@@ -167,7 +167,7 @@
             display: flex; justify-content: space-between; align-items: center; 
             padding: 18px 60px; background: var(--nav-bg); backdrop-filter: blur(16px); 
             border-bottom: 1px solid var(--gold); transition: 0.5s ease; 
-            flex-wrap: wrap; overflow: visible; /* Ensure items don't get hidden */
+            flex-wrap: wrap; overflow: visible;
         }
         .navbar.scrolled { padding: 12px 60px; }
         
@@ -218,7 +218,7 @@
         .navbar .nav-links { 
             display: flex; 
             align-items: center; 
-            gap: 15px; /* Reduced gap to fit better */
+            gap: 15px; 
             flex-wrap: wrap; 
         }
         .navbar .nav-links li { position: relative; }
@@ -681,7 +681,6 @@
             .footer-grid { grid-template-columns: repeat(2, 1fr); }
             .contact-wrapper, .about-wrapper { grid-template-columns: 1fr; }
             .stats-wrapper { grid-template-columns: repeat(2, 1fr); }
-            /* Adjust navbar for medium screens to prevent overflow */
             .navbar { padding: 15px 30px; }
             .navbar .nav-links { gap: 10px; }
             .navbar .nav-links li a { font-size: 0.75rem; letter-spacing: 1px; }
@@ -714,14 +713,12 @@
             .nav-links.active { right: 0; }
             .navbar { padding: 15px 20px; }
             .navbar .nav-links li a { font-size: 0.9rem; }
-            /* Mobile Logo */
             .navbar .logo img { height: 40px; }
             .navbar .logo .brand-text { margin-left: 0; }
             .brand-top { font-size: 0.6rem; letter-spacing: 2px; }
             .brand-mid { font-size: 1.3rem; }
             .brand-bot { font-size: 0.55rem; letter-spacing: 3px; }
             
-            /* Flatten dropdown for mobile – clean list style */
             .navbar .nav-links .dropdown-content {
                 position: static;
                 display: block;
@@ -843,7 +840,7 @@
             <li><a href="#pricing" data-translate="nav_pricing">Pricing</a></li>
             <li><a href="#contact" data-translate="nav_contact">Contact</a></li>
             <li><a href="#" id="dashboardLink" data-translate="nav_dashboard">Dashboard</a></li>
-            <!-- GET ENQUIRY BUTTON -->
+            <!-- GET ENQUIRY BUTTON (Navbar) -->
             <li><a href="javascript:void(0)" onclick="openEnquiryModal()" class="btn btn-primary btn-sm" style="border-radius:30px; background:var(--gold); color:#fff; border-color:var(--gold);">Get Enquiry</a></li>
             <li><a href="javascript:void(0)" onclick="openBookingWizard()" class="btn btn-primary btn-sm" style="border-radius:30px;">Book Now</a></li>
         </ul>
@@ -875,6 +872,8 @@
             <p data-translate="hero_p">Luxury Wedding Photography & Films Crafted With Emotion, Elegance & Timeless Memories. Trusted by 800+ couples across India.</p>
             <div class="cta-group">
                 <a href="javascript:void(0)" onclick="openBookingWizard()" class="btn btn-primary" data-translate="hero_btn_1">Book Your Date Now</a>
+                <!-- NEW: GET ENQUIRY BUTTON ABOVE VIEW PACKAGES -->
+                <a href="javascript:void(0)" onclick="openEnquiryModal()" class="btn btn-gold" data-translate="hero_btn_enquiry"><i class="fas fa-question-circle"></i> Get Enquiry</a>
                 <a href="#pricing" class="btn btn-gold" data-translate="hero_btn_2">View Packages</a>
                 <a href="#portfolio" class="btn btn-dark" data-translate="hero_btn_3">View Portfolio</a>
             </div>
@@ -1822,7 +1821,7 @@
             'en': {
                 'nav_home': 'Home', 'nav_about': 'About', 'nav_menu': 'Menu', 'nav_services': 'Services', 'nav_process': 'Process', 'nav_journey': 'Our Journey', 'nav_portfolio': 'Portfolio', 'nav_videos': 'Videos', 'nav_team': 'Team', 'nav_pricing': 'Pricing', 'nav_review': 'Review', 'nav_blog': 'Blog', 'nav_faq': 'FAQ', 'nav_contact': 'Contact', 'nav_dashboard': 'Dashboard', 'nav_book': 'Book Now',
                 'hero_sub': '<i class="fas fa-crown"></i> Premium Wedding Studio', 'hero_title': 'YOUR DREAM <br> <span class="highlight">WEDDING</span> <br> DESERVES A <br> CINEMATIC STORY', 'hero_p': 'Luxury Wedding Photography & Films Crafted With Emotion, Elegance & Timeless Memories. Trusted by 800+ couples across India.',
-                'hero_btn_1': 'Book Your Date Now', 'hero_btn_2': 'View Packages', 'hero_btn_3': 'View Portfolio',
+                'hero_btn_1': 'Book Your Date Now', 'hero_btn_enquiry': '<i class="fas fa-question-circle"></i> Get Enquiry', 'hero_btn_2': 'View Packages', 'hero_btn_3': 'View Portfolio',
                 'stat_1': 'Projects Done', 'stat_2': 'Happy Clients', 'stat_3': 'Years Exp.', 'stat_4': 'Awards Won',
                 'serv_title': 'CINEMATIC <span class="text-light">STORY</span>', 'serv_p': 'Luxury Wedding Photography & Films Crafted With Emotion, Elegance & Timeless Memories',
                 'serv_1_title': 'Cinematic Wedding Films', 'serv_1_p': 'Immersive 4K storytelling with emotional soundtracks, cinematic color grading, and seamless editing that feels like a major motion picture.',
@@ -1885,7 +1884,7 @@
             'hi': {
                 'nav_home': 'होम', 'nav_about': 'हमारे बारे में', 'nav_menu': 'मेनू', 'nav_services': 'सेवाएं', 'nav_process': 'प्रक्रिया', 'nav_journey': 'हमारी यात्रा', 'nav_portfolio': 'पोर्टफोलियो', 'nav_videos': 'वीडियो', 'nav_team': 'टीम', 'nav_pricing': 'मूल्य निर्धारण', 'nav_review': 'समीक्षा', 'nav_blog': 'ब्लॉग', 'nav_faq': 'सामान्य प्रश्न', 'nav_contact': 'संपर्क', 'nav_dashboard': 'डैशबोर्ड', 'nav_book': 'अभी बुक करें',
                 'hero_sub': '<i class="fas fa-crown"></i> प्रीमियम वेडिंग स्टूडियो', 'hero_title': 'आपका सपना <br> <span class="highlight">शादी</span> <br> एक <br> सिनेमैटिक कहानी का हकदार है', 'hero_p': 'भावना, लालित्य और कालातीत यादों के साथ निर्मित लक्ज़री वेडिंग फोटोग्राफी और फिल्में। पूरे भारत में 800+ जोड़ों द्वारा विश्वसनीय।',
-                'hero_btn_1': 'अपनी तारीख अभी बुक करें', 'hero_btn_2': 'पैकेज देखें', 'hero_btn_3': 'पोर्टफोलियो देखें',
+                'hero_btn_1': 'अपनी तारीख अभी बुक करें', 'hero_btn_enquiry': '<i class="fas fa-question-circle"></i> पूछताछ करें', 'hero_btn_2': 'पैकेज देखें', 'hero_btn_3': 'पोर्टफोलियो देखें',
                 'stat_1': 'पूर्ण परियोजनाएं', 'stat_2': 'खुश ग्राहक', 'stat_3': 'वर्षों का अनुभव', 'stat_4': 'पुरस्कार प्राप्त',
                 'serv_title': 'सिनेमैटिक <span class="text-light">कहानी</span>', 'serv_p': 'भावना, लालित्य और कालातीत यादों के साथ निर्मित लक्ज़री वेडिंग फोटोग्राफी और फिल्में',
                 'serv_1_title': 'सिनेमैटिक वेडिंग फिल्में', 'serv_1_p': 'इमोशनल साउंडट्रैक, सिनेमैटिक कलर ग्रेडिंग और सीमलेस एडिटिंग के साथ इमर्सिव 4K स्टोरीटेलिंग जो एक बड़ी मोशन पिक्चर जैसी लगती है।',
